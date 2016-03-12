@@ -12,7 +12,7 @@ class Stage extends \Eloquent
 
     public function event()
     {
-        return $this->hasOne(Event::class);
+        return $this->belongsTo(Event::class);
     }
 
     public function results()

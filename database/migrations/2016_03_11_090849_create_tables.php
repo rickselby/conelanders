@@ -22,6 +22,7 @@ class CreateTables extends Migration
             $table->increments('id');
             $table->integer('season_id')->index();
             $table->string('name');
+            $table->integer('dirt_id')->nullable();
             $table->date('closes');
             $table->timestamps();
         });

@@ -8,11 +8,11 @@ class Result extends \Eloquent
 
     public function stage()
     {
-        return $this->hasOne(Stage::class);
+        return $this->belongsTo(Stage::class);
     }
 
     public function driver()
     {
-        return $this->hasOne(Driver::class);
+        return $this->belongsTo(Driver::class);
     }
 }

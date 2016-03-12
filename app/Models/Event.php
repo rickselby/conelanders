@@ -4,13 +4,17 @@ namespace App\Models;
 
 class Event extends \Eloquent
 {
-    protected $fillable = ['name', 'closes'];
+    protected $fillable = ['name', 'closes', 'dirt_id'];
 
     protected $dates = ['closes'];
 
+    protected $casts = [
+        'dirt_id' => 'integer',
+    ];
+
     public function season()
     {
-        return $this->hasOne(Season::class);
+        return $this->belongsTo(Season::class);
     }
 
     public function stages()
