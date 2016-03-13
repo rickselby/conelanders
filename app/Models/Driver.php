@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Driver extends Eloquent
+class Driver extends \Eloquent
 {
-    //
+    protected $fillable = ['name'];
 }

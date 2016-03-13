@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Result extends \Eloquent
 {
-    protected $fillable = ['time'];
+    protected $fillable = ['driver_id', 'time'];
 
     public function stage()
     {

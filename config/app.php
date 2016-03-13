@@ -217,6 +217,9 @@ return [
         'Form'=> Collective\Html\FormFacade::class,
         'HTML'=> Collective\Html\HtmlFacade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
+
+        'StageTime' => App\Services\Facades\StageTimeFacade::class,
+        'ImportResults' => App\Services\Facades\ImportResultsFacade::class,
     ],
 
 ];
