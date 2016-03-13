@@ -38,67 +38,70 @@ class SeasonController extends Controller
     public function store(Request $request)
     {
         $season = Season::create($request->all());
-        \Notification::add('success', $season->name.' created');
-        return \Redirect::route('season.show', ['id' => $season->id]);
+        \Notification::add('success', 'Season "'.$season->name.'" created');
+        return \Redirect::route('season.show', ['season_id' => $season->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $season_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($season_id)
     {
         return view('season.show')
-            ->with('season', Season::with('events')->find($id));
+            ->with('season', Season::with('events')->find($season_id));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+     *
+    public function edit($season_id)
     {
         return view('season.edit')
-            ->with('season', Season::find($id));
+            ->with('season', Season::find($season_id));
     }
+     */
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+     *
+    public function update(Request $request, $season_id)
     {
-        $season = Season::find($id);
+        $season = Season::find($season_id);
         $season->fill($request->all());
         $season->save();
 
-        \Notification::add('success', $season->name.' updated');
-        return \Redirect::route('season.show', ['id' => $id]);
+        \Notification::add('success', 'Season "'.$season->name.'" updated');
+        return \Redirect::route('season.show', ['season_id' => $season_id]);
     }
+     */
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+     *
+    public function destroy($season_id)
     {
-        $season = Season::with('events')->find($id);
+        $season = Season::with('events')->find($season_id);
         if ($season->events->count()) {
-            \Notification::add('error', $season->name.' cannot be deleted - there are events assigned to it');
-            return \Redirect::route('season.show', ['id' => $id]);
+            \Notification::add('error', 'Season "'.$season->name.'" cannot be deleted - there are events assigned to it');
+            return \Redirect::route('season.show', ['season_id' => $season_id]);
         } else {
             $season->delete();
-            \Notification::add('success', $season->name.' deleted');
+            \Notification::add('success', 'Season "'.$season->name.'" deleted');
             return \Redirect::route('season.index');
         }
     }
+     */
 }

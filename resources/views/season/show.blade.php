@@ -12,7 +12,7 @@
     <ul>
         @forelse($season->events AS $event)
             <li>
-                <a href="{{ route('event.show', ['id' => $event->id]) }}">
+                <a href="{{ route('season.event.show', ['season' => $season->id, 'event' => $event->id]) }}">
                     {{ $event->name }}
                 </a>
             </li>
@@ -21,6 +21,6 @@
         @endforelse
     </ul>
 
-    <a class="btn btn-small btn-info" href="{{ route('event.create', ['seasonID' => $season->id]) }}">Add a new event</a>
+    <a class="btn btn-small btn-info" href="{{ route('season.event.create', ['seasonID' => $season->id]) }}">Add a new event</a>
 
 @endsection

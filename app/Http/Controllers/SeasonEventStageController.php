@@ -8,33 +8,38 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class StageController extends Controller
+class SeasonEventStageController extends Controller
 {
+    /** @var Event */
+    protected $event;
+
+    /** @var Stage */
+    protected $stage;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     *
     public function index()
     {
         return view('stage.index')
             ->with('stages', Stage::get());
     }
+     */
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create($season_id, $event_id)
     {
-        $event = Event::with('season')->find($request->eventID);
-        if ($event->exists) {
+        if ($this->verifyEvent($event_id, $season_id)) {
             return view('stage.create')
-                ->with('event', $event);
+                ->with('event', $this->event);
         } else {
-            \Notification::add('error', 'Could not find requested event');
-            return \Redirect::route('season.index');
+            return $this->eventError();
         }
     }
 
@@ -44,17 +49,15 @@ class StageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($season_id, $event_id, Request $request)
     {
-        $event = Event::with('season')->find($request->eventID);
-        if ($event->exists) {
+        if ($this->verifyEvent($event_id, $season_id)) {
             $stage = Stage::create($request->all());
-            $event->stages()->save($stage);
-            \Notification::add('success', $stage->name . ' created');
-            return \Redirect::route('event.show', ['id' => $event->id]);
+            $this->event->stages()->save($stage);
+            \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$this->event->name.'" ('.$this->event->season->name.')');
+            return \Redirect::route('season.event.show', ['season_id' => $this->event->season->id, 'event_id' => $this->event->id]);
         } else {
-            \Notification::add('error', 'Could not find requested event');
-            return \Redirect::route('season.index');
+            return $this->eventError();
         }
     }
 
@@ -64,10 +67,14 @@ class StageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($season_id, $event_id, $stage_id)
     {
-        return view('stage.show')
-            ->with('stage', Stage::with(['event.season'])->find($id));
+        if ($this->verifyStage($stage_id, $event_id, $season_id)) {
+            return view('stage.show')
+                ->with('stage', $this->stage);
+        } else {
+            return $this->stageError();
+        }
     }
 
     /**
@@ -75,12 +82,13 @@ class StageController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     *
     public function edit($id)
     {
         return view('stage.edit')
             ->with('stage', Stage::find($id));
     }
+     */
 
     /**
      * Update the specified resource in storage.
@@ -88,7 +96,7 @@ class StageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     *
     public function update(Request $request, $id)
     {
         $stage = Stage::find($id);
@@ -98,13 +106,14 @@ class StageController extends Controller
         \Notification::add('success', $stage->name.' updated');
         return \Redirect::route('stage.show', ['id' => $id]);
     }
+     */
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     *
     public function destroy($id)
     {
         $stage = Stage::with('results')->find($id);
@@ -116,5 +125,39 @@ class StageController extends Controller
             \Notification::add('success', $stage->name.' deleted');
             return \Redirect::route('stage.index');
         }
+    }
+     */
+
+    protected function verifyEvent($event_id, $season_id)
+    {
+        $this->event = Event::find($event_id);
+        if ($this->event->exists) {
+            return $this->event->season->id == $season_id;
+        } else {
+            return false;
+        }
+    }
+
+    protected function eventError()
+    {
+        \Notification::add('error', 'Could not find the requested event');
+        return \Redirect::route('season.index');
+    }
+
+    protected function verifyStage($stage_id, $event_id, $season_id)
+    {
+        $this->stage = Stage::find($stage_id);
+        if ($this->stage->exists) {
+            return $this->stage->event->id == $event_id
+                && $this->stage->event->season->id = $season_id;
+        } else {
+            return false;
+        }
+    }
+
+    protected function stageError()
+    {
+        \Notification::add('error', 'Could not find the requested stage');
+        return \Redirect::route('season.index');
     }
 }

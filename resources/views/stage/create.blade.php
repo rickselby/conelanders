@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::open(['route' => 'stage.store', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['season.event.stage.store', $event->season->id, $event->id], 'class' => 'form-horizontal']) !!}
 
     {!!  Form::hidden('eventID', $event->id) !!}
 

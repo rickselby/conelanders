@@ -15,7 +15,7 @@
     <ul>
         @forelse($event->stages AS $stage)
             <li>
-                <a href="{{ route('stage.show', ['id' => $stage->id]) }}">
+                <a href="{{ route('season.event.stage.show', ['season_id' => $event->season->id, 'event_id' => $event->id, 'stage_id' => $stage->id]) }}">
                     {{ $stage->name }}
                 </a>
             </li>
@@ -24,6 +24,7 @@
         @endforelse
     </ul>
 
-    <a class="btn btn-small btn-info" href="{{ route('stage.create', ['eventID' => $event->id]) }}">Add a stage</a>
+    <a class="btn btn-small btn-info"
+       href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>
 
 @endsection
