@@ -1,0 +1,9 @@
+{
+  "name": "Conelanders Results",
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.0",
+    "tablesorter": "jquery.tablesorter#~2.25.1",
+    "bootstrap-social": "~4.12.0"
+  }
+}

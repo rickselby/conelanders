@@ -42,7 +42,9 @@
     </table>
 
 
+    @if (Auth::user() && Auth::user()->admin)
     <a class="btn btn-small btn-info"
        href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>
+    @endif
 
 @endsection

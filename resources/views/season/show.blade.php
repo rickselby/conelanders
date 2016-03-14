@@ -21,6 +21,8 @@
         @endforelse
     </ul>
 
+    @if (Auth::user() && Auth::user()->admin)
     <a class="btn btn-small btn-info" href="{{ route('season.event.create', ['seasonID' => $season->id]) }}">Add a new event</a>
+    @endif
 
 @endsection
