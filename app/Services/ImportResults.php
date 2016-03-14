@@ -16,15 +16,23 @@ namespace App\Services;
 use App\Models\Driver;
 use App\Models\Event;
 use App\Models\Result;
+use App\Models\Stage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ImportResults
 {
+    /** @var Stage[] */
     protected $stages;
+
+    /** @var Driver[] */
+    protected $drivers;
+
+    /** @var Result[] */
+    protected $results;
 
     public function getAllEvents()
     {
-        foreach(Event::all() as $event) {
+        foreach(Event::with('stages.results')->get() as $event) {
             // filter them here
             $this->getEvent($event);
         }
@@ -33,7 +41,14 @@ class ImportResults
     public function getEvent(Event $event)
     {
         if ($event->dirt_id) {
+
+            // Cache the stages for lookup on order
+            foreach($event->stages AS $stage) {
+                $this->stages[$event->id][$stage->order] = $stage;
+            }
+
             $dirtEvent = json_decode(file_get_contents($this->getShortEventPath($event)));
+
             for ($stageNum = 1; $stageNum <= $dirtEvent->TotalStages; $stageNum++) {
                 $this->processStage($event, $stageNum);
             }
@@ -42,36 +57,42 @@ class ImportResults
 
     protected function processStage(Event $event, $stageNum)
     {
+        $this->results = [];
+        // Cache some stuff
+        $stage = $this->getStage($event, $stageNum);
+        foreach($stage->results AS $result) {
+            $this->results[$stage->id][$result->driver_id] = $result;
+        }
+
         // Get the first page
         $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum)));
-        $this->processPage($event, $page, $stageNum);
+        $this->processPage($stage, $page);
         for ($pageNum = 2; $pageNum <= $page->Pages; $pageNum++) {
             $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum, $pageNum)));
-            $this->processPage($event, $page, $stageNum);
+            $this->processPage($stage, $page);
         }
     }
 
-    protected function processPage(Event $event, $page, $stage)
+    protected function processPage(Stage $stage, $page)
     {
         foreach($page->Entries as $entry) {
-            $this->saveResult($event, $stage, $entry->Name, $entry->Time);
+            $this->saveResult($stage, $entry->Name, $entry->Time);
         }
     }
 
-    protected function saveResult(Event $event, $stageNumber, $driverName, $timeString)
+    protected function saveResult(Stage $stage, $driverName, $timeString)
     {
         $driver = $this->getDriver($driverName);
         $timeInt = \StageTime::fromString($timeString);
 
-        $stage = $this->getStage($event, $stageNumber);
-
-        try {
-            $results = $stage->results()->where('driver_id', $driver->id)->firstOrFail();
-            $results->time = $timeInt;
-            $results->save();
-        } catch (ModelNotFoundException $e) {
-            $results = Result::create(['driver_id' => $driver->id, 'time' => $timeInt]);
-            $stage->results()->save($results);
+        if (isset($this->results[$stage->id][$driver->id])) {
+            $this->results[$stage->id][$driver->id]->time = $timeInt;
+            $this->results[$stage->id][$driver->id]->save();
+        } else {
+            $this->results[$stage->id][$driver->id] = Result::create(
+                ['driver_id' => $driver->id, 'time' => $timeInt]
+            );
+            $stage->results()->save($this->results[$stage->id][$driver->id]);
         }
     }
 
@@ -88,13 +109,17 @@ class ImportResults
 
     protected function getDriver($driverName)
     {
-        try {
-            $driver = Driver::where('name', $driverName)->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            $driver = Driver::create(['name' => $driverName]);
+        if (count($this->drivers) == 0) {
+            foreach(Driver::all() AS $driver) {
+                $this->drivers[$driver->name] = $driver;
+            }
         }
 
-        return $driver;
+        if (!isset($this->drivers[$driverName])) {
+            $this->drivers[$driverName] = Driver::create(['name' => $driverName]);
+        }
+
+        return $this->drivers[$driverName];
     }
 
     protected function getStage(Event $event, $stageNumber)
