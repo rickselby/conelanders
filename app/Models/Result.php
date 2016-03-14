@@ -4,7 +4,12 @@ namespace App\Models;
 
 class Result extends \Eloquent
 {
-    protected $fillable = ['driver_id', 'time'];
+    protected $fillable = ['driver_id', 'time', 'dnf'];
+
+    protected $casts = [
+        'time' => 'integer',
+        'dnf' => 'boolean',
+    ];
 
     public function stage()
     {

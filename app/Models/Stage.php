@@ -4,10 +4,11 @@ namespace App\Models;
 
 class Stage extends \Eloquent
 {
-    protected $fillable = ['name', 'order'];
+    protected $fillable = ['name', 'order', 'long'];
 
     protected $casts = [
-        'order' => 'integer'
+        'order' => 'integer',
+        'long' => 'boolean',
     ];
 
     public function event()

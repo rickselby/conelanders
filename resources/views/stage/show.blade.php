@@ -25,7 +25,7 @@
             <tr>
                 <th>{{ $key+1 }}</th>
                 <th>{{ $result->driver->name }}</th>
-                <td>{{ StageTime::toString($result->time) }}</td>
+                <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
             </tr>
         @endforeach
         </tbody>

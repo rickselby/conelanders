@@ -27,6 +27,14 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('long', 'Long stage?', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::checkbox('long') !!}
+        </div>
+        <p class="help-block">Stages are long or short. This changes the time given for a DNF.</p>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             {!! Form::submit('Add Stage', ['class' => 'btn btn-primary']) !!}

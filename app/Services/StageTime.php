@@ -18,20 +18,22 @@ class StageTime
         return $time;
     }
 
-    public function toString($int)
+    public function toString($value)
     {
-        if ($int) {
-            $milliseconds = $int % 1000;
-            $seconds = (($int - $milliseconds) / 1000) % 60;
-            $minutes = ($int - ($seconds * 1000) - $milliseconds) / (1000 * 60);
+        if ($value && is_numeric($value)) {
+            $milliseconds = $value % 1000;
+            $seconds = (($value - $milliseconds) / 1000) % 60;
+            $minutes = ($value - ($seconds * 1000) - $milliseconds) / (1000 * 60);
 
-            return $minutes .
-            ':' .
-            str_pad($seconds, 2, '0', STR_PAD_LEFT) .
-            '.' .
-            str_pad($milliseconds, 3, '0', STR_PAD_LEFT);
+            return $minutes.':' .
+                str_pad($seconds, 2, '0', STR_PAD_LEFT).'.' .
+                str_pad($milliseconds, 3, '0', STR_PAD_LEFT);
         } else {
-            return '';
+            if (is_string($value)) {
+                return $value;
+            } else {
+                return '';
+            }
         }
     }
 }

@@ -21,6 +21,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ImportResults
 {
+    const SHORT_DNF = 900000; # (15*60*1000)
+    const LONG_DNF = 1800000; # (30*60*1000)
+
     /** @var Stage[] */
     protected $stages;
 
@@ -96,15 +99,19 @@ class ImportResults
             $timeInt -= $sub;
         }
 
-        if (isset($this->results[$stage->id][$driver->id])) {
-            $this->results[$stage->id][$driver->id]->time = $timeInt;
-            $this->results[$stage->id][$driver->id]->save();
-        } else {
+        if (!isset($this->results[$stage->id][$driver->id])) {
             $this->results[$stage->id][$driver->id] = Result::create(
-                ['driver_id' => $driver->id, 'time' => $timeInt]
+                ['driver_id' => $driver->id]
             );
             $stage->results()->save($this->results[$stage->id][$driver->id]);
         }
+
+        if (($stage->long && $timeInt == self::LONG_DNF) || (!$stage->long && $timeInt == self::SHORT_DNF)) {
+            $this->results[$stage->id][$driver->id]->dnf = true;
+        } else {
+            $this->results[$stage->id][$driver->id]->time = $timeInt;
+        }
+        $this->results[$stage->id][$driver->id]->save();
     }
 
     protected function getShortEventPath(Event $event, $stage = 0)
