@@ -40,14 +40,14 @@ class LocalEnvironmentServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->registerServiceProviders();
             $this->registerFacadeAliases();
-        }
 
-        \Route::group(['middleware' => ['web']], function () {
-            \Route::get('/login/dev', function () {
-                \Auth::loginUsingID(1);
-                return \Redirect::to('/');
+            \Route::group(['middleware' => ['web']], function () {
+                \Route::get('/login/dev', function () {
+                    \Auth::loginUsingID(1);
+                    return \Redirect::to('/');
+                });
             });
-        });
+        }
     }
 
     /**
