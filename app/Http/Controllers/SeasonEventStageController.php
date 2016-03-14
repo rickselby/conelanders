@@ -71,7 +71,8 @@ class SeasonEventStageController extends Controller
     {
         if ($this->verifyStage($stage_id, $event_id, $season_id)) {
             return view('stage.show')
-                ->with('stage', $this->stage);
+                ->with('stage', $this->stage)
+                ->with('results', \Results::getStageResults($stage_id));
         } else {
             return $this->stageError();
         }

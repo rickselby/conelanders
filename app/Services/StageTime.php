@@ -20,14 +20,18 @@ class StageTime
 
     public function toString($int)
     {
-        $milliseconds = $int % 1000;
-        $seconds = (($int - $milliseconds) / 1000) % 60;
-        $minutes = ($int - ($seconds * 1000) - $milliseconds) / (1000 * 60);
+        if ($int) {
+            $milliseconds = $int % 1000;
+            $seconds = (($int - $milliseconds) / 1000) % 60;
+            $minutes = ($int - ($seconds * 1000) - $milliseconds) / (1000 * 60);
 
-        return $minutes.
-            ':'.
-            str_pad($seconds, 2, '0', STR_PAD_LEFT).
-            '.'.
+            return $minutes .
+            ':' .
+            str_pad($seconds, 2, '0', STR_PAD_LEFT) .
+            '.' .
             str_pad($milliseconds, 3, '0', STR_PAD_LEFT);
+        } else {
+            return '';
+        }
     }
 }

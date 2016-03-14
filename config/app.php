@@ -220,6 +220,7 @@ return [
 
         'StageTime' => App\Services\Facades\StageTimeFacade::class,
         'ImportResults' => App\Services\Facades\ImportResultsFacade::class,
+        'Results' => \App\Services\Facades\ResultsFacade::class,
     ],
 
 ];

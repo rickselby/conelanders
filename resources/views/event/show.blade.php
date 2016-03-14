@@ -11,18 +11,36 @@
 
 @section('content')
 
-    <h2>Stages</h2>
-    <ul>
-        @forelse($event->stages AS $stage)
-            <li>
+    <h2>Standings</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Pos.</th>
+            <th>Driver</th>
+            @foreach($event->stages AS $stage)
+            <th>
                 <a href="{{ route('season.event.stage.show', ['season_id' => $event->season->id, 'event_id' => $event->id, 'stage_id' => $stage->id]) }}">
                     {{ $stage->name }}
                 </a>
-            </li>
-        @empty
-            <li>No stages</li>
-        @endforelse
-    </ul>
+            </th>
+            @endforeach
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($results AS $key => $result)
+        <tr>
+            <th>{{ $key+1 }}</th>
+            <th>{{ $result['driver']->name }}</th>
+            @foreach($event->stages AS $stage)
+            <td>{{ StageTime::toString($result['stage'][$stage->order]) }}</td>
+            @endforeach
+            <td>{{ StageTime::toString($result['total']) }}</td>
+        </tr>
+        @endforeach
+        </tbody>
+    </table>
+
 
     <a class="btn btn-small btn-info"
        href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>

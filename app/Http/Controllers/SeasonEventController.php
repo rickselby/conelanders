@@ -74,7 +74,8 @@ class SeasonEventController extends Controller
     {
         if ($this->verifyEvent($event_id, $season_id)) {
             return view('event.show')
-                ->with('event', $this->event);
+                ->with('event', $this->event)
+                ->with('results', \Results::getEventResults($event_id));
         } else {
             return $this->eventError();
         }

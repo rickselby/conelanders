@@ -57,7 +57,6 @@ class ImportResults
 
     protected function processStage(Event $event, $stageNum)
     {
-        $this->results = [];
         // Cache some stuff
         $stage = $this->getStage($event, $stageNum);
         foreach($stage->results AS $result) {
@@ -84,6 +83,18 @@ class ImportResults
     {
         $driver = $this->getDriver($driverName);
         $timeInt = \StageTime::fromString($timeString);
+
+        if ($stage->order != 1) {
+            // 2nd stage onwards is cumulative time
+            // Subtract the sum of previous times
+            $sub = 0;
+            for ($i = 1; $i <= ($stage->order - 1); $i++) {
+                $previousStage = $this->stages[$stage->event->id][$i];
+                $sub += $this->results[$previousStage->id][$driver->id]->time;
+            }
+
+            $timeInt -= $sub;
+        }
 
         if (isset($this->results[$stage->id][$driver->id])) {
             $this->results[$stage->id][$driver->id]->time = $timeInt;

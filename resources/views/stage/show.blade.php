@@ -12,6 +12,23 @@
 
 @section('content')
 
-    <h2>Results?</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Pos.</th>
+            <th>Driver</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($results AS $key => $result)
+            <tr>
+                <th>{{ $key+1 }}</th>
+                <th>{{ $result->driver->name }}</th>
+                <td>{{ StageTime::toString($result->time) }}</td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
 @endsection

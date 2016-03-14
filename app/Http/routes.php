@@ -20,5 +20,4 @@ Route::group(['middleware' => ['web']], function () {
         'event' => 'event_id',
         'stage' => 'stage_id',
     ]]);
-    //
 });
