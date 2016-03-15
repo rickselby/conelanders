@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Season;
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
@@ -58,7 +57,7 @@ class SeasonEventController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store($season_id, Request $request)
+    public function store($season_id, Requests\SeasonEventRequest $request)
     {
         if ($this->verifySeason($season_id)) {
             $event = Event::create($request->all());

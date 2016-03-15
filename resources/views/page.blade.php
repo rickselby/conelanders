@@ -13,6 +13,7 @@
         <link href="{{ asset('bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('bower/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
         <link href="{{ asset('bower/tablesorter/dist/css/theme.bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,6 +25,8 @@
         <script src="{{ asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('bower/tablesorter/dist/js/jquery.tablesorter.min.js') }}"></script>
         <script src="{{ asset('bower/tablesorter/dist/js/jquery.tablesorter.widgets.min.js') }}"></script>
+        <script src="{{ asset('bower/moment/min/moment.min.js') }}"></script>
+        <script src="{{ asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     </head>
     <body>
         <div class="container">

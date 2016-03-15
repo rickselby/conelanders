@@ -21,14 +21,28 @@
         {!! Form::label('dirt_id', 'Dirt Rally ID', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {!! Form::number('dirt_id', null, ['class' => 'form-control']) !!}
-            <p class="help-block">Some help here...</p>
+            <p class="help-block">There will be help here for finding the event ID</p>
         </div>
     </div>
 
     <div class="form-group">
-        {!! Form::label('closes', 'End Date', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('datetimepicker', 'End Date', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-            {!! Form::date('closes', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+            <div class='input-group date' id='datetimepicker'>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                <input name="closes" type='text' class="form-control" />
+            </div>
+            <p class="help-block">Time in UTC</p>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker').datetimepicker({
+                        sideBySide: true,
+                        format: "Do MMMM YYYY, HH:mm"
+                    });
+                });
+            </script>
         </div>
     </div>
 

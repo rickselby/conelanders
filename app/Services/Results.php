@@ -73,8 +73,8 @@ class Results
                 return -1;
             } else {
                 // I think by now they're both numbers? Sum the drivers' total time?
-                return array_sum(array_slice($a['stage'], 0, $i-1))
-                    - array_sum(array_slice($b['stage'], 0, $i-1));
+                return array_sum(array_slice($a['stage'], 0, $i))
+                    - array_sum(array_slice($b['stage'], 0, $i));
             }
         }
     }
