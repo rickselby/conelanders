@@ -1,12 +1,12 @@
 <?php namespace App\Services\Facades;
 
-use App\Services\ImportResults;
+use App\Services\ImportCSV;
 use \Illuminate\Support\Facades\Facade;
 
 /**
  * Facade class to be called whenever the class PokemonService is called
  */
-class ImportResultsFacade extends Facade {
+class ImportCSVFacade extends Facade {
 
     /**
      * Get the registered name of the component. This tells $this->app what record to return
@@ -14,6 +14,6 @@ class ImportResultsFacade extends Facade {
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return ImportResults::class; }
+    protected static function getFacadeAccessor() { return ImportCSV::class; }
 
 }

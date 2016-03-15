@@ -8,14 +8,18 @@ class StageTime
     {
         // mm:ss.xxx
         $parts = explode(':', $string);
-        $minutes = $parts[0];
-        $otherParts = explode('.', $parts[1]);
-        $seconds = $otherParts[0];
-        $milliseconds = $otherParts[1];
+        if (count($parts) == 2) {
+            $minutes = $parts[0];
+            $otherParts = explode('.', $parts[1]);
+            $seconds = $otherParts[0];
+            $milliseconds = $otherParts[1];
 
-        $time = $milliseconds + ($seconds * 1000) + ($minutes * 1000 * 60);
+            $time = $milliseconds + ($seconds * 1000) + ($minutes * 1000 * 60);
 
-        return $time;
+            return $time;
+        } else {
+            return 0;
+        }
     }
 
     public function toString($value)

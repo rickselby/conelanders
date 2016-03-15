@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class Import extends Command
+class CSV extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'results:import';
+    protected $signature = 'results:csv {event_id} {file}';
 
     /**
      * The console command description.
@@ -27,6 +27,12 @@ class Import extends Command
      */
     public function handle()
     {
-        \ImportDirt::getAllEvents();
+        $lines = file($this->argument('file'));
+        $csv = [];
+        foreach($lines AS $line) {
+            $csv[] = str_getcsv($line, ',');
+        }
+
+        \ImportCSV::fromCSV($this->argument('event_id'), $csv);
     }
 }

@@ -219,7 +219,8 @@ return [
         'Notification' => Krucas\Notification\Facades\Notification::class,
 
         'StageTime' => App\Services\Facades\StageTimeFacade::class,
-        'ImportResults' => App\Services\Facades\ImportResultsFacade::class,
+        'ImportDirt' => App\Services\Facades\ImportDirtFacade::class,
+        'ImportCSV' => App\Services\Facades\ImportCSVFacade::class,
         'Results' => \App\Services\Facades\ResultsFacade::class,
     ],
 
