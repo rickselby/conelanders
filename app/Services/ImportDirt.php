@@ -13,16 +13,20 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services;
 
+use App\Jobs\ImportEventJob;
 use App\Models\Event;
 use App\Models\Stage;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ImportDirt extends ImportAbstract
 {
-    public function getAllEvents()
+    use DispatchesJobs;
+
+    public function queueEventJobs()
     {
         foreach(Event::with('stages.results')->get() as $event) {
             // filter them here
-            $this->getEvent($event);
+            $this->dispatch(new ImportEventJob($event));
         }
     }
 
@@ -44,12 +48,14 @@ class ImportDirt extends ImportAbstract
         // Cache some stuff
         $stage = $this->getStage($event, $stageNum);
 
-        // Get the first page
-        $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum)));
-        $this->processPage($stage, $page);
-        for ($pageNum = 2; $pageNum <= $page->Pages; $pageNum++) {
-            $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum, $pageNum)));
+        if ($stage) {
+            // Get the first page
+            $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum)));
             $this->processPage($stage, $page);
+            for ($pageNum = 2; $pageNum <= $page->Pages; $pageNum++) {
+                $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum, $pageNum)));
+                $this->processPage($stage, $page);
+            }
         }
     }
 
