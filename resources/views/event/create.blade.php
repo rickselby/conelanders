@@ -26,9 +26,30 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('datetimepicker', 'End Date', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('opens', 'Event Opens', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-            <div class='input-group date' id='datetimepicker'>
+            <div class='input-group date' id='datetimepicker1'>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                <input name="opens" type='text' class="form-control" />
+            </div>
+            <p class="help-block">Time in UTC</p>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker1').datetimepicker({
+                        sideBySide: true,
+                        format: "Do MMMM YYYY, HH:mm"
+                    });
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('closes', 'Event Closes', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            <div class='input-group date' id='datetimepicker2'>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -37,7 +58,7 @@
             <p class="help-block">Time in UTC</p>
             <script type="text/javascript">
                 $(function () {
-                    $('#datetimepicker').datetimepicker({
+                    $('#datetimepicker2').datetimepicker({
                         sideBySide: true,
                         format: "Do MMMM YYYY, HH:mm"
                     });

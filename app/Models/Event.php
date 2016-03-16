@@ -4,9 +4,9 @@ namespace App\Models;
 
 class Event extends \Eloquent
 {
-    protected $fillable = ['name', 'closes', 'dirt_id'];
+    protected $fillable = ['name', 'opens', 'closes', 'dirt_id'];
 
-    protected $dates = ['closes'];
+    protected $dates = ['opens', 'closes'];
 
     protected $casts = [
         'dirt_id' => 'integer',

@@ -29,4 +29,5 @@ class Import extends Command
     {
         \ImportDirt::queueEventJobs();
     }
+
 }

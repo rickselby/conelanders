@@ -16,6 +16,7 @@ namespace App\Services;
 use App\Jobs\ImportEventJob;
 use App\Models\Event;
 use App\Models\Stage;
+use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ImportDirt extends ImportAbstract
@@ -25,20 +26,33 @@ class ImportDirt extends ImportAbstract
     public function queueEventJobs()
     {
         foreach(Event::with('stages.results')->get() as $event) {
-            // filter them here
-            $this->dispatch(new ImportEventJob($event));
+            // only start checking events after they open
+            // only check events if they're not marked as complete
+            if (($event->opens < Carbon::now())
+                && !$event->complete) {
+                $this->dispatch(new ImportEventJob($event));
+            }
         }
     }
 
     public function getEvent(Event $event)
     {
         if ($event->dirt_id) {
+            // Remember when we started processing this event
+            $startTime = Carbon::now();
+
             $this->cacheStages($event);
 
             $dirtEvent = json_decode(file_get_contents($this->getShortEventPath($event)));
 
             for ($stageNum = 1; $stageNum <= $dirtEvent->TotalStages; $stageNum++) {
                 $this->processStage($event, $stageNum);
+            }
+
+            // If we've processed this event after the closing date, mark it as completed, so we don't process it again.
+            if ($startTime > $event->closes) {
+                $event->complete = true;
+                $event->save();
             }
         }
     }

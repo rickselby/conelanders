@@ -12,11 +12,14 @@ class SeasonEventRequest extends Request
     {
         parent::validate();
         Request::merge([
+            'opens' => Carbon::createFromFormat(
+                $this->dateFormat,
+                Request::get('opens')
+            ),
             'closes' => Carbon::createFromFormat(
                 $this->dateFormat,
-                Request::get('closes'),
-                new \DateTimeZone('UTC')
-            )
+                Request::get('closes')
+            ),
         ]);
     }
 
@@ -30,6 +33,7 @@ class SeasonEventRequest extends Request
         return [
             'name' => 'required|string',
             'dirt_id' => 'integer',
+            'opens' => 'date_format:"'.$this->dateFormat.'"',
             'closes' => 'date_format:"'.$this->dateFormat.'"',
         ];
     }
