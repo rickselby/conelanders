@@ -8,7 +8,21 @@
 
 @section('content')
 
+    @if (Auth::user() && Auth::user()->admin)
+        {!! Form::open(['route' => ['season.destroy', $season->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            <a class="btn btn-small btn-warning"
+               href="{{ route('season.edit', ['seasonID' => $season->id]) }}">Edit season</a>
+            {!! Form::submit('Delete Season', array('class' => 'btn btn-danger')) !!}
+        {!! Form::close() !!}
+    @endif
+
     <h2>Events</h2>
+    @if (Auth::user() && Auth::user()->admin)
+        <p>
+            <a class="btn btn-small btn-info"
+               href="{{ route('season.event.create', ['seasonID' => $season->id]) }}">Add a new event</a>
+        </p>
+    @endif
     <ul>
         @forelse($season->events AS $event)
             <li>
@@ -20,9 +34,5 @@
             <li>No events</li>
         @endforelse
     </ul>
-
-    @if (Auth::user() && Auth::user()->admin)
-    <a class="btn btn-small btn-info" href="{{ route('season.event.create', ['seasonID' => $season->id]) }}">Add a new event</a>
-    @endif
 
 @endsection

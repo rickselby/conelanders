@@ -18,11 +18,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('season.event', 'SeasonEventController', ['parameters' => [
         'season' => 'season_id',
         'event' => 'event_id',
-    ]]);
+    ], ['except' => ['index']]]);
 
     Route::resource('season.event.stage', 'SeasonEventStageController', ['parameters' => [
         'season' => 'season_id',
         'event' => 'event_id',
         'stage' => 'stage_id',
-    ]]);
+    ], ['except' => ['index']]]);
 });

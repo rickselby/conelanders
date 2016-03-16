@@ -13,11 +13,8 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services;
 
-use App\Models\Driver;
 use App\Models\Event;
-use App\Models\Result;
 use App\Models\Stage;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ImportDirt extends ImportAbstract
 {

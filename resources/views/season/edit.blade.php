@@ -2,13 +2,13 @@
 
 @section('header')
     <div class="page-header">
-        <h1>Add a new season</h1>
+        <h1>Update season</h1>
     </div>
 @endsection
 
 @section('content')
 
-    {!! Form::open(['route' => 'season.store', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($season, ['route' => ['season.update', $season->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
@@ -20,7 +20,7 @@
     <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-            {!! Form::submit('Add Season', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Update Season', ['class' => 'btn btn-primary']) !!}
         </div>
     </div>
 

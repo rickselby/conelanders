@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\SeasonRequest;
 use App\Models\Season;
-use Illuminate\Http\Request;
 
 class SeasonController extends Controller
 {
@@ -39,11 +38,12 @@ class SeasonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param SeasonRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SeasonRequest $request)
     {
+        /** @var Season $season */
         $season = Season::create($request->all());
         \Notification::add('success', 'Season "'.$season->name.'" created');
         return \Redirect::route('season.show', ['season_id' => $season->id]);
@@ -66,22 +66,21 @@ class SeasonController extends Controller
      *
      * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     *
+     */
     public function edit($season_id)
     {
         return view('season.edit')
             ->with('season', Season::find($season_id));
     }
-     */
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  SeasonRequest $request
      * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     *
-    public function update(Request $request, $season_id)
+     */
+    public function update(SeasonRequest $request, $season_id)
     {
         $season = Season::find($season_id);
         $season->fill($request->all());
@@ -90,14 +89,13 @@ class SeasonController extends Controller
         \Notification::add('success', 'Season "'.$season->name.'" updated');
         return \Redirect::route('season.show', ['season_id' => $season_id]);
     }
-     */
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $season_id
      * @return \Illuminate\Http\Response
-     *
+     */
     public function destroy($season_id)
     {
         $season = Season::with('events')->find($season_id);
@@ -110,5 +108,4 @@ class SeasonController extends Controller
             return \Redirect::route('season.index');
         }
     }
-     */
 }

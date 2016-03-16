@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Event;
 use App\Models\Result;
-use App\Models\Stage;
 
 class Results
 {
@@ -77,6 +76,7 @@ class Results
                     - array_sum(array_slice($b['stage'], 0, $i));
             }
         }
+        return 0;
     }
 
     public function getStageResults($stageID)

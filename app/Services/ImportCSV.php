@@ -13,11 +13,8 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services;
 
-use App\Models\Driver;
 use App\Models\Event;
-use App\Models\Result;
 use App\Models\Stage;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ImportCSV extends ImportAbstract
 {
@@ -26,6 +23,7 @@ class ImportCSV extends ImportAbstract
 
     public function fromCSV($event_id, $times)
     {
+        /** @var Event $event */
         $event = Event::with('stages.results')->find($event_id);
         $this->cacheStages($event);
 

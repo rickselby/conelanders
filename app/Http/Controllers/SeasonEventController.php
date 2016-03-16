@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeasonEventRequest;
 use App\Models\Event;
 use App\Models\Season;
 
-use App\Http\Requests;
 
 class SeasonEventController extends Controller
 {
@@ -17,22 +17,8 @@ class SeasonEventController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin', ['except' =>
-            ['index', 'show']
-        ]);
+        $this->middleware('admin', ['except' => ['show']]);
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     *
-    public function index()
-    {
-        return view('event.index')
-            ->with('events', Event::with('stages')->get());
-    }
-     */
 
     /**
      * Show the form for creating a new resource.
@@ -53,11 +39,11 @@ class SeasonEventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  SeasonEventRequest $request
      * @param  integer $season_id
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store($season_id, Requests\SeasonEventRequest $request)
+    public function store(SeasonEventRequest $request, $season_id)
     {
         if ($this->verifySeason($season_id)) {
             $event = Event::create($request->all());
@@ -93,7 +79,7 @@ class SeasonEventController extends Controller
      * @param  int $season_id
      * @param  int $event_id
      * @return \Illuminate\Http\Response
-     *
+     */
     public function edit($season_id, $event_id)
     {
         if ($this->verifyEvent($event_id, $season_id)) {
@@ -103,58 +89,79 @@ class SeasonEventController extends Controller
             return $this->eventError();
         }
     }
-     */
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param SeasonEventRequest $request
+     * @param int $season_id
+     * @param int $event_id
      * @return \Illuminate\Http\Response
-     *
-    public function update(Request $request, $id)
-    {
-        $event = Event::find($id);
-        $event->fill($request->all());
-        $event->save();
-
-        \Notification::add('success', $event->name.' updated');
-        return \Redirect::route('event.show', ['id' => $id]);
-    }
      */
+    public function update(SeasonEventRequest $request, $season_id, $event_id)
+    {
+        if ($this->verifyEvent($event_id, $season_id)) {
+            $this->event->fill($request->all());
+            $this->event->save();
+
+            \Notification::add('success', $this->event->name . ' updated');
+            return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
+        } else {
+            return $this->eventError();
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $event_id
+     * @param $season_id
      * @return \Illuminate\Http\Response
-     *
-    public function destroy($id)
+     * @throws \Exception
+     * @internal param int $id
+     */
+    public function destroy($event_id, $season_id)
     {
-        $event = Event::with('stages')->find($id);
-        if ($event->stages->count()) {
-            \Notification::add('error', $event->name.' cannot be deleted - there are stages assigned to  it');
-            return \Redirect::route('event.show', ['id' => $id]);
-        } else {
-            $event->delete();
-            \Notification::add('success', $event->name.' deleted');
-            return \Redirect::route('event.index');
+        if ($this->verifyEvent($event_id, $season_id)) {
+            if ($this->event->stages->count()) {
+                \Notification::add('error',
+                    $this->event->name . ' cannot be deleted - there are stages assigned to  it');
+                return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
+            } else {
+                $this->event->delete();
+                \Notification::add('success', $this->event->name . ' deleted');
+                return \Redirect::route('season.show', ['season_id' => $this->stage->event->season->id]);
+            }
         }
     }
-     */
 
+    /**
+     * Verify the season_id given is valid
+     * @param int $season_id
+     * @return bool
+     */
     protected function verifySeason($season_id)
     {
         $this->season = Season::find($season_id);
         return $this->season->exists;
     }
 
+    /**
+     * Return the generic season error
+     * @return \Illuminate\Http\RedirectResponse
+     */
     protected function seasonError()
     {
         \Notification::add('error', 'Could not find requested season');
         return \Redirect::route('season.index');
     }
 
+    /**
+     * Verify the season_id and event_id are valid, and match
+     * @param int $event_id
+     * @param int $season_id
+     * @return bool
+     */
     protected function verifyEvent($event_id, $season_id)
     {
         $this->event = Event::find($event_id);
@@ -165,6 +172,10 @@ class SeasonEventController extends Controller
         }
     }
 
+    /**
+     * Return the generic event error
+     * @return \Illuminate\Http\RedirectResponse
+     */
     protected function eventError()
     {
         \Notification::add('error', 'Could not find requested event');

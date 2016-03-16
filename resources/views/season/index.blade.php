@@ -8,6 +8,12 @@
 
 @section('content')
 
+    @if (Auth::user() && Auth::user()->admin)
+        <p>
+            <a class="btn btn-small btn-info" href="{{ route('season.create') }}">Add a new season</a>
+        </p>
+    @endif
+
     <ul>
         @foreach($seasons as $season)
             <li>
@@ -17,9 +23,5 @@
             </li>
         @endforeach
     </ul>
-
-    @if (Auth::user() && Auth::user()->admin)
-    <a class="btn btn-small btn-info" href="{{ route('season.create') }}">Add a new season</a>
-    @endif
 
 @endsection

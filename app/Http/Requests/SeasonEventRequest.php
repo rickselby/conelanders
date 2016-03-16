@@ -7,10 +7,6 @@ use Carbon\Carbon;
 class SeasonEventRequest extends Request
 {
     protected $dateFormat = 'jS F Y, H:i';
-    public function authorize()
-    {
-        return true;
-    }
 
     public function validate()
     {

@@ -11,7 +11,21 @@
 
 @section('content')
 
+    @if (Auth::user() && Auth::user()->admin)
+        {!! Form::open(['route' => ['season.event.destroy', $event->season->id, $event->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            <a class="btn btn-small btn-warning"
+               href="{{ route('season.event.edit', ['seasonID' => $event->season->id, 'eventID' => $event->id]) }}">Edit event</a>
+            {!! Form::submit('Delete Event', array('class' => 'btn btn-danger')) !!}
+        {!! Form::close() !!}
+    @endif
+
     <h2>Standings</h2>
+    @if (Auth::user() && Auth::user()->admin)
+        <p>
+            <a class="btn btn-small btn-info"
+               href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>
+        </p>
+    @endif
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -40,11 +54,5 @@
         @endforeach
         </tbody>
     </table>
-
-
-    @if (Auth::user() && Auth::user()->admin)
-    <a class="btn btn-small btn-info"
-       href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>
-    @endif
 
 @endsection
