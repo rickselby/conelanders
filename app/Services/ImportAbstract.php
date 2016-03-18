@@ -63,12 +63,10 @@ abstract class ImportAbstract
 
     protected function saveResult(Stage $stage, Driver $driver, $timeInt)
     {
-        if (!isset($this->results[$stage->id][$driver->id])) {
-            $this->results[$stage->id][$driver->id] = Result::create(
-                ['driver_id' => $driver->id]
-            );
-            $stage->results()->save($this->results[$stage->id][$driver->id]);
-        }
+        $this->results[$stage->id][$driver->id] = Result::create(
+            ['driver_id' => $driver->id]
+        );
+        $stage->results()->save($this->results[$stage->id][$driver->id]);
 
         if (($stage->long && $timeInt == self::LONG_DNF) || (!$stage->long && $timeInt == self::SHORT_DNF)) {
             $this->results[$stage->id][$driver->id]->dnf = true;
@@ -84,15 +82,12 @@ abstract class ImportAbstract
     {
         foreach($event->stages AS $stage) {
             $this->stages[$event->id][$stage->order] = $stage;
-            $this->cacheResults($stage);
         }
     }
 
-    protected function cacheResults(Stage $stage)
+    protected function clearStageResults(Stage $stage)
     {
-        foreach($stage->results AS $result) {
-            $this->results[$stage->id][$result->driver_id] = $result;
-        }
+        $stage->results()->delete();
     }
 
 }

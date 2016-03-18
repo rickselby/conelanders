@@ -45,8 +45,8 @@ class ImportDirt extends ImportAbstract
         foreach(Event::with('stages.results')->get() as $event) {
             $now = Carbon::now();
             if ($now->between(
-                $event->closes->copy()->subMinutes(3),
-                $event->closes->copy()->subMinutes(2)->addSecond(),
+                $event->closes->copy()->subMinutes(5),
+                $event->closes->copy()->subMinutes(4)->addSecond(),
                 true)) {
                 $this->dispatch(new ImportEventJob($event));
             }
@@ -56,22 +56,26 @@ class ImportDirt extends ImportAbstract
     public function getEvent(Event $event)
     {
         if ($event->dirt_id) {
+            \Log::info('Loading results for event '.$event->id.' from website : Begin');
             // Remember when we started processing this event
             $startTime = Carbon::now();
 
             $this->cacheStages($event);
 
-            $dirtEvent = json_decode(file_get_contents($this->getShortEventPath($event)));
+            $dirtEvent = $this->getPage($this->getShortEventPath($event));
 
+            \Log::info($dirtEvent->TotalStages.' stages to process');
             for ($stageNum = 1; $stageNum <= $dirtEvent->TotalStages; $stageNum++) {
                 $this->processStage($event, $stageNum);
             }
 
-            // If we've processed this event after the closing date, mark it as completed, so we don't process it again.
+            // If we've processed this event after the closing date, mark it as
+            // completed, so we don't process it again.
             if ($startTime > $event->closes) {
                 $event->complete = true;
                 $event->save();
             }
+            \Log::info('Loading results for event '.$event->id.' from website : End');
         }
     }
 
@@ -82,17 +86,23 @@ class ImportDirt extends ImportAbstract
 
         if ($stage) {
             // Get the first page
-            $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum)));
-            $this->processPage($stage, $page);
-            for ($pageNum = 2; $pageNum <= $page->Pages; $pageNum++) {
-                $page = json_decode(file_get_contents($this->getEventPath($event, $stageNum, $pageNum)));
+            $page = $this->getPage($this->getEventPath($event, $stageNum));
+
+            \Log::info('Stage '.$stage->id.' has '.$page->Pages.' pages to process');
+            if ($page->Pages > 0) {
+                $this->clearStageResults($stage);
                 $this->processPage($stage, $page);
+                for ($pageNum = 2; $pageNum <= $page->Pages; $pageNum++) {
+                    $page = $this->getPage($this->getEventPath($event, $stageNum, $pageNum));
+                    $this->processPage($stage, $page);
+                }
             }
         }
     }
 
     protected function processPage(Stage $stage, $page)
     {
+        \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
         foreach($page->Entries as $entry) {
             $this->processResult($stage, $entry->Name, $entry->Time);
         }
@@ -127,6 +137,14 @@ class ImportDirt extends ImportAbstract
     {
         return $this->getShortEventPath($event, $stage)
             .'&assists=any&group=all&leaderboard=true&nameSearch=&wheel=any&page='.$page;
+    }
+
+    protected function getPage($url)
+    {
+        $start = microtime(true);
+        $file = json_decode(file_get_contents($url));
+        \Log::info('Page took '.(microtime(true) - $start).'s to load');
+        return $file;
     }
 
 }
