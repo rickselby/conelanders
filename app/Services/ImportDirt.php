@@ -23,13 +23,17 @@ class ImportDirt extends ImportAbstract
 {
     use DispatchesJobs;
 
+    /**
+     * Add jobs for any events that need an import
+     */
     public function queueEventJobs()
     {
         foreach(Event::with('stages.results')->get() as $event) {
             // only start checking events after they open
             // only check events if they're not marked as complete
-            if (($event->opens < Carbon::now())
-                && !$event->complete) {
+            if ($event->dirt_id
+                && ($event->opens < Carbon::now())
+                && (!$event->last_import || $event->last_import->lte($event->closes))) {
                 $this->dispatch(new ImportEventJob($event));
             }
         }
@@ -53,14 +57,16 @@ class ImportDirt extends ImportAbstract
         }
     }
 
+    /**
+     * Import results for the given event
+     * @param Event $event
+     */
     public function getEvent(Event $event)
     {
         if ($event->dirt_id) {
             \Log::info('Loading results for event '.$event->id.' from website : Begin');
             // Remember when we started processing this event
-            $startTime = Carbon::now();
-
-            $this->cacheStages($event);
+            $this->startEventImport($event);
 
             $dirtEvent = $this->getPage($this->getShortEventPath($event));
 
@@ -69,19 +75,18 @@ class ImportDirt extends ImportAbstract
                 $this->processStage($event, $stageNum);
             }
 
-            // If we've processed this event after the closing date, mark it as
-            // completed, so we don't process it again.
-            if ($startTime > $event->closes) {
-                $event->complete = true;
-                $event->save();
-            }
+            $this->completeEventImport($event);
             \Log::info('Loading results for event '.$event->id.' from website : End');
         }
     }
 
+    /**
+     * Process the given stage for the given event
+     * @param Event $event
+     * @param integer $stageNum
+     */
     protected function processStage(Event $event, $stageNum)
     {
-        // Cache some stuff
         $stage = $this->getStage($event, $stageNum);
 
         if ($stage) {
@@ -100,6 +105,11 @@ class ImportDirt extends ImportAbstract
         }
     }
 
+    /**
+     * Process a single page for the given stage
+     * @param Stage $stage
+     * @param \stdClass $page
+     */
     protected function processPage(Stage $stage, $page)
     {
         \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
@@ -108,9 +118,17 @@ class ImportDirt extends ImportAbstract
         }
     }
 
+    /**
+     * Process a result ready for saving
+     * @param Stage $stage
+     * @param string $driverName
+     * @param string $timeString
+     */
     protected function processResult(Stage $stage, $driverName, $timeString)
     {
+        // Get the driver model
         $driver = $this->getDriver($driverName);
+        // Convert the time to an integer
         $timeInt = \StageTime::fromString($timeString);
 
         if ($stage->order != 1) {
@@ -128,17 +146,35 @@ class ImportDirt extends ImportAbstract
         $this->saveResult($stage, $driver, $timeInt);
     }
 
+    /**
+     * Get the URL for getting info about an event
+     * @param Event $event
+     * @param int $stage
+     * @return string
+     */
     protected function getShortEventPath(Event $event, $stage = 0)
     {
         return 'https://www.dirtgame.com/uk/api/event?eventId='.$event->dirt_id.'&stageId='.$stage;
     }
 
+    /**
+     * Get the URL for importing results
+     * @param Event $event
+     * @param int $stage
+     * @param int $page
+     * @return string
+     */
     protected function getEventPath(Event $event, $stage = 1, $page = 1)
     {
         return $this->getShortEventPath($event, $stage)
             .'&assists=any&group=all&leaderboard=true&nameSearch=&wheel=any&page='.$page;
     }
 
+    /**
+     * Get a page from the given url, decode it, log how long it took
+     * @param $url
+     * @return \stdClass
+     */
     protected function getPage($url)
     {
         $start = microtime(true);

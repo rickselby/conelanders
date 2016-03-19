@@ -58,7 +58,7 @@ class SeasonController extends Controller
     public function show($season_id)
     {
         return view('season.show')
-            ->with('season', Season::with('events')->find($season_id));
+            ->with('season', Season::with('events')->findOrFail($season_id));
     }
 
     /**
@@ -70,7 +70,7 @@ class SeasonController extends Controller
     public function edit($season_id)
     {
         return view('season.edit')
-            ->with('season', Season::find($season_id));
+            ->with('season', Season::findOrFail($season_id));
     }
 
     /**
@@ -82,7 +82,7 @@ class SeasonController extends Controller
      */
     public function update(SeasonRequest $request, $season_id)
     {
-        $season = Season::find($season_id);
+        $season = Season::findOrFail($season_id);
         $season->fill($request->all());
         $season->save();
 
@@ -98,7 +98,7 @@ class SeasonController extends Controller
      */
     public function destroy($season_id)
     {
-        $season = Season::with('events')->find($season_id);
+        $season = Season::with('events')->findOrFail($season_id);
         if ($season->events->count()) {
             \Notification::add('error', 'Season "'.$season->name.'" cannot be deleted - there are events assigned to it');
             return \Redirect::route('season.show', ['season_id' => $season_id]);

@@ -82,6 +82,6 @@ class Results
     public function getStageResults($stageID)
     {
         // I want to do more with this...
-        return Result::with('driver')->where('stage_id', $stageID)->orderBy('time')->get();
+        return Result::with('driver')->where('stage_id', $stageID)->orderBy('dnf')->orderBy('time')->get();
     }
 }

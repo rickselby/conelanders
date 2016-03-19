@@ -5,16 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SeasonEventRequest;
 use App\Models\Event;
 use App\Models\Season;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class SeasonEventController extends Controller
 {
-    /** @var Season */
-    protected $season;
-
-    /** @var Event */
-    protected $event;
-
     public function __construct()
     {
         $this->middleware('admin', ['except' => ['show']]);
@@ -28,12 +23,8 @@ class SeasonEventController extends Controller
      */
     public function create($season_id)
     {
-        if ($this->verifySeason($season_id)) {
-            return view('event.create')
-                ->with('season', $this->season);
-        } else {
-            return $this->seasonError();
-        }
+        return view('event.create')
+            ->with('season', Season::findOrFail($season_id));
     }
 
     /**
@@ -45,14 +36,11 @@ class SeasonEventController extends Controller
      */
     public function store(SeasonEventRequest $request, $season_id)
     {
-        if ($this->verifySeason($season_id)) {
-            $event = Event::create($request->all());
-            $this->season->events()->save($event);
-            \Notification::add('success', 'Event "'.$event->name.'" added to "'.$this->season->name.'"');
-            return \Redirect::route('season.event.show', ['season' => $season_id, 'event' => $event->id]);
-        } else {
-            return $this->seasonError();
-        }
+        $season = Season::findOrFail($season_id);
+        $event = Event::create($request->all());
+        $season->events()->save($event);
+        \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
+        return \Redirect::route('season.event.show', ['season' => $season_id, 'event' => $event->id]);
     }
 
     /**
@@ -64,13 +52,9 @@ class SeasonEventController extends Controller
      */
     public function show($season_id, $event_id)
     {
-        if ($this->verifyEvent($event_id, $season_id)) {
-            return view('event.show')
-                ->with('event', $this->event)
-                ->with('results', \Results::getEventResults($event_id));
-        } else {
-            return $this->eventError();
-        }
+        return view('event.show')
+            ->with('event', $this->getEvent($event_id, $season_id))
+            ->with('results', \Results::getEventResults($event_id));
     }
 
     /**
@@ -82,12 +66,8 @@ class SeasonEventController extends Controller
      */
     public function edit($season_id, $event_id)
     {
-        if ($this->verifyEvent($event_id, $season_id)) {
-            return view('event.edit')
-                ->with('event', $this->event);
-        } else {
-            return $this->eventError();
-        }
+        return view('event.edit')
+            ->with('event', $this->getEvent($event_id, $season_id));
     }
 
     /**
@@ -100,85 +80,50 @@ class SeasonEventController extends Controller
      */
     public function update(SeasonEventRequest $request, $season_id, $event_id)
     {
-        if ($this->verifyEvent($event_id, $season_id)) {
-            $this->event->fill($request->all());
-            $this->event->save();
-
-            \Notification::add('success', $this->event->name . ' updated');
-            return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
-        } else {
-            return $this->eventError();
-        }
+        $event = $this->getEvent($event_id, $season_id);
+        $event->fill($request->all());
+        $event->save();
+        \Notification::add('success', $event->name . ' updated');
+        return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $event_id
      * @param $season_id
+     * @param $event_id
      * @return \Illuminate\Http\Response
      * @throws \Exception
      * @internal param int $id
      */
-    public function destroy($event_id, $season_id)
+    public function destroy($season_id, $event_id)
     {
-        if ($this->verifyEvent($event_id, $season_id)) {
-            if ($this->event->stages->count()) {
-                \Notification::add('error',
-                    $this->event->name . ' cannot be deleted - there are stages assigned to  it');
-                return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
-            } else {
-                $this->event->delete();
-                \Notification::add('success', $this->event->name . ' deleted');
-                return \Redirect::route('season.show', ['season_id' => $this->stage->event->season->id]);
-            }
+        $event = $this->getEvent($event_id, $season_id);
+        if ($event->stages->count()) {
+            \Notification::add('error',
+                $event->name . ' cannot be deleted - there are stages assigned to  it');
+            return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
+        } else {
+            $event->delete();
+            \Notification::add('success', $event->name . ' deleted');
+            return \Redirect::route('season.show', ['season_id' => $event->season->id]);
         }
-    }
-
-    /**
-     * Verify the season_id given is valid
-     * @param int $season_id
-     * @return bool
-     */
-    protected function verifySeason($season_id)
-    {
-        $this->season = Season::find($season_id);
-        return $this->season->exists;
-    }
-
-    /**
-     * Return the generic season error
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function seasonError()
-    {
-        \Notification::add('error', 'Could not find requested season');
-        return \Redirect::route('season.index');
     }
 
     /**
      * Verify the season_id and event_id are valid, and match
      * @param int $event_id
      * @param int $season_id
-     * @return bool
+     * @return Event
+     * @throws NotFoundHttpException
      */
-    protected function verifyEvent($event_id, $season_id)
+    protected function getEvent($event_id, $season_id)
     {
-        $this->event = Event::find($event_id);
-        if ($this->event->exists) {
-            return $this->event->season->id == $season_id;
-        } else {
-            return false;
+        $event = Event::findOrFail($event_id);
+        // Ensure the season matches too
+        if ($event->season->id != $season_id) {
+            throw new NotFoundHttpException();
         }
-    }
-
-    /**
-     * Return the generic event error
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function eventError()
-    {
-        \Notification::add('error', 'Could not find requested event');
-        return \Redirect::route('season.index');
+        return $event;
     }
 }

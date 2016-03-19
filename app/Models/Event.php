@@ -6,10 +6,11 @@ class Event extends \Eloquent
 {
     protected $fillable = ['name', 'opens', 'closes', 'dirt_id'];
 
-    protected $dates = ['opens', 'closes'];
+    protected $dates = ['opens', 'closes', 'last_import'];
 
     protected $casts = [
         'dirt_id' => 'integer',
+        'importing' => 'boolean',
     ];
 
     public function season()
