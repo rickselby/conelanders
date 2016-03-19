@@ -40,8 +40,8 @@ class ImportCSV extends ImportAbstract
 
         // Now we can step through each stage
         foreach($stageTimes AS $stageNum => $times) {
-            $stage = $this->getStage($event, $stageNum);
             if (count($times)) {
+                $stage = $this->getStage($event, $stageNum);
                 $this->clearStageResults($stage);
                 foreach ($times AS $driver => $time) {
                     if ($time == 'DNF') {
@@ -52,6 +52,7 @@ class ImportCSV extends ImportAbstract
                             \StageTime::fromString($time));
                     }
                 }
+                \Positions::updateStagePositions($stage);
             }
         }
 

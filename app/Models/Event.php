@@ -22,4 +22,9 @@ class Event extends \Eloquent
     {
         return $this->hasMany(Stage::class);
     }
+
+    public function positions()
+    {
+        return $this->hasMany(EventPosition::class);
+    }
 }

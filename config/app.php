@@ -222,6 +222,7 @@ return [
         'ImportDirt' => App\Services\Facades\ImportDirtFacade::class,
         'ImportCSV' => App\Services\Facades\ImportCSVFacade::class,
         'Results' => \App\Services\Facades\ResultsFacade::class,
+        'Positions' => \App\Services\Facades\PositionsFacade::class,
     ],
 
 ];

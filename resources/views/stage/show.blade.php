@@ -32,9 +32,9 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($results AS $key => $result)
+        @foreach($results AS $result)
             <tr>
-                <th>{{ $key+1 }}</th>
+                <th>{{ $result->position }}</th>
                 <th>{{ $result->driver->name }}</th>
                 <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
             </tr>

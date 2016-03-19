@@ -152,6 +152,7 @@ abstract class ImportAbstract
             $event->last_import = $this->importStartTime;
         }
         $event->save();
+        \Positions::updateEventPositions($event);
     }
 
 }

@@ -25,4 +25,11 @@ Route::group(['middleware' => ['web']], function () {
         'event' => 'event_id',
         'stage' => 'stage_id',
     ], ['except' => ['index']]]);
+
+    Route::get('/positions', function() {
+        foreach(\App\Models\Event::all() AS $event) {
+            \Positions::updateEventPositions($event);
+        }
+        return view('welcome');
+    });
 });

@@ -101,6 +101,7 @@ class ImportDirt extends ImportAbstract
                     $page = $this->getPage($this->getEventPath($event, $stageNum, $pageNum));
                     $this->processPage($stage, $page);
                 }
+                \Positions::updateStagePositions($stage);
             }
         }
     }
