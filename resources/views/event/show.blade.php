@@ -3,6 +3,7 @@
 @section('header')
     <div class="page-header">
         <h1>
+            Results:
             <a href="{{ route('season.show', ['id' => $event->season->id]) }}">{{ $event->season->name }}</a>:
             {{ $event->name }}
         </h1>

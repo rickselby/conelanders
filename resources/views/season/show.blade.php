@@ -2,7 +2,7 @@
 
 @section('header')
     <div class="page-header">
-        <h1>{{ $season->name }} Season</h1>
+        <h1>Results: {{ $season->name }}</h1>
     </div>
 @endsection
 
