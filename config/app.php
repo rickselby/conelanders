@@ -223,6 +223,7 @@ return [
         'ImportCSV' => App\Services\Facades\ImportCSVFacade::class,
         'Results' => \App\Services\Facades\ResultsFacade::class,
         'Positions' => \App\Services\Facades\PositionsFacade::class,
+        'Points' => \App\Services\Facades\PointsFacade::class,
     ],
 
 ];

@@ -25,4 +25,13 @@ Route::group(['middleware' => ['web']], function () {
         'event' => 'event_id',
         'stage' => 'stage_id',
     ], ['except' => ['index']]]);
+
+    Route::post('points-system/{id}/points', 'PointsSystemController@points')->name('points-system.points');
+    Route::resource('points-system', 'PointsSystemController');
+
+    Route::get('/standings/{system}', 'StandingsController@show')->name('standings.show');
+    Route::get('/standings/{system}/season/{season}', 'StandingsController@season')->name('standings.season');
+    Route::get('/standings/{system}/season/{season}/event/{event}', 'StandingsController@event')->name('standings.event');
+    Route::get('/standings/{system}/season/{season}/event/{event}/stage/{stage}', 'StandingsController@stage')->name('standings.stage');
+
 });

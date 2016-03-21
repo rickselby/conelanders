@@ -2,22 +2,17 @@
 
 @section('header')
     <div class="page-header">
-        <h1>Results</h1>
+        <h1>{{ $system->name }} Standings</h1>
     </div>
 @endsection
 
 @section('content')
 
-    @if (Auth::user() && Auth::user()->admin)
-        <p>
-            <a class="btn btn-small btn-info" href="{{ route('season.create') }}">Add a new season</a>
-        </p>
-    @endif
-
+    <h2>Seasons</h2>
     <ul>
         @foreach($seasons as $season)
             <li>
-                <a href="{{ route('season.show', ['id' => $season->id]) }}">
+                <a href="{{ route('standings.season', [$system->id, $season->id]) }}">
                     {{ $season->name }}
                 </a>
             </li>
