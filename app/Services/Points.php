@@ -98,12 +98,12 @@ class Points
     {
         $points = [];
         foreach($season->events AS $event) {
-#            if ($event->updated_at < $event->last_import) {
+            if ($event->closes < $event->last_import) {
                 foreach ($this->forEvent($system, $event) AS $position => $result) {
                     $points[$result['driver']->id]['events'][$event->id] = $result['total']['points'];
                     $points[$result['driver']->id]['driver'] = $result['driver'];
                 }
-#            }
+            }
         }
 
         foreach($points AS $driverID => $point) {
