@@ -7,6 +7,7 @@ use App\Models\Point;
 use App\Models\PointsSequence;
 use App\Models\PointsSystem;
 use App\Models\Season;
+use Illuminate\Database\Eloquent\Collection;
 
 class Points
 {
@@ -110,6 +111,32 @@ class Points
 
         foreach($points AS $driverID => $point) {
             $points[$driverID]['total'] = array_sum($point['events']);
+        }
+
+        usort($points, function($a, $b) {
+            if ($a['total'] != $b['total']) {
+                return $b['total'] - $a['total'];
+            } else {
+                // something more clever here? maybe?
+                return 0;
+            }
+        });
+
+        return $points;
+    }
+
+    public function overall(PointsSystem $system, Collection $seasons)
+    {
+        $points = [];
+        foreach($seasons AS $season) {
+            foreach($this->forSeason($system, $season) AS $position => $result) {
+                $points[$result['driver']->id]['driver'] = $result['driver'];
+                $points[$result['driver']->id]['seasons'][$season->id] = $result['total'];
+            }
+        }
+
+        foreach($points AS $driverID => $point) {
+            $points[$driverID]['total'] = array_sum($point['seasons']);
         }
 
         usort($points, function($a, $b) {
