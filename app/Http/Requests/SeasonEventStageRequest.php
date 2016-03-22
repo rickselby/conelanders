@@ -13,7 +13,7 @@ class SeasonEventStageRequest extends Request
     {
         return [
             'name' => 'required|string',
-            'order' => 'requierd|integer',
+            'order' => 'required|integer',
             ''
         ];
     }
