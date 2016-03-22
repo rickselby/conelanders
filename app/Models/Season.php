@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+
 class Season extends \Eloquent
 {
     protected $fillable = ['name'];
@@ -17,6 +19,10 @@ class Season extends \Eloquent
         foreach($this->events AS $event) {
             $dates[] = $event->closes;
         }
-        return max($dates);
+        if (count($dates)) {
+            return max($dates);
+        } else {
+            return Carbon::now();
+        }
     }
 }

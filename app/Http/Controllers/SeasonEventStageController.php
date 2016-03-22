@@ -17,60 +17,60 @@ class SeasonEventStageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param int $season_id
-     * @param int $event_id
+     * @param int $seasonID
+     * @param int $eventID
      * @return \Illuminate\Http\Response
      */
-    public function create($season_id, $event_id)
+    public function create($seasonID, $eventID)
     {
         return view('stage.create')
-            ->with('event', $this->getEvent($event_id, $season_id));
+            ->with('event', $this->getEvent($eventID, $seasonID));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param SeasonEventStageRequest $request
-     * @param int $season_id
-     * @param int $event_id
+     * @param int $seasonID
+     * @param int $eventID
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventStageRequest $request, $season_id, $event_id)
+    public function store(SeasonEventStageRequest $request, $seasonID, $eventID)
     {
-        $event = $this->getEvent($event_id, $season_id);
+        $event = $this->getEvent($eventID, $seasonID);
         $stage = Stage::create($request->all());
         $event->stages()->save($stage);
         \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$event->name.'" ('.$event->season->name.')');
-        return \Redirect::route('season.event.show', ['season_id' => $event->season->id, 'event_id' => $event->id]);
+        return \Redirect::route('season.event.show', [$event->season->id, $event->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $season_id
-     * @param int $event_id
-     * @param int $stage_id
+     * @param int $seasonID
+     * @param int $eventID
+     * @param int $stageID
      * @return \Illuminate\Http\Response
      */
-    public function show($season_id, $event_id, $stage_id)
+    public function show($seasonID, $eventID, $stageID)
     {
         return view('stage.show')
-            ->with('stage', $this->getStage($stage_id, $event_id, $season_id))
-            ->with('results', \Results::getStageResults($stage_id));
+            ->with('stage', $this->getStage($stageID, $eventID, $seasonID))
+            ->with('results', \Results::getStageResults($stageID));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $season_id
-     * @param int $event_id
-     * @param int $stage_id
+     * @param int $seasonID
+     * @param int $eventID
+     * @param int $stageID
      * @return \Illuminate\Http\Response
      */
-    public function edit($season_id, $event_id, $stage_id)
+    public function edit($seasonID, $eventID, $stageID)
     {
         return view('stage.edit')
-            ->with('stage', $this->getStage($stage_id, $event_id, $season_id));
+            ->with('stage', $this->getStage($stageID, $eventID, $seasonID));
     }
 
 
@@ -78,65 +78,54 @@ class SeasonEventStageController extends Controller
      * Update the specified resource in storage.
      *
      * @param SeasonEventStageRequest $request
-     * @param int $season_id
-     * @param int $event_id
-     * @param int $stage_id
+     * @param int $seasonID
+     * @param int $eventID
+     * @param int $stageID
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonEventStageRequest $request, $season_id, $event_id, $stage_id)
+    public function update(SeasonEventStageRequest $request, $seasonID, $eventID, $stageID)
     {
-        $stage = $this->getStage($stage_id, $event_id, $season_id);
+        $stage = $this->getStage($stageID, $eventID, $seasonID);
         $stage->fill($request->all());
         $stage->save();
 
         \Notification::add('success', $stage->name . ' updated');
-        return \Redirect::route('season.event.stage.show', [
-            'season_id' => $stage->event->season->id,
-            'event_id' => $stage->event->id,
-            'stage_id' => $stage->id,
-        ]);
+        return \Redirect::route('season.event.stage.show', [$stage->event->season->id, $stage->event->id, $stage->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $stage_id
-     * @param int $event_id
-     * @param int $season_id
+     * @param int $stageID
+     * @param int $eventID
+     * @param int $seasonID
      * @return \Illuminate\Http\Response
      */
-    public function destroy($season_id, $event_id, $stage_id)
+    public function destroy($seasonID, $eventID, $stageID)
     {
-        $stage = $this->getStage($stage_id, $event_id, $season_id);
+        $stage = $this->getStage($stageID, $eventID, $seasonID);
         if ($stage->results->count()) {
             \Notification::add('error', $stage->name . ' cannot be deleted - there are results for this stage');
-            return \Redirect::route('season.event.stage.show', [
-                'season_id' => $stage->event->season->id,
-                'event_id' => $stage->event->id,
-                'stage_id' => $stage->id,
-            ]);
+            return \Redirect::route('season.event.stage.show', [$stage->event->season->id, $stage->event->id, $stage->id]);
         } else {
             $stage->delete();
             \Notification::add('success', $stage->name . ' deleted');
-            return \Redirect::route('season.event.show', [
-                'season_id' => $stage->event->season->id,
-                'event_id' => $stage->event->id,
-            ]);
+            return \Redirect::route('season.event.show', [$stage->event->season->id, $stage->event->id]);
         }
     }
 
     /**
      * Verify the season_id and event_id are valid, and match
-     * @param int $event_id
-     * @param int $season_id
+     * @param int $eventID
+     * @param int $seasonID
      * @return Event
      * @throws NotFoundHttpException
      */
-    protected function getEvent($event_id, $season_id)
+    protected function getEvent($eventID, $seasonID)
     {
-        $event = Event::findOrFail($event_id);
+        $event = Event::findOrFail($eventID);
         // Ensure the season matches too
-        if ($event->season->id != $season_id) {
+        if ($event->season->id != $seasonID) {
             throw new NotFoundHttpException();
         }
         return $event;
@@ -144,17 +133,17 @@ class SeasonEventStageController extends Controller
 
     /**
      * Verify the season_id and event_id are valid, and match
-     * @param int $stage_id
-     * @param int $event_id
-     * @param int $season_id
+     * @param int $stageID
+     * @param int $eventID
+     * @param int $seasonID
      * @return Event
      * @throws NotFoundHttpException
      */
-    protected function getStage($stage_id, $event_id, $season_id)
+    protected function getStage($stageID, $eventID, $seasonID)
     {
-        $stage = Stage::findOrFail($stage_id);
+        $stage = Stage::findOrFail($stageID);
         // Ensure the season matches too
-        if ($stage->event->id != $event_id || $stage->event->season->id != $season_id) {
+        if ($stage->event->id != $eventID || $stage->event->season->id != $seasonID) {
             throw new NotFoundHttpException();
         }
         return $stage;

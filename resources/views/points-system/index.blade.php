@@ -15,7 +15,7 @@
     <ul>
         @foreach($systems as $system)
             <li>
-                <a href="{{ route('points-system.show', ['id' => $system->id]) }}">
+                <a href="{{ route('points-system.show', [$system->id]) }}">
                     {{ $system->name }}
                 </a>
             </li>
