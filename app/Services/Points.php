@@ -63,7 +63,9 @@ class Points
                 ],
                 'stagePoints' => [],
                 'eventPosition' => $position,
-                'eventPoints' => isset($system['event'][$position] && !$result['dnf']) ? $system['event'][$position] : 0,
+                'eventPoints' => (isset($system['event'][$position]) && !$result['dnf']) 
+                    ? $system['event'][$position] 
+                    : 0,
             ];
         }
 
