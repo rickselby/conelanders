@@ -22,7 +22,7 @@ class SeasonController extends Controller
     public function index()
     {
         return view('season.index')
-            ->with('seasons', Season::with('events')->get());
+            ->with('seasons', Season::with('events')->get()->sortBy('endDate'));
     }
 
     /**

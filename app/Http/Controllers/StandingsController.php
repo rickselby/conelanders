@@ -16,7 +16,7 @@ class StandingsController extends Controller
     {
         return view('standings.show')
             ->with('system', PointsSystem::findOrFail($system))
-            ->with('seasons', Season::all());
+            ->with('seasons', Season::with('events')->get()->sortBy('endDate'));
     }
 
     public function season($system, $season)

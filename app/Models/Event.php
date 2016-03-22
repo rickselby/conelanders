@@ -20,11 +20,11 @@ class Event extends \Eloquent
 
     public function stages()
     {
-        return $this->hasMany(Stage::class);
+        return $this->hasMany(Stage::class)->orderBy('order');
     }
 
     public function positions()
     {
-        return $this->hasMany(EventPosition::class);
+        return $this->hasMany(EventPosition::class)->orderBy('position');
     }
 }

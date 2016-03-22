@@ -14,6 +14,7 @@ class Result extends \Eloquent
 
     protected $casts = [
         'time' => 'integer',
+        'position' => 'integer',
         'dnf' => 'boolean',
     ];
 

@@ -6,6 +6,6 @@ class PointsSequence extends \Eloquent
 {
     public function points()
     {
-        return $this->hasMany(Point::class);
+        return $this->hasMany(Point::class)->orderBy('position');
     }
 }
