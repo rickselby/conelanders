@@ -72,7 +72,7 @@ class Points
         foreach($event->stages AS $stage) {
             foreach($stage->results AS $result) {
                 $points[$result->driver->id]['stagePoints'][$stage->order] =
-                    isset($system['stage'][$result->position])
+                    isset($system['stage'][$result->position]) && !$result->dnf
                         ? $system['stage'][$result->position]
                         : 0;
             }
