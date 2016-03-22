@@ -32,8 +32,8 @@
                 <li>
                     <a href="{{ route('points-system.index') }}">Points Systems</a>
                 </li>
-            </ul>
             @endif
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                 @if (Auth::check())
