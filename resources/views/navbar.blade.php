@@ -27,6 +27,9 @@
                         @endforeach
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('times.index') }}">Total Time</a>
+                </li>
 
             @if (Auth::user() && Auth::user()->admin)
                 <li>
