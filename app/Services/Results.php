@@ -7,9 +7,8 @@ use App\Models\Result;
 
 class Results
 {
-    public function getEventResults($eventID)
+    public function getEventResults(Event $event)
     {
-        $event = Event::with(['stages.results.driver', 'positions.driver'])->find($eventID);
         $results = [];
         foreach($event->stages AS $stage) {
             foreach($stage->results AS $result) {

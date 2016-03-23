@@ -56,64 +56,60 @@ class PointsSystemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  PointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(PointsSystem $points_system)
     {
-        $system = PointsSystem::findOrFail($id);
         return view('points-system.show')
-            ->with('system', $system)
-            ->with('points', \Points::forSystem($system));
+            ->with('system', $points_system)
+            ->with('points', \Points::forSystem($points_system));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  PointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(PointsSystem $points_system)
     {
         return view('points-system.edit')
-            ->with('system', PointsSystem::findOrFail($id));
+            ->with('system', $points_system);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  PointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PointsSystem $points_system)
     {
-        $system = PointsSystem::findOrFail($id);
-        $system->fill($request->all());
-        $system->save();
+        $points_system->fill($request->all());
+        $points_system->save();
 
-        \Notification::add('success', 'Points System "'.$system->name.'" updated');
-        return \Redirect::route('points-system.show', [$system->id]);
+        \Notification::add('success', 'Points System "'.$points_system->name.'" updated');
+        return \Redirect::route('points-system.show', [$points_system->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  PointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PointsSystem $points_system)
     {
-        $system = PointsSystem::findOrFail($id);
-        $system->delete();
+        $points_system->delete();
         \Notification::add('success', 'Points System deleted');
         return \Redirect::route('points-system.index');
     }
 
-    public function points(Request $request, $id)
+    public function points(Request $request, PointsSystem $system)
     {
-        /** @var PointsSystem $system */
-        $system = PointsSystem::with(['eventSequence', 'stageSequence'])->findOrFail($id);
+        $system->load(['eventSequence', 'stageSequence']);
         \Points::setForSequence($system->eventSequence, $request['event']);
         \Points::setForSequence($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');

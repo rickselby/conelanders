@@ -11,54 +11,47 @@ use App\Http\Requests;
 
 class StandingsController extends Controller
 {
-
-    public function show($system)
+    public function __construct()
     {
-        $pointsSystem = PointsSystem::findOrFail($system);
-        $seasons = Season::with('events.stages.results.driver')->get()->sortBy('endDate');
+        $this->middleware('validateEvent')->only(['event']);
+        $this->middleware('validateStage')->only(['stage']);
+    }
+
+    public function show(PointsSystem $system)
+    {
+        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
         return view('standings.show')
-            ->with('system', $pointsSystem)
+            ->with('system', $system)
             ->with('seasons', $seasons)
-            ->with('points', \Points::overall($pointsSystem, $seasons));
+            ->with('points', \Points::overall($system, $seasons));
     }
 
-    public function season($system, $season)
+    public function season(PointsSystem $system, Season $season)
     {
-        $pointsSystem = PointsSystem::findOrFail($system);
-        $season = Season::with('events.stages.results.driver')->findOrFail($season);
+        $season->load(['events.stages.results.driver', 'events.positions.driver']);
         return view('standings.season')
-            ->with('system', $pointsSystem)
+            ->with('system', $system)
             ->with('season', $season)
-            ->with('points', \Points::forSeason($pointsSystem, $season));
+            ->with('points', \Points::forSeason($system, $season));
     }
 
-    public function event($systemID, $seasonID, $eventID)
+    public function event(PointsSystem $system, $season, Event $event)
     {
-        $event = Event::with(['season', 'stages.results.driver'])->findOrFail($eventID);
-        if ($event->season->id != $seasonID) {
-            throw new NotFoundHttpException();
-        }
-
-        $pointsSystem = PointsSystem::findOrFail($systemID);
+        $event->load(['season', 'stages.results.driver', 'positions.driver']);
         return view('standings.event')
-            ->with('system', $pointsSystem)
+            ->with('system', $system)
             ->with('event', $event)
-            ->with('points', \Points::forEvent($pointsSystem, $event));
+            ->with('points', \Points::forEvent($system, $event));
     }
 
-    public function stage($systemID, $seasonID, $eventID, $stageID)
+    public function stage(PointsSystem $system, $season, $event, Stage $stage)
     {
-        $stage = Stage::with(['event.season'])->findOrFail($stageID);
-        if ($stage->event->id != $eventID || $stage->event->season->id != $seasonID) {
-            throw new NotFoundHttpException();
-        }
-
-        $pointsSystem = PointsSystem::findOrFail($systemID);
+        $stage->load(['event.season']);
         return view('standings.stage')
-            ->with('system', $pointsSystem)
+            ->with('system', $system)
             ->with('stage', $stage)
-            ->with('results', \Results::getStageResults($stageID))
-            ->with('points', \Points::forSystem($pointsSystem));
+            ->with('results', \Results::getStageResults($stage->id))
+            ->with('points', \Points::forSystem($system));
     }
 
 }

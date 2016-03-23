@@ -53,7 +53,7 @@ class Points
         /**
          * Get the results for this event, and mangle them into points
          */
-        foreach(\Results::getEventResults($event->id) AS $position => $result) {
+        foreach(\Results::getEventResults($event) AS $position => $result) {
             $points[$result['driver']->id] = [
                 'driver' => $result['driver'],
                 'stageTimes' => $result['stage'],

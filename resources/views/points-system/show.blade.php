@@ -14,7 +14,7 @@
     {!! Form::submit('Delete System', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
 
-    {!! Form::open(['route' => ['points-system.points', [$system->id]], 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['points-system.points', $system->id], 'class' => 'form-horizontal']) !!}
 
     <table class="table">
         <thead>

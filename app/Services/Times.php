@@ -21,7 +21,7 @@ class Times
         /**
          * Get the results for this event, and mangle them a bit
          */
-        foreach(\Results::getEventResults($event->id) AS $result) {
+        foreach(\Results::getEventResults($event) AS $result) {
             $times[$result['driver']->id] = [
                 'driver' => $result['driver'],
                 'stageTimes' => $result['stage'],

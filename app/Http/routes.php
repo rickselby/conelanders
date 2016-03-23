@@ -17,7 +17,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('season.event.stage', 'SeasonEventStageController', [['except' => ['index']]]);
 
-    Route::post('points-system/{id}/points', 'PointsSystemController@points')->name('points-system.points');
+    Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
     Route::resource('points-system', 'PointsSystemController');
 
     Route::get('/standings/{system}', 'StandingsController@show')->name('standings.show');
