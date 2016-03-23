@@ -52,56 +52,54 @@ class SeasonController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $seasonID
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function show($seasonID)
+    public function show(Season $season)
     {
         return view('season.show')
-            ->with('season', Season::with('events')->findOrFail($seasonID));
+            ->with('season', $season);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $seasonID
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function edit($seasonID)
+    public function edit(Season $season)
     {
         return view('season.edit')
-            ->with('season', Season::findOrFail($seasonID));
+            ->with('season', $season);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  SeasonRequest $request
-     * @param  int  $seasonID
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonRequest $request, $seasonID)
+    public function update(SeasonRequest $request, Season $season)
     {
-        $season = Season::findOrFail($seasonID);
         $season->fill($request->all());
         $season->save();
 
         \Notification::add('success', 'Season "'.$season->name.'" updated');
-        return \Redirect::route('season.show', [$seasonID]);
+        return \Redirect::route('season.show', [$season->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $seasonID
+     * @param  Season $season
      * @return \Illuminate\Http\Response
      */
-    public function destroy($seasonID)
+    public function destroy(Season $season)
     {
-        $season = Season::with('events')->findOrFail($seasonID);
         if ($season->events->count()) {
             \Notification::add('error', 'Season "'.$season->name.'" cannot be deleted - there are events assigned to it');
-            return \Redirect::route('season.show', [$seasonID]);
+            return \Redirect::route('season.show', [$season->id]);
         } else {
             $season->delete();
             \Notification::add('success', 'Season "'.$season->name.'" deleted');

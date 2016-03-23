@@ -49,5 +49,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'validateEvent' => \App\Http\Middleware\ValidateEvent::class,
+        'validateStage' => \App\Http\Middleware\ValidateStage::class,
     ];
 }
