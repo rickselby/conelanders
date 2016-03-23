@@ -224,6 +224,7 @@ return [
         'Results' => \App\Services\Facades\ResultsFacade::class,
         'Positions' => \App\Services\Facades\PositionsFacade::class,
         'Points' => \App\Services\Facades\PointsFacade::class,
+        'Times' => \App\Services\Facades\TimesFacade::class,
     ],
 
 ];

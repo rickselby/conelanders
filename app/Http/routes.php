@@ -25,4 +25,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/standings/{system}/season/{season}/event/{event}', 'StandingsController@event')->name('standings.event');
     Route::get('/standings/{system}/season/{season}/event/{event}/stage/{stage}', 'StandingsController@stage')->name('standings.stage');
 
+    Route::get('/times', 'TimesController@index')->name('times.index');
+    Route::get('/times/season/{season}', 'TimesController@season')->name('times.season');
+    Route::get('/times/season/{season}/event/{event}', 'TimesController@event')->name('times.event');
+    Route::get('/times/season/{season}/event/{event}/stage/{stage}', 'TimesController@stage')->name('times.stage');
+
 });
