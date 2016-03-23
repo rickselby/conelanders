@@ -11,20 +11,11 @@ Route::group(['middleware' => ['web']], function () {
         return Redirect::route('season.index');
     });
 
-    Route::resource('season', 'SeasonController', ['parameters' => [
-        'season' => 'season_id',
-    ]]);
+    Route::resource('season', 'SeasonController');
 
-    Route::resource('season.event', 'SeasonEventController', ['parameters' => [
-        'season' => 'season_id',
-        'event' => 'event_id',
-    ], ['except' => ['index']]]);
+    Route::resource('season.event', 'SeasonEventController', [['except' => ['index']]]);
 
-    Route::resource('season.event.stage', 'SeasonEventStageController', ['parameters' => [
-        'season' => 'season_id',
-        'event' => 'event_id',
-        'stage' => 'stage_id',
-    ], ['except' => ['index']]]);
+    Route::resource('season.event.stage', 'SeasonEventStageController', [['except' => ['index']]]);
 
     Route::post('points-system/{id}/points', 'PointsSystemController@points')->name('points-system.points');
     Route::resource('points-system', 'PointsSystemController');

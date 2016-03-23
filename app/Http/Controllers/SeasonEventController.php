@@ -18,110 +18,110 @@ class SeasonEventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  integer $season_id
+     * @param  integer $seasonID
      * @return \Illuminate\Http\Response
      */
-    public function create($season_id)
+    public function create($seasonID)
     {
         return view('event.create')
-            ->with('season', Season::findOrFail($season_id));
+            ->with('season', Season::findOrFail($seasonID));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  SeasonEventRequest $request
-     * @param  integer $season_id
+     * @param  integer $seasonID
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventRequest $request, $season_id)
+    public function store(SeasonEventRequest $request, $seasonID)
     {
-        $season = Season::findOrFail($season_id);
+        $season = Season::findOrFail($seasonID);
         $event = Event::create($request->all());
         $season->events()->save($event);
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
-        return \Redirect::route('season.event.show', ['season' => $season_id, 'event' => $event->id]);
+        return \Redirect::route('season.event.show', [$seasonID, $event->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $season_id
-     * @param  int $event_id
+     * @param  int $seasonID
+     * @param  int $eventID
      * @return \Illuminate\Http\Response
      */
-    public function show($season_id, $event_id)
+    public function show($seasonID, $eventID)
     {
         return view('event.show')
-            ->with('event', $this->getEvent($event_id, $season_id))
-            ->with('results', \Results::getEventResults($event_id));
+            ->with('event', $this->getEvent($eventID, $seasonID))
+            ->with('results', \Results::getEventResults($eventID));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $season_id
-     * @param  int $event_id
+     * @param  int $seasonID
+     * @param  int $eventID
      * @return \Illuminate\Http\Response
      */
-    public function edit($season_id, $event_id)
+    public function edit($seasonID, $eventID)
     {
         return view('event.edit')
-            ->with('event', $this->getEvent($event_id, $season_id));
+            ->with('event', $this->getEvent($eventID, $seasonID));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param SeasonEventRequest $request
-     * @param int $season_id
-     * @param int $event_id
+     * @param int $seasonID
+     * @param int $eventID
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonEventRequest $request, $season_id, $event_id)
+    public function update(SeasonEventRequest $request, $seasonID, $eventID)
     {
-        $event = $this->getEvent($event_id, $season_id);
+        $event = $this->getEvent($eventID, $seasonID);
         $event->fill($request->all());
         $event->save();
         \Notification::add('success', $event->name . ' updated');
-        return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
+        return \Redirect::route('season.event.show', [$seasonID, $eventID]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $season_id
-     * @param $event_id
+     * @param $seasonID
+     * @param $eventID
      * @return \Illuminate\Http\Response
      * @throws \Exception
      * @internal param int $id
      */
-    public function destroy($season_id, $event_id)
+    public function destroy($seasonID, $eventID)
     {
-        $event = $this->getEvent($event_id, $season_id);
+        $event = $this->getEvent($eventID, $seasonID);
         if ($event->stages->count()) {
             \Notification::add('error',
                 $event->name . ' cannot be deleted - there are stages assigned to  it');
-            return \Redirect::route('season.event.show', ['season_id' => $season_id, 'event_id' => $event_id]);
+            return \Redirect::route('season.event.show', [$seasonID, $eventID]);
         } else {
             $event->delete();
             \Notification::add('success', $event->name . ' deleted');
-            return \Redirect::route('season.show', ['season_id' => $event->season->id]);
+            return \Redirect::route('season.show', [$event->season->id]);
         }
     }
 
     /**
      * Verify the season_id and event_id are valid, and match
-     * @param int $event_id
-     * @param int $season_id
+     * @param int $eventID
+     * @param int $seasonID
      * @return Event
      * @throws NotFoundHttpException
      */
-    protected function getEvent($event_id, $season_id)
+    protected function getEvent($eventID, $seasonID)
     {
-        $event = Event::findOrFail($event_id);
+        $event = Event::findOrFail($eventID);
         // Ensure the season matches too
-        if ($event->season->id != $season_id) {
+        if ($event->season->id != $seasonID) {
             throw new NotFoundHttpException();
         }
         return $event;

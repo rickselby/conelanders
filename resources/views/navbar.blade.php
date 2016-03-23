@@ -22,7 +22,7 @@
                     <ul class="dropdown-menu">
                         @foreach($standings AS $system)
                             <li>
-                                <a href="{{ route('standings.show', $system->id) }}">{{ $system->name }}</a>
+                                <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }}</a>
                             </li>
                         @endforeach
                     </ul>

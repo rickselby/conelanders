@@ -17,7 +17,7 @@
     <ul>
         @foreach($seasons as $season)
             <li>
-                <a href="{{ route('season.show', ['id' => $season->id]) }}">
+                <a href="{{ route('season.show', [$season->id]) }}">
                     {{ $season->name }}
                 </a>
             </li>

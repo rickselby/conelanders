@@ -4,7 +4,7 @@
     <div class="page-header">
         <h1>
             Results:
-            <a href="{{ route('season.show', ['id' => $event->season->id]) }}">{{ $event->season->name }}</a>:
+            <a href="{{ route('season.show', [$event->season->id]) }}">{{ $event->season->name }}</a>:
             {{ $event->name }}
         </h1>
     </div>
@@ -30,7 +30,7 @@
         @if (Auth::user() && Auth::user()->admin)
             {!! Form::open(['route' => ['season.event.destroy', $event->season->id, $event->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
                 <a class="btn btn-small btn-warning"
-                   href="{{ route('season.event.edit', ['seasonID' => $event->season->id, 'eventID' => $event->id]) }}">Edit event</a>
+                   href="{{ route('season.event.edit', [$event->season->id, $event->id]) }}">Edit event</a>
                 {!! Form::submit('Delete Event', array('class' => 'btn btn-danger')) !!}
             {!! Form::close() !!}
         @endif
@@ -39,7 +39,7 @@
         @if (Auth::user() && Auth::user()->admin)
             <p>
                 <a class="btn btn-small btn-info"
-                   href="{{ route('season.event.stage.create', ['season_id' => $event->season->id, 'event_id' => $event->id]) }}">Add a stage</a>
+                   href="{{ route('season.event.stage.create', [$event->season->id, $event->id]) }}">Add a stage</a>
             </p>
         @endif
         <table class="table table-bordered table-hover">
@@ -49,7 +49,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                 <th>
-                    <a href="{{ route('season.event.stage.show', ['season_id' => $event->season->id, 'event_id' => $event->id, 'stage_id' => $stage->id]) }}">
+                    <a href="{{ route('season.event.stage.show', [$event->season->id, $event->id, $stage->id]) }}">
                         {{ $stage->name }}
                     </a>
                 </th>
