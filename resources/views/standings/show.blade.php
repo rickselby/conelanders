@@ -29,7 +29,7 @@
                 <th>{{ $detail['position'] }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($seasons AS $season)
-                    <td>{{ $detail['seasons'][$season->id] or '' }}</td>
+                    <td>{{ $detail['points'][$season->id] or '' }}</td>
                 @endforeach
                 <td>{{ $detail['total'] }}</td>
             </tr>

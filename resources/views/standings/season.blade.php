@@ -32,7 +32,7 @@
                 <th>{{ $position + 1 }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($season->events AS $event)
-                    <td>{{ $detail['events'][$event->id] or '' }}</td>
+                    <td>{{ $detail['points'][$event->id] or '' }}</td>
                 @endforeach
                 <td>{{ $detail['total'] }}</td>
             </tr>
