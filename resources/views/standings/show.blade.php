@@ -26,7 +26,7 @@
         <tbody>
         @foreach($points AS $position => $detail)
             <tr>
-                <th>{{ $position + 1 }}</th>
+                <th>{{ $detail['position'] }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($seasons AS $season)
                     <td>{{ $detail['seasons'][$season->id] or '' }}</td>

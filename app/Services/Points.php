@@ -125,30 +125,95 @@ class Points
         return $points;
     }
 
+    /**
+     * Get overall points for the given system (on the given collection of seasons)
+     * @param PointsSystem $system
+     * @param Collection $seasons
+     * @return array
+     */
     public function overall(PointsSystem $system, Collection $seasons)
     {
         $points = [];
+        // Step through the seasons and pull in results
         foreach($seasons AS $season) {
             foreach($this->forSeason($system, $season) AS $position => $result) {
                 $points[$result['driver']->id]['driver'] = $result['driver'];
                 $points[$result['driver']->id]['seasons'][$season->id] = $result['total'];
+                $points[$result['driver']->id]['positions'][] = $position;
             }
         }
 
+        // Step through each driver, sum their points, and sort their positions
         foreach($points AS $driverID => $point) {
             $points[$driverID]['total'] = array_sum($point['seasons']);
+            sort($points[$driverID]['positions']);
         }
 
-        usort($points, function($a, $b) {
-            if ($a['total'] != $b['total']) {
-                return $b['total'] - $a['total'];
+        // Sort the drivers
+        $this->overallPointsSort($points, $seasons);
+
+        // Step through the drivers and set their positions.
+        // If a driver is equal to the one above, set as equal.
+        foreach($points AS $pos => $point) {
+            if ($pos > 0 && $this->areOverallPointsEqual($point, $points[$pos-1])) {
+                $points[$pos]['position'] = '=';
             } else {
-                // something more clever here? maybe?
-                return 0;
+                $points[$pos]['position'] = $pos + 1;
             }
-        });
+        }
 
         return $points;
+    }
+
+    /**
+     * Sort overall points
+     * @param array $points
+     * @param Collection $seasons
+     */
+    protected function overallPointsSort(&$points, $seasons)
+    {
+        usort($points, function($a, $b) use ($seasons) {
+            // First, total points
+            if ($a['total'] != $b['total']) {
+                return $b['total'] - $a['total'];
+            }
+            // Then, best finishing positions; all the way down...
+            for($i = 0; $i < max(count($a['positions']), count($b['positions'])); $i++) {
+                // Check both have a position set
+                if (isset($a['positions'][$i]) && isset($b['positions'][$i])) {
+                    // If they're different, compare them
+                    // If not, loop again
+                    if ($a['positions'][$i] != $b['positions'][$i]) {
+                        return $a['positions'][$i] - $b['positions'][$i];
+                    }
+                } elseif (isset($a['positions'][$i])) {
+                    // $a has less results; $b takes priority
+                    return -1;
+                } elseif (isset($b['positions'][$i])) {
+                    // $b has less results; $a takes priority
+                    return 1;
+                }
+            }
+
+            // If they have identical finishing positions, sort by events entered; earlier events take priority
+            foreach ($seasons AS $season) {
+                if (isset($a['seasons'][$season->id]) && !isset($b['seasons'][$season->id])) {
+                    return -1;
+                } elseif (!isset($a['seasons'][$season->id]) && isset($b['seasons'][$season->id])) {
+                    return 1;
+                }
+            }
+
+            // There's nothing more we can do!
+            return 0;
+        });
+    }
+
+    protected function areOverallPointsEqual($a, $b)
+    {
+        return $a['total'] == $b['total']
+            && $a['positions'] == $b['positions']
+            && count($a['seasons']) == count($b['seasons']);
     }
 
 }
