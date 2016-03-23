@@ -75,11 +75,13 @@ class Times
                 foreach ($events[$event->id]['times'] AS $result) {
                     $times[$result['driver']->id]['events'][$event->id] = $result['total'];
                     $times[$result['driver']->id]['dnfs'][$event->id] = $result['dnf'];
+                    $times[$result['driver']->id]['dnss'][$event->id] = false;
                     $times[$result['driver']->id]['driver'] = $result['driver'];
                 }
             } else {
                 $times[$result['driver']->id]['events'][$event->id] = null;
                 $times[$result['driver']->id]['dnfs'][$event->id] = false;
+                $times[$result['driver']->id]['dnss'][$event->id] = false;
             }
         }
 
@@ -89,9 +91,11 @@ class Times
                     if ($event->closes < $event->last_import) {
                         $times[$driverID]['events'][$event->id] = $events[$event->id]['dnf'];
                         $times[$driverID]['dnfs'][$event->id] = true;
+                        $times[$driverID]['dnss'][$event->id] = true;
                     } else {
                         $times[$driverID]['events'][$event->id] = null;
                         $times[$driverID]['dnfs'][$event->id] = null;
+                        $times[$driverID]['dnss'][$event->id] = null;
                     }
                 }
             }
@@ -124,8 +128,10 @@ class Times
             foreach($seasons AS $season) {
                 if (!isset($detail['seasons'][$season->id])) {
                     $times[$driverID]['seasons'][$season->id] = $seasonList[$season->id]['dnf'];
+                    $times[$driverID]['dnss'][$season->id] = true;
+                } else {
+                    $times[$driverID]['dnss'][$season->id] = false;
                 }
-                $times[$driverID]['dnfs'][$season->id] = ($times[$driverID]['seasons'][$season->id] == $seasonList[$season->id]['dnf']);
             }
             $times[$driverID]['total'] = array_sum($times[$driverID]['seasons']);
         }

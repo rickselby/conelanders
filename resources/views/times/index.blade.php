@@ -29,7 +29,7 @@
                 <th>{{ $position + 1 }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($seasons AS $season)
-                    <td class="{{ $detail['dnfs'][$season->id] ? 'warning' : '' }}">
+                    <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
                         {{ StageTime::toString($detail['seasons'][$season->id]) }}
                     </td>
                 @endforeach
@@ -38,5 +38,7 @@
         @endforeach
         </tbody>
     </table>
+
+    @include('times.legend')
 
 @endsection

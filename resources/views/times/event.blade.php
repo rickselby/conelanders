@@ -54,6 +54,8 @@
             </tbody>
         </table>
 
+        @include('times.legend')
+
     @endif {{-- importing test --}}
 
 @endsection

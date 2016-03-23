@@ -32,4 +32,6 @@
         </tbody>
     </table>
 
+    @include('times.legend')
+
 @endsection
