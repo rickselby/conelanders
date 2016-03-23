@@ -14,7 +14,7 @@ class TimesController extends Controller
 
     public function index()
     {
-        $seasons = Season::with('events.stages.results.driver')->get()->sortBy('endDate');
+        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
         return view('times.index')
             ->with('seasons', $seasons)
             ->with('times', \Times::overall($seasons));
@@ -22,7 +22,7 @@ class TimesController extends Controller
 
     public function season($season)
     {
-        $season = Season::with('events.stages.results.driver')->findOrFail($season);
+        $season = Season::with(['events.stages.results.driver', 'events.positions.driver'])->findOrFail($season);
         return view('times.season')
             ->with('season', $season)
             ->with('times', \Times::forSeason($season));
@@ -30,7 +30,7 @@ class TimesController extends Controller
 
     public function event($seasonID, $eventID)
     {
-        $event = Event::with(['season', 'stages.results.driver'])->findOrFail($eventID);
+        $event = Event::with(['season', 'stages.results.driver', 'positions.driver'])->findOrFail($eventID);
         if ($event->season->id != $seasonID) {
             throw new NotFoundHttpException();
         }

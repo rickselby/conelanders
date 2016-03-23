@@ -52,9 +52,10 @@ class SeasonEventController extends Controller
      */
     public function show($seasonID, $eventID)
     {
+        $event = $this->getEvent($eventID, $seasonID);
         return view('event.show')
-            ->with('event', $this->getEvent($eventID, $seasonID))
-            ->with('results', \Results::getEventResults($eventID));
+            ->with('event', $event)
+            ->with('results', \Results::getEventResults($event));
     }
 
     /**
@@ -119,7 +120,7 @@ class SeasonEventController extends Controller
      */
     protected function getEvent($eventID, $seasonID)
     {
-        $event = Event::findOrFail($eventID);
+        $event = Event::with(['stages.results.driver', 'positions.driver'])->findOrFail($eventID);
         // Ensure the season matches too
         if ($event->season->id != $seasonID) {
             throw new NotFoundHttpException();

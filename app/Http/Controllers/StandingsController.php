@@ -15,7 +15,7 @@ class StandingsController extends Controller
     public function show($system)
     {
         $pointsSystem = PointsSystem::findOrFail($system);
-        $seasons = Season::with('events.stages.results.driver')->get()->sortBy('endDate');
+        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
         return view('standings.show')
             ->with('system', $pointsSystem)
             ->with('seasons', $seasons)
@@ -25,7 +25,7 @@ class StandingsController extends Controller
     public function season($system, $season)
     {
         $pointsSystem = PointsSystem::findOrFail($system);
-        $season = Season::with('events.stages.results.driver')->findOrFail($season);
+        $season = Season::with(['events.stages.results.driver', 'events.positions.driver'])->findOrFail($season);
         return view('standings.season')
             ->with('system', $pointsSystem)
             ->with('season', $season)
@@ -34,7 +34,7 @@ class StandingsController extends Controller
 
     public function event($systemID, $seasonID, $eventID)
     {
-        $event = Event::with(['season', 'stages.results.driver'])->findOrFail($eventID);
+        $event = Event::with(['season', 'stages.results.driver', 'positions.driver'])->findOrFail($eventID);
         if ($event->season->id != $seasonID) {
             throw new NotFoundHttpException();
         }
