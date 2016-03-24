@@ -8,8 +8,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
     Route::get('/', function () {
-        return Redirect::route('season.index');
-    });
+        return view('welcome');
+    })->name('home');
 
     Route::resource('season', 'SeasonController');
 
