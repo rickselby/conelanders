@@ -29,15 +29,13 @@
                 <th>Pos.</th>
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
-                    <th>
+                    <th colspan="2">
                         <a href="{{ route('standings.stage', [$system->id, $event->season->id, $event->id, $stage->id]) }}">
                             {{ $stage->name }}
                         </a>
                     </th>
-                    <th></th>
                 @endforeach
-                <th>Overall</th>
-                <th></th>
+                <th colspan="2">Overall</th>
                 <th>Total Points</th>
             </tr>
             </thead>
@@ -47,10 +45,10 @@
                 <th>{{ $position + 1 }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($event->stages AS $stage)
-                    <td>{{ StageTime::toString($detail['stageTimes'][$stage->order]) }}</td>
+                    <td class="text-muted">{{ StageTime::toString($detail['stageTimes'][$stage->order]) }}</td>
                     <td>{{ $detail['stagePoints'][$stage->order] or '' }}</td>
                 @endforeach
-                <td>{{ StageTime::toString($detail['total']['time']) }}</td>
+                <td class="text-muted">{{ StageTime::toString($detail['total']['time']) }}</td>
                 <td>{{ $detail['eventPoints'] }}</td>
                 <td>{{ $detail['total']['points'] }}</td>
             </tr>
