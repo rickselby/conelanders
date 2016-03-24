@@ -21,6 +21,7 @@
         {!! Form::label('order', 'Order', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {!! Form::number('order', null, ['class' => 'form-control']) !!}
+            <p class="help-block">1st stage = 1, 2nd stage = 2, etc.</p>
         </div>
     </div>
 
