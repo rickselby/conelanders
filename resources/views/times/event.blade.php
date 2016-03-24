@@ -13,14 +13,9 @@
 @section('content')
 
     @if ($event->importing)
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Import in progress</h3>
-            </div>
-            <div class="panel-body">
-                The results for this event are currently being imported; they will be available once the import is complete.
-            </div>
-        </div>
+        @include('import-in-progress')
+    @elseif(!$event->isComplete())
+        @include('event-not-complete')
     @else
 
         <table class="table table-bordered table-hover">

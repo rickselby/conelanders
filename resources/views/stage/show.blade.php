@@ -23,6 +23,10 @@
         </p>
     @endif
 
+    @if(!$stage->event->isComplete())
+        @include('event-not-complete-results')
+    @endif
+
     <table class="table table-bordered table-hover">
         <thead>
         <tr>

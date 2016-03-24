@@ -27,4 +27,9 @@ class Event extends \Eloquent
     {
         return $this->hasMany(EventPosition::class)->orderBy('position');
     }
+
+    public function isComplete()
+    {
+        return $this->closes < $this->last_import;
+    }
 }

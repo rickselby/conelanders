@@ -25,4 +25,13 @@ class Season extends \Eloquent
             return Carbon::now();
         }
     }
+
+    public function isComplete() {
+        foreach($this->events AS $event) {
+            if (!$event->isComplete()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

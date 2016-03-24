@@ -17,14 +17,7 @@
     @endif
 
     @if ($event->importing)
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Import in progress</h3>
-            </div>
-            <div class="panel-body">
-                The results for this event are currently being imported; they will be available once the import is complete.
-            </div>
-        </div>
+        @include('import-in-progress')
     @else
 
         @if (Auth::user() && Auth::user()->admin)
@@ -36,12 +29,18 @@
         @endif
 
         <h2>Standings</h2>
+
         @if (Auth::user() && Auth::user()->admin)
             <p>
                 <a class="btn btn-small btn-info"
                    href="{{ route('season.event.stage.create', [$event->season->id, $event->id]) }}">Add a stage</a>
             </p>
         @endif
+
+        @if(!$event->isComplete())
+            @include('event-not-complete-results')
+        @endif
+
         <table class="table table-bordered table-hover">
             <thead>
             <tr>

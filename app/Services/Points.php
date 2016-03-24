@@ -47,55 +47,57 @@ class Points
 
     public function forEvent(PointsSystem $system, Event $event)
     {
-        $system = $this->forSystem($system);
         $points = [];
 
-        /**
-         * Get the results for this event, and mangle them into points
-         */
-        foreach(\Results::getEventResults($event) AS $position => $result) {
-            $points[$result['driver']->id] = [
-                'driver' => $result['driver'],
-                'stageTimes' => $result['stage'],
-                'dnf' => $result['dnf'],
-                'total' => [
-                    'time' => $result['total'],
-                    'points' => 0
-                ],
-                'stagePoints' => [],
-                'eventPosition' => $position,
-                'eventPoints' => (isset($system['event'][$position]) && !$result['dnf'] && $result['total'])
-                    ? $system['event'][$position] 
-                    : 0,
-            ];
-        }
-
-        // Get points for each result for each stage
-        foreach($event->stages AS $stage) {
-            foreach($stage->results AS $result) {
-                $points[$result->driver->id]['stagePoints'][$stage->order] =
-                    isset($system['stage'][$result->position]) && !$result->dnf
-                        ? $system['stage'][$result->position]
-                        : 0;
+        if ($event->isComplete()) {
+            $system = $this->forSystem($system);
+            /**
+             * Get the results for this event, and mangle them into points
+             */
+            foreach (\Results::getEventResults($event) AS $position => $result) {
+                $points[$result['driver']->id] = [
+                    'driver' => $result['driver'],
+                    'stageTimes' => $result['stage'],
+                    'dnf' => $result['dnf'],
+                    'total' => [
+                        'time' => $result['total'],
+                        'points' => 0
+                    ],
+                    'stagePoints' => [],
+                    'eventPosition' => $position,
+                    'eventPoints' => (isset($system['event'][$position]) && !$result['dnf'] && $result['total'])
+                        ? $system['event'][$position]
+                        : 0,
+                ];
             }
-        }
 
-        // Sum event points and stage points to get total points
-        foreach($points AS $driverID => $point) {
-            $points[$driverID]['total']['points'] = $point['eventPoints'];
-            foreach($point['stagePoints'] AS $stagePoint) {
-                $points[$driverID]['total']['points'] += $stagePoint;
+            // Get points for each result for each stage
+            foreach ($event->stages AS $stage) {
+                foreach ($stage->results AS $result) {
+                    $points[$result->driver->id]['stagePoints'][$stage->order] =
+                        isset($system['stage'][$result->position]) && !$result->dnf
+                            ? $system['stage'][$result->position]
+                            : 0;
+                }
             }
-        }
 
-        // Sort by points and position
-        usort($points, function($a, $b) {
-            if ($a['total']['points'] != $b['total']['points']) {
-                return $b['total']['points'] - $a['total']['points'];
-            } else {
-                return $a['eventPosition'] - $b['eventPosition'];
+            // Sum event points and stage points to get total points
+            foreach ($points AS $driverID => $point) {
+                $points[$driverID]['total']['points'] = $point['eventPoints'];
+                foreach ($point['stagePoints'] AS $stagePoint) {
+                    $points[$driverID]['total']['points'] += $stagePoint;
+                }
             }
-        });
+
+            // Sort by points and position
+            usort($points, function ($a, $b) {
+                if ($a['total']['points'] != $b['total']['points']) {
+                    return $b['total']['points'] - $a['total']['points'];
+                } else {
+                    return $a['eventPosition'] - $b['eventPosition'];
+                }
+            });
+        }
 
         return $points;
     }
@@ -110,7 +112,7 @@ class Points
     {
         $points = [];
         foreach($season->events AS $event) {
-            if ($event->closes < $event->last_import) {
+            if ($event->isComplete()) {
                 foreach ($this->forEvent($system, $event) AS $position => $result) {
                     $points[$result['driver']->id]['driver'] = $result['driver'];
                     $points[$result['driver']->id]['points'][$event->id] = $result['total']['points'];
@@ -133,10 +135,12 @@ class Points
         $points = [];
         // Step through the seasons and pull in results
         foreach($seasons AS $season) {
-            foreach($this->forSeason($system, $season) AS $position => $result) {
-                $points[$result['driver']->id]['driver'] = $result['driver'];
-                $points[$result['driver']->id]['points'][$season->id] = $result['total'];
-                $points[$result['driver']->id]['positions'][] = $position;
+            if ($season->isComplete()) {
+                foreach ($this->forSeason($system, $season) AS $position => $result) {
+                    $points[$result['driver']->id]['driver'] = $result['driver'];
+                    $points[$result['driver']->id]['points'][$season->id] = $result['total'];
+                    $points[$result['driver']->id]['positions'][] = $position;
+                }
             }
         }
 

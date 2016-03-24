@@ -13,25 +13,32 @@
 
 @section('content')
 
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Pos.</th>
-            <th>Driver</th>
-            <th>Time</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($results AS $result)
+    @if ($stage->event->importing)
+        @include('import-in-progress')
+    @elseif(!$stage->event->isComplete())
+        @include('event-not-complete')
+    @else
+        <table class="table table-bordered table-hover">
+            <thead>
             <tr>
-                <th>{{ $result->position }}</th>
-                <th>{{ $result->driver->name }}</th>
-                <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
+                <th>Pos.</th>
+                <th>Driver</th>
+                <th>Time</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($results AS $result)
+                <tr>
+                    <th>{{ $result->position }}</th>
+                    <th>{{ $result->driver->name }}</th>
+                    <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
-    @include('times.legend')
+        @include('times.legend')
+
+    @endif
 
 @endsection
