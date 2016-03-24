@@ -8,8 +8,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
     Route::get('/', function () {
-        return Redirect::route('season.index');
-    });
+        return view('welcome');
+    })->name('home');
 
     Route::resource('season', 'SeasonController');
 
@@ -30,4 +30,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/times/season/{season}/event/{event}', 'TimesController@event')->name('times.event');
     Route::get('/times/season/{season}/event/{event}/stage/{stage}', 'TimesController@stage')->name('times.stage');
 
+    Route::group(['middleware' => ['admin']], function() {
+        Route::get('event-id-help', function () {
+            return view('event-id-help');
+        })->name('event-id-help');
+    });
 });

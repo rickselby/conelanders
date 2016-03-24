@@ -21,7 +21,9 @@
         {!! Form::label('dirt_id', 'Dirt Rally ID', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {!! Form::number('dirt_id', null, ['class' => 'form-control']) !!}
-            <p class="help-block">There will be help here for finding the event ID</p>
+            <p class="help-block">
+                <a target="_blank" href="{{ route('event-id-help') }}">View help for finding the event ID</a>
+            </p>
         </div>
     </div>
 
