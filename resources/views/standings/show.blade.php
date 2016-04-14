@@ -14,13 +14,13 @@
             <th>Pos.</th>
             <th>Driver</th>
             @foreach($seasons AS $season)
-                <th>
+                <th data-sortInitialOrder="desc">
                     <a href="{{ route('standings.season', [$system->id, $season->id]) }}">
                         {{ $season->name }}
                     </a>
                 </th>
             @endforeach
-            <th>Total Points</th>
+            <th data-sortInitialOrder="desc">Total Points</th>
         </tr>
         </thead>
         <tbody>
@@ -36,5 +36,7 @@
         @endforeach
         </tbody>
     </table>
+
+    @include('tablesorter')
 
 @endsection

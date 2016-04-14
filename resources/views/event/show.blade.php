@@ -70,6 +70,8 @@
             </tbody>
         </table>
 
+        @include('tablesorter')
+
     @endif {{-- importing test --}}
 
 @endsection

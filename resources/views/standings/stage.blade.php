@@ -24,7 +24,7 @@
                 <th>Pos.</th>
                 <th>Driver</th>
                 <th>Time</th>
-                <th>Points</th>
+                <th data-sortInitialOrder="desc">Points</th>
             </tr>
             </thead>
             <tbody>
@@ -38,6 +38,9 @@
             @endforeach
             </tbody>
         </table>
+
+        @include('tablesorter')
+
     @endif
 
 @endsection
