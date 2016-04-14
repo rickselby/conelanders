@@ -13,37 +13,50 @@
 
 @section('content')
 
-    @if (Auth::user() && Auth::user()->admin)
-        {!! Form::open(['route' => ['season.event.stage.destroy', $stage->event->season->id, $stage->event->id, $stage->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
-            <a class="btn btn-small btn-warning"
-               href="{{ route('season.event.stage.edit', [$stage->event->season->id, $stage->event->id, $stage->id]) }}">Edit stage</a>
-            {!! Form::submit('Delete Stage', array('class' => 'btn btn-danger')) !!}
-        {!! Form::close() !!}
-        <p>
-        </p>
+
+    @if ($stage->event->last_import)
+        <p>Last update: {{ $stage->event->last_import->toDayDateTimeString() }} UTC</p>
     @endif
 
-    @if(!$stage->event->isComplete())
-        @include('event-not-complete-results')
-    @endif
+    @if ($stage->event->importing)
+        @include('import-in-progress')
+    @else
 
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Pos.</th>
-            <th>Driver</th>
-            <th>Time</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($results AS $result)
+        @if (Auth::user() && Auth::user()->admin)
+            {!! Form::open(['route' => ['season.event.stage.destroy', $stage->event->season->id, $stage->event->id, $stage->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+                <a class="btn btn-small btn-warning"
+                   href="{{ route('season.event.stage.edit', [$stage->event->season->id, $stage->event->id, $stage->id]) }}">Edit stage</a>
+                {!! Form::submit('Delete Stage', array('class' => 'btn btn-danger')) !!}
+            {!! Form::close() !!}
+            <p>
+            </p>
+        @endif
+
+        @if(!$stage->event->isComplete())
+            @include('event-not-complete-results')
+        @endif
+
+        <table class="table table-bordered table-hover">
+            <thead>
             <tr>
-                <th>{{ $result->position }}</th>
-                <th>{{ $result->driver->name }}</th>
-                <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
+                <th>Pos.</th>
+                <th>Driver</th>
+                <th>Time</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($results AS $result)
+                <tr>
+                    <th>{{ $result->position }}</th>
+                    <th>{{ $result->driver->name }}</th>
+                    <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+        @include('tablesorter')
+
+    @endif
 
 @endsection

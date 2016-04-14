@@ -166,10 +166,14 @@ class Points
         // Step through the drivers and set their positions.
         // If a driver is equal to the one above, set as equal.
         foreach($points AS $pos => $point) {
-            if ($pos > 0 && $this->arePointsEqual($point, $points[$pos-1])) {
-                $points[$pos]['position'] = '=';
-            } else {
-                $points[$pos]['position'] = $pos + 1;
+            $points[$pos]['position'] = $pos + 1;
+
+            // If the next value is the same as this one, append an equals
+            if (isset($points[$pos+1]) && $this->arePointsEqual($point, $points[$pos+1])) {
+                $points[$pos]['position'] .= '=';
+            } elseif($pos > 0 && $this->arePointsEqual($point, $points[$pos-1])) {
+                // If the previous value is the same as this one, use the same position string
+                $points[$pos]['position'] = $points[$pos-1]['position'];
             }
         }
 

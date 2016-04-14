@@ -31,7 +31,7 @@
                     </th>
                 @endforeach
                 <th colspan="2">Overall</th>
-                <th>Total Points</th>
+                <th data-sortInitialOrder="desc">Total Points</th>
             </tr>
             </thead>
             <tbody>
@@ -50,6 +50,8 @@
             @endforeach
             </tbody>
         </table>
+
+        @include('tablesorter')
 
     @endif {{-- importing test --}}
 

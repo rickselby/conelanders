@@ -37,6 +37,8 @@
             </tbody>
         </table>
 
+        @include('tablesorter')
+
         @include('times.legend')
 
     @endif
