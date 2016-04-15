@@ -49,6 +49,11 @@ class PointsSystemController extends Controller
         $system->eventSequence()->associate(PointsSequence::create([]));
         $system->stageSequence()->associate(PointsSequence::create([]));
         $system->save();
+
+        if ($request->default) {
+            $this->setDefault($system->id);
+        }
+
         \Notification::add('success', 'Points System "'.$system->name.'" created');
         return \Redirect::route('points-system.show', [$system->id]);
     }
@@ -90,6 +95,10 @@ class PointsSystemController extends Controller
         $points_system->fill($request->all());
         $points_system->save();
 
+        if ($request->default) {
+            $this->setDefault($points_system->id);
+        }
+
         \Notification::add('success', 'Points System "'.$points_system->name.'" updated');
         return \Redirect::route('points-system.show', [$points_system->id]);
     }
@@ -114,5 +123,11 @@ class PointsSystemController extends Controller
         \Points::setForSequence($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');
         return \Redirect::route('points-system.show', [$system->id]);
+    }
+
+    private function setDefault($id)
+    {
+        \DB::table('points_systems')->update(['default' => false]);
+        \DB::table('points_systems')->where('id', $id)->update(['default' => true]);
     }
 }
