@@ -1,13 +1,11 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            Results:
-            <a href="{{ route('championship.show', [$season->championship->id]) }}">{{ $season->championship->name }}</a>:
-            {{ $season->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('championship.index') }}">Results</a></li>
+        <li><a href="{{ route('championship.show', [$season->championship->id]) }}">{{ $season->championship->name }}</a></li>
+        <li class="active">{{ $season->name }}</li>
+    </ol>
 @endsection
 
 @section('content')

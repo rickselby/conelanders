@@ -12,8 +12,17 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ route('championship.index') }}">Results</a>
+                <li class="dropdown">
+                    <a href="{{ route('championship.index') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Results <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($championships AS $championship)
+                            <li>
+                                <a href="{{ route('championship.show', [$championship->id]) }}">{{ $championship->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

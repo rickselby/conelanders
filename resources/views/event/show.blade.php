@@ -1,21 +1,15 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            Results:
-            <a href="{{ route('championship.show', [$event->season->championship->id]) }}">{{ $event->season->championship->name }}</a>:
-            <a href="{{ route('championship.season.show', [$event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a>:
-            {{ $event->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('championship.index') }}">Results</a></li>
+        <li><a href="{{ route('championship.show', [$event->season->championship->id]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('championship.season.show', [$event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li class="active">{{ $event->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
-
-    @if ($event->last_import)
-    <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
-    @endif
 
     @if ($event->importing)
         @include('import-in-progress')
@@ -40,6 +34,10 @@
 
         @if(!$event->isComplete())
             @include('event-not-complete-results')
+        @endif
+
+        @if ($event->last_import && !$event->isComplete())
+            <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
         @endif
 
         <table class="table table-bordered table-hover">

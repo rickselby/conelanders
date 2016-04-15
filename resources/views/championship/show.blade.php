@@ -1,9 +1,10 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>Results: {{ $championship->name }}</h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('championship.index') }}">Results</a></li>
+        <li class="active">{{ $championship->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
