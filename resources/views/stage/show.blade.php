@@ -4,15 +4,15 @@
     <div class="page-header">
         <h1>
             Results:
-            <a href="{{ route('season.show', [$stage->event->season->id]) }}">{{ $stage->event->season->name }}</a>:
-            <a href="{{ route('season.event.show', [$stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a>:
+            <a href="{{ route('championship.show', [$stage->event->season->championship->id]) }}">{{ $stage->event->season->championship->name }}</a>:
+            <a href="{{ route('championship.season.show', [$stage->event->season->championship->id, $stage->event->season->id]) }}">{{ $stage->event->season->name }}</a>:
+            <a href="{{ route('championship.season.event.show', [$stage->event->season->championship->id, $stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a>:
             {{ $stage->name }}
         </h1>
     </div>
 @endsection
 
 @section('content')
-
 
     @if ($stage->event->last_import)
         <p>Last update: {{ $stage->event->last_import->toDayDateTimeString() }} UTC</p>
@@ -23,9 +23,9 @@
     @else
 
         @if (Auth::user() && Auth::user()->admin)
-            {!! Form::open(['route' => ['season.event.stage.destroy', $stage->event->season->id, $stage->event->id, $stage->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            {!! Form::open(['route' => ['championship.season.event.stage.destroy', $stage->event->season->championship->id, $stage->event->season->id, $stage->event->id, $stage->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
                 <a class="btn btn-small btn-warning"
-                   href="{{ route('season.event.stage.edit', [$stage->event->season->id, $stage->event->id, $stage->id]) }}">Edit stage</a>
+                   href="{{ route('championship.season.event.stage.edit', [$stage->event->season->championship->id, $stage->event->season->id, $stage->event->id, $stage->id]) }}">Edit stage</a>
                 {!! Form::submit('Delete Stage', array('class' => 'btn btn-danger')) !!}
             {!! Form::close() !!}
             <p>

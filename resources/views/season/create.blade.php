@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::open(['route' => 'season.store', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['championship.season.store', $championship->id], 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

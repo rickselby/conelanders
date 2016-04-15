@@ -19,7 +19,7 @@ class StandingsController extends Controller
 
     public function show(PointsSystem $system)
     {
-        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
+        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('standings.show')
             ->with('system', $system)
             ->with('seasons', $seasons)

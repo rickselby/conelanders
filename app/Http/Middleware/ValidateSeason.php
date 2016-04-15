@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ValidateEvent
+class ValidateSeason
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,7 @@ class ValidateEvent
     public function handle($request, $next)
     {
         $params = $request->route()->parameters();
-        if ($params['event']->season->id == $params['season']
-            && $params['event']->season->championship->id == $params['championship'])
+        if ($params['season']->championship->id == $params['championship'])
         {
             return $next($request);
         } else {

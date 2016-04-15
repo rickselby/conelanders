@@ -17,7 +17,9 @@ class ValidateStage
     public function handle($request, $next)
     {
         $params = $request->route()->parameters();
-        if ($params['stage']->event->id == $params['event'] && $params['stage']->event->season->id == $params['season'])
+        if ($params['stage']->event->id == $params['event']
+            && $params['stage']->event->season->id == $params['season']
+            && $params['stage']->event->season->championship->id == $params['championship'])
         {
             return $next($request);
         } else {

@@ -10,15 +10,15 @@
 
     @if (Auth::user() && Auth::user()->admin)
         <p>
-            <a class="btn btn-small btn-info" href="{{ route('season.create') }}">Add a new season</a>
+            <a class="btn btn-small btn-info" href="{{ route('championship.create') }}">Add a new championship</a>
         </p>
     @endif
 
     <ul>
-        @foreach($seasons as $season)
+        @foreach($championships as $championship)
             <li>
-                <a href="{{ route('season.show', [$season->id]) }}">
-                    {{ $season->name }}
+                <a href="{{ route('championship.show', [$championship->id]) }}">
+                    {{ $championship->name }}
                 </a>
             </li>
         @endforeach

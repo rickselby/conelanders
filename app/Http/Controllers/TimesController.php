@@ -19,7 +19,7 @@ class TimesController extends Controller
 
     public function index()
     {
-        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
+        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('times.index')
             ->with('seasons', $seasons)
             ->with('times', \Times::overall($seasons));
