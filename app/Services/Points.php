@@ -74,7 +74,7 @@ class Points
             // Get points for each result for each stage
             foreach ($event->stages AS $stage) {
                 foreach ($stage->results AS $result) {
-                    $points[$result->driver->id]['stagePoints'][$stage->order] =
+                    $points[$result->driver->id]['stagePoints'][$stage->id] =
                         isset($system['stage'][$result->position]) && !$result->dnf
                             ? $system['stage'][$result->position]
                             : 0;
@@ -117,6 +117,34 @@ class Points
                     $points[$result['driver']->id]['driver'] = $result['driver'];
                     $points[$result['driver']->id]['points'][$event->id] = $result['total']['points'];
                     $points[$result['driver']->id]['positions'][] = $position;
+                }
+            }
+        }
+
+        return $this->sumAndSort($points);
+    }
+
+    /**
+     * Get points for the given system for each event in the given championship
+     * @param PointsSystem $system
+     * @param Season $season
+     * @return array
+     */
+    public function overview(PointsSystem $system, Collection $seasons)
+    {
+        $points = [];
+        foreach($seasons AS $season) {
+            foreach ($season->events AS $event) {
+                if ($event->isComplete()) {
+                    foreach ($this->forEvent($system, $event) AS $position => $result) {
+                        foreach($result['stagePoints'] AS $stage => $stagePoints) {
+                            $points[$result['driver']->id]['stages'][$stage] = $stagePoints;
+                        }
+                        $points[$result['driver']->id]['events'][$event->id] = $result['eventPoints'];
+                        $points[$result['driver']->id]['driver'] = $result['driver'];
+                        $points[$result['driver']->id]['points'][$event->id] = $result['total']['points'];
+                        $points[$result['driver']->id]['positions'][] = $position;
+                    }
                 }
             }
         }

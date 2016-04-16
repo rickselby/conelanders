@@ -44,6 +44,16 @@ class StandingsController extends Controller
             ->with('points', \Points::overall($system, $seasons));
     }
 
+    public function overview(PointsSystem $system, Championship $championship)
+    {
+        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
+        return view('standings.overview')
+            ->with('system', $system)
+            ->with('championship', $championship)
+            ->with('seasons', $seasons)
+            ->with('points', \Points::overview($system, $seasons));
+    }
+
     public function season(PointsSystem $system, $championship, Season $season)
     {
         $season->load(['events.stages.results.driver', 'events.positions.driver', 'championship']);
