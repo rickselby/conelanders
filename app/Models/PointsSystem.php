@@ -4,7 +4,7 @@ namespace App\Models;
 
 class PointsSystem extends \Eloquent
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'default'];
 
     public function eventSequence()
     {

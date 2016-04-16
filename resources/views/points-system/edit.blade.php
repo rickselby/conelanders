@@ -18,6 +18,14 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('default', 'Default System?', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::checkbox('default') !!}
+            <p class="help-block">Select one system to be the default</p>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             {!! Form::submit('Update Points System', ['class' => 'btn btn-primary']) !!}

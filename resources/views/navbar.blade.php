@@ -12,25 +12,42 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ route('season.index') }}">Results</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Results <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($championships AS $championship)
+                            <li>
+                                <a href="{{ route('championship.show', [$championship->id]) }}">{{ $championship->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Standings <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($standings AS $system)
+                        @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }}</a>
+                                <a href="{{ route('standings.championship', [$defaultPointsSystem->id, $championship->id]) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route('times.index') }}">Total Time</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Total Time <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($championships AS $championship)
+                            <li>
+                                <a href="{{ route('times.championship', [$championship->id]) }}">{{ $championship->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
-
             @if (Auth::user() && Auth::user()->admin)
                 <li>
                     <a href="{{ route('points-system.index') }}">Points Systems</a>

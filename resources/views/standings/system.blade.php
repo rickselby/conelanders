@@ -2,7 +2,8 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li class="active">Total Time</li>
+        <li><a href="{{ route('standings.index') }}">Standings</a></li>
+        <li class="active">{{ $system->name }}</li>
     </ol>
 @endsection
 
@@ -11,7 +12,7 @@
     <ul>
         @foreach($championships AS $championship)
             <li>
-                <a href="{{ route('times.championship', [$championship->id]) }}" class="tablesorter-noSort">
+                <a href="{{ route('standings.championship', [$system->id, $championship->id]) }}">
                     {{ $championship->name }}
                 </a>
             </li>

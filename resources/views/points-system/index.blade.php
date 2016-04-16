@@ -18,6 +18,9 @@
                 <a href="{{ route('points-system.show', [$system->id]) }}">
                     {{ $system->name }}
                 </a>
+                @if($system->default)
+                    <strong><em>default</em></strong>
+                @endif
             </li>
         @endforeach
     </ul>

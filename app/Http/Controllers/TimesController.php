@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use App\Models\Event;
 use App\Models\Season;
 use App\Models\Stage;
@@ -13,19 +14,27 @@ class TimesController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('validateSeason')->only(['season']);
         $this->middleware('validateEvent')->only(['event']);
         $this->middleware('validateStage')->only(['stage']);
     }
 
     public function index()
     {
-        $seasons = Season::with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('endDate');
         return view('times.index')
+            ->with('championships', Championship::all()->sortBy('closes'));
+    }
+
+    public function championship(Championship $championship)
+    {
+        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
+        return view('times.championship')
+            ->with('championship', $championship)
             ->with('seasons', $seasons)
             ->with('times', \Times::overall($seasons));
     }
 
-    public function season(Season $season)
+    public function season($championship, Season $season)
     {
         $season->load(['events.stages.results.driver', 'events.positions.driver']);
         return view('times.season')
@@ -33,7 +42,7 @@ class TimesController extends Controller
             ->with('times', \Times::forSeason($season));
     }
 
-    public function event($season, Event $event)
+    public function event($championship, $season, Event $event)
     {
         $event->load(['season', 'stages.results.driver', 'positions.driver']);
         return view('times.event')
@@ -41,7 +50,7 @@ class TimesController extends Controller
             ->with('times', \Times::forEvent($event));
     }
 
-    public function stage($season, $event, Stage $stage)
+    public function stage($championship, $season, $event, Stage $stage)
     {
         $stage->load('event.season');
         return view('times.stage')

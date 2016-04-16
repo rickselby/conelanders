@@ -1,9 +1,11 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>{{ $system->name }} Standings</h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('standings.index') }}">Standings</a></li>
+        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li class="active">{{ $championship->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -15,7 +17,7 @@
             <th>Driver</th>
             @foreach($seasons AS $season)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('standings.season', [$system->id, $season->id]) }}">
+                    <a href="{{ route('standings.season', [$system->id, $championship->id, $season->id]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>

@@ -1,14 +1,14 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }} Standings</a>:
-            <a href="{{ route('standings.season', [$system->id, $stage->event->season->id]) }}">{{ $stage->event->season->name }}</a>:
-            <a href="{{ route('standings.event', [$system->id, $stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a>:
-            {{ $stage->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('standings.index') }}">Standings</a></li>
+        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('standings.championship', [$system->id, $stage->event->season->championship->id]) }}">{{ $stage->event->season->championship->name }}</a></li>
+        <li><a href="{{ route('standings.season', [$system->id, $stage->event->season->championship->id, $stage->event->season->id]) }}">{{ $stage->event->season->name }}</a></li>
+        <li><a href="{{ route('standings.event', [$system->id, $stage->event->season->championship->id, $stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a></li>
+        <li class="active">{{ $stage->name }}</li>
+    </ol>
 @endsection
 
 @section('content')

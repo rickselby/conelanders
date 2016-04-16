@@ -1,44 +1,43 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            Results:
-            <a href="{{ route('season.show', [$event->season->id]) }}">{{ $event->season->name }}</a>:
-            {{ $event->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('championship.index') }}">Results</a></li>
+        <li><a href="{{ route('championship.show', [$event->season->championship->id]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('championship.season.show', [$event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li class="active">{{ $event->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
-
-    @if ($event->last_import)
-    <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
-    @endif
 
     @if ($event->importing)
         @include('import-in-progress')
     @else
 
         @if (Auth::user() && Auth::user()->admin)
-            {!! Form::open(['route' => ['season.event.destroy', $event->season->id, $event->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            {!! Form::open(['route' => ['championship.season.event.destroy', $event->season->championship->id, $event->season->id, $event->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
                 <a class="btn btn-small btn-warning"
-                   href="{{ route('season.event.edit', [$event->season->id, $event->id]) }}">Edit event</a>
+                   href="{{ route('championship.season.event.edit', [$event->season->championship->id, $event->season->id, $event->id]) }}">Edit event</a>
                 {!! Form::submit('Delete Event', array('class' => 'btn btn-danger')) !!}
             {!! Form::close() !!}
         @endif
 
-        <h2>Standings</h2>
+        <h2>Event Results</h2>
 
         @if (Auth::user() && Auth::user()->admin)
             <p>
                 <a class="btn btn-small btn-info"
-                   href="{{ route('season.event.stage.create', [$event->season->id, $event->id]) }}">Add a stage</a>
+                   href="{{ route('championship.season.event.stage.create', [$event->season->championship->id, $event->season->id, $event->id]) }}">Add a stage</a>
             </p>
         @endif
 
         @if(!$event->isComplete())
             @include('event-not-complete-results')
+        @endif
+
+        @if ($event->last_import && !$event->isComplete())
+            <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
         @endif
 
         <table class="table table-bordered table-hover">
@@ -48,7 +47,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                 <th>
-                    <a href="{{ route('season.event.stage.show', [$event->season->id, $event->id, $stage->id]) }}">
+                    <a href="{{ route('championship.season.event.stage.show', [$event->season->championship->id, $event->season->id, $event->id, $stage->id]) }}" class="tablesorter-noSort">
                         {{ $stage->name }}
                     </a>
                 </th>
