@@ -1,13 +1,12 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            <a href="{{ route('times.index') }}">Total Time</a>:
-            <a href="{{ route('times.season', [$event->season->id]) }}">{{ $event->season->name }}</a>:
-            {{ $event->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('times.index') }}">Total Time</a></li>
+        <li><a href="{{ route('times.championship', [$event->season->championship->id]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('times.season', [$event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li class="active">{{ $event->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -25,7 +24,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                     <th>
-                        <a href="{{ route('times.stage', [$event->season->id, $event->id, $stage->id]) }}">
+                        <a href="{{ route('times.stage', [$event->season->championship->id, $event->season->id, $event->id, $stage->id]) }}">
                             {{ $stage->name }}
                         </a>
                     </th>
