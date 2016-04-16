@@ -19,10 +19,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
     Route::resource('points-system', 'PointsSystemController');
 
-    Route::get('/standings/{system}', 'StandingsController@show')->name('standings.show');
-    Route::get('/standings/{system}/season/{season}', 'StandingsController@season')->name('standings.season');
-    Route::get('/standings/{system}/season/{season}/event/{event}', 'StandingsController@event')->name('standings.event');
-    Route::get('/standings/{system}/season/{season}/event/{event}/stage/{stage}', 'StandingsController@stage')->name('standings.stage');
+    Route::get('/standings/', 'StandingsController@index')->name('standings.index');
+    Route::get('/standings/{system}', 'StandingsController@system')->name('standings.system');
+    Route::get('/standings/{system}/{championship}', 'StandingsController@championship')->name('standings.championship');
+    Route::get('/standings/{system}/{championship}/{season}', 'StandingsController@season')->name('standings.season');
+    Route::get('/standings/{system}/{championship}/{season}/{event}', 'StandingsController@event')->name('standings.event');
+    Route::get('/standings/{system}/{championship}/{season}/{event}/{stage}', 'StandingsController@stage')->name('standings.stage');
 
     Route::get('/times', 'TimesController@index')->name('times.index');
     Route::get('/times/season/{season}', 'TimesController@season')->name('times.season');

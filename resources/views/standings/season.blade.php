@@ -1,12 +1,12 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }} Standings</a>:
-            {{ $season->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('standings.index') }}">Standings</a></li>
+        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('standings.championship', [$system->id, $season->championship->id]) }}">{{ $season->championship->name }}</a></li>
+        <li class="active">{{ $season->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
             <th>Driver</th>
             @foreach($season->events AS $event)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('standings.event', [$system->id, $season->id, $event->id]) }}">
+                    <a href="{{ route('standings.event', [$system->id, $season->championship->id, $season->id, $event->id]) }}">
                         {{ $event->name }}
                     </a>
                 </th>

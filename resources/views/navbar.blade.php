@@ -29,9 +29,9 @@
                         Standings <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($standings AS $system)
+                        @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }}</a>
+                                <a href="{{ route('standings.championship', [$defaultPointsSystem->id, $championship->id]) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>

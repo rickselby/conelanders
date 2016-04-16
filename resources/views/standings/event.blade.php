@@ -1,13 +1,13 @@
 @extends('page')
 
 @section('header')
-    <div class="page-header">
-        <h1>
-            <a href="{{ route('standings.show', [$system->id]) }}">{{ $system->name }} Standings</a>:
-            <a href="{{ route('standings.season', [$system->id, $event->season->id]) }}">{{ $event->season->name }}</a>:
-            {{ $event->name }}
-        </h1>
-    </div>
+    <ol class="breadcrumb">
+        <li><a href="{{ route('standings.index') }}">Standings</a></li>
+        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('standings.championship', [$system->id, $event->season->championship->id]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('standings.season', [$system->id, $event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li class="active">{{ $event->name }}</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                     <th colspan="2">
-                        <a href="{{ route('standings.stage', [$system->id, $event->season->id, $event->id, $stage->id]) }}">
+                        <a href="{{ route('standings.stage', [$system->id, $event->season->championship->id, $event->season->id, $event->id, $stage->id]) }}">
                             {{ $stage->name }}
                         </a>
                     </th>
