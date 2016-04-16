@@ -26,6 +26,8 @@
             </p>
         @endif
 
+        <h2>Stage Results</h2>
+
         @if(!$stage->event->isComplete())
             @include('event-not-complete-results')
         @endif

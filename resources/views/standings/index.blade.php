@@ -11,7 +11,7 @@
     <ul>
         @foreach($systems AS $system)
             <li>
-                <a href="{{ route('standings.system', [$system->id]) }}">
+                <a href="{{ route('standings.system', [$system->id]) }}" class="tablesorter-noSort">
                     {{ $system->name }}
                 </a>
             </li>
