@@ -10,6 +10,13 @@
 
 @section('content')
 
+    <p>
+        <a href="{{ route('standings.overview', [$system->id, $championship->id]) }}"
+           class="btn btn-primary" role="button">
+            View all points on one page
+        </a>
+    </p>
+
     <table class="table table-bordered table-hover">
         <thead>
         <tr>

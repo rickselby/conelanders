@@ -46,6 +46,15 @@ class Season extends \Eloquent
         }
     }
 
+    public function getStageCountAttribute()
+    {
+        $stages = 0;
+        foreach($this->events AS $event) {
+            $stages += count($event->stages);
+        }
+        return $stages;
+    }
+
     public function isComplete() {
         foreach($this->events AS $event) {
             if (!$event->isComplete()) {
