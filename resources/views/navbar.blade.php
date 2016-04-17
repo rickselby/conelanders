@@ -38,6 +38,18 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Nation Standings <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($championships AS $championship)
+                            <li>
+                                <a href="{{ route('nationstandings.championship', [$defaultPointsSystem->id, $championship->id]) }}">{{ $championship->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Total Time <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -49,8 +61,18 @@
                     </ul>
                 </li>
             @if (Auth::user() && Auth::user()->admin)
-                <li>
-                    <a href="{{ route('points-system.index') }}">Points Systems</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Admin <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ route('nation.index') }}">Manage Nations</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('points-system.index') }}">Points Systems</a>
+                        </li>
+                    </ul>
                 </li>
             @endif
             </ul>
