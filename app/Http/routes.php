@@ -27,13 +27,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/standings/{system}/{championship}/{season}/{event}', 'StandingsController@event')->name('standings.event');
     Route::get('/standings/{system}/{championship}/{season}/{event}/{stage}', 'StandingsController@stage')->name('standings.stage');
 
-    Route::get('/nationstandings/', 'NationStandingsController@index')->name('nationstandings.index');
-    Route::get('/nationstandings/{system}', 'NationStandingsController@system')->name('nationstandings.system');
-    Route::get('/nationstandings/{system}/{championship}', 'NationStandingsController@championship')->name('nationstandings.championship');
-    Route::get('/nationstandings/{system}/{championship}/overview', 'NationStandingsController@overview')->name('nationstandings.overview');
-    Route::get('/nationstandings/{system}/{championship}/{season}', 'NationStandingsController@season')->name('nationstandings.season');
-    Route::get('/nationstandings/{system}/{championship}/{season}/{event}', 'NationStandingsController@event')->name('nationstandings.event');
-    Route::get('/nationstandings/{system}/{championship}/{season}/{event}/{stage}', 'NationStandingsController@stage')->name('nationstandings.stage');
+    Route::get('/nation-standings/', 'NationStandingsController@index')->name('nationstandings.index');
+    Route::get('/nation-standings/{system}', 'NationStandingsController@system')->name('nationstandings.system');
+    Route::get('/nation-standings/{system}/{championship}', 'NationStandingsController@championship')->name('nationstandings.championship');
+    Route::get('/nation-standings/{system}/{championship}/overview', 'NationStandingsController@overview')->name('nationstandings.overview');
+    Route::get('/nation-standings/{system}/{championship}/{season}', 'NationStandingsController@season')->name('nationstandings.season');
+    Route::get('/nation-standings/{system}/{championship}/{season}/{event}', 'NationStandingsController@event')->name('nationstandings.event');
 
     Route::get('/times', 'TimesController@index')->name('times.index');
     Route::get('/times/{championship}', 'TimesController@championship')->name('times.championship');

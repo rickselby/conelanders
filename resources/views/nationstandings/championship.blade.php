@@ -2,8 +2,8 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('standings.index') }}">Standings</a></li>
-        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
+        <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
         <li class="active">{{ $championship->name }}</li>
     </ol>
 @endsection
@@ -11,7 +11,7 @@
 @section('content')
 
     <p>
-        <a href="{{ route('standings.overview', [$system->id, $championship->id]) }}"
+        <a href="{{ route('nationstandings.overview', [$system->id, $championship->id]) }}"
            class="btn btn-primary" role="button">
             View all points on one page
         </a>
@@ -21,10 +21,10 @@
         <thead>
         <tr>
             <th>Pos.</th>
-            <th>Driver</th>
+            <th>Nation</th>
             @foreach($seasons AS $season)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('standings.season', [$system->id, $championship->id, $season->id]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('nationstandings.season', [$system->id, $championship->id, $season->id]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>
@@ -36,11 +36,14 @@
         @foreach($points AS $position => $detail)
             <tr>
                 <th>{{ $detail['position'] }}</th>
-                <th>{{ $detail['entity']->name }}</th>
+                <th>
+                    <img src="{{ route('nation.image', $detail['entity']->id) }}" />
+                    {{ $detail['entity']->name }}
+                </th>
                 @foreach($seasons AS $season)
-                    <td>{{ $detail['points'][$season->id] or '' }}</td>
+                    <td>{{ isset($detail['points'][$season->id]) ? round($detail['points'][$season->id], 2) : '' }}</td>
                 @endforeach
-                <td>{{ $detail['total'] }}</td>
+                <td>{{ round($detail['total'], 2) }}</td>
             </tr>
         @endforeach
         </tbody>

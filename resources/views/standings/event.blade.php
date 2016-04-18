@@ -38,7 +38,7 @@
             @foreach($points AS $position => $detail)
             <tr>
                 <th>{{ $position + 1 }}</th>
-                <th>{{ $detail['driver']->name }}</th>
+                <th>{{ $detail['entity']->name }}</th>
                 @foreach($event->stages AS $stage)
                     <td class="text-muted">{{ StageTime::toString($detail['stageTimes'][$stage->id]) }}</td>
                     <td>{{ $detail['stagePoints'][$stage->id] or '' }}</td>
