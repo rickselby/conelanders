@@ -27,6 +27,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/standings/{system}/{championship}/{season}/{event}', 'StandingsController@event')->name('standings.event');
     Route::get('/standings/{system}/{championship}/{season}/{event}/{stage}', 'StandingsController@stage')->name('standings.stage');
 
+    Route::get('/nationstandings/', 'NationStandingsController@index')->name('nationstandings.index');
+    Route::get('/nationstandings/{system}', 'NationStandingsController@system')->name('nationstandings.system');
+    Route::get('/nationstandings/{system}/{championship}', 'NationStandingsController@championship')->name('nationstandings.championship');
+    Route::get('/nationstandings/{system}/{championship}/overview', 'NationStandingsController@overview')->name('nationstandings.overview');
+    Route::get('/nationstandings/{system}/{championship}/{season}', 'NationStandingsController@season')->name('nationstandings.season');
+    Route::get('/nationstandings/{system}/{championship}/{season}/{event}', 'NationStandingsController@event')->name('nationstandings.event');
+    Route::get('/nationstandings/{system}/{championship}/{season}/{event}/{stage}', 'NationStandingsController@stage')->name('nationstandings.stage');
+
     Route::get('/times', 'TimesController@index')->name('times.index');
     Route::get('/times/{championship}', 'TimesController@championship')->name('times.championship');
     Route::get('/times/{championship}/{season}', 'TimesController@season')->name('times.season');
@@ -38,4 +46,7 @@ Route::group(['middleware' => ['web']], function () {
             return view('event-id-help');
         })->name('event-id-help');
     });
+
+    Route::get('/nation/image/{nation}', 'NationController@image')->name('nation.image');
+    Route::resource('nation', 'NationController', [['except' => ['show']]]);
 });
