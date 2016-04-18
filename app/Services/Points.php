@@ -78,9 +78,11 @@ class Points
                         isset($system['stage'][$result->position]) && !$result->dnf
                             ? $system['stage'][$result->position]
                             : 0;
+                }
+                foreach($points AS $driverID => $point) {
                     // Map the stage times by ID, not order
-                    $points[$result->driver->id]['stageTimes'][$stage->id] =
-                        $points[$result->driver->id]['stageTimesByOrder'][$stage->order];
+                    $points[$driverID]['stageTimes'][$stage->id] =
+                        $point['stageTimesByOrder'][$stage->order];
                 }
             }
 
