@@ -57,7 +57,7 @@ class Points
             foreach (\Results::getEventResults($event) AS $position => $result) {
                 $points[$result['driver']->id] = [
                     'driver' => $result['driver'],
-                    'stageTimes' => $result['stage'],
+                    'stageTimesByOrder' => $result['stage'],
                     'dnf' => $result['dnf'],
                     'total' => [
                         'time' => $result['total'],
@@ -78,6 +78,9 @@ class Points
                         isset($system['stage'][$result->position]) && !$result->dnf
                             ? $system['stage'][$result->position]
                             : 0;
+                    // Map the stage times by ID, not order
+                    $points[$result->driver->id]['stageTimes'][$stage->id] =
+                        $points[$result->driver->id]['stageTimesByOrder'][$stage->order];
                 }
             }
 

@@ -40,8 +40,8 @@
                 <th>{{ $position + 1 }}</th>
                 <th>{{ $detail['driver']->name }}</th>
                 @foreach($event->stages AS $stage)
-                    <td class="text-muted">{{ StageTime::toString($detail['stageTimes'][$stage->order]) }}</td>
-                    <td>{{ $detail['stagePoints'][$stage->order] or '' }}</td>
+                    <td class="text-muted">{{ StageTime::toString($detail['stageTimes'][$stage->id]) }}</td>
+                    <td>{{ $detail['stagePoints'][$stage->id] or '' }}</td>
                 @endforeach
                 <td class="text-muted">{{ StageTime::toString($detail['total']['time']) }}</td>
                 <td>{{ $detail['eventPoints'] }}</td>
