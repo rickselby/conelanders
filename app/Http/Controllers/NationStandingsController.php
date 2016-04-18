@@ -11,7 +11,7 @@ use App\Models\Stage;
 
 use App\Http\Requests;
 
-class StandingsController extends Controller
+class NationStandingsController extends Controller
 {
     public function __construct()
     {
@@ -22,64 +22,64 @@ class StandingsController extends Controller
 
     public function index()
     {
-        return view('standings.index')
+        return view('nationstandings.index')
             ->with('systems', PointsSystem::all());
 
     }
 
     public function system(PointsSystem $system)
     {
-        return view('standings.system')
+        return view('nationstandings.system')
             ->with('system', $system)
             ->with('championships', Championship::all()->sortBy('closes'));
     }
 
     public function championship(PointsSystem $system, Championship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
-        return view('standings.championship')
+        $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
+        return view('nationstandings.championship')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DriverPoints::overall($system, $seasons));
+            ->with('points', \NationPoints::overall($system, $seasons));
     }
 
     public function overview(PointsSystem $system, Championship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
-        return view('standings.overview')
+        $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
+        return view('nationstandings.overview')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DriverPoints::overview($system, $seasons));
+            ->with('points', \NationPoints::overview($system, $seasons));
     }
 
     public function season(PointsSystem $system, $championship, Season $season)
     {
-        $season->load(['events.stages.results.driver', 'events.positions.driver', 'championship']);
-        return view('standings.season')
+        $season->load(['events.stages.results.driver.nation', 'events.positions.driver.nation', 'championship']);
+        return view('nationstandings.season')
             ->with('system', $system)
             ->with('season', $season)
-            ->with('points', \DriverPoints::forSeason($system, $season));
+            ->with('points', \NationPoints::forSeason($system, $season));
     }
 
     public function event(PointsSystem $system, $championship, $season, Event $event)
     {
-        $event->load(['season.championship', 'stages.results.driver', 'positions.driver']);
-        return view('standings.event')
+        $event->load(['season.championship', 'stages.results.driver.nation', 'positions.driver.nation']);
+        return view('nationstandings.event')
             ->with('system', $system)
             ->with('event', $event)
-            ->with('points', \DriverPoints::forEvent($system, $event));
+            ->with('points', \NationPoints::forEvent($system, $event));
     }
 
     public function stage(PointsSystem $system, $championship, $season, $event, Stage $stage)
     {
         $stage->load(['event.season.championship']);
-        return view('standings.stage')
+        return view('nationstandings.stage')
             ->with('system', $system)
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \DriverPoints::forSystem($system));
+            ->with('points', \NationPoints::forSystem($system));
     }
 
 }

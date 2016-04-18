@@ -3,60 +3,24 @@
 namespace App\Services;
 
 use App\Models\Event;
-use App\Models\Point;
-use App\Models\PointsSequence;
 use App\Models\PointsSystem;
 use App\Models\Season;
 use Illuminate\Database\Eloquent\Collection;
 
-class Points
+class DriverPoints
 {
-    public function forSystem(PointsSystem $system)
-    {
-        $points = ['event' => [], 'stage' => []];
-        foreach($system->eventSequence->points AS $point) {
-            $points['event'][$point->position] = $point->points;
-        }
-        foreach($system->stageSequence->points AS $point) {
-            $points['stage'][$point->position] = $point->points;
-        }
-        return $points;
-    }
-
-    public function setForSequence(PointsSequence $sequence, $pointsList)
-    {
-        foreach($pointsList AS $position => $points) {
-            // Get the current points, or create...
-            /** @var Point $point */
-            $point = $sequence->points->where('position', $position)->first();
-            if (!$point) {
-                if ($points != 0) {
-                    $point = new Point(['position' => $position, 'points' => $points]);
-                    $sequence->points()->save($point);
-                }
-            } else {
-                if ($points != 0) {
-                    $point->points = $points;
-                    $point->save();
-                } else {
-                    $point->delete();
-                }
-            }
-        }
-    }
-
     public function forEvent(PointsSystem $system, Event $event)
     {
         $points = [];
 
         if ($event->isComplete()) {
-            $system = $this->forSystem($system);
+            $system = \PointSequences::forSystem($system);
             /**
              * Get the results for this event, and mangle them into points
              */
             foreach (\Results::getEventResults($event) AS $position => $result) {
                 $points[$result['driver']->id] = [
-                    'driver' => $result['driver'],
+                    'entity' => $result['driver'],
                     'stageTimesByOrder' => $result['stage'],
                     'dnf' => $result['dnf'],
                     'total' => [
@@ -119,9 +83,9 @@ class Points
         foreach($season->events AS $event) {
             if ($event->isComplete()) {
                 foreach ($this->forEvent($system, $event) AS $position => $result) {
-                    $points[$result['driver']->id]['driver'] = $result['driver'];
-                    $points[$result['driver']->id]['points'][$event->id] = $result['total']['points'];
-                    $points[$result['driver']->id]['positions'][] = $position;
+                    $points[$result['entity']->id]['entity'] = $result['entity'];
+                    $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
+                    $points[$result['entity']->id]['positions'][] = $position;
                 }
             }
         }
@@ -143,12 +107,12 @@ class Points
                 if ($event->isComplete()) {
                     foreach ($this->forEvent($system, $event) AS $position => $result) {
                         foreach($result['stagePoints'] AS $stage => $stagePoints) {
-                            $points[$result['driver']->id]['stages'][$stage] = $stagePoints;
+                            $points[$result['entity']->id]['stages'][$stage] = $stagePoints;
                         }
-                        $points[$result['driver']->id]['events'][$event->id] = $result['eventPoints'];
-                        $points[$result['driver']->id]['driver'] = $result['driver'];
-                        $points[$result['driver']->id]['points'][$event->id] = $result['total']['points'];
-                        $points[$result['driver']->id]['positions'][] = $position;
+                        $points[$result['entity']->id]['events'][$event->id] = $result['eventPoints'];
+                        $points[$result['entity']->id]['entity'] = $result['entity'];
+                        $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
+                        $points[$result['entity']->id]['positions'][] = $position;
                     }
                 }
             }
@@ -170,9 +134,9 @@ class Points
         foreach($seasons AS $season) {
             if ($season->isComplete()) {
                 foreach ($this->forSeason($system, $season) AS $position => $result) {
-                    $points[$result['driver']->id]['driver'] = $result['driver'];
-                    $points[$result['driver']->id]['points'][$season->id] = $result['total'];
-                    $points[$result['driver']->id]['positions'][] = $position;
+                    $points[$result['entity']->id]['entity'] = $result['entity'];
+                    $points[$result['entity']->id]['points'][$season->id] = $result['total'];
+                    $points[$result['entity']->id]['positions'][] = $position;
                 }
             }
         }
@@ -222,8 +186,14 @@ class Points
     protected function pointsSort($a, $b)
     {
         // First, total points
-        if ($a['total'] != $b['total']) {
-            return $b['total'] - $a['total'];
+        if (!is_array($a['total'])) {
+            if ($a['total'] != $b['total']) {
+                return $b['total'] > $a['total'] ? 1 : -1;
+            }
+        } else {
+            if ($a['total']['points'] != $b['total']['points']) {
+                return $b['total']['points'] > $a['total']['points'] ? 1 : -1;
+            }
         }
 
         // Then, best finishing positions; all the way down...

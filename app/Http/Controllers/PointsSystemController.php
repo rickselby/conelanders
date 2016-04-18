@@ -68,7 +68,7 @@ class PointsSystemController extends Controller
     {
         return view('points-system.show')
             ->with('system', $points_system)
-            ->with('points', \Points::forSystem($points_system));
+            ->with('points', \PointSequences::forSystem($points_system));
     }
 
     /**
@@ -119,8 +119,8 @@ class PointsSystemController extends Controller
     public function points(Request $request, PointsSystem $system)
     {
         $system->load(['eventSequence', 'stageSequence']);
-        \Points::setForSequence($system->eventSequence, $request['event']);
-        \Points::setForSequence($system->stageSequence, $request['stage']);
+        \PointSequences::set($system->eventSequence, $request['event']);
+        \PointSequences::set($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');
         return \Redirect::route('points-system.show', [$system->id]);
     }

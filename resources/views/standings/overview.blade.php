@@ -59,7 +59,7 @@
         @foreach($points AS $position => $detail)
             <tr>
                 <th>{{ $detail['position'] }}</th>
-                <th>{{ $detail['driver']->name }}</th>
+                <th>{{ $detail['entity']->name }}</th>
                 @foreach($seasons AS $season)
                     @foreach($season->events AS $event)
                         @foreach($event->stages AS $stage)
