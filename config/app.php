@@ -218,13 +218,14 @@ return [
         'HTML'=> Collective\Html\HtmlFacade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
 
-        'StageTime' => App\Services\Facades\StageTimeFacade::class,
         'ImportDirt' => App\Services\Facades\ImportDirtFacade::class,
         'ImportCSV' => App\Services\Facades\ImportCSVFacade::class,
-        'Results' => \App\Services\Facades\ResultsFacade::class,
-        'Positions' => \App\Services\Facades\PositionsFacade::class,
-        'Points' => \App\Services\Facades\PointsFacade::class,
-        'Times' => \App\Services\Facades\TimesFacade::class,
+        'Nations' => App\Services\Facades\NationsFacade::class,
+        'Results' => App\Services\Facades\ResultsFacade::class,
+        'Positions' => App\Services\Facades\PositionsFacade::class,
+        'Points' => App\Services\Facades\PointsFacade::class,
+        'StageTime' => App\Services\Facades\StageTimeFacade::class,
+        'Times' => App\Services\Facades\TimesFacade::class,
     ],
 
 ];

@@ -15,8 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('championships', Championship::all()->sortBy('closes'));
-        view()->share('defaultPointsSystem', PointsSystem::where('default', true)->first());
+        // These are only for web pages...
+        if (!app()->runningInConsole()) {
+            view()->share('championships', Championship::all()->sortBy('closes'));
+            view()->share('defaultPointsSystem', PointsSystem::where('default', true)->first());
+        }
     }
 
     /**

@@ -47,5 +47,6 @@ Route::group(['middleware' => ['web']], function () {
         })->name('event-id-help');
     });
 
+    Route::get('/nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
 });

@@ -115,7 +115,7 @@ class ImportDirt extends ImportAbstract
     {
         \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
         foreach($page->Entries as $entry) {
-            $this->processResult($stage, $entry->Name, $entry->Time);
+            $this->processResult($stage, $entry->Name, $entry->Time, $entry->NationalityImage);
         }
     }
 
@@ -124,11 +124,13 @@ class ImportDirt extends ImportAbstract
      * @param Stage $stage
      * @param string $driverName
      * @param string $timeString
+     * @param string $nationalityImage
      */
-    protected function processResult(Stage $stage, $driverName, $timeString)
+    protected function processResult(Stage $stage, $driverName, $timeString, $nationalityImage)
     {
         // Get the driver model
         $driver = $this->getDriver($driverName);
+        $this->processDriver($driver, $nationalityImage);
         // Convert the time to an integer
         $timeInt = \StageTime::fromString($timeString);
 
@@ -145,6 +147,20 @@ class ImportDirt extends ImportAbstract
         }
 
         $this->saveResult($stage, $driver, $timeInt);
+    }
+
+    /**
+     * Process a driver, update their nation
+     * @param \App\Models\Driver $driver
+     * @param string $nationalityImage Relative path to the flag
+     */
+    protected function processDriver(\App\Models\Driver $driver, $nationalityImage)
+    {
+        $dirtReference = basename($nationalityImage, '.jpg');
+        /** @var \App\Models\Nation $nation */
+        $nation = \Nations::findOrAdd($dirtReference, 'https://www.dirtgame.com'.$nationalityImage);
+        $driver->nation()->associate($nation);
+        $driver->save();
     }
 
     /**

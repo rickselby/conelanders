@@ -10,7 +10,9 @@ class NationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin', ['except' =>
+            ['image']
+        ]);
     }
 
     /**
@@ -91,5 +93,15 @@ class NationController extends Controller
             \Notification::add('success', 'Nation "'.$nation->name.'" deleted');
             return \Redirect::route('nation.index');
         }
+    }
+
+    /**
+     * Get the flag for a nation
+     * @param Nation $nation
+     * @return \Illuminate\Http\Response
+     */
+    public function image(Nation $nation)
+    {
+        return response()->file(\Nations::getFlagPath($nation));
     }
 }
