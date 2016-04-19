@@ -29,7 +29,7 @@
             <th>Nation</th>
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
-                    <th data-sorter="false" class="text-center">
+                    <th data-sortinitialorder="desc" class="text-center">
                         <a href="{{ route('nationstandings.event', [$system->id, $championship->id, $season->id, $event->id]) }}" class="tablesorter-noSort">
                             {{ substr($event->name, 0, 2) }}
                         </a>
