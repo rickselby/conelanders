@@ -2,7 +2,7 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('nationstandings.index') }}">Standings</a></li>
+        <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
         <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
         <li><a href="{{ route('nationstandings.championship', [$system->id, $championship->id]) }}">{{ $championship->name }}</a></li>
         <li class="active">Overview</li>
@@ -31,7 +31,7 @@
                 @foreach($season->events AS $event)
                     <th data-sorter="false" class="text-center">
                         <a href="{{ route('nationstandings.event', [$system->id, $championship->id, $season->id, $event->id]) }}" class="tablesorter-noSort">
-                            {{ $event->name }}
+                            {{ substr($event->name, 0, 2) }}
                         </a>
                     </th>
                 @endforeach
@@ -43,16 +43,16 @@
         @foreach($points AS $position => $detail)
             <tr>
                 <th>{{ $detail['position'] }}</th>
-                <th>
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" />
-                    {{ $detail['entity']->name }}
+                <th class="text-nowrap">
+                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
+                    {{ $detail['entity']->acronym }}
                 </th>
                 @foreach($seasons AS $season)
                     @foreach($season->events AS $event)
-                        <td>{{ $detail['points'][$event->id] or '' }}</td>
+                        <td>{{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) or '' }}</td>
                     @endforeach
                 @endforeach
-                <td>{{ $detail['total'] }}</td>
+                <td>{{ round($detail['total'], 2) }}</td>
             </tr>
         @endforeach
         </tbody>
