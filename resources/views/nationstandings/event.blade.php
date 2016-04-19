@@ -33,7 +33,7 @@
             <tr>
                 <th>{{ $position + 1 }}</th>
                 <th>
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" />
+                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}
                 </th>
                 <td>{{ $detail['total']['sum'] }}</td>

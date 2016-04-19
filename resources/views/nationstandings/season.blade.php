@@ -31,7 +31,7 @@
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th>
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" />
+                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}
                 </th>
                 @foreach($season->events AS $event)

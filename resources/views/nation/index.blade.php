@@ -30,7 +30,7 @@
         @foreach($nations as $nation)
             <tr>
                 <td>{{ $nation->name }}</td>
-                <td><img src="{{ route('nation.image', $nation->id) }}" /></td>
+                <td><img src="{{ route('nation.image', $nation->id) }}" alt="{{ $nation->name }}" /></td>
                 <td>{{ $nation->acronym }}</td>
                 <td>{{ count($nation->drivers) }}</td>
                 <td>
