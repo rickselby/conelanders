@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::model($nation, ['route' => ['nation.update', $nation->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($nation, ['route' => ['nation.update', $nation], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
@@ -43,7 +43,7 @@
 
     {!! Form::close() !!}
 
-    {!! Form::open(['route' => ['nation.destroy', $nation->id], 'method' => 'delete', 'class' => 'pull-right']) !!}
+    {!! Form::open(['route' => ['nation.destroy', $nation], 'method' => 'delete', 'class' => 'pull-right']) !!}
         {!! Form::submit('Delete nation', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
 

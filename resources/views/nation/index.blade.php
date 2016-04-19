@@ -30,12 +30,12 @@
         @foreach($nations as $nation)
             <tr>
                 <td>{{ $nation->name }}</td>
-                <td><img src="{{ route('nation.image', $nation->id) }}" alt="{{ $nation->name }}" /></td>
+                <td><img src="{{ route('nation.image', $nation) }}" alt="{{ $nation->name }}" /></td>
                 <td>{{ $nation->acronym }}</td>
                 <td>{{ count($nation->drivers) }}</td>
                 <td>
                     <a class="btn btn-xs btn-success"
-                       href="{{ route('nation.edit', [$nation->id]) }}">Edit</a>
+                       href="{{ route('nation.edit', $nation) }}">Edit</a>
                 </td>
             </tr>
         @endforeach

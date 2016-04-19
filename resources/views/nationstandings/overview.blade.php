@@ -44,7 +44,7 @@
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th class="text-nowrap">
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
+                    <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->acronym }}
                 </th>
                 @foreach($seasons AS $season)
