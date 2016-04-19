@@ -79,7 +79,7 @@ class StandingsController extends Controller
             ->with('system', $system)
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \DriverPoints::forSystem($system));
+            ->with('points', \PointSequences::forSystem($system));
     }
 
 }
