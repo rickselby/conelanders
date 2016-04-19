@@ -3,10 +3,19 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Championship extends \Eloquent
+
+class Championship extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name'];
+
+    protected $sluggify = [
+        'build_from' => 'shortName'
+    ];
 
     public function seasons()
     {
@@ -40,5 +49,10 @@ class Championship extends \Eloquent
             // No seasons; push to bottom of list
             return Carbon::now();
         }
+    }
+
+    public function getShortNameAttribute()
+    {
+        return trim(str_ireplace('championship', '', $this->name));
     }
 }

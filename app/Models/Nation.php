@@ -2,9 +2,18 @@
 
 namespace App\Models;
 
-class Nation extends \Eloquent
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
+class Nation extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name', 'acronym', 'dirt_reference'];
+
+    protected $sluggable = [
+        'build_from' => 'acronym',
+    ];
 
     public function drivers()
     {

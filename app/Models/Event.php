@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
-class Event extends \Eloquent
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
+class Event extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name', 'opens', 'closes', 'dirt_id'];
 
     protected $dates = ['opens', 'closes', 'last_import'];
@@ -11,6 +16,10 @@ class Event extends \Eloquent
     protected $casts = [
         'dirt_id' => 'integer',
         'importing' => 'boolean',
+    ];
+
+    protected $sluggable = [
+        'unique' => false,
     ];
 
     public function season()

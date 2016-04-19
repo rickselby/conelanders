@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
-class Driver extends \Eloquent
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
+class Driver extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name'];
 
     public function nation()

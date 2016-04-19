@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Import::class,
-        Commands\CSV::class
+        Commands\CSV::class,
+        Commands\CreateSlugsCommand::class,
     ];
 
     /**
