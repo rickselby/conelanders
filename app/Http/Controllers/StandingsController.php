@@ -54,8 +54,9 @@ class StandingsController extends Controller
             ->with('points', \DriverPoints::overview($system, $seasons));
     }
 
-    public function season(PointsSystem $system, $championship, Season $season)
+    public function season(PointsSystem $system, $championship, $season)
     {
+        $season = \Request::get('season');
         $season->load(['events.stages.results.driver', 'events.positions.driver', 'championship']);
         return view('standings.season')
             ->with('system', $system)

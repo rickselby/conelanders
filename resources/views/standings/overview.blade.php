@@ -17,7 +17,7 @@
             <th colspan="2" rowspan="2" data-sorter="false"></th>
             @foreach($seasons AS $season)
                 <th colspan="{{ $season->stageCount + count($season->events) }}" data-sorter="false" class="text-center">
-                    <a href="{{ route('standings.season', [$system, $championship->id, $season->id]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('standings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>

@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ValidateSeason
+class ValidateSeason extends ValidateChain
 {
     /**
      * Handle an incoming request.
@@ -16,12 +15,7 @@ class ValidateSeason
      */
     public function handle($request, $next)
     {
-        $params = $request->route()->parameters();
-        if ($params['season']->championship->id == $params['championship'])
-        {
-            return $next($request);
-        } else {
-            throw new NotFoundHttpException();
-        }
+        $request->attributes->add(['season' => $this->validateSeason($request)]);
+        return $next($request);
     }
 }

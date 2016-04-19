@@ -71,4 +71,9 @@ class Season extends \Eloquent implements SluggableInterface
         }
         return true;
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

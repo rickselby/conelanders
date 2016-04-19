@@ -18,26 +18,27 @@ class ChampionshipSeasonEventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function create($championship, Season $season)
+    public function create($championship, $season)
     {
         return view('event.create')
-            ->with('season', $season);
+            ->with('season', \Request::get('season'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  SeasonEventRequest $request
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventRequest $request, $championship, Season $season)
+    public function store(SeasonEventRequest $request, $championship, $season)
     {
+        $season = \Request::get('season');
         $event = Event::create($request->all());
         $season->events()->save($event);
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');

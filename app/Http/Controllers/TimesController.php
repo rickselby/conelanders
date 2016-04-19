@@ -34,8 +34,9 @@ class TimesController extends Controller
             ->with('times', \Times::overall($seasons));
     }
 
-    public function season($championship, Season $season)
+    public function season($championship, $season)
     {
+        $season = \Request::get('season');
         $season->load(['events.stages.results.driver', 'events.positions.driver']);
         return view('times.season')
             ->with('season', $season)
