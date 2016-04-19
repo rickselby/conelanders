@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
-class PointsSystem extends \Eloquent
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
+class PointsSystem extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name', 'default'];
 
     public function eventSequence()
