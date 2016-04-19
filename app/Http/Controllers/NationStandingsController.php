@@ -79,7 +79,7 @@ class NationStandingsController extends Controller
             ->with('system', $system)
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \NationPoints::forSystem($system));
+            ->with('points', \PointSequences::forSystem($system));
     }
 
 }
