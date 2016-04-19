@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::model($championship, ['route' => ['championship.update', $championship->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($championship, ['route' => ['championship.update', $championship], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

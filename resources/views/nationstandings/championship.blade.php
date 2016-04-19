@@ -3,7 +3,7 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('nationstandings.system', $system->id) }}">{{ $system->name }}</a></li>
         <li class="active">{{ $championship->name }}</li>
     </ol>
 @endsection

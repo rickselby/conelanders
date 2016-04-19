@@ -3,7 +3,7 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('times.index') }}">Total Time</a></li>
-        <li><a href="{{ route('times.championship', [$stage->event->season->championship->id]) }}">{{ $stage->event->season->championship->name }}</a></li>
+        <li><a href="{{ route('times.championship', [$stage->event->season->championship]) }}">{{ $stage->event->season->championship->name }}</a></li>
         <li><a href="{{ route('times.season', [$stage->event->season->championship->id, $stage->event->season->id]) }}">{{ $stage->event->season->name }}</a></li>
         <li><a href="{{ route('times.event', [$stage->event->season->championship->id, $stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a></li>
         <li class="active">{{ $stage->name }}</li>

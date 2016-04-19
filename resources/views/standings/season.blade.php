@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ route('standings.index') }}">Standings</a></li>
         <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('standings.championship', [$system->id, $season->championship->id]) }}">{{ $season->championship->name }}</a></li>
+        <li><a href="{{ route('standings.championship', [$system->id, $season->championship]) }}">{{ $season->championship->name }}</a></li>
         <li class="active">{{ $season->name }}</li>
     </ol>
 @endsection

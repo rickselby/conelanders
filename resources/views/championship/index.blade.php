@@ -19,7 +19,7 @@
     <ul>
         @foreach($championships as $championship)
             <li>
-                <a href="{{ route('championship.show', [$championship->id]) }}">
+                <a href="{{ route('championship.show', $championship) }}">
                     {{ $championship->name }}
                 </a>
             </li>

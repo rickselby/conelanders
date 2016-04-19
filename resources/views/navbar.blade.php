@@ -19,7 +19,7 @@
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('championship.show', [$championship->id]) }}">{{ $championship->name }}</a>
+                                <a href="{{ route('championship.show', $championship) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -31,7 +31,7 @@
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('standings.championship', [$defaultPointsSystem->id, $championship->id]) }}">{{ $championship->name }}</a>
+                                <a href="{{ route('standings.championship', [$defaultPointsSystem, $championship]) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -43,7 +43,7 @@
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('nationstandings.championship', [$defaultPointsSystem->id, $championship->id]) }}">{{ $championship->name }}</a>
+                                <a href="{{ route('nationstandings.championship', [$defaultPointsSystem, $championship]) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -55,7 +55,7 @@
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
                             <li>
-                                <a href="{{ route('times.championship', [$championship->id]) }}">{{ $championship->name }}</a>
+                                <a href="{{ route('times.championship', $championship) }}">{{ $championship->name }}</a>
                             </li>
                         @endforeach
                     </ul>
