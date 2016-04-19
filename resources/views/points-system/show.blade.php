@@ -8,13 +8,13 @@
 
 @section('content')
 
-    {!! Form::open(['route' => ['points-system.destroy', $system->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+    {!! Form::open(['route' => ['points-system.destroy', $system], 'method' => 'delete', 'class' => 'form-inline']) !!}
     <a class="btn btn-small btn-warning"
-       href="{{ route('points-system.edit', [$system->id]) }}">Edit System</a>
+       href="{{ route('points-system.edit', $system) }}">Edit System</a>
     {!! Form::submit('Delete System', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
 
-    {!! Form::open(['route' => ['points-system.points', $system->id], 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['points-system.points', $system], 'class' => 'form-horizontal']) !!}
 
     <table class="table">
         <thead>

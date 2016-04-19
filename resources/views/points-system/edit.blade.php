@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::model($system, ['route' => ['points-system.update', $system->id], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($system, ['route' => ['points-system.update', $system], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

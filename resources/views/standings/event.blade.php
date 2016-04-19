@@ -3,9 +3,9 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('standings.index') }}">Standings</a></li>
-        <li><a href="{{ route('standings.system', [$system->id]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('standings.championship', [$system->id, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
-        <li><a href="{{ route('standings.season', [$system->id, $event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li><a href="{{ route('standings.system', [$system]) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('standings.championship', [$system, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('standings.season', [$system, $event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
         <li class="active">{{ $event->name }}</li>
     </ol>
 @endsection
@@ -25,7 +25,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                     <th colspan="2">
-                        <a href="{{ route('standings.stage', [$system->id, $event->season->championship->id, $event->season->id, $event->id, $stage->id]) }}" class="tablesorter-noSort">
+                        <a href="{{ route('standings.stage', [$system, $event->season->championship->id, $event->season->id, $event->id, $stage->id]) }}" class="tablesorter-noSort">
                             {{ $stage->name }}
                         </a>
                     </th>

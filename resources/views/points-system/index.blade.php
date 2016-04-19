@@ -15,7 +15,7 @@
     <ul>
         @foreach($systems as $system)
             <li>
-                <a href="{{ route('points-system.show', [$system->id]) }}">
+                <a href="{{ route('points-system.show', $system) }}">
                     {{ $system->name }}
                 </a>
                 @if($system->default)

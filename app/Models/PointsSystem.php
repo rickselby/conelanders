@@ -20,4 +20,9 @@ class PointsSystem extends \Eloquent implements SluggableInterface
     {
         return $this->belongsTo(PointsSequence::class, 'stage_points_sequence');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
