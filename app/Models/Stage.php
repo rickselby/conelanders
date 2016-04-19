@@ -2,13 +2,22 @@
 
 namespace App\Models;
 
-class Stage extends \Eloquent
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
+
+class Stage extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name', 'order', 'long'];
 
     protected $casts = [
         'order' => 'integer',
         'long' => 'boolean',
+    ];
+
+    protected $sluggable = [
+        'unique' => false,
     ];
 
     public function event()

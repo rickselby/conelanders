@@ -3,10 +3,18 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Season extends \Eloquent
+class Season extends \Eloquent implements SluggableInterface
 {
+    use SluggableTrait;
+
     protected $fillable = ['name'];
+
+    protected $sluggable = [
+        'unique' => false,
+    ];
 
     public function championship()
     {

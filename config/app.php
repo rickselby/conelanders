@@ -165,6 +165,7 @@ return [
         Laravelista\Ekko\EkkoServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Krucas\Notification\NotificationServiceProvider::class,
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
     ],
 
