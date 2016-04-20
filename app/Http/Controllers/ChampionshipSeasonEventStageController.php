@@ -19,32 +19,33 @@ class ChampionshipSeasonEventStageController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function create($championship, $season, Event $event)
+    public function create($championship, $season, $event)
     {
         return view('stage.create')
-            ->with('event', $event);
+            ->with('event', \Request::get('event'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  SeasonEventStageRequest $request
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventStageRequest $request, $championship, $season, Event $event)
+    public function store(SeasonEventStageRequest $request, $championship, $season, $event)
     {
+        $event = \Request::get('event');
         $stage = Stage::create($request->all());
         $event->stages()->save($stage);
         \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$event->name.'" ('.$event->season->name.')');
-        return \Redirect::route('championship.season.event.show', [$championship, $season, $event->id]);
+        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**

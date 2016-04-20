@@ -2,17 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-
-class ValidateSeason extends ValidateChain
+class ValidateSeason
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
+    use ValidateChain;
+
     public function handle($request, $next)
     {
         $request->attributes->add(['season' => $this->validateSeason($request)]);

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Championship;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-abstract class ValidateChain
+trait ValidateChain
 {
     protected function validateChampionship($request)
     {

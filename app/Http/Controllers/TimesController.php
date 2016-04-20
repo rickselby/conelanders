@@ -43,8 +43,9 @@ class TimesController extends Controller
             ->with('times', \Times::forSeason($season));
     }
 
-    public function event($championship, $season, Event $event)
+    public function event($championship, $season, $event)
     {
+        $event = \Request::get('event');
         $event->load(['season', 'stages.results.driver', 'positions.driver']);
         return view('times.event')
             ->with('event', $event)

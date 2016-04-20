@@ -16,9 +16,9 @@
     @else
 
         @if (Auth::user() && Auth::user()->admin)
-            {!! Form::open(['route' => ['championship.season.event.destroy', $event->season->championship->id, $event->season->id, $event->id], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            {!! Form::open(['route' => ['championship.season.event.destroy', $event->season->championship, $event->season, $event], 'method' => 'delete', 'class' => 'form-inline']) !!}
                 <a class="btn btn-small btn-warning"
-                   href="{{ route('championship.season.event.edit', [$event->season->championship->id, $event->season->id, $event->id]) }}">Edit event</a>
+                   href="{{ route('championship.season.event.edit', [$event->season->championship, $event->season, $event]) }}">Edit event</a>
                 {!! Form::submit('Delete Event', array('class' => 'btn btn-danger')) !!}
             {!! Form::close() !!}
         @endif
@@ -28,7 +28,7 @@
         @if (Auth::user() && Auth::user()->admin)
             <p>
                 <a class="btn btn-small btn-info"
-                   href="{{ route('championship.season.event.stage.create', [$event->season->championship->id, $event->season->id, $event->id]) }}">Add a stage</a>
+                   href="{{ route('championship.season.event.stage.create', [$event->season->championship, $event->season, $event]) }}">Add a stage</a>
             </p>
         @endif
 

@@ -5,7 +5,7 @@
         <li><a href="{{ route('championship.index') }}">Results</a></li>
         <li><a href="{{ route('championship.show', $stage->event->season->championship) }}">{{ $stage->event->season->championship->name }}</a></li>
         <li><a href="{{ route('championship.season.show', [$stage->event->season->championship, $stage->event->season]) }}">{{ $stage->event->season->name }}</a></li>
-        <li><a href="{{ route('championship.season.event.show', [$stage->event->season->championship->id, $stage->event->season->id, $stage->event->id]) }}">{{ $stage->event->name }}</a></li>
+        <li><a href="{{ route('championship.season.event.show', [$stage->event->season->championship, $stage->event->season, $stage->event]) }}">{{ $stage->event->name }}</a></li>
         <li class="active">{{ $stage->name }}</li>
     </ol>
 @endsection

@@ -30,7 +30,7 @@
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
                     <th data-sortinitialorder="desc" class="text-center">
-                        <a href="{{ route('nationstandings.event', [$system, $championship->id, $season->id, $event->id]) }}" class="tablesorter-noSort">
+                        <a href="{{ route('nationstandings.event', [$system, $championship, $season, $event]) }}" class="tablesorter-noSort">
                             {{ substr($event->name, 0, 2) }}
                         </a>
                     </th>

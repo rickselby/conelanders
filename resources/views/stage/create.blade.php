@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::open(['route' => ['championship.season.event.stage.store', $event->season->championship->id, $event->season->id, $event->id], 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['championship.season.event.stage.store', $event->season->championship, $event->season, $event], 'class' => 'form-horizontal']) !!}
 
     {!!  Form::hidden('eventID', $event->id) !!}
 

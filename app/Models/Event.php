@@ -41,4 +41,9 @@ class Event extends \Eloquent implements SluggableInterface
     {
         return $this->closes < $this->last_import;
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

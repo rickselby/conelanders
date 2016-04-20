@@ -42,19 +42,20 @@ class ChampionshipSeasonEventController extends Controller
         $event = Event::create($request->all());
         $season->events()->save($event);
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
-        return \Redirect::route('championship.season.event.show', [$championship, $season->id, $event->id]);
+        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function show($championship, $season, Event $event)
+    public function show($championship, $season, $event)
     {
+        $event = \Request::get('event');
         return view('event.show')
             ->with('event', $event)
             ->with('results', \Results::getEventResults($event));
@@ -68,44 +69,46 @@ class ChampionshipSeasonEventController extends Controller
      * @param  Event $event
      * @return \Illuminate\Http\Response
      */
-    public function edit($championship, $season, Event $event)
+    public function edit($championship, $season, $event)
     {
         return view('event.edit')
-            ->with('event', $event);
+            ->with('event', \Request::get('event'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  SeasonEventRequest $request
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonEventRequest $request, $championship, $season, Event $event)
+    public function update(SeasonEventRequest $request, $championship, $season, $event)
     {
+        $event = \Request::get('event');
         $event->fill($request->all());
         $event->save();
         \Notification::add('success', $event->name . ' updated');
-        return \Redirect::route('championship.season.event.show', [$championship, $season, $event->id]);
+        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy($championship, $season, Event $event)
+    public function destroy($championship, $season, $event)
     {
+        $event = \Request::get('event');
         if ($event->stages->count()) {
             \Notification::add('error',
                 $event->name . ' cannot be deleted - there are stages assigned to  it');
-            return \Redirect::route('championship.season.event.show', [$championship, $season, $event->id]);
+            return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
         } else {
             $event->delete();
             \Notification::add('success', $event->name . ' deleted');

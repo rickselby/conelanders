@@ -28,7 +28,7 @@
     <ul>
         @forelse($season->events AS $event)
             <li>
-                <a href="{{ route('championship.season.event.show', [$season->championship->id, $season->id, $event->id]) }}">
+                <a href="{{ route('championship.season.event.show', [$season->championship, $season, $event]) }}">
                     {{ $event->name }}
                 </a>
             </li>
