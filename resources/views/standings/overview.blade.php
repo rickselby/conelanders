@@ -42,7 +42,7 @@
                 @foreach($season->events AS $event)
                     @foreach($event->stages AS $stage)
                         <th data-sortInitialOrder="desc">
-                            <a href="{{ route('standings.stage', [$system, $championship->id, $season->id, $event->id, $stage->id]) }}" class="tablesorter-noSort">
+                            <a href="{{ route('standings.stage', [$system, $championship, $season, $event, $stage]) }}" class="tablesorter-noSort">
                                 {{ $stage->order }}
                             </a>
                         </th>

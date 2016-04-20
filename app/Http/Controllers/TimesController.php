@@ -52,8 +52,9 @@ class TimesController extends Controller
             ->with('times', \Times::forEvent($event));
     }
 
-    public function stage($championship, $season, $event, Stage $stage)
+    public function stage($championship, $season, $event, $stage)
     {
+        $stage = \Request::get('stage');
         $stage->load('event.season');
         return view('times.stage')
             ->with('stage', $stage)

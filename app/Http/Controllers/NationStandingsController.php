@@ -73,15 +73,4 @@ class NationStandingsController extends Controller
             ->with('event', $event)
             ->with('points', \NationPoints::forEvent($system, $event));
     }
-
-    public function stage(PointsSystem $system, $championship, $season, $event, Stage $stage)
-    {
-        $stage->load(['event.season.championship']);
-        return view('nationstandings.stage')
-            ->with('system', $system)
-            ->with('stage', $stage)
-            ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \PointSequences::forSystem($system));
-    }
-
 }
