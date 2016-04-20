@@ -19,4 +19,9 @@ class Nation extends \Eloquent implements SluggableInterface
     {
         return $this->hasMany(Driver::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

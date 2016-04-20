@@ -54,8 +54,9 @@ class NationStandingsController extends Controller
             ->with('points', \NationPoints::overview($system, $seasons));
     }
 
-    public function season(PointsSystem $system, $championship, Season $season)
+    public function season(PointsSystem $system, $championship, $season)
     {
+        $season = \Request::get('season');
         $season->load(['events.stages.results.driver.nation', 'events.positions.driver.nation', 'championship']);
         return view('nationstandings.season')
             ->with('system', $system)
@@ -63,23 +64,13 @@ class NationStandingsController extends Controller
             ->with('points', \NationPoints::forSeason($system, $season));
     }
 
-    public function event(PointsSystem $system, $championship, $season, Event $event)
+    public function event(PointsSystem $system, $championship, $season, $event)
     {
+        $event = \Request::get('event');
         $event->load(['season.championship', 'stages.results.driver.nation', 'positions.driver.nation']);
         return view('nationstandings.event')
             ->with('system', $system)
             ->with('event', $event)
             ->with('points', \NationPoints::forEvent($system, $event));
     }
-
-    public function stage(PointsSystem $system, $championship, $season, $event, Stage $stage)
-    {
-        $stage->load(['event.season.championship']);
-        return view('nationstandings.stage')
-            ->with('system', $system)
-            ->with('stage', $stage)
-            ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \PointSequences::forSystem($system));
-    }
-
 }

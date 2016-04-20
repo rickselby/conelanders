@@ -34,24 +34,27 @@ class TimesController extends Controller
             ->with('times', \Times::overall($seasons));
     }
 
-    public function season($championship, Season $season)
+    public function season($championship, $season)
     {
+        $season = \Request::get('season');
         $season->load(['events.stages.results.driver', 'events.positions.driver']);
         return view('times.season')
             ->with('season', $season)
             ->with('times', \Times::forSeason($season));
     }
 
-    public function event($championship, $season, Event $event)
+    public function event($championship, $season, $event)
     {
+        $event = \Request::get('event');
         $event->load(['season', 'stages.results.driver', 'positions.driver']);
         return view('times.event')
             ->with('event', $event)
             ->with('times', \Times::forEvent($event));
     }
 
-    public function stage($championship, $season, $event, Stage $stage)
+    public function stage($championship, $season, $event, $stage)
     {
+        $stage = \Request::get('stage');
         $stage->load('event.season');
         return view('times.stage')
             ->with('stage', $stage)

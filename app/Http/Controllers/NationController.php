@@ -46,7 +46,7 @@ class NationController extends Controller
     {
         $nation = Nation::create($request->all());
         \Notification::add('success', 'Nation "'.$nation->name.'" created');
-        return \Redirect::route('nation.index', [$nation->id]);
+        return \Redirect::route('nation.index', $nation);
     }
 
     /**
@@ -87,7 +87,7 @@ class NationController extends Controller
     {
         if ($nation->drivers->count()) {
             \Notification::add('error', 'Nation "'.$nation->name.'" cannot be deleted - there are drivers assigned to it');
-            return \Redirect::route('nation.show', [$nation->id]);
+            return \Redirect::route('nation.show', $nation);
         } else {
             $nation->delete();
             \Notification::add('success', 'Nation "'.$nation->name.'" deleted');

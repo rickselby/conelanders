@@ -38,67 +38,69 @@ class ChampionshipSeasonController extends Controller
         $season = Season::create($request->all());
         $championship->seasons()->save($season);
         \Notification::add('success', 'Season "'.$season->name.'" created');
-        return \Redirect::route('championship.season.show', [$championship, $season->id]);
+        return \Redirect::route('championship.season.show', [$championship, $season]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function show($championship, Season $season)
+    public function show($championship, $season)
     {
         return view('season.show')
-            ->with('season', $season);
+            ->with('season', \Request::get('season'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function edit($championship, Season $season)
+    public function edit($championship, $season)
     {
         return view('season.edit')
-            ->with('season', $season);
+            ->with('season', \Request::get('season'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  SeasonRequest $request
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonRequest $request, $championship, Season $season)
+    public function update(SeasonRequest $request, $championship, $season)
     {
+        $season = \Request::get('season');
         $season->fill($request->all());
         $season->save();
         \Notification::add('success', 'Season "'.$season->name.'" updated');
-        return \Redirect::route('championship.season.show', [$championship, $season->id]);
+        return \Redirect::route('championship.season.show', [$championship, $season]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $championship
-     * @param  Season $season
+     * @param  string $championship
+     * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function destroy($championship, Season $season)
+    public function destroy($championship, $season)
     {
+        $season = \Request::get('season');
         if ($season->events->count()) {
             \Notification::add('error', 'Season "'.$season->name.'" cannot be deleted - there are events assigned to it');
-            return \Redirect::route('championship.season.show', [$championship, $season->id]);
+            return \Redirect::route('championship.season.show', [$championship, $season]);
         } else {
             $season->delete();
             \Notification::add('success', 'Season "'.$season->name.'" deleted');
-            return \Redirect::route('championship.show', [$championship]);
+            return \Redirect::route('championship.show', $championship);
         }
     }
 }

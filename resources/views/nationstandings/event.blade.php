@@ -3,9 +3,9 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('nationstandings.championship', [$system->id, $event->season->championship->id]) }}">{{ $event->season->championship->name }}</a></li>
-        <li><a href="{{ route('nationstandings.season', [$system->id, $event->season->championship->id, $event->season->id]) }}">{{ $event->season->name }}</a></li>
+        <li><a href="{{ route('nationstandings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('nationstandings.championship', [$system, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('nationstandings.season', [$system, $event->season->championship, $event->season]) }}">{{ $event->season->name }}</a></li>
         <li class="active">{{ $event->name }}</li>
     </ol>
 @endsection
@@ -33,7 +33,7 @@
             <tr>
                 <th>{{ $position + 1 }}</th>
                 <th>
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
+                    <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}
                 </th>
                 <td>{{ $detail['total']['sum'] }}</td>

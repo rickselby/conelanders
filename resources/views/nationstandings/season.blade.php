@@ -3,8 +3,8 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('nationstandings.championship', [$system->id, $season->championship->id]) }}">{{ $season->championship->name }}</a></li>
+        <li><a href="{{ route('nationstandings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('nationstandings.championship', [$system, $season->championship]) }}">{{ $season->championship->name }}</a></li>
         <li class="active">{{ $season->name }}</li>
     </ol>
 @endsection
@@ -18,7 +18,7 @@
             <th>Nation</th>
             @foreach($season->events AS $event)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('nationstandings.event', [$system->id, $season->championship->id, $season->id, $event->id]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('nationstandings.event', [$system, $season->championship, $season, $event]) }}" class="tablesorter-noSort">
                         {{ $event->name }}
                     </a>
                 </th>
@@ -31,7 +31,7 @@
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th>
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
+                    <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}
                 </th>
                 @foreach($season->events AS $event)

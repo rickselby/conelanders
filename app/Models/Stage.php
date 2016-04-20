@@ -29,4 +29,9 @@ class Stage extends \Eloquent implements SluggableInterface
     {
         return $this->hasMany(Result::class)->orderBy('position');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

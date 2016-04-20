@@ -55,4 +55,9 @@ class Championship extends \Eloquent implements SluggableInterface
     {
         return trim(str_ireplace('championship', '', $this->name));
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

@@ -3,8 +3,8 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', [$system->id]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('nationstandings.championship', [$system->id, $championship->id]) }}">{{ $championship->name }}</a></li>
+        <li><a href="{{ route('nationstandings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('nationstandings.championship', [$system, $championship]) }}">{{ $championship->name }}</a></li>
         <li class="active">Overview</li>
     </ol>
 @endsection
@@ -17,7 +17,7 @@
             <th colspan="2" data-sorter="false"></th>
             @foreach($seasons AS $season)
                 <th colspan="{{ count($season->events) }}" data-sorter="false" class="text-center">
-                    <a href="{{ route('nationstandings.season', [$system->id, $championship->id, $season->id]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('nationstandings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>
@@ -30,7 +30,7 @@
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
                     <th data-sortinitialorder="desc" class="text-center">
-                        <a href="{{ route('nationstandings.event', [$system->id, $championship->id, $season->id, $event->id]) }}" class="tablesorter-noSort">
+                        <a href="{{ route('nationstandings.event', [$system, $championship, $season, $event]) }}" class="tablesorter-noSort">
                             {{ substr($event->name, 0, 2) }}
                         </a>
                     </th>
@@ -44,7 +44,7 @@
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th class="text-nowrap">
-                    <img src="{{ route('nation.image', $detail['entity']->id) }}" alt="{{ $detail['entity']->name }}" />
+                    <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->acronym }}
                 </th>
                 @foreach($seasons AS $season)

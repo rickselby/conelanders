@@ -55,7 +55,7 @@ class PointsSystemController extends Controller
         }
 
         \Notification::add('success', 'Points System "'.$system->name.'" created');
-        return \Redirect::route('points-system.show', [$system->id]);
+        return \Redirect::route('points-system.show', $system);
     }
 
     /**
@@ -100,7 +100,7 @@ class PointsSystemController extends Controller
         }
 
         \Notification::add('success', 'Points System "'.$points_system->name.'" updated');
-        return \Redirect::route('points-system.show', [$points_system->id]);
+        return \Redirect::route('points-system.show', $points_system);
     }
 
     /**
@@ -122,7 +122,7 @@ class PointsSystemController extends Controller
         \PointSequences::set($system->eventSequence, $request['event']);
         \PointSequences::set($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');
-        return \Redirect::route('points-system.show', [$system->id]);
+        return \Redirect::route('points-system.show', $system);
     }
 
     private function setDefault($id)

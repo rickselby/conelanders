@@ -12,7 +12,7 @@
     <ul>
         @foreach($championships AS $championship)
             <li>
-                <a href="{{ route('nationstandings.championship', [$system->id, $championship->id]) }}">
+                <a href="{{ route('nationstandings.championship', [$system, $championship]) }}">
                     {{ $championship->name }}
                 </a>
             </li>
