@@ -5,7 +5,7 @@
                 <a role="button" data-toggle="collapse" href="#championship-{{ $championship['championship']->id }}">
                     {{ $championship['championship']->name }} <span class="caret"></span>
                 </a>
-                <span class="badge pull-right">x</span>
+                <span class="badge pull-right">{{ $championship['position'] }}</span>
             </h4>
         </div>
         <div id="championship-{{ $championship['championship']->id }}" class="panel-collapse collapse" role="tabpanel">
@@ -18,7 +18,7 @@
                             <a role="button" data-toggle="collapse" href="#season-{{ $season['season']->id }}">
                                 {{ $season['season']->name }} <span class="caret"></span>
                             </a>
-                            <span class="badge pull-right">x</span>
+                            <span class="badge pull-right">{{ $season['position'] }}</span>
                         </h4>
                     </div>
                     <div id="season-{{ $season['season']->id }}" class="panel-collapse collapse" role="tabpanel">

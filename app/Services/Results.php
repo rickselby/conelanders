@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Driver;
 use App\Models\Event;
 use App\Models\EventPosition;
+use App\Models\PointsSystem;
 use App\Models\Result;
 
 class Results
@@ -63,14 +64,26 @@ class Results
             $eventID = $result->stage->event->id;
             $stageID = $result->stage->id;
             if (!isset($championships[$championshipID])) {
+                $points = \DriverPoints::overall(
+                    PointsSystem::where('default', true)->first(),
+                    $result->stage->event->season->championship->seasons
+                );
+                $points = array_where($points, function($key, $value) use ($driver) {
+                    return $value['entity']->id == $driver->id;
+                });
+                $driverPoints = array_pop($points);
+
                 $championships[$championshipID] = [
                     'championship' => $result->stage->event->season->championship,
+                    'position' => $driverPoints['position'],
+                    'seasonPositions' => $driverPoints['seasonPosition'],
                     'seasons' => [],
                 ];
             }
             if (!isset($championships[$championshipID]['seasons'][$seasonID])) {
                 $championships[$championshipID]['seasons'][$seasonID] = [
                     'season' => $result->stage->event->season,
+                    'position' => $championships[$championshipID]['seasonPositions'][$seasonID],
                     'events' => [],
                 ];
             }
