@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Driver;
 use App\Models\Event;
+use App\Models\EventPosition;
 use App\Models\Result;
 
 class Results
@@ -47,5 +49,45 @@ class Results
     public function getStageResults($stageID)
     {
         return Result::with('driver')->where('stage_id', $stageID)->orderBy('position')->get();
+    }
+
+    public function forDriver(Driver $driver)
+    {
+        $driver->load('results.stage.event.season.championship');
+
+        $championships = [];
+
+        foreach($driver->results AS $result) {
+            $championshipID = $result->stage->event->season->championship->id;
+            $seasonID = $result->stage->event->season->id;
+            $eventID = $result->stage->event->id;
+            $stageID = $result->stage->id;
+            if (!isset($championships[$championshipID])) {
+                $championships[$championshipID] = [
+                    'championship' => $result->stage->event->season->championship,
+                    'seasons' => [],
+                ];
+            }
+            if (!isset($championships[$championshipID]['seasons'][$seasonID])) {
+                $championships[$championshipID]['seasons'][$seasonID] = [
+                    'season' => $result->stage->event->season,
+                    'events' => [],
+                ];
+            }
+            if (!isset($championships[$championshipID]['seasons'][$seasonID]['events'][$eventID])) {
+                $championships[$championshipID]['seasons'][$seasonID]['events'][$eventID] = [
+                    'event' => $result->stage->event,
+                    'result' => $result->stage->event->positions()->where('driver_id', $driver->id)->first(),
+                    'stages' => [],
+                ];
+            }
+            // Only one result per stage, so just add it now
+            $championships[$championshipID]['seasons'][$seasonID]['events'][$eventID]['stages'][] = [
+                'stage' => $result->stage,
+                'result' => $result,
+            ];
+        }
+
+        return $championships;
     }
 }
