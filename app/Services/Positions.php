@@ -16,7 +16,14 @@ class Positions
         // Most of the work is done by the ordering
         $results = $stage->results()->with('driver')->orderBy('dnf')->orderBy('time')->get();
         $position = 1;
+        $bestTime = null;
         foreach($results AS $result) {
+            if (!$bestTime) {
+                $bestTime = $result->time;
+                $result->behind = 0;
+            } else {
+                $result->behind = $result->time - $bestTime;
+            }
             $result->position = $position++;
             $result->save();
         }
@@ -57,9 +64,9 @@ class Positions
 
         // Set the positions
         $position = 1;
-        foreach($times AS $driverId => $detail) {
+        foreach($times AS $driverID => $detail) {
             $event->positions()->create([
-                'driver_id' => $driverId,
+                'driver_id' => $driverID,
                 'position' => $position++,
             ]);
         }
