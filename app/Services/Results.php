@@ -58,12 +58,18 @@ class Results
 
         $championships = [];
 
-        foreach($driver->results AS $result) {
+        $results = $driver->results->sortBy(function($result) {
+            return $result->stage->event->closes.'-'.$result->stage->order;
+        });
+
+        foreach($results AS $result) {
             $championshipID = $result->stage->event->season->championship->id;
             $seasonID = $result->stage->event->season->id;
             $eventID = $result->stage->event->id;
             $stageID = $result->stage->id;
             if (!isset($championships[$championshipID])) {
+                // Load back down the chain
+                $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
                 $points = \DriverPoints::overall(
                     PointsSystem::where('default', true)->first(),
                     $result->stage->event->season->championship->seasons
@@ -75,7 +81,9 @@ class Results
 
                 $championships[$championshipID] = [
                     'championship' => $result->stage->event->season->championship,
-                    'position' => $driverPoints['position'],
+                    'position' => $result->stage->event->season->championship->isComplete()
+                        ? $driverPoints['position']
+                        : NULL,
                     'seasonPositions' => $driverPoints['seasonPosition'],
                     'seasons' => [],
                 ];
@@ -83,14 +91,18 @@ class Results
             if (!isset($championships[$championshipID]['seasons'][$seasonID])) {
                 $championships[$championshipID]['seasons'][$seasonID] = [
                     'season' => $result->stage->event->season,
-                    'position' => $championships[$championshipID]['seasonPositions'][$seasonID],
+                    'position' => isset($championships[$championshipID]['seasonPositions'][$seasonID])
+                        ? $championships[$championshipID]['seasonPositions'][$seasonID]
+                        : null,
                     'events' => [],
                 ];
             }
             if (!isset($championships[$championshipID]['seasons'][$seasonID]['events'][$eventID])) {
                 $championships[$championshipID]['seasons'][$seasonID]['events'][$eventID] = [
                     'event' => $result->stage->event,
-                    'result' => $result->stage->event->positions()->where('driver_id', $driver->id)->first(),
+                    'result' => $result->stage->event->isComplete()
+                        ? $result->stage->event->positions()->where('driver_id', $driver->id)->first()
+                        : null,
                     'stages' => [],
                 ];
             }

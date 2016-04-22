@@ -9,8 +9,8 @@
 
 @section('content')
 
-    <h2>Results</h2>
+    <h2>All Results</h2>
 
-    @include('driver.all-results')
+    @include('driver.all-results.championships')
 
 @endsection

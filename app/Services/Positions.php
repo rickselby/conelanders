@@ -14,7 +14,7 @@ class Positions
     public function updateStagePositions(Stage $stage)
     {
         // Most of the work is done by the ordering
-        $results = $stage->results()->with('driver')->orderBy('dnf')->orderBy('time')->get();
+        $results = $stage->results()->orderBy('dnf')->orderBy('time')->get();
         $position = 1;
         $bestTime = null;
         foreach($results AS $result) {
