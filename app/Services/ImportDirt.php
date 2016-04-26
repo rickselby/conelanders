@@ -115,7 +115,7 @@ class ImportDirt extends ImportAbstract
     {
         \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
         foreach($page->Entries as $entry) {
-            $this->processResult($stage, $entry->Name, $entry->Time, $entry->NationalityImage);
+            $this->processResult($stage, $entry->Name, $this->getRacenetID($entry->ProfileUrl), $entry->Time, $entry->NationalityImage);
         }
     }
 
@@ -123,13 +123,14 @@ class ImportDirt extends ImportAbstract
      * Process a result ready for saving
      * @param Stage $stage
      * @param string $driverName
+     * @param string $racenetID
      * @param string $timeString
      * @param string $nationalityImage
      */
-    protected function processResult(Stage $stage, $driverName, $timeString, $nationalityImage)
+    protected function processResult(Stage $stage, $driverName, $racenetID, $timeString, $nationalityImage)
     {
         // Get the driver model
-        $driver = $this->getDriver($driverName);
+        $driver = $this->getDriverByRacenetID($racenetID, $driverName);
         $this->processDriver($driver, $nationalityImage);
         // Convert the time to an integer
         $timeInt = \StageTime::fromString($timeString);
@@ -198,6 +199,16 @@ class ImportDirt extends ImportAbstract
         $file = json_decode(file_get_contents($url));
         \Log::info('Page took '.(microtime(true) - $start).'s to load');
         return $file;
+    }
+
+    /**
+     * Get the racenet ID from the profile URL
+     * @param  string $url
+     * @return string
+     */
+    protected function getRacenetID($url)
+    {
+        return basename($url);
     }
 
 }

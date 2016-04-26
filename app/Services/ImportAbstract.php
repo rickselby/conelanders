@@ -41,22 +41,67 @@ abstract class ImportAbstract
 
     /**
      * Get a driver from their name
-     * @param string $driverName
+     * @param  string $driverName
+     * @param  string $racenetID [optional]
      * @return Driver
      */
-    protected function getDriver($driverName)
+    protected function getDriver($driverName, $racenetID = NULL)
+    {
+        $this->initialiseDrivers();
+
+        if (!isset($this->drivers['names'][$driverName])) {
+            $this->drivers['names'][$driverName] = Driver::create(['name' => $driverName, 'racenet_id' => $racenetID]);
+        } elseif ($racenetID !== NULL) {
+            // Update the driver with racenet ID if required
+            $this->drivers['names'][$driverName]->racenet_id = $racenetID;
+            $this->drivers['names'][$driverName]->save();
+        }
+
+
+
+        return $this->drivers['names'][$driverName];
+    }
+
+    /**
+     * Get a driver by their racenet ID
+     * @param  string $racenetID
+     * @param  string $driverName
+     * @return Driver
+     */
+    protected function getDriverByRacenetID($racenetID, $driverName)
+    {
+        $this->initialiseDrivers();
+
+        if (isset($this->drivers['ids'][$racenetID])) {
+            // Update the driver name, if required
+            if ($this->drivers['ids'][$racenetID]->name != $driverName) {
+                $this->drivers['ids'][$racenetID]->name = $driverName;
+                $this->drivers['ids'][$racenetID]->save();
+            }
+            return $this->drivers['ids'][$racenetID];
+        } else {
+            return $this->getDriver($driverName, $racenetID);
+        }
+    }
+
+    /**
+     * Pull in drivers, key by names / racenet IDs
+     */
+    protected function initialiseDrivers()
     {
         if (count($this->drivers) == 0) {
+            $this->drivers = [
+                'names' => [],
+                'ids' => [],
+            ];
+
             foreach(Driver::all() AS $driver) {
-                $this->drivers[$driver->name] = $driver;
+                $this->drivers['names'][$driver->name] = $driver;
+                if ($driver->racenet_id) {
+                    $this->drivers['ids'][$driver->racenet_id] = $driver;
+                }
             }
         }
-
-        if (!isset($this->drivers[$driverName])) {
-            $this->drivers[$driverName] = Driver::create(['name' => $driverName]);
-        }
-
-        return $this->drivers[$driverName];
     }
 
     /**
