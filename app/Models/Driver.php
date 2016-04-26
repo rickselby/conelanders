@@ -9,7 +9,7 @@ class Driver extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'racenet_id'];
 
     public function nation()
     {
