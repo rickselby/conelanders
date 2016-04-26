@@ -137,6 +137,7 @@ class DriverPoints
                     $points[$result['entity']->id]['entity'] = $result['entity'];
                     $points[$result['entity']->id]['points'][$season->id] = $result['total'];
                     $points[$result['entity']->id]['positions'][] = $position;
+                    $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
                 }
             }
         }

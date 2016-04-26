@@ -59,7 +59,11 @@
             @foreach($results AS $key => $result)
             <tr>
                 <th>{{ $key }}</th>
-                <th>{{ $result['driver']->name }}</th>
+                <th>
+                    <a href="{{ route('driver.show', $result['driver']) }}">
+                        {{ $result['driver']->name }}
+                    </a>
+                </th>
                 @foreach($event->stages AS $stage)
                 <td>{{ StageTime::toString($result['stage'][$stage->order]) }}</td>
                 @endforeach

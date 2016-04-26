@@ -46,4 +46,11 @@ class Event extends \Eloquent implements SluggableInterface
     {
         return 'slug';
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->season->championship->name
+            .' - '.$this->season->name
+            .' - '.$this->name;
+    }
 }

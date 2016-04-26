@@ -34,4 +34,12 @@ class Stage extends \Eloquent implements SluggableInterface
     {
         return 'slug';
     }
+    
+    public function getFullNameAttribute()
+    {
+        return $this->event->season->championship->name
+            .' - '.$this->event->season->name
+            .' - '.$this->event->name
+            .' - '.$this->name;
+    }
 }

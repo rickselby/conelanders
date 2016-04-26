@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\Import::class,
         Commands\CSV::class,
         Commands\CreateSlugsCommand::class,
+        Commands\StagePositions::class,
     ];
 
     /**

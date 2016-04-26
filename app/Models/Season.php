@@ -26,6 +26,11 @@ class Season extends \Eloquent implements SluggableInterface
         return $this->hasMany(Event::class)->orderBy('closes');
     }
 
+    public function positions()
+    {
+        return $this->morphMany('App\Models\Position', 'positionable');
+    }
+
     public function getOpensAttribute()
     {
         $dates = [];
@@ -75,5 +80,11 @@ class Season extends \Eloquent implements SluggableInterface
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->championship->name
+            .' - '.$this->name;
     }
 }

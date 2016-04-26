@@ -15,4 +15,14 @@ class Driver extends \Eloquent implements SluggableInterface
     {
         return $this->belongsTo(Nation::class);
     }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

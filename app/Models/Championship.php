@@ -23,6 +23,11 @@ class Championship extends \Eloquent implements SluggableInterface
         return $this->hasMany(Season::class);
     }
 
+    public function positions()
+    {
+        return $this->morphMany('App\Models\Position', 'positionable');
+    }
+
     public function getOpensAttribute()
     {
         $dates = [];
@@ -54,6 +59,15 @@ class Championship extends \Eloquent implements SluggableInterface
     public function getShortNameAttribute()
     {
         return trim(str_ireplace('championship', '', $this->name));
+    }
+
+    public function isComplete() {
+        foreach($this->seasons AS $season) {
+            if (!$season->isComplete()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public function getRouteKeyName()

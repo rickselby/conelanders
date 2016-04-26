@@ -10,7 +10,7 @@
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <!-- Bootstrap -->
         <link href="{{ asset('bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/page.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
         <link href="{{ asset('bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
         <link href="{{ asset('bower/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
         <link href="{{ asset('bower/tablesorter/dist/css/theme.bootstrap.min.css') }}" rel="stylesheet">

@@ -30,7 +30,11 @@
         @foreach($points AS $position => $detail)
             <tr>
                 <th>{{ $position + 1 }}</th>
-                <th>{{ $detail['entity']->name }}</th>
+                <th>
+                    <a href="{{ route('driver.show', $detail['entity']) }}">
+                        {{ $detail['entity']->name }}
+                    </a>
+                </th>
                 @foreach($season->events AS $event)
                     <td>{{ $detail['points'][$event->id] or '' }}</td>
                 @endforeach
