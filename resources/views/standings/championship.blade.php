@@ -42,7 +42,15 @@
                     </a>
                 </th>
                 @foreach($seasons AS $season)
-                    <td>{{ $detail['points'][$season->id] or '' }}</td>
+                    <td>
+                        @if ($season->isComplete())
+                            {{ $detail['points'][$season->id] or '' }}
+                        @else
+                            <em class="text-muted">
+                                {{ $detail['points'][$season->id] or '' }}
+                            </em>
+                        @endif
+                    </td>
                 @endforeach
                 <td>{{ $detail['total'] }}</td>
             </tr>

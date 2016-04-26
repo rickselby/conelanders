@@ -101,7 +101,7 @@ class Results
             if (!isset($championships[$championshipID]['seasons'][$seasonID])) {
                 $championships[$championshipID]['seasons'][$seasonID] = [
                     'season' => $result->stage->event->season,
-                    'position' => isset($championships[$championshipID]['seasonPositions'][$seasonID])
+                    'position' => isset($championships[$championshipID]['seasonPositions'][$seasonID]) && $result->stage->event->season->isComplete()
                         ? $championships[$championshipID]['seasonPositions'][$seasonID]
                         : null,
                     'events' => [],

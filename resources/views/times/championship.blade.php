@@ -35,7 +35,13 @@
                 </th>
                 @foreach($seasons AS $season)
                     <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
-                        {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                        @if ($season->isComplete())
+                            {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                        @else
+                            <em class="text-muted">
+                                {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                            </em>
+                        @endif
                     </td>
                 @endforeach
                 <td>{{ StageTime::toString($detail['total']) }}</td>
