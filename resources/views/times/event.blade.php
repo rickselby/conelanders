@@ -36,7 +36,11 @@
             @foreach($times['times'] AS $position => $detail)
             <tr>
                 <th>{{ $position + 1 }}</th>
-                <th>{{ $detail['driver']->name }}</th>
+                <th>
+                    <a href="{{ route('driver.show', $detail['driver']) }}">
+                        {{ $detail['driver']->name }}
+                    </a>
+                </th>
                 @foreach($event->stages AS $stage)
                     <td class="{{ isset($detail['worst'][$stage->order]) ? 'text-muted' : '' }}">
                         {{ StageTime::toString($detail['stageTimes'][$stage->order]) }}

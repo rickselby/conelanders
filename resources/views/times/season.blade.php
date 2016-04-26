@@ -29,7 +29,11 @@
         @foreach($times['times'] AS $position => $detail)
             <tr>
                 <th>{{ $position + 1 }}</th>
-                <th>{{ $detail['driver']->name }}</th>
+                <th>
+                    <a href="{{ route('driver.show', $detail['driver']) }}">
+                        {{ $detail['driver']->name }}
+                    </a>
+                </th>
                 @foreach($season->events AS $event)
                     <td class="{{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
                         {{ StageTime::toString($detail['events'][$event->id]) }}

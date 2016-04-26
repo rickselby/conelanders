@@ -31,7 +31,11 @@
             @foreach($results AS $result)
                 <tr>
                     <th>{{ $result->position }}</th>
-                    <th>{{ $result->driver->name }}</th>
+                    <th>
+                        <a href="{{ route('driver.show', $result->driver) }}">
+                            {{ $result->driver->name }}
+                        </a>
+                    </th>
                     <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
                     <td>{{ $points['stage'][$result->position] or '' }}</td>
                 </tr>
