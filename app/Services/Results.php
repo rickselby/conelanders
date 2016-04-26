@@ -54,6 +54,14 @@ class Results
 
     public function forDriver(Driver $driver)
     {
+        $results['all'] = $this->getAllForDriver($driver);
+        $results['best'] = $this->getBestForDriver($results['all']);
+
+        return $results;
+    }
+
+    protected function getAllForDriver(Driver $driver)
+    {
         $driver->load('results.stage.event.season.championship');
 
         $championships = [];
@@ -63,10 +71,12 @@ class Results
         });
 
         foreach($results AS $result) {
+
             $championshipID = $result->stage->event->season->championship->id;
             $seasonID = $result->stage->event->season->id;
             $eventID = $result->stage->event->id;
             $stageID = $result->stage->id;
+
             if (!isset($championships[$championshipID])) {
                 // Load back down the chain
                 $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
@@ -106,13 +116,58 @@ class Results
                     'stages' => [],
                 ];
             }
-            // Only one result per stage, so just add it now
-            $championships[$championshipID]['seasons'][$seasonID]['events'][$eventID]['stages'][] = [
-                'stage' => $result->stage,
-                'result' => $result,
-            ];
+            if ($result->stage->event->isComplete()) {
+                // Only one result per stage, so just add it now
+                $championships[$championshipID]['seasons'][$seasonID]['events'][$eventID]['stages'][$stageID] = [
+                    'stage' => $result->stage,
+                    'result' => $result,
+                ];
+            }
         }
 
         return $championships;
+    }
+
+    protected function getBestForDriver($results)
+    {
+        $bests = [
+            'championship' => [],
+            'season' => [],
+            'event' => [],
+            'stage' => [],
+        ];
+
+        foreach($results AS $champID => $championship) {
+            foreach($championship['seasons'] AS $seasonID => $season) {
+                foreach($season['events'] AS $eventID => $event) {
+                    foreach ($event['stages'] AS $stageID => $stage) {
+                        $this->getBest($bests['stage'], $stage);
+                    }
+                    $this->getBest($bests['event'], $event);
+                }
+                $this->getBest($bests['season'], $season);
+            }
+            $this->getBest($bests['championship'], $championship);
+        }
+
+        return $bests;
+    }
+
+    protected function getBest(&$current, $new)
+    {
+        $newPosition = array_key_exists('result', $new)
+            ? (isset($new['result']) ? $new['result']->position : NULL)
+            : $new['position'];
+
+        if ($newPosition === NULL) {
+            return;
+        }
+
+        if (!isset($current['best']) || $current['best'] > $newPosition) {
+            $current['best'] = $newPosition;
+            $current['things'] = collect([$new]);
+        } elseif ($current['best'] == $newPosition) {
+            $current['things']->push($new);
+        }
     }
 }

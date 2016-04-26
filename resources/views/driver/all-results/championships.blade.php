@@ -1,4 +1,4 @@
-@foreach($results AS $championship)
+@foreach($results['all'] AS $championship)
     <div class="panel panel-default">
         <div class="panel-heading" role="tab">
             <h4 class="panel-title">

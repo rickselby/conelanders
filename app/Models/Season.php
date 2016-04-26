@@ -81,4 +81,10 @@ class Season extends \Eloquent implements SluggableInterface
     {
         return 'slug';
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->championship->name
+            .' - '.$this->name;
+    }
 }
