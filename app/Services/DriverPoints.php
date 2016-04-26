@@ -132,13 +132,11 @@ class DriverPoints
         $points = [];
         // Step through the seasons and pull in results
         foreach($seasons AS $season) {
-            if ($season->isComplete()) {
-                foreach ($this->forSeason($system, $season) AS $position => $result) {
-                    $points[$result['entity']->id]['entity'] = $result['entity'];
-                    $points[$result['entity']->id]['points'][$season->id] = $result['total'];
-                    $points[$result['entity']->id]['positions'][] = $position;
-                    $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
-                }
+            foreach ($this->forSeason($system, $season) AS $position => $result) {
+                $points[$result['entity']->id]['entity'] = $result['entity'];
+                $points[$result['entity']->id]['points'][$season->id] = $result['total'];
+                $points[$result['entity']->id]['positions'][] = $position;
+                $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
             }
         }
 

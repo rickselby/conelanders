@@ -117,27 +117,19 @@ class Times
         $times = [];
         $seasonList = [];
         foreach($seasons AS $season) {
-            if ($season->isComplete()) {
-                $seasonList[$season->id] = $this->forSeason($season);
-                foreach ($seasonList[$season->id]['times'] AS $result) {
-                    $times[$result['driver']->id]['driver'] = $result['driver'];
-                    $times[$result['driver']->id]['seasons'][$season->id] = $result['total'];
-                }
+            $seasonList[$season->id] = $this->forSeason($season);
+            foreach ($seasonList[$season->id]['times'] AS $result) {
+                $times[$result['driver']->id]['driver'] = $result['driver'];
+                $times[$result['driver']->id]['seasons'][$season->id] = $result['total'];
             }
         }
 
         foreach($times AS $driverID => $detail) {
             foreach($seasons AS $season) {
-                if ($season->isComplete()) {
-                    if (!isset($detail['seasons'][$season->id])) {
-                        $times[$driverID]['seasons'][$season->id] = $seasonList[$season->id]['dnf'];
-                        $times[$driverID]['dnss'][$season->id] = true;
-                    } else {
-                        $times[$driverID]['dnss'][$season->id] = false;
-                    }
+                if (!isset($detail['seasons'][$season->id])) {
+                    $times[$driverID]['seasons'][$season->id] = $seasonList[$season->id]['dnf'];
+                    $times[$driverID]['dnss'][$season->id] = true;
                 } else {
-                    $times[$driverID]['seasons'][$season->id] = null;
-                    $times[$driverID]['dnfs'][$season->id] = false;
                     $times[$driverID]['dnss'][$season->id] = false;
                 }
             }
