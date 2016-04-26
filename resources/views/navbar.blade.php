@@ -8,58 +8,30 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('home') }}">Conelanders</a>
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="{{ asset('img/conelanders.png') }}" alt="Conelanders" />
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Results <span class="caret"></span>
+                        Dirt Rally <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
-                            <li>
-                                <a href="{{ route('championship.show', $championship) }}">{{ $championship->name }}</a>
-                            </li>
+                            <li class="dropdown-header">{{ $championship->name }}</li>
+                            <li><a href="{{ route('standings.championship', [$defaultPointsSystem, $championship]) }}">Standings</a></li>
+                            <li><a href="{{ route('nationstandings.championship', [$defaultPointsSystem, $championship]) }}">Nation Standings</a></li>
+                            <li><a href="{{ route('championship.show', $championship) }}">Results</a></li>
+                            <li><a href="{{ route('times.championship', $championship) }}">Total Time</a></li>
                         @endforeach
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Standings <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($championships AS $championship)
-                            <li>
-                                <a href="{{ route('standings.championship', [$defaultPointsSystem, $championship]) }}">{{ $championship->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                <li>
+                    <a href="{{ route('assettocorsa') }}">Assetto Corsa</a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Nation Standings <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($championships AS $championship)
-                            <li>
-                                <a href="{{ route('nationstandings.championship', [$defaultPointsSystem, $championship]) }}">{{ $championship->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Total Time <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($championships AS $championship)
-                            <li>
-                                <a href="{{ route('times.championship', $championship) }}">{{ $championship->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
+
             @if (Auth::user() && Auth::user()->admin)
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

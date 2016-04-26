@@ -49,4 +49,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
+
+    Route::get('/assetto-corsa', 'AssettoCorsaController@index')->name('assettocorsa');
 });
