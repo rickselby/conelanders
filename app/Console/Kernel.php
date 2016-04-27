@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Import::class,
-        Commands\CSV::class,
         Commands\CreateSlugsCommand::class,
-        Commands\StagePositions::class,
+        Commands\DirtRally\CSV::class,
+        Commands\DirtRally\Import::class,
+        Commands\DirtRally\StagePositions::class,
     ];
 
     /**

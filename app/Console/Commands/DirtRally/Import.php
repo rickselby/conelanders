@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\DirtRally;
 
 use Illuminate\Console\Command;
 
-class CSV extends Command
+class Import extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'results:csv {event_id} {file}';
+    protected $signature = 'results:import';
 
     /**
      * The console command description.
@@ -27,12 +27,7 @@ class CSV extends Command
      */
     public function handle()
     {
-        $lines = file($this->argument('file'));
-        $csv = [];
-        foreach($lines AS $line) {
-            $csv[] = str_getcsv($line, ',');
-        }
-
-        \ImportCSV::fromCSV($this->argument('event_id'), $csv);
+        \ImportDirt::queueEventJobs();
     }
+
 }
