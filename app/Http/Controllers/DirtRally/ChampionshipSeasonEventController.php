@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DirtRally;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SeasonEventRequest;
 use App\Models\Event;
 use App\Models\Season;
@@ -42,7 +43,7 @@ class ChampionshipSeasonEventController extends Controller
         $event = Event::create($request->all());
         $season->events()->save($event);
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
-        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
+        return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**
@@ -90,7 +91,7 @@ class ChampionshipSeasonEventController extends Controller
         $event->fill($request->all());
         $event->save();
         \Notification::add('success', $event->name . ' updated');
-        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
+        return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**
@@ -108,11 +109,11 @@ class ChampionshipSeasonEventController extends Controller
         if ($event->stages->count()) {
             \Notification::add('error',
                 $event->name . ' cannot be deleted - there are stages assigned to  it');
-            return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
+            return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
         } else {
             $event->delete();
             \Notification::add('success', $event->name . ' deleted');
-            return \Redirect::route('championship.season.show', [$championship, $season]);
+            return \Redirect::route('dirt-rally.championship.season.show', [$championship, $season]);
         }
     }
 }

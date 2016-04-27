@@ -13,7 +13,7 @@ class Championship extends \Eloquent implements SluggableInterface
 
     protected $fillable = ['name'];
 
-    protected $sluggify = [
+    protected $sluggable = [
         'build_from' => 'shortName'
     ];
 

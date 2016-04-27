@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DirtRally;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SeasonEventStageRequest;
 use App\Models\Event;
 use App\Models\Stage;
@@ -45,7 +46,7 @@ class ChampionshipSeasonEventStageController extends Controller
         $stage = Stage::create($request->all());
         $event->stages()->save($stage);
         \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$event->name.'" ('.$event->season->name.')');
-        return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
+        return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
 
     /**
@@ -96,7 +97,7 @@ class ChampionshipSeasonEventStageController extends Controller
         $stage->fill($request->all());
         $stage->save();
         \Notification::add('success', $stage->name . ' updated');
-        return \Redirect::route('championship.season.event.stage.show', [$championship, $season, $event, $stage]);
+        return \Redirect::route('dirt-rally.championship.season.event.stage.show', [$championship, $season, $event, $stage]);
     }
 
     /**
@@ -113,11 +114,11 @@ class ChampionshipSeasonEventStageController extends Controller
         $stage = \Request::get('stage');
         if ($stage->results->count()) {
             \Notification::add('error', $stage->name . ' cannot be deleted - there are results for this stage');
-            return \Redirect::route('championship.season.event.stage.show', [$championship, $season, $event, $stage]);
+            return \Redirect::route('dirt-rally.championship.season.event.stage.show', [$championship, $season, $event, $stage]);
         } else {
             $stage->delete();
             \Notification::add('success', $stage->name . ' deleted');
-            return \Redirect::route('championship.season.event.show', [$championship, $season, $event]);
+            return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
         }
     }
 }

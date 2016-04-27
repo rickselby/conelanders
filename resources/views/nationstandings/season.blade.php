@@ -2,9 +2,9 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', $system) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('nationstandings.championship', [$system, $season->championship]) }}">{{ $season->championship->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.index') }}">Nations Standings</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.championship', [$system, $season->championship]) }}">{{ $season->championship->name }}</a></li>
         <li class="active">{{ $season->name }}</li>
     </ol>
 @endsection
@@ -18,7 +18,7 @@
             <th>Nation</th>
             @foreach($season->events AS $event)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('nationstandings.event', [$system, $season->championship, $season, $event]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.nationstandings.event', [$system, $season->championship, $season, $event]) }}" class="tablesorter-noSort">
                         {{ $event->name }}
                     </a>
                 </th>

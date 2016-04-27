@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::model($stage, ['route' => ['championship.season.event.stage.update', $stage->event->season->championship, $stage->event->season, $stage->event, $stage], 'method' => 'put', 'class' => 'form-horizontal']) !!}
+    {!! Form::model($stage, ['route' => ['dirt-rally.championship.season.event.stage.update', $stage->event->season->championship, $stage->event->season, $stage->event, $stage], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

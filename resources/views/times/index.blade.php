@@ -11,7 +11,7 @@
     <ul>
         @foreach($championships AS $championship)
             <li>
-                <a href="{{ route('times.championship', $championship) }}" class="tablesorter-noSort">
+                <a href="{{ route('dirt-rally.times.championship', $championship) }}" class="tablesorter-noSort">
                     {{ $championship->name }}
                 </a>
             </li>

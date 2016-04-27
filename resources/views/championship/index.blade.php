@@ -10,7 +10,7 @@
 
     @if (Auth::user() && Auth::user()->admin)
         <p>
-            <a class="btn btn-small btn-info" href="{{ route('championship.create') }}">Add a new championship</a>
+            <a class="btn btn-small btn-info" href="{{ route('dirt-rally.championship.create') }}">Add a new championship</a>
         </p>
     @endif
 
@@ -19,7 +19,7 @@
     <ul>
         @foreach($championships as $championship)
             <li>
-                <a href="{{ route('championship.show', $championship) }}">
+                <a href="{{ route('dirt-rally.championship.show', $championship) }}">
                     {{ $championship->name }}
                 </a>
             </li>

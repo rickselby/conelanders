@@ -11,44 +11,16 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     })->name('home');
 
-    Route::resource('championship', 'ChampionshipController');
-    Route::resource('championship.season', 'ChampionshipSeasonController', [['except' => ['index']]]);
-    Route::resource('championship.season.event', 'ChampionshipSeasonEventController', [['except' => ['index']]]);
-    Route::resource('championship.season.event.stage', 'ChampionshipSeasonEventStageController', [['except' => ['index']]]);
-
     Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
     Route::resource('points-system', 'PointsSystemController');
 
-    Route::get('/standings/', 'StandingsController@index')->name('standings.index');
-    Route::get('/standings/{system}', 'StandingsController@system')->name('standings.system');
-    Route::get('/standings/{system}/{championship}', 'StandingsController@championship')->name('standings.championship');
-    Route::get('/standings/{system}/{championship}/overview', 'StandingsController@overview')->name('standings.overview');
-    Route::get('/standings/{system}/{championship}/{season}', 'StandingsController@season')->name('standings.season');
-    Route::get('/standings/{system}/{championship}/{season}/{event}', 'StandingsController@event')->name('standings.event');
-    Route::get('/standings/{system}/{championship}/{season}/{event}/{stage}', 'StandingsController@stage')->name('standings.stage');
-
-    Route::get('/nation-standings/', 'NationStandingsController@index')->name('nationstandings.index');
-    Route::get('/nation-standings/{system}', 'NationStandingsController@system')->name('nationstandings.system');
-    Route::get('/nation-standings/{system}/{championship}', 'NationStandingsController@championship')->name('nationstandings.championship');
-    Route::get('/nation-standings/{system}/{championship}/overview', 'NationStandingsController@overview')->name('nationstandings.overview');
-    Route::get('/nation-standings/{system}/{championship}/{season}', 'NationStandingsController@season')->name('nationstandings.season');
-    Route::get('/nation-standings/{system}/{championship}/{season}/{event}', 'NationStandingsController@event')->name('nationstandings.event');
-
-    Route::get('/times', 'TimesController@index')->name('times.index');
-    Route::get('/times/{championship}', 'TimesController@championship')->name('times.championship');
-    Route::get('/times/{championship}/{season}', 'TimesController@season')->name('times.season');
-    Route::get('/times/{championship}/{season}/{event}', 'TimesController@event')->name('times.event');
-    Route::get('/times/{championship}/{season}/{event}/{stage}', 'TimesController@stage')->name('times.stage');
-
-    Route::group(['middleware' => ['admin']], function() {
-        Route::get('event-id-help', function () {
-            return view('event-id-help');
-        })->name('event-id-help');
-    });
-
-    Route::get('/nation/image/{nation}', 'NationController@image')->name('nation.image');
+    Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
+
+    Route::group(['prefix' => 'dirt-rally', 'namespace' => 'DirtRally'], function() {
+        include('Routes/dirt-rally.php');
+    });
 
     Route::get('/assetto-corsa', 'AssettoCorsaController@index')->name('assettocorsa');
 });

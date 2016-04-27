@@ -2,9 +2,9 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('standings.index') }}">Standings</a></li>
-        <li><a href="{{ route('standings.system', $system) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('standings.championship', [$system, $championship]) }}">{{ $championship->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.standings.index') }}">Standings</a></li>
+        <li><a href="{{ route('dirt-rally.standings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.standings.championship', [$system, $championship]) }}">{{ $championship->name }}</a></li>
         <li class="active">Overview</li>
     </ol>
 @endsection
@@ -17,7 +17,7 @@
             <th colspan="2" rowspan="2" data-sorter="false"></th>
             @foreach($seasons AS $season)
                 <th colspan="{{ $season->stageCount + count($season->events) }}" data-sorter="false" class="text-center">
-                    <a href="{{ route('standings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.standings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>
@@ -28,7 +28,7 @@
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
                     <th colspan="{{ count($event->stages) + 1 }}" data-sorter="false" class="text-center">
-                        <a href="{{ route('standings.event', [$system, $championship, $season, $event]) }}" class="tablesorter-noSort">
+                        <a href="{{ route('dirt-rally.standings.event', [$system, $championship, $season, $event]) }}" class="tablesorter-noSort">
                             {{ $event->name }}
                         </a>
                     </th>
@@ -42,7 +42,7 @@
                 @foreach($season->events AS $event)
                     @foreach($event->stages AS $stage)
                         <th data-sortInitialOrder="desc">
-                            <a href="{{ route('standings.stage', [$system, $championship, $season, $event, $stage]) }}" class="tablesorter-noSort">
+                            <a href="{{ route('dirt-rally.standings.stage', [$system, $championship, $season, $event, $stage]) }}" class="tablesorter-noSort">
                                 {{ $stage->order }}
                             </a>
                         </th>

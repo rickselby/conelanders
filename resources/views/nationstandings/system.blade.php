@@ -2,7 +2,7 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.index') }}">Nations Standings</a></li>
         <li class="active">{{ $system->name }}</li>
     </ol>
 @endsection
@@ -12,7 +12,7 @@
     <ul>
         @foreach($championships AS $championship)
             <li>
-                <a href="{{ route('nationstandings.championship', [$system, $championship]) }}">
+                <a href="{{ route('dirt-rally.nationstandings.championship', [$system, $championship]) }}">
                     {{ $championship->name }}
                 </a>
             </li>

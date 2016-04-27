@@ -21,10 +21,10 @@
                     <ul class="dropdown-menu">
                         @foreach($championships AS $championship)
                             <li class="dropdown-header">{{ $championship->name }}</li>
-                            <li><a href="{{ route('standings.championship', [$defaultPointsSystem, $championship]) }}">Standings</a></li>
-                            <li><a href="{{ route('nationstandings.championship', [$defaultPointsSystem, $championship]) }}">Nation Standings</a></li>
-                            <li><a href="{{ route('championship.show', $championship) }}">Results</a></li>
-                            <li><a href="{{ route('times.championship', $championship) }}">Total Time</a></li>
+                            <li><a href="{{ route('dirt-rally.standings.championship', [$defaultPointsSystem, $championship]) }}">Standings</a></li>
+                            <li><a href="{{ route('dirt-rally.nationstandings.championship', [$defaultPointsSystem, $championship]) }}">Nation Standings</a></li>
+                            <li><a href="{{ route('dirt-rally.championship.show', $championship) }}">Results</a></li>
+                            <li><a href="{{ route('dirt-rally.times.championship', $championship) }}">Total Time</a></li>
                         @endforeach
                     </ul>
                 </li>

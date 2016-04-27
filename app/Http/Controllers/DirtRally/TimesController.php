@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DirtRally;
 
+use App\Http\Controllers\Controller;
 use App\Models\Championship;
 use App\Models\Event;
 use App\Models\Season;

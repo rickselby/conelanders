@@ -2,8 +2,8 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('times.index') }}">Total Time</a></li>
-        <li><a href="{{ route('times.championship', [$season->championship]) }}">{{ $season->championship->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.times.index') }}">Total Time</a></li>
+        <li><a href="{{ route('dirt-rally.times.championship', [$season->championship]) }}">{{ $season->championship->name }}</a></li>
         <li class="active">{{ $season->name }}</li>
     </ol>
 @endsection
@@ -17,7 +17,7 @@
             <th>Driver</th>
             @foreach($season->events AS $event)
                 <th>
-                    <a href="{{ route('times.event', [$season->championship, $season, $event]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.times.event', [$season->championship, $season, $event]) }}" class="tablesorter-noSort">
                         {{ $event->name }}
                     </a>
                 </th>

@@ -2,10 +2,10 @@
 
 @section('header')
     <ol class="breadcrumb">
-        <li><a href="{{ route('nationstandings.index') }}">Nations Standings</a></li>
-        <li><a href="{{ route('nationstandings.system', $system) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('nationstandings.championship', [$system, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
-        <li><a href="{{ route('nationstandings.season', [$system, $event->season->championship, $event->season]) }}">{{ $event->season->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.index') }}">Nations Standings</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.system', $system) }}">{{ $system->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.championship', [$system, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
+        <li><a href="{{ route('dirt-rally.nationstandings.season', [$system, $event->season->championship, $event->season]) }}">{{ $event->season->name }}</a></li>
         <li class="active">{{ $event->name }}</li>
     </ol>
 @endsection

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DirtRally;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ChampionshipRequest;
 use App\Models\Championship;
 
@@ -46,7 +47,7 @@ class ChampionshipController extends Controller
         /** @var Championship $championship */
         $championship = Championship::create($request->all());
         \Notification::add('success', 'Championship "'.$championship->name.'" created');
-        return \Redirect::route('championship.show', $championship);
+        return \Redirect::route('dirt-rally.championship.show', $championship);
     }
 
     /**
@@ -87,7 +88,7 @@ class ChampionshipController extends Controller
         $championship->save();
 
         \Notification::add('success', 'Championship "'.$championship->name.'" updated');
-        return \Redirect::route('championship.show', $championship);
+        return \Redirect::route('dirt-rally.championship.show', $championship);
     }
 
     /**
@@ -100,11 +101,11 @@ class ChampionshipController extends Controller
     {
         if ($championship->seasons->count()) {
             \Notification::add('error', 'Championship "'.$championship->name.'" cannot be deleted - there are seasons assigned to it');
-            return \Redirect::route('championship.show', $championship);
+            return \Redirect::route('dirt-rally.championship.show', $championship);
         } else {
             $championship->delete();
             \Notification::add('success', 'Championship "'.$championship->name.'" deleted');
-            return \Redirect::route('championship.index');
+            return \Redirect::route('dirt-rally.championship.index');
         }
     }
 }

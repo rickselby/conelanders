@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::open(['route' => ['championship.season.event.store', $season->championship, $season], 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => ['dirt-rally.championship.season.event.store', $season->championship, $season], 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
@@ -22,7 +22,7 @@
         <div class="col-sm-10">
             {!! Form::number('dirt_id', null, ['class' => 'form-control']) !!}
             <p class="help-block">
-                <a target="_blank" href="{{ route('event-id-help') }}">View help for finding the event ID</a>
+                <a target="_blank" href="{{ route('dirt-rally.event-id-help') }}">View help for finding the event ID</a>
             </p>
         </div>
     </div>
