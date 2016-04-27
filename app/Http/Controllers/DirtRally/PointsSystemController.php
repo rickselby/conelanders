@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DirtRally;
 
+use App\Http\Controllers\Controller;
 use App\Models\DirtRally\PointsSequence;
 use App\Models\DirtRally\PointsSystem;
 use Illuminate\Http\Request;

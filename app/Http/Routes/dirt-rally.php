@@ -1,6 +1,6 @@
 <?php
 
-Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
+Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('dirt-rally.points-system.points');
 Route::resource('points-system', 'PointsSystemController');
 
 Route::resource('championship', 'ChampionshipController');
