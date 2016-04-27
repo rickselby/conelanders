@@ -11,7 +11,8 @@
         "laravelista/ekko": "^1.0",
         "laravelcollective/html": "^5.2",
         "edvinaskrucas/notification": "^5.1",
-        "cviebrock/eloquent-sluggable": "^3.1"
+        "cviebrock/eloquent-sluggable": "^3.1",
+        "davejamesmiller/laravel-breadcrumbs": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

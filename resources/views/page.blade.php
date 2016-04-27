@@ -32,6 +32,7 @@
     <body>
         <div class="container">
             @include('navbar')
+            {!! Breadcrumbs::renderIfExists() !!}
             @yield('header')
             {!! Notification::showAll() !!}
             @include('formResponse')

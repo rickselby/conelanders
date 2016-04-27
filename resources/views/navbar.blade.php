@@ -18,7 +18,7 @@
                     <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
                 <li>
-                    <a href="{{ route('assettocorsa') }}">Assetto Corsa</a>
+                    <a href="{{ route('assetto-corsa') }}">Assetto Corsa</a>
                 </li>
 
             @if (Auth::user() && Auth::user()->admin)

@@ -87,7 +87,7 @@ class NationController extends Controller
     {
         if ($nation->drivers->count()) {
             \Notification::add('error', 'Nation "'.$nation->name.'" cannot be deleted - there are drivers assigned to it');
-            return \Redirect::route('nation.show', $nation);
+            return \Redirect::route('nation.index');
         } else {
             $nation->delete();
             \Notification::add('success', 'Nation "'.$nation->name.'" deleted');

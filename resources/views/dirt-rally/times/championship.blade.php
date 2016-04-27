@@ -1,12 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li><a href="{{ route('dirt-rally.times.index') }}">Total Time</a></li>
-        <li class="active">{{ $championship->name }}</li>
-    </ol>
-@endsection
-
 @section('content')
 
     <table class="table table-bordered table-hover">

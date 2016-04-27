@@ -1,15 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li><a href="{{ route('dirt-rally.standings.index') }}">Standings</a></li>
-        <li><a href="{{ route('dirt-rally.standings.system', [$system]) }}">{{ $system->name }}</a></li>
-        <li><a href="{{ route('dirt-rally.standings.championship', [$system, $event->season->championship]) }}">{{ $event->season->championship->name }}</a></li>
-        <li><a href="{{ route('dirt-rally.standings.season', [$system, $event->season->championship, $event->season]) }}">{{ $event->season->name }}</a></li>
-        <li class="active">{{ $event->name }}</li>
-    </ol>
-@endsection
-
 @section('content')
 
     @if ($event->importing)

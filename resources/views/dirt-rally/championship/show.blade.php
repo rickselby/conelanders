@@ -1,12 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li><a href="{{ route('dirt-rally.championship.index') }}">Results</a></li>
-        <li class="active">{{ $championship->name }}</li>
-    </ol>
-@endsection
-
 @section('content')
 
     @if (Auth::user() && Auth::user()->admin)

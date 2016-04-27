@@ -19,5 +19,5 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/dirt-rally.php');
     });
 
-    Route::get('/assetto-corsa', 'AssettoCorsaController@index')->name('assettocorsa');
+    Route::get('/assetto-corsa', 'AssettoCorsaController@index')->name('assetto-corsa');
 });

@@ -166,7 +166,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Krucas\Notification\NotificationServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
-
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
     ],
 
     /*
@@ -213,11 +213,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-        'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Ekko' => Laravelista\Ekko\Facades\Ekko::class,
         'Form'=> Collective\Html\FormFacade::class,
         'HTML'=> Collective\Html\HtmlFacade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
+        'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
 
         'Nations' => App\Services\Facades\NationsFacade::class,
 

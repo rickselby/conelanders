@@ -1,11 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li class="active">Nations Standings</li>
-    </ol>
-@endsection
-
 @section('content')
 
     <ul>
