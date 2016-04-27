@@ -13,7 +13,7 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services;
 
-use App\Jobs\ImportEventJob;
+use App\Jobs\DirtRally\ImportEventJob;
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\Stage;
 use Carbon\Carbon;
