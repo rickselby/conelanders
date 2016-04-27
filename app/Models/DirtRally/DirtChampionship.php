@@ -7,7 +7,7 @@ use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
 
-class Championship extends \Eloquent implements SluggableInterface
+class DirtChampionship extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
@@ -20,7 +20,7 @@ class Championship extends \Eloquent implements SluggableInterface
     public function seasons()
     {
         // Can't sort at database level
-        return $this->hasMany(Season::class);
+        return $this->hasMany(DirtSeason::class);
     }
 
     public function getOpensAttribute()

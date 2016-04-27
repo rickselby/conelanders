@@ -4,8 +4,8 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonRequest;
-use App\Models\DirtRally\Championship;
-use App\Models\DirtRally\Season;
+use App\Models\DirtRally\DirtChampionship;
+use App\Models\DirtRally\DirtSeason;
 
 class ChampionshipSeasonController extends Controller
 {
@@ -18,10 +18,10 @@ class ChampionshipSeasonController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param Championship $championship
+     * @param DirtChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function create(Championship $championship)
+    public function create(DirtChampionship $championship)
     {
         return view('dirt-rally.season.create')
             ->with('championship', $championship);
@@ -33,10 +33,10 @@ class ChampionshipSeasonController extends Controller
      * @param ChampionshipSeasonRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ChampionshipSeasonRequest $request, Championship $championship)
+    public function store(ChampionshipSeasonRequest $request, DirtChampionship $championship)
     {
-        /** @var Season $season */
-        $season = Season::create($request->all());
+        /** @var DirtSeason $season */
+        $season = DirtSeason::create($request->all());
         $championship->seasons()->save($season);
         \Notification::add('success', 'Season "'.$season->name.'" created');
         return \Redirect::route('dirt-rally.championship.season.show', [$championship, $season]);

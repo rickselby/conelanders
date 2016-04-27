@@ -2,14 +2,14 @@
 
 namespace App\Http\Middleware\DirtRally;
 
-use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\DirtChampionship;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait ValidateChain
 {
     protected function validateChampionship($request)
     {
-        $championship = Championship::findBySlug($request->route('championship'));
+        $championship = DirtChampionship::findBySlug($request->route('championship'));
         $this->varExists($championship);
         return $championship;
     }

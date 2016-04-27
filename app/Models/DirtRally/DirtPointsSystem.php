@@ -5,7 +5,7 @@ namespace App\Models\DirtRally;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class PointsSystem extends \Eloquent implements SluggableInterface
+class DirtPointsSystem extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 

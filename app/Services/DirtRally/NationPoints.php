@@ -2,19 +2,19 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtPointsSystem;
 use Illuminate\Database\Eloquent\Collection;
 
 class NationPoints extends DriverPoints
 {
     /**
      * Get event points and work out average points per nation
-     * @param PointsSystem $system
-     * @param Event $event
+     * @param DirtPointsSystem $system
+     * @param DirtEvent $event
      * @return array
      */
-    public function forEvent(PointsSystem $system, Event $event)
+    public function forEvent(DirtPointsSystem $system, DirtEvent $event)
     {
         $driverResults = parent::forEvent($system, $event);
 
@@ -47,11 +47,11 @@ class NationPoints extends DriverPoints
 
     /**
      * Get points for the given system for each event in the given championship
-     * @param PointsSystem $system
-     * @param Season $season
+     * @param DirtPointsSystem $system
+     * @param Collection $season
      * @return array
      */
-    public function overview(PointsSystem $system, Collection $seasons)
+    public function overview(DirtPointsSystem $system, Collection $seasons)
     {
         $points = [];
         foreach($seasons AS $season) {

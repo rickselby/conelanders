@@ -2,17 +2,17 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\DirtChampionship;
 
 class Championships
 {
     /**
      * Get the current active championship
-     * @return Championship|null
+     * @return DirtChampionship|null
      */
     public function getCurrent()
     {
-        foreach(Championship::all()->sortByDesc('closes') AS $championship) {
+        foreach(DirtChampionship::all()->sortByDesc('closes') AS $championship) {
             if (!$championship->isComplete()) {
                 return $championship;
             }
@@ -22,12 +22,12 @@ class Championships
 
     /**
      * Get all complete championships
-     * @return Championship[]
+     * @return DirtChampionship[]
      */
     public function getComplete()
     {
         $championships = [];
-        foreach(Championship::all()->sortByDesc('closes') AS $championship) {
+        foreach(DirtChampionship::all()->sortByDesc('closes') AS $championship) {
             if ($championship->isComplete()) {
                 $championships[] = $championship;
             }

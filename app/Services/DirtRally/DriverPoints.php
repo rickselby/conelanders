@@ -2,14 +2,14 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\PointsSystem;
-use App\Models\DirtRally\Season;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtPointsSystem;
+use App\Models\DirtRally\DirtSeason;
 use Illuminate\Database\Eloquent\Collection;
 
 class DriverPoints
 {
-    public function forEvent(PointsSystem $system, Event $event)
+    public function forEvent(DirtPointsSystem $system, DirtEvent $event)
     {
         $points = [];
 
@@ -73,11 +73,11 @@ class DriverPoints
 
     /**
      * Get points for the given system for the given season
-     * @param PointsSystem $system
-     * @param Season $season
+     * @param DirtPointsSystem $system
+     * @param DirtSeason $season
      * @return array
      */
-    public function forSeason(PointsSystem $system, Season $season)
+    public function forSeason(DirtPointsSystem $system, DirtSeason $season)
     {
         $points = [];
         foreach($season->events AS $event) {
@@ -95,11 +95,11 @@ class DriverPoints
 
     /**
      * Get points for the given system for each event in the given championship
-     * @param PointsSystem $system
-     * @param Season $season
+     * @param DirtPointsSystem $system
+     * @param Collection $seasons
      * @return array
      */
-    public function overview(PointsSystem $system, Collection $seasons)
+    public function overview(DirtPointsSystem $system, Collection $seasons)
     {
         $points = [];
         foreach($seasons AS $season) {
@@ -123,11 +123,11 @@ class DriverPoints
 
     /**
      * Get overall points for the given system (on the given collection of seasons)
-     * @param PointsSystem $system
+     * @param DirtPointsSystem $system
      * @param Collection $seasons
      * @return array
      */
-    public function overall(PointsSystem $system, Collection $seasons)
+    public function overall(DirtPointsSystem $system, Collection $seasons)
     {
         $points = [];
         // Step through the seasons and pull in results

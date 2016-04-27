@@ -4,11 +4,11 @@ namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Point;
 use App\Models\DirtRally\PointsSequence;
-use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\DirtPointsSystem;
 
 class PointSequences
 {
-    public function forSystem(PointsSystem $system)
+    public function forSystem(DirtPointsSystem $system)
     {
         $points = ['event' => [], 'stage' => []];
         foreach($system->eventSequence->points AS $point) {

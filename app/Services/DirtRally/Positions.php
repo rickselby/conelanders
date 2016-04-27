@@ -2,16 +2,16 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Stage;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtStage;
 
 class Positions
 {
     /**
      * Get stage results and apply positions
-     * @param Stage $stage
+     * @param DirtStage $stage
      */
-    public function updateStagePositions(Stage $stage)
+    public function updateStagePositions(DirtStage $stage)
     {
         // Most of the work is done by the ordering
         $results = $stage->results()->orderBy('dnf')->orderBy('time')->get();
@@ -31,9 +31,9 @@ class Positions
 
     /**
      * Build event results and apply positions
-     * @param Event $event
+     * @param DirtEvent $event
      */
-    public function updateEventPositions(Event $event)
+    public function updateEventPositions(DirtEvent $event)
     {
         $event->positions()->delete();
         $event->load('stages.results.driver');

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands\DirtRally;
 
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Stage;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtStage;
 use Illuminate\Console\Command;
 
 class StagePositions extends Command
@@ -29,10 +29,10 @@ class StagePositions extends Command
      */
     public function handle()
     {
-        foreach(Stage::all() AS $stage) {
+        foreach(DirtStage::all() AS $stage) {
             \DirtRallyPositions::updateStagePositions($stage);
         }
-        foreach(Event::all() AS $event) {
+        foreach(DirtEvent::all() AS $event) {
             \DirtRallyPositions::updateEventPositions($event);
         }
 

@@ -3,14 +3,13 @@
 namespace App\Services\DirtRally;
 
 use App\Models\Driver;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\EventPosition;
-use App\Models\DirtRally\PointsSystem;
-use App\Models\DirtRally\Result;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtPointsSystem;
+use App\Models\DirtRally\DirtResult;
 
 class Results
 {
-    public function getEventResults(Event $event)
+    public function getEventResults(DirtEvent $event)
     {
         $results = [];
         foreach($event->stages AS $stage) {
@@ -49,7 +48,7 @@ class Results
 
     public function getStageResults($stageID)
     {
-        return Result::with('driver')->where('stage_id', $stageID)->orderBy('position')->get();
+        return DirtResult::with('driver')->where('dirt_stage_id', $stageID)->orderBy('position')->get();
     }
 
     public function forDriver(Driver $driver)
@@ -62,7 +61,7 @@ class Results
 
     protected function getAllForDriver(Driver $driver)
     {
-        $driver->load('results.stage.event.season.championship');
+        $driver->load('dirtResults.stage.event.season.championship');
 
         $championships = [];
 
@@ -81,7 +80,7 @@ class Results
                 // Load back down the chain
                 $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
                 $points = \DirtRallyDriverPoints::overall(
-                    PointsSystem::where('default', true)->first(),
+                    DirtPointsSystem::where('default', true)->first(),
                     $result->stage->event->season->championship->seasons
                 );
                 $points = array_where($points, function($key, $value) use ($driver) {

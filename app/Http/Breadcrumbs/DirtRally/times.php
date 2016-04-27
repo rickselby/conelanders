@@ -6,7 +6,7 @@ Breadcrumbs::register('dirt-rally.times.index', function($breadcrumbs) {
 });
 
 Breadcrumbs::register('dirt-rally.times.championship',
-    function($breadcrumbs, \App\Models\DirtRally\Championship $championship) {
+    function($breadcrumbs, \App\Models\DirtRally\DirtChampionship $championship) {
         $breadcrumbs->parent('dirt-rally.times.index');
         $breadcrumbs->push($championship->name, route('dirt-rally.times.championship', $championship));
     }

@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Season extends \Eloquent implements SluggableInterface
+class DirtSeason extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
@@ -18,12 +18,12 @@ class Season extends \Eloquent implements SluggableInterface
 
     public function championship()
     {
-        return $this->belongsTo(Championship::class);
+        return $this->belongsTo(DirtChampionship::class, 'dirt_championship_id');
     }
 
     public function events()
     {
-        return $this->hasMany(Event::class)->orderBy('closes');
+        return $this->hasMany(DirtEvent::class)->orderBy('closes');
     }
 
     public function getOpensAttribute()

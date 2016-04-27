@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Models\DirtRally\Championship;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Season;
-use App\Models\DirtRally\Stage;
+use App\Models\DirtRally\DirtChampionship;
 
 use App\Http\Requests;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TimesController extends Controller
 {
@@ -23,10 +19,10 @@ class TimesController extends Controller
     public function index()
     {
         return view('dirt-rally.times.index')
-            ->with('championships', Championship::all()->sortBy('closes'));
+            ->with('championships', DirtChampionship::all()->sortBy('closes'));
     }
 
-    public function championship(Championship $championship)
+    public function championship(DirtChampionship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('dirt-rally.times.championship')

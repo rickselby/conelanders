@@ -14,8 +14,8 @@ foreach($eventIDs AS $eventID) {
 namespace App\Services\DirtRally;
 
 use App\Jobs\DirtRally\ImportEventJob;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Stage;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtStage;
 use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -28,10 +28,10 @@ class ImportDirt extends ImportAbstract
      */
     public function queueEventJobs()
     {
-        foreach(Event::with('stages.results')->get() as $event) {
+        foreach(DirtEvent::with('stages.results')->get() as $event) {
             // only start checking events after they open
             // only check events if they're not marked as complete
-            if ($event->dirt_id
+            if ($event->racenet_event_id
                 && ($event->opens < Carbon::now())
                 && (!$event->last_import || $event->last_import->lte($event->closes))) {
                 $this->dispatch(new ImportEventJob($event));
@@ -46,7 +46,7 @@ class ImportDirt extends ImportAbstract
      */
     public function queueLastImport()
     {
-        foreach(Event::with('stages.results')->get() as $event) {
+        foreach(DirtEvent::with('stages.results')->get() as $event) {
             $now = Carbon::now();
             if ($now->between(
                 $event->closes->copy()->subMinutes(5),
@@ -59,11 +59,11 @@ class ImportDirt extends ImportAbstract
 
     /**
      * Import results for the given event
-     * @param Event $event
+     * @param DirtEvent $event
      */
-    public function getEvent(Event $event)
+    public function getEvent(DirtEvent $event)
     {
-        if ($event->dirt_id) {
+        if ($event->racenet_event_id) {
             \Log::info('Loading results for event '.$event->id.' from website : Begin');
             // Remember when we started processing this event
             $this->startEventImport($event);
@@ -82,10 +82,10 @@ class ImportDirt extends ImportAbstract
 
     /**
      * Process the given stage for the given event
-     * @param Event $event
+     * @param DirtEvent $event
      * @param integer $stageNum
      */
-    protected function processStage(Event $event, $stageNum)
+    protected function processStage(DirtEvent $event, $stageNum)
     {
         $stage = $this->getStage($event, $stageNum);
 
@@ -108,10 +108,10 @@ class ImportDirt extends ImportAbstract
 
     /**
      * Process a single page for the given stage
-     * @param Stage $stage
+     * @param DirtStage $stage
      * @param \stdClass $page
      */
-    protected function processPage(Stage $stage, $page)
+    protected function processPage(DirtStage $stage, $page)
     {
         \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
         foreach($page->Entries as $entry) {
@@ -121,13 +121,13 @@ class ImportDirt extends ImportAbstract
 
     /**
      * Process a result ready for saving
-     * @param Stage $stage
+     * @param DirtStage $stage
      * @param string $driverName
      * @param string $racenetID
      * @param string $timeString
      * @param string $nationalityImage
      */
-    protected function processResult(Stage $stage, $driverName, $racenetID, $timeString, $nationalityImage)
+    protected function processResult(DirtStage $stage, $driverName, $racenetID, $timeString, $nationalityImage)
     {
         // Get the driver model
         $driver = $this->getDriverByRacenetID($racenetID, $driverName);
@@ -166,23 +166,23 @@ class ImportDirt extends ImportAbstract
 
     /**
      * Get the URL for getting info about an event
-     * @param Event $event
+     * @param DirtEvent $event
      * @param int $stage
      * @return string
      */
-    protected function getShortEventPath(Event $event, $stage = 0)
+    protected function getShortEventPath(DirtEvent $event, $stage = 0)
     {
-        return 'https://www.dirtgame.com/uk/api/event?eventId='.$event->dirt_id.'&stageId='.$stage;
+        return 'https://www.dirtgame.com/uk/api/event?eventId='.$event->racenet_event_id.'&stageId='.$stage;
     }
 
     /**
      * Get the URL for importing results
-     * @param Event $event
+     * @param DirtEvent $event
      * @param int $stage
      * @param int $page
      * @return string
      */
-    protected function getEventPath(Event $event, $stage = 1, $page = 1)
+    protected function getEventPath(DirtEvent $event, $stage = 1, $page = 1)
     {
         return $this->getShortEventPath($event, $stage)
             .'&assists=any&group=all&leaderboard=true&nameSearch=&wheel=any&page='.$page;

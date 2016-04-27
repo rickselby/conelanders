@@ -13,7 +13,7 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Event;
+use App\Models\DirtRally\DirtEvent;
 
 class ImportCSV extends ImportAbstract
 {
@@ -24,8 +24,8 @@ class ImportCSV extends ImportAbstract
      */
     public function fromCSV($event_id, $times)
     {
-        /** @var Event $event */
-        $event = Event::with('stages.results')->find($event_id);
+        /** @var DirtEvent $event */
+        $event = DirtEvent::with('stages.results')->find($event_id);
         $this->startEventImport($event);
 
         $stageTimes = [];

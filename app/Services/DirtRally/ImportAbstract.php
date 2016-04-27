@@ -14,9 +14,9 @@ foreach($eventIDs AS $eventID) {
 namespace App\Services\DirtRally;
 
 use App\Models\Driver;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Result;
-use App\Models\DirtRally\Stage;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtResult;
+use App\Models\DirtRally\DirtStage;
 use Carbon\Carbon;
 
 abstract class ImportAbstract
@@ -24,13 +24,13 @@ abstract class ImportAbstract
     const SHORT_DNF = 900000; # (15*60*1000)
     const LONG_DNF = 1800000; # (30*60*1000)
 
-    /** @var Stage[] Stages keyed by stage order */
+    /** @var DirtStage[] Stages keyed by stage order */
     protected $stages;
 
     /** @var Driver[] Drivers keyed by driver name */
     protected $drivers;
 
-    /** @var Result[] Results keyed by stage id and driver id */
+    /** @var DirtResult[] Results keyed by stage id and driver id */
     protected $results;
 
     /** @var Carbon */
@@ -50,14 +50,12 @@ abstract class ImportAbstract
         $this->initialiseDrivers();
 
         if (!isset($this->drivers['names'][$driverName])) {
-            $this->drivers['names'][$driverName] = Driver::create(['name' => $driverName, 'racenet_id' => $racenetID]);
+            $this->drivers['names'][$driverName] = Driver::create(['name' => $driverName, 'dirt_racenet_driver_id' => $racenetID]);
         } elseif ($racenetID !== NULL) {
             // Update the driver with racenet ID if required
-            $this->drivers['names'][$driverName]->racenet_id = $racenetID;
+            $this->drivers['names'][$driverName]->dirt_racenet_driver_id = $racenetID;
             $this->drivers['names'][$driverName]->save();
         }
-
-
 
         return $this->drivers['names'][$driverName];
     }
@@ -97,8 +95,8 @@ abstract class ImportAbstract
 
             foreach(Driver::all() AS $driver) {
                 $this->drivers['names'][$driver->name] = $driver;
-                if ($driver->racenet_id) {
-                    $this->drivers['ids'][$driver->racenet_id] = $driver;
+                if ($driver->dirt_racenet_driver_id) {
+                    $this->drivers['ids'][$driver->dirt_racenet_driver_id] = $driver;
                 }
             }
         }
@@ -106,11 +104,11 @@ abstract class ImportAbstract
 
     /**
      * Get a stage based on it's order number
-     * @param Event $event
+     * @param DirtEvent $event
      * @param integer $stageNumber
-     * @return Stage
+     * @return DirtStage
      */
-    protected function getStage(Event $event, $stageNumber)
+    protected function getStage(DirtEvent $event, $stageNumber)
     {
         if (!isset($this->stages[$event->id][$stageNumber])) {
             $this->stages[$event->id][$stageNumber] = $event->stages()->where('order', $stageNumber)->first();
@@ -121,16 +119,16 @@ abstract class ImportAbstract
 
     /**
      * Save the time for the given driver for the given stage
-     * @param Stage $stage
+     * @param DirtStage $stage
      * @param Driver $driver
      * @param integer $timeInt
      */
-    protected function saveResult(Stage $stage, Driver $driver, $timeInt)
+    protected function saveResult(DirtStage $stage, Driver $driver, $timeInt)
     {
         // Update the flag to show the import has imported something
         $this->imported = true;
         // Create a result model; cache it for future stuff (if importing from website)
-        $this->results[$stage->id][$driver->id] = Result::create(
+        $this->results[$stage->id][$driver->id] = DirtResult::create(
             ['driver_id' => $driver->id]
         );
         $stage->results()->save($this->results[$stage->id][$driver->id]);
@@ -148,9 +146,9 @@ abstract class ImportAbstract
 
     /**
      * Cache the stages, keyed by their order
-     * @param Event $event
+     * @param DirtEvent $event
      */
-    private function cacheStages(Event $event)
+    private function cacheStages(DirtEvent $event)
     {
         foreach($event->stages AS $stage) {
             $this->stages[$event->id][$stage->order] = $stage;
@@ -159,18 +157,18 @@ abstract class ImportAbstract
 
     /**
      * (Soft) Delete the results for the given stage
-     * @param Stage $stage
+     * @param DirtStage $stage
      */
-    protected function clearStageResults(Stage $stage)
+    protected function clearStageResults(DirtStage $stage)
     {
         $stage->results()->delete();
     }
 
     /**
      * Start an event importing
-     * @param Event $event
+     * @param DirtEvent $event
      */
-    protected function startEventImport(Event $event)
+    protected function startEventImport(DirtEvent $event)
     {
         // Clear the imported flag
         $this->imported = false;
@@ -185,9 +183,9 @@ abstract class ImportAbstract
 
     /**
      * Mark an event import as complete
-     * @param Event $event
+     * @param DirtEvent $event
      */
-    protected function completeEventImport(Event $event)
+    protected function completeEventImport(DirtEvent $event)
     {
         // Set that the importing is finished
         $event->importing = false;

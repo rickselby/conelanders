@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipRequest;
-use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\DirtChampionship;
 
 class ChampionshipController extends Controller
 {
@@ -23,7 +23,7 @@ class ChampionshipController extends Controller
     public function index()
     {
         return view('dirt-rally.championship.index')
-            ->with('championships', Championship::with('seasons')->get()->sortBy('closes'));
+            ->with('championships', DirtChampionship::with('seasons')->get()->sortBy('closes'));
     }
 
     /**
@@ -44,8 +44,8 @@ class ChampionshipController extends Controller
      */
     public function store(ChampionshipRequest $request)
     {
-        /** @var Championship $championship */
-        $championship = Championship::create($request->all());
+        /** @var DirtChampionship $championship */
+        $championship = DirtChampionship::create($request->all());
         \Notification::add('success', 'Championship "'.$championship->name.'" created');
         return \Redirect::route('dirt-rally.championship.show', $championship);
     }
@@ -53,10 +53,10 @@ class ChampionshipController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Championship $championship
+     * @param  DirtChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function show(Championship $championship)
+    public function show(DirtChampionship $championship)
     {
         return view('dirt-rally.championship.show')
             ->with('championship', $championship)
@@ -66,10 +66,10 @@ class ChampionshipController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Championship $championship
+     * @param  DirtChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function edit(Championship $championship)
+    public function edit(DirtChampionship $championship)
     {
         return view('dirt-rally.championship.edit')
             ->with('championship', $championship);
@@ -79,10 +79,10 @@ class ChampionshipController extends Controller
      * Update the specified resource in storage.
      *
      * @param  ChampionshipRequest $request
-     * @param  Championship $championship
+     * @param  DirtChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function update(ChampionshipRequest $request, Championship $championship)
+    public function update(ChampionshipRequest $request, DirtChampionship $championship)
     {
         $championship->fill($request->all());
         $championship->save();
@@ -94,10 +94,10 @@ class ChampionshipController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Championship $championship
+     * @param  DirtChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Championship $championship)
+    public function destroy(DirtChampionship $championship)
     {
         if ($championship->seasons->count()) {
             \Notification::add('error', 'Championship "'.$championship->name.'" cannot be deleted - there are seasons assigned to it');

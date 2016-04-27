@@ -3,7 +3,7 @@
 namespace App\Jobs\DirtRally;
 
 use App\Jobs\Job;
-use App\Models\DirtRally\Event;
+use App\Models\DirtRally\DirtEvent;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +12,7 @@ class ImportEventJob extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    /** @var Event */
+    /** @var DirtEvent */
     protected $event;
 
     /**
@@ -20,7 +20,7 @@ class ImportEventJob extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Event $event)
+    public function __construct(DirtEvent $event)
     {
         $this->event = $event;
     }

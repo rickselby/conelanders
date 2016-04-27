@@ -5,7 +5,7 @@ namespace App\Models\DirtRally;
 use App\Models\Driver;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Result extends \Eloquent
+class DirtResult extends \Eloquent
 {
     use SoftDeletes;
 
@@ -21,7 +21,7 @@ class Result extends \Eloquent
 
     public function stage()
     {
-        return $this->belongsTo(Stage::class);
+        return $this->belongsTo(DirtStage::class, 'dirt_stage_id');
     }
 
     public function driver()

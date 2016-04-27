@@ -4,9 +4,7 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonEventStageRequest;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Stage;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Models\DirtRally\DirtStage;
 
 class ChampionshipSeasonEventStageController extends Controller
 {
@@ -43,7 +41,7 @@ class ChampionshipSeasonEventStageController extends Controller
     public function store(ChampionshipSeasonEventStageRequest $request, $championship, $season, $event)
     {
         $event = \Request::get('event');
-        $stage = Stage::create($request->all());
+        $stage = DirtStage::create($request->all());
         $event->stages()->save($stage);
         \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$event->name.'" ('.$event->season->name.')');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);

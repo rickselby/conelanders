@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Models\DirtRally\PointsSequence;
-use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\DirtPointsSystem;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,7 +24,7 @@ class PointsSystemController extends Controller
     public function index()
     {
         return view('dirt-rally.points-system.index')
-            ->with('systems', PointsSystem::all());
+            ->with('systems', DirtPointsSystem::all());
     }
 
     /**
@@ -45,7 +45,7 @@ class PointsSystemController extends Controller
      */
     public function store(Request $request)
     {
-        $system = PointsSystem::create($request->all());
+        $system = DirtPointsSystem::create($request->all());
         // Also create the two sequences
         $system->eventSequence()->associate(PointsSequence::create([]));
         $system->stageSequence()->associate(PointsSequence::create([]));
@@ -62,10 +62,10 @@ class PointsSystemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  PointsSystem $points_system
+     * @param  DirtPointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function show(PointsSystem $points_system)
+    public function show(DirtPointsSystem $points_system)
     {
         return view('dirt-rally.points-system.show')
             ->with('system', $points_system)
@@ -75,10 +75,10 @@ class PointsSystemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  PointsSystem $points_system
+     * @param  DirtPointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function edit(PointsSystem $points_system)
+    public function edit(DirtPointsSystem $points_system)
     {
         return view('dirt-rally.points-system.edit')
             ->with('system', $points_system);
@@ -88,10 +88,10 @@ class PointsSystemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  PointsSystem $points_system
+     * @param  DirtPointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PointsSystem $points_system)
+    public function update(Request $request, DirtPointsSystem $points_system)
     {
         $points_system->fill($request->all());
         $points_system->save();
@@ -107,17 +107,17 @@ class PointsSystemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  PointsSystem $points_system
+     * @param  DirtPointsSystem $points_system
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PointsSystem $points_system)
+    public function destroy(DirtPointsSystem $points_system)
     {
         $points_system->delete();
         \Notification::add('success', 'Points System deleted');
         return \Redirect::route('dirt-rally.points-system.index');
     }
 
-    public function points(Request $request, PointsSystem $system)
+    public function points(Request $request, DirtPointsSystem $system)
     {
         $system->load(['eventSequence', 'stageSequence']);
         \DirtRallyPointSequences::set($system->eventSequence, $request['event']);

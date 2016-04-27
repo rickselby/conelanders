@@ -5,7 +5,7 @@ namespace App\Models\DirtRally;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Stage extends \Eloquent implements SluggableInterface
+class DirtStage extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
@@ -22,12 +22,12 @@ class Stage extends \Eloquent implements SluggableInterface
 
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(DirtEvent::class, 'dirt_event_id');
     }
 
     public function results()
     {
-        return $this->hasMany(Result::class)->orderBy('position');
+        return $this->hasMany(DirtResult::class)->orderBy('position');
     }
 
     public function getRouteKeyName()

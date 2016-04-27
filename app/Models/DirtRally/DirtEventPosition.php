@@ -4,7 +4,7 @@ namespace App\Models\DirtRally;
 
 use App\Models\Driver;
 
-class EventPosition extends \Eloquent
+class DirtEventPosition extends \Eloquent
 {
     protected $fillable = ['event_id', 'driver_id', 'position'];
 
@@ -14,7 +14,7 @@ class EventPosition extends \Eloquent
 
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(DirtEvent::class, 'dirt_event_id');
     }
 
     public function driver()

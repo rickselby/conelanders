@@ -4,8 +4,7 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonEventRequest;
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Season;
+use App\Models\DirtRally\DirtEvent;
 
 class ChampionshipSeasonEventController extends Controller
 {
@@ -40,7 +39,7 @@ class ChampionshipSeasonEventController extends Controller
     public function store(ChampionshipSeasonEventRequest $request, $championship, $season)
     {
         $season = \Request::get('season');
-        $event = Event::create($request->all());
+        $event = DirtEvent::create($request->all());
         $season->events()->save($event);
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
@@ -65,9 +64,9 @@ class ChampionshipSeasonEventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $championship
-     * @param  int $season
-     * @param  Event $event
+     * @param  string $championship
+     * @param  string $season
+     * @param  string $event
      * @return \Illuminate\Http\Response
      */
     public function edit($championship, $season, $event)

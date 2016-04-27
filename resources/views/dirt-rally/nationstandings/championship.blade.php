@@ -3,7 +3,7 @@
 @section('content')
 
     <p>
-        <a href="{{ route('dirt-rally.nationstandings.overview', [$system, $championship->id]) }}"
+        <a href="{{ route('dirt-rally.nationstandings.overview', [$system, $championship]) }}"
            class="btn btn-primary" role="button">
             View all points on one page
         </a>

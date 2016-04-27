@@ -2,14 +2,14 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Event;
-use App\Models\DirtRally\Season;
+use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtSeason;
 use Illuminate\Database\Eloquent\Collection;
 
 class Times
 {
 
-    public function forEvent(Event $event)
+    public function forEvent(DirtEvent $event)
     {
         $times = [];
 
@@ -63,7 +63,7 @@ class Times
         ];
     }
 
-    public function forSeason(Season $season)
+    public function forSeason(DirtSeason $season)
     {
         $times = [];
         $events = [];
