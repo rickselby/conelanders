@@ -2,6 +2,7 @@
 
 namespace App\Models\DirtRally;
 
+use App\Models\PointsSequence;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 

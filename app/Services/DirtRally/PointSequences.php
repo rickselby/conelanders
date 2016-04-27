@@ -2,8 +2,6 @@
 
 namespace App\Services\DirtRally;
 
-use App\Models\DirtRally\Point;
-use App\Models\DirtRally\PointsSequence;
 use App\Models\DirtRally\DirtPointsSystem;
 
 class PointSequences
@@ -18,29 +16,5 @@ class PointSequences
             $points['stage'][$point->position] = $point->points;
         }
         return $points;
-    }
-
-    public function set(PointsSequence $sequence, $pointsList)
-    {
-        foreach($pointsList AS $position => $points) {
-            // Get the current points, or create...
-            /** @var Point $point */
-            $point = $sequence->points->where('position', $position)->first();
-            if (!$point) {
-                // Create a new point, if it's not zero
-                if ($points != 0) {
-                    $point = new Point(['position' => $position, 'points' => $points]);
-                    $sequence->points()->save($point);
-                }
-            } else {
-                // Update points, or delete if zero
-                if ($points != 0) {
-                    $point->points = $points;
-                    $point->save();
-                } else {
-                    $point->delete();
-                }
-            }
-        }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Models\DirtRally\PointsSequence;
+use App\Models\PointsSequence;
 use App\Models\DirtRally\DirtPointsSystem;
 use Illuminate\Http\Request;
 
@@ -120,8 +120,8 @@ class PointsSystemController extends Controller
     public function points(Request $request, DirtPointsSystem $system)
     {
         $system->load(['eventSequence', 'stageSequence']);
-        \DirtRallyPointSequences::set($system->eventSequence, $request['event']);
-        \DirtRallyPointSequences::set($system->stageSequence, $request['stage']);
+        \PointSequences::set($system->eventSequence, $request['event']);
+        \PointSequences::set($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');
         return \Redirect::route('dirt-rally.points-system.show', $system);
     }

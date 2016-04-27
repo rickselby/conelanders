@@ -221,6 +221,7 @@ return [
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
 
         'Nations' => App\Services\Facades\NationsFacade::class,
+        'PointSequences' => App\Services\Facades\PointSequencesFacade::class,
 
         'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,
         'DirtRallyImportDirt' => App\Services\Facades\DirtRally\ImportDirtFacade::class,
