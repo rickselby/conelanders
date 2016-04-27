@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChampionshipRequest;
+use App\Http\Requests\DirtRally\ChampionshipRequest;
 use App\Models\DirtRally\Championship;
 
 class ChampionshipController extends Controller

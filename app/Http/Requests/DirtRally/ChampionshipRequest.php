@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\DirtRally;
 
-class SeasonRequest extends Request
+use App\Http\Requests\Request;
+
+class ChampionshipRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SeasonEventStageRequest;
+use App\Http\Requests\DirtRally\ChampionshipSeasonEventStageRequest;
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\Stage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,13 +34,13 @@ class ChampionshipSeasonEventStageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  SeasonEventStageRequest $request
+     * @param  ChampionshipSeasonEventStageRequest $request
      * @param  string $championship
      * @param  string $season
      * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventStageRequest $request, $championship, $season, $event)
+    public function store(ChampionshipSeasonEventStageRequest $request, $championship, $season, $event)
     {
         $event = \Request::get('event');
         $stage = Stage::create($request->all());
@@ -84,14 +84,14 @@ class ChampionshipSeasonEventStageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  SeasonEventStageRequest $request
+     * @param  ChampionshipSeasonEventStageRequest $request
      * @param  string $championship
      * @param  string $season
      * @param  string $event
      * @param  string $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonEventStageRequest $request, $championship, $season, $event, $stage)
+    public function update(ChampionshipSeasonEventStageRequest $request, $championship, $season, $event, $stage)
     {
         $stage = \Request::get('stage');
         $stage->fill($request->all());

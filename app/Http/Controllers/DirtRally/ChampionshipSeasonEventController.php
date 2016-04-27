@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SeasonEventRequest;
+use App\Http\Requests\DirtRally\ChampionshipSeasonEventRequest;
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\Season;
 
@@ -32,12 +32,12 @@ class ChampionshipSeasonEventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  SeasonEventRequest $request
+     * @param  ChampionshipSeasonEventRequest $request
      * @param  string $championship
      * @param  string $season
      * @return \Illuminate\Http\Response
      */
-    public function store(SeasonEventRequest $request, $championship, $season)
+    public function store(ChampionshipSeasonEventRequest $request, $championship, $season)
     {
         $season = \Request::get('season');
         $event = Event::create($request->all());
@@ -79,13 +79,13 @@ class ChampionshipSeasonEventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  SeasonEventRequest $request
+     * @param  ChampionshipSeasonEventRequest $request
      * @param  string $championship
      * @param  string $season
      * @param  string $event
      * @return \Illuminate\Http\Response
      */
-    public function update(SeasonEventRequest $request, $championship, $season, $event)
+    public function update(ChampionshipSeasonEventRequest $request, $championship, $season, $event)
     {
         $event = \Request::get('event');
         $event->fill($request->all());

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\DirtRally;
 
+use App\Http\Requests\Request;
 use Carbon\Carbon;
 
-class SeasonEventRequest extends Request
+class ChampionshipSeasonEventRequest extends Request
 {
     protected $dateFormat = 'jS F Y, H:i';
 
