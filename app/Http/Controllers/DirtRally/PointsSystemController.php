@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DirtRally;
 
-use App\Models\PointsSequence;
-use App\Models\PointsSystem;
+use App\Models\DirtRally\PointsSequence;
+use App\Models\DirtRally\PointsSystem;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -55,7 +55,7 @@ class PointsSystemController extends Controller
         }
 
         \Notification::add('success', 'Points System "'.$system->name.'" created');
-        return \Redirect::route('points-system.show', $system);
+        return \Redirect::route('dirt-rally.points-system.show', $system);
     }
 
     /**
@@ -100,7 +100,7 @@ class PointsSystemController extends Controller
         }
 
         \Notification::add('success', 'Points System "'.$points_system->name.'" updated');
-        return \Redirect::route('points-system.show', $points_system);
+        return \Redirect::route('dirt-rally.points-system.show', $points_system);
     }
 
     /**
@@ -113,7 +113,7 @@ class PointsSystemController extends Controller
     {
         $points_system->delete();
         \Notification::add('success', 'Points System deleted');
-        return \Redirect::route('points-system.index');
+        return \Redirect::route('dirt-rally.points-system.index');
     }
 
     public function points(Request $request, PointsSystem $system)
@@ -122,7 +122,7 @@ class PointsSystemController extends Controller
         \PointSequences::set($system->eventSequence, $request['event']);
         \PointSequences::set($system->stageSequence, $request['stage']);
         \Notification::add('success', 'Points updated');
-        return \Redirect::route('points-system.show', $system);
+        return \Redirect::route('dirt-rally.points-system.show', $system);
     }
 
     private function setDefault($id)

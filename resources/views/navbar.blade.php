@@ -41,8 +41,10 @@
                         <li>
                             <a href="{{ route('nation.index') }}">Manage Nations</a>
                         </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Dirt Rally</li>
                         <li>
-                            <a href="{{ route('points-system.index') }}">Points Systems</a>
+                            <a href="{{ route('dirt-rally.points-system.index') }}">Points Systems</a>
                         </li>
                     </ul>
                 </li>

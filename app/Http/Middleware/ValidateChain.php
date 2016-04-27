@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Championship;
+use App\Models\DirtRally\Championship;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 trait ValidateChain

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Event;
-use App\Models\PointsSystem;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\PointsSystem;
 use Illuminate\Database\Eloquent\Collection;
 
 class NationPoints extends DriverPoints

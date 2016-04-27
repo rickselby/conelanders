@@ -14,9 +14,9 @@ foreach($eventIDs AS $eventID) {
 namespace App\Services;
 
 use App\Models\Driver;
-use App\Models\Event;
-use App\Models\Result;
-use App\Models\Stage;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Result;
+use App\Models\DirtRally\Stage;
 use Carbon\Carbon;
 
 abstract class ImportAbstract

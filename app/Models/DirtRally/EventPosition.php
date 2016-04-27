@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DirtRally;
+
+use App\Models\Driver;
 
 class EventPosition extends \Eloquent
 {

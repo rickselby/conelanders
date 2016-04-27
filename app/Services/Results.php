@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Models\Driver;
-use App\Models\Event;
-use App\Models\EventPosition;
-use App\Models\PointsSystem;
-use App\Models\Result;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\EventPosition;
+use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\Result;
 
 class Results
 {

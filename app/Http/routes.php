@@ -11,9 +11,6 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     })->name('home');
 
-    Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
-    Route::resource('points-system', 'PointsSystemController');
-
     Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);

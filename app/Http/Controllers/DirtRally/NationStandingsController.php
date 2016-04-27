@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Models\Championship;
-use App\Models\Event;
-use App\Models\Point;
-use App\Models\PointsSystem;
-use App\Models\Season;
-use App\Models\Stage;
+use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Point;
+use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\Season;
+use App\Models\DirtRally\Stage;
 
 use App\Http\Requests;
 

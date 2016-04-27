@@ -9,13 +9,13 @@
 @section('content')
 
     <p>
-        <a class="btn btn-small btn-info" href="{{ route('points-system.create') }}">Add a new system</a>
+        <a class="btn btn-small btn-info" href="{{ route('dirt-rally.points-system.create') }}">Add a new system</a>
     </p>
 
     <ul>
         @foreach($systems as $system)
             <li>
-                <a href="{{ route('points-system.show', $system) }}">
+                <a href="{{ route('dirt-rally.points-system.show', $system) }}">
                     {{ $system->name }}
                 </a>
                 @if($system->default)

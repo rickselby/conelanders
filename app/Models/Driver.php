@@ -18,7 +18,7 @@ class Driver extends \Eloquent implements SluggableInterface
 
     public function results()
     {
-        return $this->hasMany(Result::class);
+        return $this->hasMany(DirtRally\Result::class);
     }
 
     public function getRouteKeyName()

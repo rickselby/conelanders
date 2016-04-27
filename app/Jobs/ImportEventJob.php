@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Event;
+use App\Models\DirtRally\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

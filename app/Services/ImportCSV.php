@@ -13,7 +13,7 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services;
 
-use App\Models\Event;
+use App\Models\DirtRally\Event;
 
 class ImportCSV extends ImportAbstract
 {

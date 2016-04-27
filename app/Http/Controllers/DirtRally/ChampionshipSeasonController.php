@@ -4,8 +4,8 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeasonRequest;
-use App\Models\Championship;
-use App\Models\Season;
+use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\Season;
 
 class ChampionshipSeasonController extends Controller
 {

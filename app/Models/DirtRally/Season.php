@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DirtRally;
 
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
@@ -24,11 +24,6 @@ class Season extends \Eloquent implements SluggableInterface
     public function events()
     {
         return $this->hasMany(Event::class)->orderBy('closes');
-    }
-
-    public function positions()
-    {
-        return $this->morphMany('App\Models\Position', 'positionable');
     }
 
     public function getOpensAttribute()

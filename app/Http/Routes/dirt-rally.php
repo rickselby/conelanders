@@ -1,5 +1,8 @@
 <?php
 
+Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('points-system.points');
+Route::resource('points-system', 'PointsSystemController');
+
 Route::resource('championship', 'ChampionshipController');
 Route::resource('championship.season', 'ChampionshipSeasonController', [['except' => ['index']]]);
 Route::resource('championship.season.event', 'ChampionshipSeasonEventController', [['except' => ['index']]]);

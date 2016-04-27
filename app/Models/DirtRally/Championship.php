@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DirtRally;
 
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
@@ -21,11 +21,6 @@ class Championship extends \Eloquent implements SluggableInterface
     {
         // Can't sort at database level
         return $this->hasMany(Season::class);
-    }
-
-    public function positions()
-    {
-        return $this->morphMany('App\Models\Position', 'positionable');
     }
 
     public function getOpensAttribute()

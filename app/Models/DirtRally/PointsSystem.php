@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DirtRally;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;

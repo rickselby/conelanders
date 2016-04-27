@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DirtRally;
 
+use App\Models\Driver;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Result extends \Eloquent

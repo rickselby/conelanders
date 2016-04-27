@@ -14,8 +14,8 @@ foreach($eventIDs AS $eventID) {
 namespace App\Services;
 
 use App\Jobs\ImportEventJob;
-use App\Models\Event;
-use App\Models\Stage;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Stage;
 use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

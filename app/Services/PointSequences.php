@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Point;
-use App\Models\PointsSequence;
-use App\Models\PointsSystem;
+use App\Models\DirtRally\Point;
+use App\Models\DirtRally\PointsSequence;
+use App\Models\DirtRally\PointsSystem;
 
 class PointSequences
 {

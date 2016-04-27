@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Event;
-use App\Models\Stage;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Stage;
 use Illuminate\Console\Command;
 
 class StagePositions extends Command

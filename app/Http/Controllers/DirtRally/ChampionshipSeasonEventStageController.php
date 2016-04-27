@@ -4,8 +4,8 @@ namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeasonEventStageRequest;
-use App\Models\Event;
-use App\Models\Stage;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Stage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ChampionshipSeasonEventStageController extends Controller

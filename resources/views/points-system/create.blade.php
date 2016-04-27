@@ -8,7 +8,7 @@
 
 @section('content')
 
-    {!! Form::open(['route' => 'points-system.store', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['route' => 'dirt-rally.points-system.store', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

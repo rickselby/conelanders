@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Championship;
-use App\Models\PointsSystem;
+use App\Models\DirtRally\Championship;
+use App\Models\DirtRally\PointsSystem;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

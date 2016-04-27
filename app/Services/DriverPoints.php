@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Event;
-use App\Models\PointsSystem;
-use App\Models\Season;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\PointsSystem;
+use App\Models\DirtRally\Season;
 use Illuminate\Database\Eloquent\Collection;
 
 class DriverPoints

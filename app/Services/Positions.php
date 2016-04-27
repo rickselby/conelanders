@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Event;
-use App\Models\Stage;
+use App\Models\DirtRally\Event;
+use App\Models\DirtRally\Stage;
 
 class Positions
 {
