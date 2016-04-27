@@ -14,19 +14,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Dirt Rally <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($championships AS $championship)
-                            <li class="dropdown-header">{{ $championship->name }}</li>
-                            <li><a href="{{ route('dirt-rally.standings.championship', [$defaultPointsSystem, $championship]) }}">Standings</a></li>
-                            <li><a href="{{ route('dirt-rally.nationstandings.championship', [$defaultPointsSystem, $championship]) }}">Nation Standings</a></li>
-                            <li><a href="{{ route('dirt-rally.championship.show', $championship) }}">Results</a></li>
-                            <li><a href="{{ route('dirt-rally.times.championship', $championship) }}">Total Time</a></li>
-                        @endforeach
-                    </ul>
+                <li>
+                    <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
                 <li>
                     <a href="{{ route('assettocorsa') }}">Assetto Corsa</a>

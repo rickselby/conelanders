@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/', 'DirtRallyController@index')->name('dirt-rally.index');
+
 Route::post('points-system/{system}/points', 'PointsSystemController@points')->name('dirt-rally.points-system.points');
 Route::resource('points-system', 'PointsSystemController');
 
