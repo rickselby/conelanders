@@ -27,7 +27,7 @@ class ChampionshipSeasonEventStageController extends Controller
      */
     public function create($championship, $season, $event)
     {
-        return view('stage.create')
+        return view('dirt-rally.stage.create')
             ->with('event', \Request::get('event'));
     }
 
@@ -61,7 +61,7 @@ class ChampionshipSeasonEventStageController extends Controller
     public function show($championship, $season, $event, $stage)
     {
         $stage = \Request::get('stage');
-        return view('stage.show')
+        return view('dirt-rally.stage.show')
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id));
     }
@@ -77,7 +77,7 @@ class ChampionshipSeasonEventStageController extends Controller
      */
     public function edit($championship, $season, $event, $stage)
     {
-        return view('stage.edit')
+        return view('dirt-rally.stage.edit')
             ->with('stage', \Request::get('stage'));
     }
 

@@ -13,9 +13,9 @@
 @section('content')
 
     @if ($stage->event->importing)
-        @include('import-in-progress')
+        @include('dirt-rally.import-in-progress')
     @elseif(!$stage->event->isComplete())
-        @include('event-not-complete')
+        @include('dirt-rally.event-not-complete')
     @else
         <table class="table table-bordered table-hover">
             <thead>
@@ -42,7 +42,7 @@
 
         @include('tablesorter')
 
-        @include('times.legend')
+        @include('dirt-rally.times.legend')
 
     @endif
 

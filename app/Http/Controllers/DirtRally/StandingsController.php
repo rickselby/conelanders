@@ -23,14 +23,14 @@ class StandingsController extends Controller
 
     public function index()
     {
-        return view('standings.index')
+        return view('dirt-rally.standings.index')
             ->with('systems', PointsSystem::all());
 
     }
 
     public function system(PointsSystem $system)
     {
-        return view('standings.system')
+        return view('dirt-rally.standings.system')
             ->with('system', $system)
             ->with('championships', Championship::all()->sortBy('closes'));
     }
@@ -38,7 +38,7 @@ class StandingsController extends Controller
     public function championship(PointsSystem $system, Championship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
-        return view('standings.championship')
+        return view('dirt-rally.standings.championship')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
@@ -48,7 +48,7 @@ class StandingsController extends Controller
     public function overview(PointsSystem $system, Championship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
-        return view('standings.overview')
+        return view('dirt-rally.standings.overview')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
@@ -59,7 +59,7 @@ class StandingsController extends Controller
     {
         $season = \Request::get('season');
         $season->load(['events.stages.results.driver', 'events.positions.driver', 'championship']);
-        return view('standings.season')
+        return view('dirt-rally.standings.season')
             ->with('system', $system)
             ->with('season', $season)
             ->with('points', \DriverPoints::forSeason($system, $season));
@@ -69,7 +69,7 @@ class StandingsController extends Controller
     {
         $event = \Request::get('event');
         $event->load(['season.championship', 'stages.results.driver', 'positions.driver']);
-        return view('standings.event')
+        return view('dirt-rally.standings.event')
             ->with('system', $system)
             ->with('event', $event)
             ->with('points', \DriverPoints::forEvent($system, $event));
@@ -79,7 +79,7 @@ class StandingsController extends Controller
     {
         $stage = \Request::get('stage');
         $stage->load(['event.season.championship']);
-        return view('standings.stage')
+        return view('dirt-rally.standings.stage')
             ->with('system', $system)
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id))

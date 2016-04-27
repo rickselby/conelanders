@@ -22,7 +22,7 @@ class ChampionshipController extends Controller
      */
     public function index()
     {
-        return view('championship.index')
+        return view('dirt-rally.championship.index')
             ->with('championships', Championship::with('seasons')->get()->sortBy('closes'));
     }
 
@@ -33,7 +33,7 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        return view('championship.create');
+        return view('dirt-rally.championship.create');
     }
 
     /**
@@ -58,7 +58,7 @@ class ChampionshipController extends Controller
      */
     public function show(Championship $championship)
     {
-        return view('championship.show')
+        return view('dirt-rally.championship.show')
             ->with('championship', $championship)
             ->with('seasons', $championship->seasons()->get()->sortBy('closes'));
     }
@@ -71,7 +71,7 @@ class ChampionshipController extends Controller
      */
     public function edit(Championship $championship)
     {
-        return view('championship.edit')
+        return view('dirt-rally.championship.edit')
             ->with('championship', $championship);
     }
 

@@ -22,7 +22,7 @@ class PointsSystemController extends Controller
      */
     public function index()
     {
-        return view('points-system.index')
+        return view('dirt-rally.points-system.index')
             ->with('systems', PointsSystem::all());
     }
 
@@ -33,7 +33,7 @@ class PointsSystemController extends Controller
      */
     public function create()
     {
-        return view('points-system.create');
+        return view('dirt-rally.points-system.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class PointsSystemController extends Controller
      */
     public function show(PointsSystem $points_system)
     {
-        return view('points-system.show')
+        return view('dirt-rally.points-system.show')
             ->with('system', $points_system)
             ->with('points', \PointSequences::forSystem($points_system));
     }
@@ -79,7 +79,7 @@ class PointsSystemController extends Controller
      */
     public function edit(PointsSystem $points_system)
     {
-        return view('points-system.edit')
+        return view('dirt-rally.points-system.edit')
             ->with('system', $points_system);
     }
 

@@ -26,7 +26,7 @@
             <div id="event-{{ $event['event']->id }}" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
 
-                    @include('driver.all-results.stages')
+                    @include('dirt-rally.driver.all-results.stages')
 
                 </div>
             </div>

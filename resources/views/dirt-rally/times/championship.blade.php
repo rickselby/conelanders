@@ -3,8 +3,7 @@
 @section('header')
     <ol class="breadcrumb">
         <li><a href="{{ route('dirt-rally.times.index') }}">Total Time</a></li>
-        <li><a href="{{ route('dirt-rally.times.championship', [$season->championship]) }}">{{ $season->championship->name }}</a></li>
-        <li class="active">{{ $season->name }}</li>
+        <li class="active">{{ $championship->name }}</li>
     </ol>
 @endsection
 
@@ -15,18 +14,18 @@
         <tr>
             <th>Pos.</th>
             <th>Driver</th>
-            @foreach($season->events AS $event)
+            @foreach($seasons AS $season)
                 <th>
-                    <a href="{{ route('dirt-rally.times.event', [$season->championship, $season, $event]) }}" class="tablesorter-noSort">
-                        {{ $event->name }}
+                    <a href="{{ route('dirt-rally.times.season', [$championship, $season]) }}" class="tablesorter-noSort">
+                        {{ $season->name }}
                     </a>
                 </th>
             @endforeach
-            <th>Total</th>
+            <th>Total Time</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($times['times'] AS $position => $detail)
+        @foreach($times AS $position => $detail)
             <tr>
                 <th>{{ $position + 1 }}</th>
                 <th>
@@ -34,9 +33,15 @@
                         {{ $detail['driver']->name }}
                     </a>
                 </th>
-                @foreach($season->events AS $event)
-                    <td class="{{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
-                        {{ StageTime::toString($detail['events'][$event->id]) }}
+                @foreach($seasons AS $season)
+                    <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
+                        @if ($season->isComplete())
+                            {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                        @else
+                            <em class="text-muted">
+                                {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                            </em>
+                        @endif
                     </td>
                 @endforeach
                 <td>{{ StageTime::toString($detail['total']) }}</td>
@@ -47,6 +52,6 @@
 
     @include('tablesorter')
 
-    @include('times.legend')
+    @include('dirt-rally.times.legend')
 
 @endsection

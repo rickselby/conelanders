@@ -23,7 +23,7 @@ class ChampionshipSeasonController extends Controller
      */
     public function create(Championship $championship)
     {
-        return view('season.create')
+        return view('dirt-rally.season.create')
             ->with('championship', $championship);
     }
 
@@ -51,7 +51,7 @@ class ChampionshipSeasonController extends Controller
      */
     public function show($championship, $season)
     {
-        return view('season.show')
+        return view('dirt-rally.season.show')
             ->with('season', \Request::get('season'));
     }
 
@@ -64,7 +64,7 @@ class ChampionshipSeasonController extends Controller
      */
     public function edit($championship, $season)
     {
-        return view('season.edit')
+        return view('dirt-rally.season.edit')
             ->with('season', \Request::get('season'));
     }
 

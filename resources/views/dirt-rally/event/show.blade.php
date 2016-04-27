@@ -12,7 +12,7 @@
 @section('content')
 
     @if ($event->importing)
-        @include('import-in-progress')
+        @include('dirt-rally.import-in-progress')
     @else
 
         @if (Auth::user() && Auth::user()->admin)
@@ -33,7 +33,7 @@
         @endif
 
         @if(!$event->isComplete())
-            @include('event-not-complete-results')
+            @include('dirt-rally.event-not-complete-results')
         @endif
 
         @if ($event->last_import && !$event->isComplete())

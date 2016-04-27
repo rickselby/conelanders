@@ -13,7 +13,7 @@
 @section('content')
 
     @if ($stage->event->importing)
-        @include('import-in-progress')
+        @include('dirt-rally.import-in-progress')
     @else
 
         @if (Auth::user() && Auth::user()->admin)
@@ -29,7 +29,7 @@
         <h2>Stage Results</h2>
 
         @if(!$stage->event->isComplete())
-            @include('event-not-complete-results')
+            @include('dirt-rally.event-not-complete-results')
         @endif
 
         @if ($stage->event->last_import && !$stage->event->isComplete())

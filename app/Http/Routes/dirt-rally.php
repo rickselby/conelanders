@@ -31,7 +31,7 @@ Route::get('times/{championship}/{season}/{event}/{stage}', 'TimesController@sta
 
 Route::group(['middleware' => ['admin']], function() {
     Route::get('event-id-help', function () {
-        return view('event-id-help');
+        return view('dirt-rally.event-id-help');
     })->name('dirt-rally.event-id-help');
 });
 

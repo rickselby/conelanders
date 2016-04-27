@@ -22,14 +22,14 @@ class TimesController extends Controller
 
     public function index()
     {
-        return view('times.index')
+        return view('dirt-rally.times.index')
             ->with('championships', Championship::all()->sortBy('closes'));
     }
 
     public function championship(Championship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
-        return view('times.championship')
+        return view('dirt-rally.times.championship')
             ->with('championship', $championship)
             ->with('seasons', $seasons)
             ->with('times', \Times::overall($seasons));
@@ -39,7 +39,7 @@ class TimesController extends Controller
     {
         $season = \Request::get('season');
         $season->load(['events.stages.results.driver', 'events.positions.driver']);
-        return view('times.season')
+        return view('dirt-rally.times.season')
             ->with('season', $season)
             ->with('times', \Times::forSeason($season));
     }
@@ -48,7 +48,7 @@ class TimesController extends Controller
     {
         $event = \Request::get('event');
         $event->load(['season', 'stages.results.driver', 'positions.driver']);
-        return view('times.event')
+        return view('dirt-rally.times.event')
             ->with('event', $event)
             ->with('times', \Times::forEvent($event));
     }
@@ -57,7 +57,7 @@ class TimesController extends Controller
     {
         $stage = \Request::get('stage');
         $stage->load('event.season');
-        return view('times.stage')
+        return view('dirt-rally.times.stage')
             ->with('stage', $stage)
             ->with('results', \Results::getStageResults($stage->id));
     }

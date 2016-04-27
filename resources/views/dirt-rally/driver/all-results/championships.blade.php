@@ -11,7 +11,7 @@
         <div id="championship-{{ $championship['championship']->id }}" class="panel-collapse collapse" role="tabpanel">
             <div class="panel-body">
 
-                @include('driver.all-results.seasons')
+                @include('dirt-rally.driver.all-results.seasons')
 
             </div>
         </div>

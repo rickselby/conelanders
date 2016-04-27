@@ -9,17 +9,41 @@
 
 @section('content')
 
-    <h2>Best Results</h2>
+    <div>
 
-    <div class="panel panel-default">
-        @include('driver.best-results.championship')
-        @include('driver.best-results.season')
-        @include('driver.best-results.event')
-        @include('driver.best-results.stage')
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#dirt-rally" aria-controls="home" role="tab" data-toggle="tab">
+                    Dirt Rally
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#assetto-corsa" aria-controls="profile" role="tab" data-toggle="tab">
+                    Assetto Corsa
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="dirt-rally">
+                @include('dirt-rally.driver.show')
+            </div>
+            <div role="tabpanel" class="tab-pane" id="assetto-corsa">
+                <br />
+                <p>
+                    <em>Currently empty</em>
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <h2>All Results</h2>
-
-    @include('driver.all-results.championships')
+    <script type="text/javascript">
+        $('#driverTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
 
 @endsection

@@ -23,14 +23,14 @@ class NationStandingsController extends Controller
 
     public function index()
     {
-        return view('nationstandings.index')
+        return view('dirt-rally.nationstandings.index')
             ->with('systems', PointsSystem::all());
 
     }
 
     public function system(PointsSystem $system)
     {
-        return view('nationstandings.system')
+        return view('dirt-rally.nationstandings.system')
             ->with('system', $system)
             ->with('championships', Championship::all()->sortBy('closes'));
     }
@@ -38,7 +38,7 @@ class NationStandingsController extends Controller
     public function championship(PointsSystem $system, Championship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
-        return view('nationstandings.championship')
+        return view('dirt-rally.nationstandings.championship')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
@@ -48,7 +48,7 @@ class NationStandingsController extends Controller
     public function overview(PointsSystem $system, Championship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
-        return view('nationstandings.overview')
+        return view('dirt-rally.nationstandings.overview')
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
@@ -59,7 +59,7 @@ class NationStandingsController extends Controller
     {
         $season = \Request::get('season');
         $season->load(['events.stages.results.driver.nation', 'events.positions.driver.nation', 'championship']);
-        return view('nationstandings.season')
+        return view('dirt-rally.nationstandings.season')
             ->with('system', $system)
             ->with('season', $season)
             ->with('points', \NationPoints::forSeason($system, $season));
@@ -69,7 +69,7 @@ class NationStandingsController extends Controller
     {
         $event = \Request::get('event');
         $event->load(['season.championship', 'stages.results.driver.nation', 'positions.driver.nation']);
-        return view('nationstandings.event')
+        return view('dirt-rally.nationstandings.event')
             ->with('system', $system)
             ->with('event', $event)
             ->with('points', \NationPoints::forEvent($system, $event));
