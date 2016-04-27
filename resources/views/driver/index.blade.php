@@ -1,11 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li class="active">Drivers</li>
-    </ol>
-@endsection
-
 @section('content')
 
     <h2>Drivers</h2>

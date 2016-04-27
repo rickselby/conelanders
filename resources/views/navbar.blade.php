@@ -14,22 +14,11 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Dirt Rally <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach($championships AS $championship)
-                            <li class="dropdown-header">{{ $championship->name }}</li>
-                            <li><a href="{{ route('standings.championship', [$defaultPointsSystem, $championship]) }}">Standings</a></li>
-                            <li><a href="{{ route('nationstandings.championship', [$defaultPointsSystem, $championship]) }}">Nation Standings</a></li>
-                            <li><a href="{{ route('championship.show', $championship) }}">Results</a></li>
-                            <li><a href="{{ route('times.championship', $championship) }}">Total Time</a></li>
-                        @endforeach
-                    </ul>
+                <li>
+                    <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
                 <li>
-                    <a href="{{ route('assettocorsa') }}">Assetto Corsa</a>
+                    <a href="{{ route('assetto-corsa') }}">Assetto Corsa</a>
                 </li>
 
             @if (Auth::user() && Auth::user()->admin)
@@ -41,8 +30,10 @@
                         <li>
                             <a href="{{ route('nation.index') }}">Manage Nations</a>
                         </li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Dirt Rally</li>
                         <li>
-                            <a href="{{ route('points-system.index') }}">Points Systems</a>
+                            <a href="{{ route('dirt-rally.points-system.index') }}">Points Systems</a>
                         </li>
                     </ul>
                 </li>

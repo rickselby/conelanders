@@ -9,16 +9,16 @@ class Driver extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name', 'racenet_id'];
+    protected $fillable = ['name', 'dirt_racenet_driver_id'];
 
     public function nation()
     {
         return $this->belongsTo(Nation::class);
     }
 
-    public function results()
+    public function dirtResults()
     {
-        return $this->hasMany(Result::class);
+        return $this->hasMany(DirtRally\DirtResult::class);
     }
 
     public function getRouteKeyName()

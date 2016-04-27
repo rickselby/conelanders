@@ -2,8 +2,6 @@
 /node_modules
 /public/bower
 /public/storage
-/public/css
-/public/js
 Homestead.yaml
 Homestead.json
 .env

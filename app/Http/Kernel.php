@@ -49,8 +49,8 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'validateSeason' => \App\Http\Middleware\ValidateSeason::class,
-        'validateEvent' => \App\Http\Middleware\ValidateEvent::class,
-        'validateStage' => \App\Http\Middleware\ValidateStage::class,
+        'dirt-rally.validateSeason' => \App\Http\Middleware\DirtRally\ValidateSeason::class,
+        'dirt-rally.validateEvent' => \App\Http\Middleware\DirtRally\ValidateEvent::class,
+        'dirt-rally.validateStage' => \App\Http\Middleware\DirtRally\ValidateStage::class,
     ];
 }

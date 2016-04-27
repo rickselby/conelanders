@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Import::class,
-        Commands\CSV::class,
         Commands\CreateSlugsCommand::class,
-        Commands\StagePositions::class,
+        Commands\DirtRally\CSV::class,
+        Commands\DirtRally\Import::class,
+        Commands\DirtRally\StagePositions::class,
     ];
 
     /**
@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
 
         // Check for a last pull every minute (ouch)
         $schedule->call(function() {
-            \ImportDirt::queueLastImport();
+            \DirtRallyImportDirt::queueLastImport();
         });
     }
 }

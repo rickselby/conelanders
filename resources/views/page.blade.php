@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Conelanders Dirt Rally League</title>
+        <title>Conelanders Racing League</title>
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <!-- Bootstrap -->
@@ -32,6 +32,7 @@
     <body>
         <div class="container">
             @include('navbar')
+            {!! Breadcrumbs::renderIfExists() !!}
             @yield('header')
             {!! Notification::showAll() !!}
             @include('formResponse')

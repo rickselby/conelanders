@@ -1,11 +1,5 @@
 @extends('page')
 
-@section('header')
-    <ol class="breadcrumb">
-        <li class="active">Nations</li>
-    </ol>
-@endsection
-
 @section('content')
 
     @if (Auth::user() && Auth::user()->admin)
