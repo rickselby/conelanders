@@ -12,7 +12,7 @@ class ChampionshipSeasonController extends Controller
     public function __construct()
     {
         $this->middleware('admin', ['except' => ['show']]);
-        $this->middleware('validateSeason', ['only' => ['show', 'edit', 'update', 'destroy']]);
+        $this->middleware('dirt-rally.validateSeason', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }
 
     /**

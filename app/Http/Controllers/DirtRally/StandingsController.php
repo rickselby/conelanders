@@ -16,9 +16,9 @@ class StandingsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('validateSeason')->only(['season']);
-        $this->middleware('validateEvent')->only(['event']);
-        $this->middleware('validateStage')->only(['stage']);
+        $this->middleware('dirt-rally.validateSeason')->only(['season']);
+        $this->middleware('dirt-rally.validateEvent')->only(['event']);
+        $this->middleware('dirt-rally.validateStage')->only(['stage']);
     }
 
     public function index()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\DirtRally;
 
 use App\Models\DirtRally\Championship;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
