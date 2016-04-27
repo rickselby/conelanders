@@ -33,6 +33,6 @@ class CSV extends Command
             $csv[] = str_getcsv($line, ',');
         }
 
-        \ImportCSV::fromCSV($this->argument('event_id'), $csv);
+        \DirtRallyImportCSV::fromCSV($this->argument('event_id'), $csv);
     }
 }

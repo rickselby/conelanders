@@ -42,7 +42,7 @@ class NationStandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \NationPoints::overall($system, $seasons));
+            ->with('points', \DirtRallyNationPoints::overall($system, $seasons));
     }
 
     public function overview(PointsSystem $system, Championship $championship)
@@ -52,7 +52,7 @@ class NationStandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \NationPoints::overview($system, $seasons));
+            ->with('points', \DirtRallyNationPoints::overview($system, $seasons));
     }
 
     public function season(PointsSystem $system, $championship, $season)
@@ -62,7 +62,7 @@ class NationStandingsController extends Controller
         return view('dirt-rally.nationstandings.season')
             ->with('system', $system)
             ->with('season', $season)
-            ->with('points', \NationPoints::forSeason($system, $season));
+            ->with('points', \DirtRallyNationPoints::forSeason($system, $season));
     }
 
     public function event(PointsSystem $system, $championship, $season, $event)
@@ -72,6 +72,6 @@ class NationStandingsController extends Controller
         return view('dirt-rally.nationstandings.event')
             ->with('system', $system)
             ->with('event', $event)
-            ->with('points', \NationPoints::forEvent($system, $event));
+            ->with('points', \DirtRallyNationPoints::forEvent($system, $event));
     }
 }

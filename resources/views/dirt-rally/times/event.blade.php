@@ -43,10 +43,10 @@
                 </th>
                 @foreach($event->stages AS $stage)
                     <td class="{{ isset($detail['worst'][$stage->order]) ? 'text-muted' : '' }}">
-                        {{ StageTime::toString($detail['stageTimes'][$stage->order]) }}
+                        {{ DirtRallyStageTime::toString($detail['stageTimes'][$stage->order]) }}
                     </td>
                 @endforeach
-                <td>{{ StageTime::toString($detail['total']) }}</td>
+                <td>{{ DirtRallyStageTime::toString($detail['total']) }}</td>
             </tr>
             @endforeach
             </tbody>

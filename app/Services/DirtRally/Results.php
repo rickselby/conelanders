@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\Driver;
 use App\Models\DirtRally\Event;
@@ -80,7 +80,7 @@ class Results
             if (!isset($championships[$championshipID])) {
                 // Load back down the chain
                 $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
-                $points = \DriverPoints::overall(
+                $points = \DirtRallyDriverPoints::overall(
                     PointsSystem::where('default', true)->first(),
                     $result->stage->event->season->championship->seasons
                 );

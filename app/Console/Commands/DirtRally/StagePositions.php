@@ -30,10 +30,10 @@ class StagePositions extends Command
     public function handle()
     {
         foreach(Stage::all() AS $stage) {
-            \Positions::updateStagePositions($stage);
+            \DirtRallyPositions::updateStagePositions($stage);
         }
         foreach(Event::all() AS $event) {
-            \Positions::updateEventPositions($event);
+            \DirtRallyPositions::updateEventPositions($event);
         }
 
     }

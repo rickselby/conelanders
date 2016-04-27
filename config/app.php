@@ -219,16 +219,17 @@ return [
         'HTML'=> Collective\Html\HtmlFacade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
 
-        'DriverPoints' => App\Services\Facades\DriverPointsFacade::class,
-        'ImportDirt' => App\Services\Facades\ImportDirtFacade::class,
-        'ImportCSV' => App\Services\Facades\ImportCSVFacade::class,
         'Nations' => App\Services\Facades\NationsFacade::class,
-        'NationPoints' => App\Services\Facades\NationPointsFacade::class,
-        'Results' => App\Services\Facades\ResultsFacade::class,
-        'Positions' => App\Services\Facades\PositionsFacade::class,
-        'PointSequences' => App\Services\Facades\PointSequencesFacade::class,
-        'StageTime' => App\Services\Facades\StageTimeFacade::class,
-        'Times' => App\Services\Facades\TimesFacade::class,
+
+        'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,
+        'DirtRallyImportDirt' => App\Services\Facades\DirtRally\ImportDirtFacade::class,
+        'DirtRallyImportCSV' => App\Services\Facades\DirtRally\ImportCSVFacade::class,
+        'DirtRallyNationPoints' => App\Services\Facades\DirtRally\NationPointsFacade::class,
+        'DirtRallyResults' => App\Services\Facades\DirtRally\ResultsFacade::class,
+        'DirtRallyPositions' => App\Services\Facades\DirtRally\PositionsFacade::class,
+        'DirtRallyPointSequences' => App\Services\Facades\DirtRally\PointSequencesFacade::class,
+        'DirtRallyStageTime' => App\Services\Facades\DirtRally\StageTimeFacade::class,
+        'DirtRallyTimes' => App\Services\Facades\DirtRally\TimesFacade::class,
     ],
 
 ];

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Facades;
+namespace App\Services\Facades\DirtRally;
 
-use App\Services\DriverPoints;
+use App\Services\DirtRally\DriverPoints;
 use \Illuminate\Support\Facades\Facade;
 
 class DriverPointsFacade extends Facade {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\PointsSystem;
@@ -14,11 +14,11 @@ class DriverPoints
         $points = [];
 
         if ($event->isComplete()) {
-            $system = \PointSequences::forSystem($system);
+            $system = \DirtRallyPointSequences::forSystem($system);
             /**
              * Get the results for this event, and mangle them into points
              */
-            foreach (\Results::getEventResults($event) AS $position => $result) {
+            foreach (\DirtRallyResults::getEventResults($event) AS $position => $result) {
                 $points[$result['driver']->id] = [
                     'entity' => $result['driver'],
                     'stageTimesByOrder' => $result['stage'],

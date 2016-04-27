@@ -27,7 +27,7 @@ class Import extends Command
      */
     public function handle()
     {
-        \ImportDirt::queueEventJobs();
+        \DirtRallyImportDirt::queueEventJobs();
     }
 
 }

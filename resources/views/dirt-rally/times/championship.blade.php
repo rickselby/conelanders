@@ -36,15 +36,15 @@
                 @foreach($seasons AS $season)
                     <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
                         @if ($season->isComplete())
-                            {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                            {{ DirtRallyStageTime::toString($detail['seasons'][$season->id]) }}
                         @else
                             <em class="text-muted">
-                                {{ StageTime::toString($detail['seasons'][$season->id]) }}
+                                {{ DirtRallyStageTime::toString($detail['seasons'][$season->id]) }}
                             </em>
                         @endif
                     </td>
                 @endforeach
-                <td>{{ StageTime::toString($detail['total']) }}</td>
+                <td>{{ DirtRallyStageTime::toString($detail['total']) }}</td>
             </tr>
         @endforeach
         </tbody>

@@ -36,10 +36,10 @@
                 </th>
                 @foreach($season->events AS $event)
                     <td class="{{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
-                        {{ StageTime::toString($detail['events'][$event->id]) }}
+                        {{ DirtRallyStageTime::toString($detail['events'][$event->id]) }}
                     </td>
                 @endforeach
-                <td>{{ StageTime::toString($detail['total']) }}</td>
+                <td>{{ DirtRallyStageTime::toString($detail['total']) }}</td>
             </tr>
         @endforeach
         </tbody>

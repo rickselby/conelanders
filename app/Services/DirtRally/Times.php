@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\Season;
@@ -21,7 +21,7 @@ class Times
         /**
          * Get the results for this event, and mangle them a bit
          */
-        foreach(\Results::getEventResults($event) AS $result) {
+        foreach(\DirtRallyResults::getEventResults($event) AS $result) {
             $times[$result['driver']->id] = [
                 'driver' => $result['driver'],
                 'stageTimes' => $result['stage'],

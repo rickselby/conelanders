@@ -32,7 +32,7 @@ class TimesController extends Controller
         return view('dirt-rally.times.championship')
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('times', \Times::overall($seasons));
+            ->with('times', \DirtRallyTimes::overall($seasons));
     }
 
     public function season($championship, $season)
@@ -41,7 +41,7 @@ class TimesController extends Controller
         $season->load(['events.stages.results.driver', 'events.positions.driver']);
         return view('dirt-rally.times.season')
             ->with('season', $season)
-            ->with('times', \Times::forSeason($season));
+            ->with('times', \DirtRallyTimes::forSeason($season));
     }
 
     public function event($championship, $season, $event)
@@ -50,7 +50,7 @@ class TimesController extends Controller
         $event->load(['season', 'stages.results.driver', 'positions.driver']);
         return view('dirt-rally.times.event')
             ->with('event', $event)
-            ->with('times', \Times::forEvent($event));
+            ->with('times', \DirtRallyTimes::forEvent($event));
     }
 
     public function stage($championship, $season, $event, $stage)
@@ -59,7 +59,7 @@ class TimesController extends Controller
         $stage->load('event.season');
         return view('dirt-rally.times.stage')
             ->with('stage', $stage)
-            ->with('results', \Results::getStageResults($stage->id));
+            ->with('results', \DirtRallyResults::getStageResults($stage->id));
     }
 
 }

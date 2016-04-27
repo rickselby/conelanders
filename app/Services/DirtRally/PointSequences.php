@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Point;
 use App\Models\DirtRally\PointsSequence;

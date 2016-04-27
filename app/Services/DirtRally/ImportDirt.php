@@ -11,7 +11,7 @@ foreach($eventIDs AS $eventID) {
 }
 */
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Jobs\DirtRally\ImportEventJob;
 use App\Models\DirtRally\Event;
@@ -101,7 +101,7 @@ class ImportDirt extends ImportAbstract
                     $page = $this->getPage($this->getEventPath($event, $stageNum, $pageNum));
                     $this->processPage($stage, $page);
                 }
-                \Positions::updateStagePositions($stage);
+                \DirtRallyPositions::updateStagePositions($stage);
             }
         }
     }
@@ -133,7 +133,7 @@ class ImportDirt extends ImportAbstract
         $driver = $this->getDriverByRacenetID($racenetID, $driverName);
         $this->processDriver($driver, $nationalityImage);
         // Convert the time to an integer
-        $timeInt = \StageTime::fromString($timeString);
+        $timeInt = \DirtRallyStageTime::fromString($timeString);
 
         if ($stage->order != 1) {
             // 2nd stage onwards is cumulative time

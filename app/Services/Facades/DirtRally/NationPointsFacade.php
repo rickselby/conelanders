@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Facades;
+namespace App\Services\Facades\DirtRally;
 
-use App\Services\NationPoints;
+use App\Services\DirtRally\NationPoints;
 use \Illuminate\Support\Facades\Facade;
 
 class NationPointsFacade extends Facade {

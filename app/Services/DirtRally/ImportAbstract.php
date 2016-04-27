@@ -11,7 +11,7 @@ foreach($eventIDs AS $eventID) {
 }
 */
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\Driver;
 use App\Models\DirtRally\Event;
@@ -197,7 +197,7 @@ abstract class ImportAbstract
             $event->last_import = $this->importStartTime;
         }
         $event->save();
-        \Positions::updateEventPositions($event);
+        \DirtRallyPositions::updateEventPositions($event);
     }
 
 }

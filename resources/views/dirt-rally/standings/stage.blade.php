@@ -36,7 +36,7 @@
                             {{ $result->driver->name }}
                         </a>
                     </th>
-                    <td>{{ $result->dnf ? 'DNF' : StageTime::toString($result->time) }}</td>
+                    <td>{{ $result->dnf ? 'DNF' : DirtRallyStageTime::toString($result->time) }}</td>
                     <td>{{ $points['stage'][$result->position] or '' }}</td>
                 </tr>
             @endforeach

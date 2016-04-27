@@ -32,6 +32,6 @@ class ImportEventJob extends Job implements ShouldQueue
      */
     public function handle()
     {
-        \ImportDirt::getEvent($this->event);
+        \DirtRallyImportDirt::getEvent($this->event);
     }
 }

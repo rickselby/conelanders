@@ -59,7 +59,7 @@ class ChampionshipSeasonEventController extends Controller
         $event = \Request::get('event');
         return view('dirt-rally.event.show')
             ->with('event', $event)
-            ->with('results', \Results::getEventResults($event));
+            ->with('results', \DirtRallyResults::getEventResults($event));
     }
 
     /**

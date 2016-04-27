@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Event;
 use App\Models\DirtRally\Stage;

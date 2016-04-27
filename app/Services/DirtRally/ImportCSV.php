@@ -11,7 +11,7 @@ foreach($eventIDs AS $eventID) {
 }
 */
 
-namespace App\Services;
+namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\Event;
 
@@ -45,14 +45,14 @@ class ImportCSV extends ImportAbstract
                 $this->clearStageResults($stage);
                 foreach ($times AS $driver => $time) {
                     if ($time == 'DNF') {
-                        $time = \StageTime::toString($stage->long ? self::LONG_DNF : self::SHORT_DNF);
+                        $time = \DirtRallyStageTime::toString($stage->long ? self::LONG_DNF : self::SHORT_DNF);
                     }
                     if ($time !== '') {
                         $this->saveResult($stage, $this->getDriver($driver),
-                            \StageTime::fromString($time));
+                            \DirtRallyStageTime::fromString($time));
                     }
                 }
-                \Positions::updateStagePositions($stage);
+                \DirtRallyPositions::updateStagePositions($stage);
             }
         }
 

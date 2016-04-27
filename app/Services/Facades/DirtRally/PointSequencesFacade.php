@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Facades;
+namespace App\Services\Facades\DirtRally;
 
-use App\Services\PointSequences;
+use App\Services\DirtRally\PointSequences;
 use \Illuminate\Support\Facades\Facade;
 
 class PointSequencesFacade extends Facade {

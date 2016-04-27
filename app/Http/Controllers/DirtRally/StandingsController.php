@@ -42,7 +42,7 @@ class StandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DriverPoints::overall($system, $seasons));
+            ->with('points', \DirtRallyDriverPoints::overall($system, $seasons));
     }
 
     public function overview(PointsSystem $system, Championship $championship)
@@ -52,7 +52,7 @@ class StandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DriverPoints::overview($system, $seasons));
+            ->with('points', \DirtRallyDriverPoints::overview($system, $seasons));
     }
 
     public function season(PointsSystem $system, $championship, $season)
@@ -62,7 +62,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.season')
             ->with('system', $system)
             ->with('season', $season)
-            ->with('points', \DriverPoints::forSeason($system, $season));
+            ->with('points', \DirtRallyDriverPoints::forSeason($system, $season));
     }
 
     public function event(PointsSystem $system, $championship, $season, $event)
@@ -72,7 +72,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.event')
             ->with('system', $system)
             ->with('event', $event)
-            ->with('points', \DriverPoints::forEvent($system, $event));
+            ->with('points', \DirtRallyDriverPoints::forEvent($system, $event));
     }
 
     public function stage(PointsSystem $system, $championship, $season, $event, $stage)
@@ -82,8 +82,8 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.stage')
             ->with('system', $system)
             ->with('stage', $stage)
-            ->with('results', \Results::getStageResults($stage->id))
-            ->with('points', \PointSequences::forSystem($system));
+            ->with('results', \DirtRallyResults::getStageResults($stage->id))
+            ->with('points', \DirtRallyPointSequences::forSystem($system));
     }
 
 }

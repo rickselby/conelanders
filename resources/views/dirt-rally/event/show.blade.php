@@ -65,9 +65,9 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                <td>{{ StageTime::toString($result['stage'][$stage->order]) }}</td>
+                <td>{{ DirtRallyStageTime::toString($result['stage'][$stage->order]) }}</td>
                 @endforeach
-                <td>{{ StageTime::toString($result['total']) }}</td>
+                <td>{{ DirtRallyStageTime::toString($result['total']) }}</td>
             </tr>
             @endforeach
             </tbody>
