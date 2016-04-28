@@ -38,12 +38,15 @@ class Results
             }
         }
 
-        $return = [];
         foreach($event->positions as $position) {
-            $return[$position->position] = $results[$position->driver->id];
+            $results[$position->driver->id]['position'] = $position->position;
         }
-        ksort($return);
-        return $return;
+
+        usort($results, function($a, $b) {
+            return $a['position'] - $b['position'];
+        });
+
+        return $results;
     }
 
     public function getStageResults($stageID)

@@ -18,7 +18,7 @@ class DriverPoints
             /**
              * Get the results for this event, and mangle them into points
              */
-            foreach (\DirtRallyResults::getEventResults($event) AS $position => $result) {
+            foreach (\DirtRallyResults::getEventResults($event) AS $result) {
                 $points[$result['driver']->id] = [
                     'entity' => $result['driver'],
                     'stageTimesByOrder' => $result['stage'],
@@ -28,9 +28,9 @@ class DriverPoints
                         'points' => 0
                     ],
                     'stagePoints' => [],
-                    'eventPosition' => $position,
-                    'eventPoints' => (isset($system['event'][$position]) && !$result['dnf'] && $result['total'])
-                        ? $system['event'][$position]
+                    'eventPosition' => $result['position'],
+                    'eventPoints' => (isset($system['event'][$result['position']]) && !$result['dnf'] && $result['total'])
+                        ? $system['event'][$result['position']]
                         : 0,
                 ];
             }
