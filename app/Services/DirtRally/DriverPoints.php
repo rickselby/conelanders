@@ -73,6 +73,12 @@ class DriverPoints
         return $points;
     }
 
+    /**
+     * Check two event results to see if they are equal
+     * @param $a
+     * @param $b
+     * @return bool
+     */
     public function areEventPointsEqual($a, $b)
     {
         return ($a['total']['points'] == $b['total']['points'])
@@ -90,10 +96,10 @@ class DriverPoints
         $points = [];
         foreach($season->events AS $event) {
             if ($event->isComplete()) {
-                foreach ($this->forEvent($system, $event) AS $position => $result) {
+                foreach ($this->forEvent($system, $event) AS $result) {
                     $points[$result['entity']->id]['entity'] = $result['entity'];
                     $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
-                    $points[$result['entity']->id]['positions'][] = $position;
+                    $points[$result['entity']->id]['positions'][] = $result['position'];
                 }
             }
         }
@@ -113,14 +119,14 @@ class DriverPoints
         foreach($seasons AS $season) {
             foreach ($season->events AS $event) {
                 if ($event->isComplete()) {
-                    foreach ($this->forEvent($system, $event) AS $position => $result) {
+                    foreach ($this->forEvent($system, $event) AS $result) {
                         foreach($result['stagePoints'] AS $stage => $stagePoints) {
                             $points[$result['entity']->id]['stages'][$stage] = $stagePoints;
                         }
                         $points[$result['entity']->id]['events'][$event->id] = $result['eventPoints'];
                         $points[$result['entity']->id]['entity'] = $result['entity'];
                         $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
-                        $points[$result['entity']->id]['positions'][] = $position;
+                        $points[$result['entity']->id]['positions'][] = $result['position'];
                     }
                 }
             }
@@ -140,10 +146,10 @@ class DriverPoints
         $points = [];
         // Step through the seasons and pull in results
         foreach($seasons AS $season) {
-            foreach ($this->forSeason($system, $season) AS $position => $result) {
+            foreach ($this->forSeason($system, $season) AS $result) {
                 $points[$result['entity']->id]['entity'] = $result['entity'];
                 $points[$result['entity']->id]['points'][$season->id] = $result['total'];
-                $points[$result['entity']->id]['positions'][] = $position;
+                $points[$result['entity']->id]['positions'][] = $result['position'];
                 $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
             }
         }
