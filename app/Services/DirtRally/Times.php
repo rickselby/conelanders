@@ -107,7 +107,7 @@ class Times
         });
 
         return [
-            'times' => $times,
+            'times' => $this->setPositions($times),
             'dnf' => $dnf,
         ];
     }
