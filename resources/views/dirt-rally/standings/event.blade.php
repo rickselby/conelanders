@@ -25,9 +25,9 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($points AS $position => $detail)
+            @foreach($points AS $detail)
             <tr>
-                <th>{{ $position + 1 }}</th>
+                <th>{{ $detail['position'] }}</th>
                 <th>
                     <a href="{{ route('driver.show', $detail['entity']) }}">
                         {{ $detail['entity']->name }}

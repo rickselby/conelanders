@@ -66,9 +66,30 @@ class DriverPoints
                     return $a['eventPosition'] - $b['eventPosition'];
                 }
             });
+
+            $lastTime = 0;
+            $position = 1;
+            foreach($points AS $key => $detail) {
+                $points[$key]['position'] = $position;
+                if($key > 0 && $this->areEventPointsEqual($detail, $points[$key-1])) {
+                    // If the previous value is the same as this one, use the same position string
+                    $points[$key]['position'] = $points[$key-1]['position'];
+                } elseif (isset($points[$key+1]) && $this->areEventPointsEqual($detail, $points[$key+1])) {
+                    $points[$key]['position'] .= '=';
+                }
+                $position++;
+            }
+
         }
 
         return $points;
+    }
+
+    private function areEventPointsEqual($a, $b)
+    {
+        return $a['total']['points'] == $b['total']['points']
+                &&
+            $a['eventPosition'] == $b['eventPosition'];
     }
 
     /**
@@ -163,13 +184,12 @@ class DriverPoints
         // If a driver is equal to the one above, set as equal.
         foreach($points AS $pos => $point) {
             $points[$pos]['position'] = $pos + 1;
-
             // If the next value is the same as this one, append an equals
-            if (isset($points[$pos+1]) && $this->arePointsEqual($point, $points[$pos+1])) {
-                $points[$pos]['position'] .= '=';
-            } elseif($pos > 0 && $this->arePointsEqual($point, $points[$pos-1])) {
+            if($pos > 0 && $this->arePointsEqual($point, $points[$pos-1])) {
                 // If the previous value is the same as this one, use the same position string
                 $points[$pos]['position'] = $points[$pos-1]['position'];
+            } elseif (isset($points[$pos+1]) && $this->arePointsEqual($point, $points[$pos+1])) {
+                $points[$pos]['position'] .= '=';
             }
         }
 
