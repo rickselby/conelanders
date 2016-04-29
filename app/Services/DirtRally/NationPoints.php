@@ -42,6 +42,18 @@ class NationPoints extends DriverPoints
 
         usort($points, [$this, 'pointsSort']);
 
+        $position = 1;
+        foreach($points AS $key => $detail) {
+            $points[$key]['position'] = $position;
+            if($key > 0 && ($detail['total']['points'] == $points[$key-1]['total']['points'])) {
+                // If the previous value is the same as this one, use the same position string
+                $points[$key]['position'] = $points[$key-1]['position'];
+            } elseif (isset($points[$key+1]) && ($detail['total']['points'] == $points[$key+1]['total']['points'])) {
+                $points[$key]['position'] .= '=';
+            }
+            $position++;
+        }
+
         return $points;
     }
 

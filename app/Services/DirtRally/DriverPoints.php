@@ -67,7 +67,6 @@ class DriverPoints
                 }
             });
 
-            $lastTime = 0;
             $position = 1;
             foreach($points AS $key => $detail) {
                 $points[$key]['position'] = $position;
