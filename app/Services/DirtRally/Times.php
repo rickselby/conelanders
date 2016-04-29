@@ -58,7 +58,7 @@ class Times
         });
 
         return [
-            'times' => $this->setPositions($times),
+            'times' => \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']),
             'dnf' => $worstTime['overall'] + $this->dnfPenalty(),
         ];
     }
@@ -107,7 +107,7 @@ class Times
         });
 
         return [
-            'times' => $this->setPositions($times),
+            'times' => \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']),
             'dnf' => $dnf,
         ];
     }
@@ -140,7 +140,7 @@ class Times
             return $a['total'] - $b['total'];
         });
 
-        return $this->setPositions($times);
+        return \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']);
     }
 
     private function dnfPenalty()
@@ -149,25 +149,7 @@ class Times
         return 10*60*1000;
     }
 
-    private function setPositions($times)
-    {
-        $lastTime = 0;
-        $position = 1;
-        foreach($times AS $key => $time) {
-            $times[$key]['position'] = $position;
-            if($key > 0 && $this->areTimesEqual($time, $times[$key-1])) {
-                // If the previous value is the same as this one, use the same position string
-                $times[$key]['position'] = $times[$key-1]['position'];
-            } elseif (isset($times[$key+1]) && $this->areTimesEqual($time, $times[$key+1])) {
-                $times[$key]['position'] .= '=';
-            }
-            $position++;
-        }
-
-        return $times;
-    }
-
-    private function areTimesEqual($a, $b)
+    public function areTimesEqual($a, $b)
     {
         return $a['total'] == $b['total'];
     }

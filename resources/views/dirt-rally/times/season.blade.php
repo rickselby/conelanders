@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($times['times'] AS $position => $detail)
+        @foreach($times AS $detail)
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th>

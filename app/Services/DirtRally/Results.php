@@ -173,23 +173,4 @@ class Results
         }
     }
 
-    /**
-     * Add equals symbols to positions in results for display
-     * @param [] $results
-     * @return []
-     */
-    public function addEquals($results)
-    {
-        foreach($results AS $pos => $result) {
-            if (
-                (isset($results[$pos+1]) && ($results[$pos+1]['position'] == $result['position']))
-                ||
-                (isset($results[$pos-1]) && (intval($results[$pos-1]['position']) == $result['position']))
-            ) {
-                $results[$pos]['position'] .= '=';
-            }
-        }
-
-        return $results;
-    }
 }

@@ -16,45 +16,43 @@ class NationPoints extends DriverPoints
      */
     public function forEvent(DirtPointsSystem $system, DirtEvent $event)
     {
-        $driverResults = parent::forEvent($system, $event);
-
         $points = [];
-        foreach($driverResults AS $driver) {
-            $nationID = $driver['entity']->nation->id;
-            if (!isset($points[$nationID])) {
-                $points[$nationID] = [
-                    'entity' => $driver['entity']->nation,
-                    'total' => [
-                        'points' => 0
-                    ],
-                    'points' => [],
-                    'positions' => [],
-                ];
+
+        if ($event->isComplete()) {
+            $driverResults = parent::forEvent($system, $event);
+
+            foreach ($driverResults AS $driver) {
+                $nationID = $driver['entity']->nation->id;
+                if (!isset($points[$nationID])) {
+                    $points[$nationID] = [
+                        'entity' => $driver['entity']->nation,
+                        'total' => [
+                            'points' => 0
+                        ],
+                        'points' => [],
+                        'positions' => [],
+                    ];
+                }
+                $points[$nationID]['points'][] = $driver['total']['points'];
+                $points[$nationID]['positions'][] = $driver['eventPosition'];
             }
-            $points[$nationID]['points'][] = $driver['total']['points'];
-            $points[$nationID]['positions'][] = $driver['eventPosition'];
-        }
 
-        foreach($points AS $ref => $point) {
-            $points[$ref]['total']['sum'] = array_sum($point['points']);
-            $points[$ref]['total']['points'] = $points[$ref]['total']['sum'] / count($point['points']);
-        }
-
-        usort($points, [$this, 'pointsSort']);
-
-        $position = 1;
-        foreach($points AS $key => $detail) {
-            $points[$key]['position'] = $position;
-            if($key > 0 && ($detail['total']['points'] == $points[$key-1]['total']['points'])) {
-                // If the previous value is the same as this one, use the same position string
-                $points[$key]['position'] = $points[$key-1]['position'];
-            } elseif (isset($points[$key+1]) && ($detail['total']['points'] == $points[$key+1]['total']['points'])) {
-                $points[$key]['position'] .= '=';
+            foreach ($points AS $ref => $point) {
+                $points[$ref]['total']['sum'] = array_sum($point['points']);
+                $points[$ref]['total']['points'] = $points[$ref]['total']['sum'] / count($point['points']);
             }
-            $position++;
+
+            usort($points, [$this, 'pointsSort']);
+
+            $points = \DirtRallyPositions::addToArray($points, [$this, 'areEventPointsEqual']);
         }
 
         return $points;
+    }
+
+    public function areEventPointsEqual($a, $b)
+    {
+        return ($a['total']['points'] == $b['total']['points']);
     }
 
     /**
