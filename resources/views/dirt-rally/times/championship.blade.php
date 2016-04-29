@@ -20,7 +20,7 @@
         <tbody>
         @foreach($times AS $position => $detail)
             <tr>
-                <th>{{ $position + 1 }}</th>
+                <th>{{ $detail['position'] }}</th>
                 <th>
                     <a href="{{ route('driver.show', $detail['driver']) }}">
                         {{ $detail['driver']->name }}

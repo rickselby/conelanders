@@ -38,7 +38,7 @@ class StandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DirtRallyDriverPoints::overall($system, $seasons));
+            ->with('points', \DirtRallyPositions::addEquals(\DirtRallyDriverPoints::overall($system, $seasons)));
     }
 
     public function overview(DirtPointsSystem $system, DirtChampionship $championship)
@@ -48,7 +48,7 @@ class StandingsController extends Controller
             ->with('system', $system)
             ->with('championship', $championship)
             ->with('seasons', $seasons)
-            ->with('points', \DirtRallyDriverPoints::overview($system, $seasons));
+            ->with('points', \DirtRallyPositions::addEquals(\DirtRallyDriverPoints::overview($system, $seasons)));
     }
 
     public function season(DirtPointsSystem $system, $championship, $season)
@@ -58,7 +58,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.season')
             ->with('system', $system)
             ->with('season', $season)
-            ->with('points', \DirtRallyDriverPoints::forSeason($system, $season));
+            ->with('points', \DirtRallyPositions::addEquals(\DirtRallyDriverPoints::forSeason($system, $season)));
     }
 
     public function event(DirtPointsSystem $system, $championship, $season, $event)
@@ -68,7 +68,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.event')
             ->with('system', $system)
             ->with('event', $event)
-            ->with('points', \DirtRallyDriverPoints::forEvent($system, $event));
+            ->with('points', \DirtRallyPositions::addEquals(\DirtRallyDriverPoints::forEvent($system, $event)));
     }
 
     public function stage(DirtPointsSystem $system, $championship, $season, $event, $stage)
@@ -78,7 +78,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.stage')
             ->with('system', $system)
             ->with('stage', $stage)
-            ->with('results', \DirtRallyResults::getStageResults($stage->id))
+            ->with('results', \DirtRallyPositions::addEquals(\DirtRallyResults::getStageResults($stage->id)))
             ->with('points', \DirtRallyPointSequences::forSystem($system));
     }
 

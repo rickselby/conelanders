@@ -21,7 +21,7 @@
             <tbody>
             @foreach($points AS $position => $detail)
             <tr>
-                <th>{{ $position + 1 }}</th>
+                <th>{{ $detail['position'] }}</th>
                 <th>
                     <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}

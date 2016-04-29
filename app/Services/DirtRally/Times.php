@@ -58,7 +58,7 @@ class Times
         });
 
         return [
-            'times' => $times,
+            'times' => \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']),
             'dnf' => $worstTime['overall'] + $this->dnfPenalty(),
         ];
     }
@@ -107,7 +107,7 @@ class Times
         });
 
         return [
-            'times' => $times,
+            'times' => \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']),
             'dnf' => $dnf,
         ];
     }
@@ -140,13 +140,18 @@ class Times
             return $a['total'] - $b['total'];
         });
 
-        return $times;
+        return \DirtRallyPositions::addToArray($times, [$this, 'areTimesEqual']);
     }
 
     private function dnfPenalty()
     {
         // ten minutes in milliseconds
         return 10*60*1000;
+    }
+
+    public function areTimesEqual($a, $b)
+    {
+        return $a['total'] == $b['total'];
     }
 
 }

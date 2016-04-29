@@ -47,9 +47,9 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($results AS $key => $result)
+            @foreach($results AS $result)
             <tr>
-                <th>{{ $key }}</th>
+                <th>{{ $result['position'] }}</th>
                 <th>
                     <a href="{{ route('driver.show', $result['driver']) }}">
                         {{ $result['driver']->name }}
