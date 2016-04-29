@@ -140,7 +140,7 @@ class Times
             return $a['total'] - $b['total'];
         });
 
-        return $times;
+        return $this->setPositions($times);
     }
 
     private function dnfPenalty()
