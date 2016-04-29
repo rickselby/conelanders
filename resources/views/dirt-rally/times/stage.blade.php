@@ -18,13 +18,13 @@
             <tbody>
             @foreach($results AS $result)
                 <tr>
-                    <th>{{ $result->position }}</th>
+                    <th>{{ $result['position'] }}</th>
                     <th>
-                        <a href="{{ route('driver.show', $result->driver) }}">
-                            {{ $result->driver->name }}
+                        <a href="{{ route('driver.show', $result['driver']) }}">
+                            {{ $result['driver']['name'] }}
                         </a>
                     </th>
-                    <td>{{ $result->dnf ? 'DNF' : DirtRallyStageTime::toString($result->time) }}</td>
+                    <td>{{ $result['dnf'] ? 'DNF' : DirtRallyStageTime::toString($result['time']) }}</td>
                 </tr>
             @endforeach
             </tbody>

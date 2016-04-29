@@ -51,7 +51,7 @@ class Results
 
     public function getStageResults($stageID)
     {
-        return DirtResult::with('driver')->where('dirt_stage_id', $stageID)->orderBy('position')->get();
+        return DirtResult::with('driver')->where('dirt_stage_id', $stageID)->orderBy('position')->get()->toArray();
     }
 
     public function forDriver(Driver $driver)
@@ -171,5 +171,25 @@ class Results
         } elseif ($current['best'] == $newPosition) {
             $current['things']->push($new);
         }
+    }
+
+    /**
+     * Add equals symbols to positions in results for display
+     * @param [] $results
+     * @return []
+     */
+    public function addEquals($results)
+    {
+        foreach($results AS $pos => $result) {
+            if (
+                (isset($results[$pos+1]) && ($results[$pos+1]['position'] == $result['position']))
+                ||
+                (isset($results[$pos-1]) && (intval($results[$pos-1]['position']) == $result['position']))
+            ) {
+                $results[$pos]['position'] .= '=';
+            }
+        }
+
+        return $results;
     }
 }

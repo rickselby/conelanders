@@ -55,7 +55,7 @@ class TimesController extends Controller
         $stage->load('event.season');
         return view('dirt-rally.times.stage')
             ->with('stage', $stage)
-            ->with('results', \DirtRallyResults::getStageResults($stage->id));
+            ->with('results', \DirtRallyResults::addEquals(\DirtRallyResults::getStageResults($stage->id)));
     }
 
 }

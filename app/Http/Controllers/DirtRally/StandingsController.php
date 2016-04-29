@@ -78,7 +78,7 @@ class StandingsController extends Controller
         return view('dirt-rally.standings.stage')
             ->with('system', $system)
             ->with('stage', $stage)
-            ->with('results', \DirtRallyResults::getStageResults($stage->id))
+            ->with('results', \DirtRallyResults::addEquals(\DirtRallyResults::getStageResults($stage->id)))
             ->with('points', \DirtRallyPointSequences::forSystem($system));
     }
 
