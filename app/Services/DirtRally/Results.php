@@ -68,7 +68,7 @@ class Results
 
         $championships = [];
 
-        $results = $driver->results->sortBy(function($result) {
+        $results = $driver->dirtResults->sortBy(function($result) {
             return $result->stage->event->closes.'-'.$result->stage->order;
         });
 
