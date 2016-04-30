@@ -13,27 +13,23 @@ class Positions
      */
     public function updateStagePositions(DirtStage $stage)
     {
-        // Most of the work is done by the ordering
-        $results = $stage->results()->orderBy('dnf')->orderBy('time')->get();
-        $position = 1;
-        $lastTime = 0;
-        $lastPosition = 0;
-        $bestTime = null;
+        $results = [];
+        // Drop the results into an array so positions can be added
+        foreach($stage->results()->orderBy('dnf')->orderBy('time')->get() AS $result) {
+            $results[] = [
+                'result' => $result,
+            ];
+        }
+
+        // Add positions to the array
+        $results = $this->addToArray($results, function($a, $b) {
+            return $a['result']->time == $b['result']->time;
+        });
+
+        // Save positions back to the models
         foreach($results AS $result) {
-            if (!$bestTime) {
-                $bestTime = $result->time;
-                $result->behind = 0;
-            } else {
-                $result->behind = $result->time - $bestTime;
-            }
-
-            $result->position = ($lastTime == $result->time ? $lastPosition : $position);
-            $result->save();
-
-            $lastTime = $result->time;
-            $lastPosition = $result->position;
-
-            $position++;
+            $result['result']->position = $result['position'];
+            $result['result']->save();
         }
     }
 
@@ -70,19 +66,15 @@ class Positions
             }
         });
 
-        // Set the positions
-        $position = 1;
-        $lastTime = 0;
-        $lastPosition = 0;
+        $times = $this->addToArray($times, function($a, $b) {
+            return ($a['stages'] == $b['stages']) && ($a['time'] == $b['time']);
+        });
+
         foreach($times AS $driverID => $detail) {
-            $positionToUse = ($detail['time'] == $lastTime) ? $lastPosition : $position;
             $event->positions()->create([
                 'driver_id' => $driverID,
-                'position' => $positionToUse
+                'position' => $detail['position'],
             ]);
-            $lastTime = $detail['time'];
-            $lastPosition = $positionToUse;
-            $position++;
         }
     }
 
