@@ -14,6 +14,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
+    Route::resource('points-sequence', 'PointsSequenceController');
 
     Route::group(['prefix' => 'dirt-rally', 'namespace' => 'DirtRally'], function() {
         include('Routes/dirt-rally.php');

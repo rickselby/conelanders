@@ -8,7 +8,13 @@ use App\Models\DirtRally\DirtPointsSystem;
 
 class PointSequences
 {
-    public function set(PointsSequence $sequence, $pointsList)
+    /**
+     * Set the points for the given sequence
+     * @param  PointsSequence $sequence
+     * @param  int[] $pointsList
+     * @throws \Exception
+     */
+    public function setPoints(PointsSequence $sequence, $pointsList)
     {
         foreach($pointsList AS $position => $points) {
             // Get the current points, or create...
@@ -30,5 +36,32 @@ class PointSequences
                 }
             }
         }
+    }
+
+    /**
+     * Check if a given sequence is in use somewhere.
+     * @param  PointsSequence $sequence
+     * @return bool
+     */
+    public function isUsed(PointsSequence $sequence)
+    {
+        // Build an array of sequence ids that are in use
+        $usedSequences = [];
+        foreach(DirtPointsSystem::with(['eventSequence', 'stageSequence'])->get() AS $system) {
+            $usedSequences[] = $system->eventSequence->id;
+            $usedSequences[] = $system->stageSequence->id;
+        }
+
+        // Check the array
+        return in_array($sequence->id, $usedSequences);
+    }
+
+    /**
+     * Get a list of sequences for a drop-down select
+     * @return \Illuminate\Support\Collection
+     */
+    public function forSelect()
+    {
+        return PointsSequence::orderBy('name')->pluck('name', 'id');
     }
 }

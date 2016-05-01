@@ -30,6 +30,9 @@
                         <li>
                             <a href="{{ route('nation.index') }}">Manage Nations</a>
                         </li>
+                        <li>
+                            <a href="{{ route('points-sequence.index') }}">Points Sequences</a>
+                        </li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Dirt Rally</li>
                         <li>
