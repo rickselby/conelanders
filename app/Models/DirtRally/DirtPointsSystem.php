@@ -10,7 +10,7 @@ class DirtPointsSystem extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name', 'default'];
+    protected $fillable = ['name', 'default', 'event_points_sequence', 'stage_points_sequence'];
 
     public function eventSequence()
     {

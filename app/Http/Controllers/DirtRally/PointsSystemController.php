@@ -34,7 +34,8 @@ class PointsSystemController extends Controller
      */
     public function create()
     {
-        return view('dirt-rally.points-system.create');
+        return view('dirt-rally.points-system.create')
+            ->with('sequences', \PointSequences::forSelect());
     }
 
     /**
@@ -46,10 +47,6 @@ class PointsSystemController extends Controller
     public function store(Request $request)
     {
         $system = DirtPointsSystem::create($request->all());
-        // Also create the two sequences
-        $system->eventSequence()->associate(PointsSequence::create([]));
-        $system->stageSequence()->associate(PointsSequence::create([]));
-        $system->save();
 
         if ($request->default) {
             $this->setDefault($system->id);
@@ -81,7 +78,8 @@ class PointsSystemController extends Controller
     public function edit(DirtPointsSystem $points_system)
     {
         return view('dirt-rally.points-system.edit')
-            ->with('system', $points_system);
+            ->with('system', $points_system)
+            ->with('sequences', \PointSequences::forSelect());
     }
 
     /**
@@ -115,15 +113,6 @@ class PointsSystemController extends Controller
         $points_system->delete();
         \Notification::add('success', 'Points System deleted');
         return \Redirect::route('dirt-rally.points-system.index');
-    }
-
-    public function points(Request $request, DirtPointsSystem $system)
-    {
-        $system->load(['eventSequence', 'stageSequence']);
-        \PointSequences::set($system->eventSequence, $request['event']);
-        \PointSequences::set($system->stageSequence, $request['stage']);
-        \Notification::add('success', 'Points updated');
-        return \Redirect::route('dirt-rally.points-system.show', $system);
     }
 
     private function setDefault($id)
