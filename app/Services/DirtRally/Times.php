@@ -78,12 +78,6 @@ class Times
                     $times[$result['driver']->id]['dnss'][$event->id] = false;
                     $times[$result['driver']->id]['driver'] = $result['driver'];
                 }
-            } else {
-                foreach ($events[$event->id]['times'] AS $result) {
-                    $times[$result['driver']->id]['events'][$event->id] = null;
-                    $times[$result['driver']->id]['dnfs'][$event->id] = false;
-                    $times[$result['driver']->id]['dnss'][$event->id] = false;
-                }
             }
         }
 
