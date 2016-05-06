@@ -6,15 +6,23 @@ class StageTime
 {
     public function fromString($string)
     {
-        // mm:ss.xxx
+        // (hh:)mm:ss.xxx
         $parts = explode(':', $string);
-        if (count($parts) == 2) {
-            $minutes = $parts[0];
-            $otherParts = explode('.', $parts[1]);
+        if (count($parts) == 2 || count($parts) == 3) {
+            if (count($parts) == 3) {
+                $hours = $parts[0];
+                $minutes = $parts[1];
+                $secondsPart = $parts[2];
+            } else {
+                $hours = 0;
+                $minutes = $parts[0];
+                $secondsPart = $parts[1];
+            }
+            $otherParts = explode('.', $secondsPart);
             $seconds = $otherParts[0];
             $milliseconds = $otherParts[1];
 
-            $time = $milliseconds + ($seconds * 1000) + ($minutes * 1000 * 60);
+            $time = $milliseconds + ($seconds * 1000) + ($minutes * 1000 * 60) + ($hours * 1000 * 60 * 60);
 
             return $time;
         } else {
