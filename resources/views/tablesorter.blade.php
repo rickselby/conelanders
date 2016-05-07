@@ -8,7 +8,7 @@
         }, type: "numeric"
     });
 
-    $("table").tablesorter({
+    $("table.sortable").tablesorter({
         theme : "bootstrap",
         widthFixed: true,
         headerTemplate : '{content} {icon}',

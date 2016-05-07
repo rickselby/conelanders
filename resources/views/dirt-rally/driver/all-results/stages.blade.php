@@ -5,7 +5,7 @@
                 <th>{{ $stage['stage']->name }}</th>
                 <td class="col-sm-2 text-right">
                     @if ($stage['result']->behind && !$stage['result']->dnf)
-                        + {{ DirtRallyStageTime::toString($stage['result']->behind) }}
+                        + {{ Times::toString($stage['result']->behind) }}
                     @else
                         -
                     @endif

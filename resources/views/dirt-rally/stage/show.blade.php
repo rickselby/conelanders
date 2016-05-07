@@ -26,7 +26,7 @@
             <p>Last update: {{ $stage->event->last_import->toDayDateTimeString() }} UTC</p>
         @endif
 
-        <table class="table table-bordered table-hover">
+        <table class="table sortable table-bordered table-hover">
             <thead>
             <tr>
                 <th>Pos.</th>
@@ -43,13 +43,11 @@
                             {{ $result['driver']['name'] }}
                         </a>
                     </th>
-                    <td>{{ $result['dnf'] ? 'DNF' : DirtRallyStageTime::toString($result['time']) }}</td>
+                    <td>{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-
-        @include('tablesorter')
 
     @endif
 

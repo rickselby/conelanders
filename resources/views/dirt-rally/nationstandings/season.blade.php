@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <table class="table table-bordered table-hover">
+    <table class="table sortable table-bordered table-hover">
         <thead>
         <tr>
             <th>Pos.</th>
@@ -33,7 +33,5 @@
         @endforeach
         </tbody>
     </table>
-
-    @include('tablesorter')
 
 @endsection

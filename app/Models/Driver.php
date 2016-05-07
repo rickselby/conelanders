@@ -9,7 +9,7 @@ class Driver extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name', 'dirt_racenet_driver_id'];
+    protected $fillable = ['name', 'dirt_racenet_driver_id', 'ac_guid'];
 
     public function nation()
     {
@@ -19,6 +19,11 @@ class Driver extends \Eloquent implements SluggableInterface
     public function dirtResults()
     {
         return $this->hasMany(DirtRally\DirtResult::class);
+    }
+
+    public function acEntries()
+    {
+        return $this->hasMany(AssettoCorsa\AcChampionshipEntrant::class);
     }
 
     public function getRouteKeyName()

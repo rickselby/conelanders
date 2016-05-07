@@ -37,6 +37,7 @@
             {!! Notification::showAll() !!}
             @include('formResponse')
             @yield('content')
+            @include('tablesorter')
         </div>
     </body>
 </html>

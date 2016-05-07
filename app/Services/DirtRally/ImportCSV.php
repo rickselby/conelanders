@@ -45,11 +45,11 @@ class ImportCSV extends ImportAbstract
                 $this->clearStageResults($stage);
                 foreach ($times AS $driver => $time) {
                     if ($time == 'DNF') {
-                        $time = \DirtRallyStageTime::toString($stage->long ? self::LONG_DNF : self::SHORT_DNF);
+                        $time = \Times::toString($stage->long ? self::LONG_DNF : self::SHORT_DNF);
                     }
                     if ($time !== '') {
                         $this->saveResult($stage, $this->getDriver($driver),
-                            \DirtRallyStageTime::fromString($time));
+                            \Times::fromString($time));
                     }
                 }
                 \DirtRallyPositions::updateStagePositions($stage);

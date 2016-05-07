@@ -22,7 +22,7 @@ class Positions
         }
 
         // Add positions to the array
-        $results = $this->addToArray($results, function($a, $b) {
+        $results = \Positions::addToArray($results, function($a, $b) {
             return $a['result']->time == $b['result']->time;
         });
 
@@ -66,7 +66,7 @@ class Positions
             }
         });
 
-        $times = $this->addToArray($times, function($a, $b) {
+        $times = \Positions::addToArray($times, function($a, $b) {
             return ($a['stages'] == $b['stages']) && ($a['time'] == $b['time']);
         });
 
@@ -77,53 +77,4 @@ class Positions
             ]);
         }
     }
-
-    /**
-     * @param [] $array
-     * @param \Closure $equalFunction
-     */
-    public function addToArray($array, $equalFunction)
-    {
-        $position = 1;
-
-        $arrayKeys = array_keys($array);
-
-        foreach($arrayKeys AS $index => $key) {
-            $array[$key]['position'] = $position++;
-
-            // See if the previous result is the same as this result
-            if ($index > 0 && $equalFunction($array[$key], $array[$arrayKeys[$index-1]])) {
-                // If it is, copy the position from the previous result
-                $array[$key]['position'] = $array[$arrayKeys[$index-1]]['position'];
-            }
-        }
-
-        return $array;
-    }
-
-    /**
-     * Add equals symbols to positions in results for display
-     * @param [] $results
-     * @return []
-     */
-    public function addEquals($array)
-    {
-        $arrayKeys = array_keys($array);
-
-        foreach($arrayKeys AS $index => $key) {
-
-            // See if the previous or next position is the same as this position
-            if (
-                ($index > 0 && ($array[$key]['position'] == $array[$arrayKeys[$index-1]]['position']))
-                    ||
-                (isset($arrayKeys[$index+1]) && ($array[$key]['position'] == $array[$arrayKeys[$index+1]]['position']))
-            ) {
-                // If it is, append an = to the number
-                $array[$key]['position'] .= '=';
-            }
-        }
-
-        return $array;
-    }
-
 }
