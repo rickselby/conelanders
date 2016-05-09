@@ -20,7 +20,12 @@ Breadcrumbs::register('assetto-corsa.championship.edit', function($breadcrumbs, 
     $breadcrumbs->push('Update', route('assetto-corsa.championship.edit', $championship));
 });
 
-Breadcrumbs::register('assetto-corsa.championship.season.create', function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
+Breadcrumbs::register('assetto-corsa.championship.race.create', function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
     $breadcrumbs->parent('assetto-corsa.championship.show', $championship);
-    $breadcrumbs->push('Create Season', route('assetto-corsa.championship.season.create', $championship));
+    $breadcrumbs->push('Create Race', route('assetto-corsa.championship.race.create', $championship));
+});
+
+Breadcrumbs::register('assetto-corsa.championship.entrants.index', function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
+    $breadcrumbs->parent('assetto-corsa.championship.show', $championship);
+    $breadcrumbs->push('Update Entrants', route('assetto-corsa.championship.entrants.index', $championship));
 });

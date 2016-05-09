@@ -106,8 +106,8 @@ class ChampionshipRaceController extends Controller
     public function destroy($championship, $race)
     {
         $race = \Request::get('race');
-        if ($race->results->count()) {
-            \Notification::add('error', 'Race "'.$race->name.'" cannot be deleted - there are results for it');
+        if ($race->entrants()->count()) {
+            \Notification::add('error', 'Race "'.$race->name.'" cannot be deleted - there are results entered');
             return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
         } else {
             $race->delete();
