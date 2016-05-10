@@ -74,9 +74,9 @@ class Results
             foreach (array_keys($results[0]['lapSectors']) AS $sector) {
                 usort($results, function ($a, $b) use ($sector) {
                     if (!isset($a['lapSectors'][$sector])) {
-                        return -1;
-                    } elseif (!isset($b['lapSectors'][$sector])) {
                         return 1;
+                    } elseif (!isset($b['lapSectors'][$sector])) {
+                        return -1;
                     } else {
                         return $a['lapSectors'][$sector] - $b['lapSectors'][$sector];
                     }
