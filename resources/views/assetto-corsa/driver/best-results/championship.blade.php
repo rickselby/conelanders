@@ -20,7 +20,7 @@
         <div id="ac-best-championships" class="panel-collapse collapse" role="tabpanel">
             <ul class="list-group">
                 @foreach($acResults['best']['championship']['things'] AS $result)
-                    <li class="list-group-item">{{ $result['championship']->fullName }}</li>
+                    <li class="list-group-item">{{ $result['championship']->name }}</li>
                 @endforeach
             </ul>
         </div>
