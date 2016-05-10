@@ -31,3 +31,11 @@
     margin-left: 0.2em;
     margin-right: 0.2em;
 }
+
+.tablesorter-bootstrap.small tfoot td,
+.tablesorter-bootstrap.small tfoot th,
+.tablesorter-bootstrap.small thead td,
+.tablesorter-bootstrap.small thead th {
+    font: inherit;
+    font-weight: 700;
+}

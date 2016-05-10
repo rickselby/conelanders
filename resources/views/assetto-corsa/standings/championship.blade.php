@@ -4,7 +4,7 @@
 
     <h2>Standings</h2>
 
-    <table class="table sortable table-condensed">
+    <table class="table sortable table-condensed small">
         <thead>
         <tr>
             <th>Pos.</th>
@@ -80,7 +80,11 @@
         <tbody>
         @foreach($races AS $race)
         <tr>
-            <th>{{ $race->name }}</th>
+            <th>
+                <a href="{{ route('assetto-corsa.standings.race', [$system, $championship, $race]) }}">
+                    {{ $race->name }}
+                </a>
+            </th>
             @if ($race->canBeReleased())
                 <td>
                     @if ($summary[$race->id]['pole']['driver']->nation)
@@ -113,9 +117,11 @@
                     {{ $summary[$race->id]['winner']['driver']->name }}
                 </td>
             @else
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="3" class="text-muted">
+                    @if ($race->release)
+                        {{ $race->release->format('l jS F Y, H:i') }}
+                    @endif
+                </td>
             @endif
         </tr>
         @endforeach
