@@ -23,7 +23,6 @@
                 <thead>
                 <tr>
                     <th>Pos</th>
-                    <th data-sorter="false"></th>
                     <th>Driver</th>
                     <th>Car</th>
                     @foreach($qualifying[0]['lap']->sectors AS $sector)
@@ -38,12 +37,10 @@
                 @foreach($qualifying AS $qual)
                     <tr>
                         <th>{{ $qual['position'] }}</th>
-                        <td>
+                        <th>
                             @if ($qual['driver']->nation)
                                 <img src="{{ route('nation.image', $qual['driver']->nation) }}" alt="{{ $qual['driver']->nation->name }}" />
                             @endif
-                        </td>
-                        <th>
                             @if ($qual['rookie'])
                                 <span class="badge pull-right">R</span>
                             @endif
@@ -82,7 +79,6 @@
                 <thead>
                 <tr>
                     <th>Pos</th>
-                    <th data-sorter="false"></th>
                     <th>Driver</th>
                     <th>Car</th>
                     <th>Laps</th>
@@ -98,12 +94,10 @@
                 @foreach($results AS $result)
                     <tr>
                         <th>{{ $result['position'] }}</th>
-                        <td>
+                        <th>
                             @if ($result['driver']->nation)
                                 <img src="{{ route('nation.image', $result['driver']->nation) }}" alt="{{ $result['driver']->nation->name }}" />
                             @endif
-                        </td>
-                        <th>
                             @if ($result['rookie'])
                                 <span class="badge pull-right">R</span>
                             @endif

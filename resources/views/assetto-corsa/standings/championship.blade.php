@@ -8,7 +8,6 @@
         <thead>
         <tr>
             <th>Pos.</th>
-            <th data-sorter="false"></th>
             <th>Driver</th>
             @foreach($races AS $race)
                 <th>
@@ -30,8 +29,6 @@
                     @if ($detail['entrant']->driver->nation)
                         <img src="{{ route('nation.image', $detail['entrant']->driver->nation) }}" alt="{{ $detail['entrant']->driver->nation->name }}" />
                     @endif
-                </th>
-                <th>
                     @if ($detail['entrant']->rookie)
                         <span class="badge pull-right">R</span>
                     @endif
@@ -75,9 +72,9 @@
         <thead>
         <tr>
             <th>Race</th>
-            <th colspan="2">Pole Position</th>
-            <th colspan="2">Fastest Lap</th>
-            <th colspan="2">Winning Driver</th>
+            <th>Pole Position</th>
+            <th>Fastest Lap</th>
+            <th>Winning Driver</th>
         </tr>
         </thead>
         <tbody>
@@ -90,41 +87,32 @@
                         <img src="{{ route('nation.image', $summary[$race->id]['pole']['driver']->nation) }}"
                              alt="{{ $summary[$race->id]['pole']['driver']->nation->name }}" />
                     @endif
-                </td>
-                <td>
-                    {{ $summary[$race->id]['pole']['driver']->name }}
-                    <span class="badge pull-left driver-number" style="background-color: {{ $summary[$race->id]['pole']['colour'] }}">
+                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['pole']['colour'] }}">
                         {{ $summary[$race->id]['pole']['number'] }}
                     </span>
+                    {{ $summary[$race->id]['pole']['driver']->name }}
                 </td>
                 <td>
                     @if ($summary[$race->id]['fastestLap']['driver']->nation)
                         <img src="{{ route('nation.image', $summary[$race->id]['fastestLap']['driver']->nation) }}"
                              alt="{{ $summary[$race->id]['fastestLap']['driver']->nation->name }}" />
                     @endif
-                </td>
-                <td>
-                    {{ $summary[$race->id]['fastestLap']['driver']->name }}
-                    <span class="badge pull-left driver-number" style="background-color: {{ $summary[$race->id]['fastestLap']['colour'] }}">
+                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['fastestLap']['colour'] }}">
                         {{ $summary[$race->id]['fastestLap']['number'] }}
                     </span>
+                    {{ $summary[$race->id]['fastestLap']['driver']->name }}
                 </td>
                 <td>
                     @if ($summary[$race->id]['winner']['driver']->nation)
                         <img src="{{ route('nation.image', $summary[$race->id]['winner']['driver']->nation) }}"
                              alt="{{ $summary[$race->id]['winner']['driver']->nation->name }}" />
                     @endif
-                </td>
-                <td>
-                    {{ $summary[$race->id]['winner']['driver']->name }}
-                    <span class="badge pull-left driver-number" style="background-color: {{ $summary[$race->id]['winner']['colour'] }}">
+                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['winner']['colour'] }}">
                         {{ $summary[$race->id]['winner']['number'] }}
                     </span>
+                    {{ $summary[$race->id]['winner']['driver']->name }}
                 </td>
             @else
-                <td></td>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
