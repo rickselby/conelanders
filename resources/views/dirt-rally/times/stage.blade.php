@@ -7,7 +7,7 @@
     @elseif(!$stage->event->isComplete())
         @include('dirt-rally.event-not-complete')
     @else
-        <table class="table table-bordered table-hover">
+        <table class="table sortable table-bordered table-hover">
             <thead>
             <tr>
                 <th>Pos.</th>
@@ -24,13 +24,11 @@
                             {{ $result['driver']['name'] }}
                         </a>
                     </th>
-                    <td>{{ $result['dnf'] ? 'DNF' : DirtRallyStageTime::toString($result['time']) }}</td>
+                    <td>{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-
-        @include('tablesorter')
 
         @include('dirt-rally.times.legend')
 

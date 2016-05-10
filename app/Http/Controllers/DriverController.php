@@ -37,7 +37,8 @@ class DriverController extends Controller
     {
         return view('driver.show')
             ->with('driver', $driver)
-            ->with('results', \DirtRallyResults::forDriver($driver));
+            ->with('dirtResults', \DirtRallyResults::forDriver($driver))
+            ->with('acResults', \ACResults::forDriver($driver));
     }
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\DirtRally;
+namespace App\Services;
 
-class StageTime
+class Times
 {
     public function fromString($string)
     {

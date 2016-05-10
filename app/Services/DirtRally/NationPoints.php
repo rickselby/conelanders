@@ -44,7 +44,7 @@ class NationPoints extends DriverPoints
 
             usort($points, [$this, 'pointsSort']);
 
-            $points = \DirtRallyPositions::addToArray($points, [$this, 'areEventPointsEqual']);
+            $points = \Positions::addToArray($points, [$this, 'areEventPointsEqual']);
         }
 
         return $points;

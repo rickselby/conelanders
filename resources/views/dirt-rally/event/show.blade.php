@@ -31,7 +31,7 @@
             <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
         @endif
 
-        <table class="table table-bordered table-hover">
+        <table class="table sortable table-bordered table-hover">
             <thead>
             <tr>
                 <th>Pos.</th>
@@ -56,15 +56,13 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                <td>{{ DirtRallyStageTime::toString($result['stage'][$stage->order]) }}</td>
+                <td>{{ Times::toString($result['stage'][$stage->order]) }}</td>
                 @endforeach
-                <td>{{ DirtRallyStageTime::toString($result['total']) }}</td>
+                <td>{{ Times::toString($result['total']) }}</td>
             </tr>
             @endforeach
             </tbody>
         </table>
-
-        @include('tablesorter')
 
     @endif {{-- importing test --}}
 

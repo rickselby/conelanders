@@ -8,7 +8,7 @@
         @include('dirt-rally.event-not-complete')
     @else
 
-        <table class="table table-bordered table-hover">
+        <table class="table sortable table-bordered table-hover">
             <thead>
             <tr>
                 <th>Pos.</th>
@@ -34,16 +34,14 @@
                 </th>
                 @foreach($event->stages AS $stage)
                     <td class="{{ isset($detail['worst'][$stage->order]) ? 'text-muted' : '' }}">
-                        {{ DirtRallyStageTime::toString($detail['stageTimes'][$stage->order]) }}
+                        {{ Times::toString($detail['stageTimes'][$stage->order]) }}
                     </td>
                 @endforeach
-                <td>{{ DirtRallyStageTime::toString($detail['total']) }}</td>
+                <td>{{ Times::toString($detail['total']) }}</td>
             </tr>
             @endforeach
             </tbody>
         </table>
-
-        @include('tablesorter')
 
         @include('dirt-rally.times.legend')
 

@@ -133,7 +133,7 @@ class ImportDirt extends ImportAbstract
         $driver = $this->getDriverByRacenetID($racenetID, $driverName);
         $this->processDriver($driver, $nationalityImage);
         // Convert the time to an integer
-        $timeInt = \DirtRallyStageTime::fromString($timeString);
+        $timeInt = \Times::fromString($timeString);
 
         if ($stage->order != 1) {
             // 2nd stage onwards is cumulative time

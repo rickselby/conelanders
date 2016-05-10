@@ -12,7 +12,8 @@
         "laravelcollective/html": "^5.2",
         "edvinaskrucas/notification": "^5.1",
         "cviebrock/eloquent-sluggable": "^3.1",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0"
+        "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "rickselby/svglapchart": "^0.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

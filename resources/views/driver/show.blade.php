@@ -23,10 +23,7 @@
                 @include('dirt-rally.driver.show')
             </div>
             <div role="tabpanel" class="tab-pane" id="assetto-corsa">
-                <br />
-                <p>
-                    <em>Currently empty</em>
-                </p>
+                @include('assetto-corsa.driver.show')
             </div>
         </div>
 

@@ -67,7 +67,7 @@ class DriverPoints
                 }
             });
 
-            $points = \DirtRallyPositions::addToArray($points, [$this, 'areEventPointsEqual']);
+            $points = \Positions::addToArray($points, [$this, 'areEventPointsEqual']);
         }
 
         return $points;
@@ -173,7 +173,7 @@ class DriverPoints
         // Sort the drivers
         usort($points, [$this, 'pointsSort']);
 
-        $points = \DirtRallyPositions::addToArray($points, [$this, 'arePointsEqual']);
+        $points = \Positions::addToArray($points, [$this, 'arePointsEqual']);
 
         return $points;
     }

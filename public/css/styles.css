@@ -5,3 +5,28 @@
 .navbar-brand {
     padding: 5px 10px;
 }
+
+.position-first {
+    background-color: #ffffbf;
+}
+
+.position-second {
+    background-color: #dfdfdf;
+}
+
+.position-third {
+    background-color: #ffdf9f;
+}
+
+.position-points {
+    background-color: #dfffdf;
+}
+
+.position-finished {
+    background-color: #cfcfff;
+}
+
+.driver-number {
+    width: 3em;
+    margin-right: 0.5em;
+}

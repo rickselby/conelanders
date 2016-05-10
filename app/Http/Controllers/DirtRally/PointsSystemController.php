@@ -117,7 +117,7 @@ class PointsSystemController extends Controller
 
     private function setDefault($id)
     {
-        \DB::table('points_systems')->update(['default' => false]);
-        \DB::table('points_systems')->where('id', $id)->update(['default' => true]);
+        \DB::table('dirt_points_systems')->update(['default' => false]);
+        \DB::table('dirt_points_systems')->where('id', $id)->update(['default' => true]);
     }
 }

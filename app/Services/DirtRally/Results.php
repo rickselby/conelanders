@@ -100,6 +100,7 @@ class Results
                     'seasons' => [],
                 ];
             }
+
             if (!isset($championships[$championshipID]['seasons'][$seasonID])) {
                 $championships[$championshipID]['seasons'][$seasonID] = [
                     'season' => $result->stage->event->season,

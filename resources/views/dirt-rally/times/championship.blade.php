@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <table class="table table-bordered table-hover">
+    <table class="table sortable table-bordered table-hover">
         <thead>
         <tr>
             <th>Pos.</th>
@@ -29,21 +29,19 @@
                 @foreach($seasons AS $season)
                     <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
                         @if ($season->isComplete())
-                            {{ DirtRallyStageTime::toString($detail['seasons'][$season->id]) }}
+                            {{ Times::toString($detail['seasons'][$season->id]) }}
                         @else
                             <em class="text-muted">
-                                {{ DirtRallyStageTime::toString($detail['seasons'][$season->id]) }}
+                                {{ Times::toString($detail['seasons'][$season->id]) }}
                             </em>
                         @endif
                     </td>
                 @endforeach
-                <td>{{ DirtRallyStageTime::toString($detail['total']) }}</td>
+                <td>{{ Times::toString($detail['total']) }}</td>
             </tr>
         @endforeach
         </tbody>
     </table>
-
-    @include('tablesorter')
 
     @include('dirt-rally.times.legend')
 
