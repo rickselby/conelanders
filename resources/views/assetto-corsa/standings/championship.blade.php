@@ -117,9 +117,11 @@
                     {{ $summary[$race->id]['winner']['driver']->name }}
                 </td>
             @else
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="3" class="text-muted">
+                    @if ($race->release)
+                        {{ $race->release->format('l jS F Y, H:i') }}
+                    @endif
+                </td>
             @endif
         </tr>
         @endforeach
