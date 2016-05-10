@@ -70,25 +70,27 @@ class Results
         }
 
         // Sort by each sector
-        foreach(array_keys($results[0]['lapSectors']) AS $sector) {
-            usort($results, function($a, $b) use ($sector) {
-                if (!isset($a['lapSectors'][$sector])) {
-                    return -1;
-                } elseif (!isset($b['lapSectors'][$sector])) {
-                    return 1;
-                } else {
-                    return $a['lapSectors'][$sector] - $b['lapSectors'][$sector];
-                }
-            });
+        if (count($results)) {
+            foreach (array_keys($results[0]['lapSectors']) AS $sector) {
+                usort($results, function ($a, $b) use ($sector) {
+                    if (!isset($a['lapSectors'][$sector])) {
+                        return -1;
+                    } elseif (!isset($b['lapSectors'][$sector])) {
+                        return 1;
+                    } else {
+                        return $a['lapSectors'][$sector] - $b['lapSectors'][$sector];
+                    }
+                });
 
-            $sectorPositions = \Positions::addToArray($results, function($a, $b) use ($sector) {
-                return isset($a['lapSectors'][$sector])
+                $sectorPositions = \Positions::addToArray($results, function ($a, $b) use ($sector) {
+                    return isset($a['lapSectors'][$sector])
                     && isset($b['lapSectors'][$sector])
                     && $a['lapSectors'][$sector] == $b['lapSectors'][$sector];
-            });
+                });
 
-            foreach($sectorPositions AS $key => $sectorPosition) {
-                $results[$key]['sectorPosition'][$sector] = $sectorPosition['position'];
+                foreach ($sectorPositions AS $key => $sectorPosition) {
+                    $results[$key]['sectorPosition'][$sector] = $sectorPosition['position'];
+                }
             }
         }
 
