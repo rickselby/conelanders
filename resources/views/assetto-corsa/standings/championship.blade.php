@@ -32,15 +32,15 @@
                     @endif
                 </th>
                 <th>
-                    <a href="{{ route('driver.show', $detail['entrant']->driver) }}">
-                        {{ $detail['entrant']->driver->name }}
-                    </a>
-                    <span class="badge pull-left driver-number" style="background-color: {{ $detail['entrant']->colour }}">
-                        {{ $detail['entrant']->number }}
-                    </span>
                     @if ($detail['entrant']->rookie)
                         <span class="badge pull-right">R</span>
                     @endif
+                    <span class="badge driver-number" style="background-color: {{ $detail['entrant']->colour }}">
+                        {{ $detail['entrant']->number }}
+                    </span>
+                    <a href="{{ route('driver.show', $detail['entrant']->driver) }}">
+                        {{ $detail['entrant']->driver->name }}
+                    </a>
                 </th>
                 @foreach($races AS $race)
                     @if (isset($detail['races'][$race->id]))

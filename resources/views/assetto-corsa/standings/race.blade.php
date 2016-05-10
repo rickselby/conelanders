@@ -44,15 +44,15 @@
                             @endif
                         </td>
                         <th>
-                            <a href="{{ route('driver.show', $qual['driver']) }}">
-                                {{ $qual['driver']->name }}
-                            </a>
-                            <span class="badge pull-left driver-number" style="background-color: {{ $qual['colour'] }}">
-                                {{ $qual['number'] }}
-                            </span>
                             @if ($qual['rookie'])
                                 <span class="badge pull-right">R</span>
                             @endif
+                            <span class="badge driver-number" style="background-color: {{ $qual['colour'] }}">
+                                {{ $qual['number'] }}
+                            </span>
+                            <a href="{{ route('driver.show', $qual['driver']) }}">
+                                {{ $qual['driver']->name }}
+                            </a>
                         </th>
                         <td>{{ $qual['car'] }}</td>
                         @if ($qual['lap'])
@@ -104,15 +104,15 @@
                             @endif
                         </td>
                         <th>
-                            <a href="{{ route('driver.show', $result['driver']) }}">
-                                {{ $result['driver']->name }}
-                            </a>
-                            <span class="badge pull-left driver-number" style="background-color: {{ $result['colour'] }}">
-                                {{ $result['number'] }}
-                            </span>
                             @if ($result['rookie'])
                                 <span class="badge pull-right">R</span>
                             @endif
+                            <span class="badge driver-number" style="background-color: {{ $result['colour'] }}">
+                                {{ $result['number'] }}
+                            </span>
+                            <a href="{{ route('driver.show', $result['driver']) }}">
+                                {{ $result['driver']->name }}
+                            </a>
                         </th>
                         <td>{{ $result['car'] }}</td>
                         <td>{{ $result['laps'] }}</td>
