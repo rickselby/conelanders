@@ -49,8 +49,6 @@ class DirtEvent extends \Eloquent implements SluggableInterface
 
     public function getFullNameAttribute()
     {
-        return $this->season->championship->name
-            .' - '.$this->season->name
-            .' - '.$this->name;
+        return $this->season->fullName.' - '.$this->name;
     }
 }

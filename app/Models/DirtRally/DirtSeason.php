@@ -79,7 +79,6 @@ class DirtSeason extends \Eloquent implements SluggableInterface
 
     public function getFullNameAttribute()
     {
-        return $this->championship->name
-            .' - '.$this->name;
+        return $this->championship->name.' - '.$this->name;
     }
 }
