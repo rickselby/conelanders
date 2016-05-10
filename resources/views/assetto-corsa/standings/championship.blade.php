@@ -80,7 +80,11 @@
         <tbody>
         @foreach($races AS $race)
         <tr>
-            <th>{{ $race->name }}</th>
+            <th>
+                <a href="{{ route('assetto-corsa.standings.race', [$system, $championship, $race]) }}">
+                    {{ $race->name }}
+                </a>
+            </th>
             @if ($race->canBeReleased())
                 <td>
                     @if ($summary[$race->id]['pole']['driver']->nation)
