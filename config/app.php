@@ -220,6 +220,8 @@ return [
         'Notification' => Krucas\Notification\Facades\Notification::class,
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
 
+        'Helpers' => App\Services\Helpers::class,
+
         'Nations' => App\Services\Facades\NationsFacade::class,
         'PointSequences' => App\Services\Facades\PointSequencesFacade::class,
         'Times' => App\Services\Facades\TimesFacade::class,

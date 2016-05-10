@@ -13,7 +13,7 @@
             @foreach($races AS $race)
                 <th>
                     <a href="{{ route('assetto-corsa.standings.race', [$system, $championship, $race]) }}" class="tablesorter-noSort">
-                        {{ $race->name }}
+                        {{ \Helpers::getInitials($race->name) }}
                     </a>
                 </th>
             @endforeach
