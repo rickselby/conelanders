@@ -33,6 +33,11 @@ class AcRace extends \Eloquent implements SluggableInterface
         return $this->hasMany(AcRaceEntrant::class);
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->championship->name.' - '.$this->name;
+    }
+
     public function canBeReleased() {
         return !$this->qualifying_import
             && !$this->race_import

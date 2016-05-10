@@ -37,9 +37,6 @@ class DirtStage extends \Eloquent implements SluggableInterface
     
     public function getFullNameAttribute()
     {
-        return $this->event->season->championship->name
-            .' - '.$this->event->season->name
-            .' - '.$this->event->name
-            .' - '.$this->name;
+        return $this->event->fullName.' - '.$this->name;
     }
 }
