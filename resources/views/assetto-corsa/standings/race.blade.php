@@ -19,7 +19,7 @@
         <h2>Qualifying</h2>
 
         @if (count($qualifying))
-            <table class="table sortable table-condensed small">
+            <table class="table sortable table-condensed">
                 <thead>
                 <tr>
                     <th>Pos</th>
@@ -75,7 +75,7 @@
         @if (count($results))
             <h2>Race</h2>
 
-            <table class="table sortable table-condensed small">
+            <table class="table sortable table-condensed">
                 <thead>
                 <tr>
                     <th>Pos</th>
