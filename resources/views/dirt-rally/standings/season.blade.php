@@ -27,9 +27,9 @@
                     </a>
                 </th>
                 @foreach($season->events AS $event)
-                    <td>{{ $detail['points'][$event->id] or '' }}</td>
+                    <td class="points">{{ $detail['points'][$event->id] or '' }}</td>
                 @endforeach
-                <td>{{ $detail['total'] }}</td>
+                <td class="points">{{ $detail['total'] }}</td>
             </tr>
         @endforeach
         </tbody>

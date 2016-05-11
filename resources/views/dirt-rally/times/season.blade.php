@@ -27,11 +27,11 @@
                     </a>
                 </th>
                 @foreach($season->events AS $event)
-                    <td class="{{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
+                    <td class="time {{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
                         {{ Times::toString($detail['events'][$event->id]) }}
                     </td>
                 @endforeach
-                <td>{{ Times::toString($detail['total']) }}</td>
+                <td class="time">{{ Times::toString($detail['total']) }}</td>
             </tr>
         @endforeach
         </tbody>

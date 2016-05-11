@@ -56,9 +56,9 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                <td>{{ Times::toString($result['stage'][$stage->order]) }}</td>
+                <td class="time">{{ Times::toString($result['stage'][$stage->order]) }}</td>
                 @endforeach
-                <td>{{ Times::toString($result['total']) }}</td>
+                <td class="time">{{ Times::toString($result['total']) }}</td>
             </tr>
             @endforeach
             </tbody>

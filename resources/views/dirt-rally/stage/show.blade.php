@@ -43,7 +43,7 @@
                             {{ $result['driver']['name'] }}
                         </a>
                     </th>
-                    <td>{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
+                    <td class="time">{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
                 </tr>
             @endforeach
             </tbody>

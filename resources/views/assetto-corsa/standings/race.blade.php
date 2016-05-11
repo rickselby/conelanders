@@ -54,7 +54,7 @@
                         <td>{{ $qual['car'] }}</td>
                         @if ($qual['lap'])
                             @foreach($qual['lap']->sectors AS $sector)
-                                <td class="{{ \Positions::colour($qual['sectorPosition'][$sector->sector]) }}">
+                                <td class="time {{ \Positions::colour($qual['sectorPosition'][$sector->sector]) }}">
                                     {{ Times::toString($sector->time) }}
                                 </td>
                             @endforeach
@@ -63,9 +63,9 @@
                                 <td></td>
                             @endforeach
                         @endif
-                        <td>{{ $qual['lap'] ? Times::toString($qual['lap']->time) : '' }}</td>
-                        <td>{{ ($qual['toBest'] > 0) ? '+'.Times::toString($qual['toBest']) : '-' }}</td>
-                        <td>{{ ($qual['toLast'] > 0) ? '+'.Times::toString($qual['toLast']) : '-' }}</td>
+			<td class="time"><strong>{{ $qual['lap'] ? Times::toString($qual['lap']->time) : '' }}</strong></td>
+                        <td class="time">{{ ($qual['toBest'] > 0) ? '+'.Times::toString($qual['toBest']) : '-' }}</td>
+                        <td class="time">{{ ($qual['toLast'] > 0) ? '+'.Times::toString($qual['toLast']) : '-' }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -109,11 +109,11 @@
                             </a>
                         </th>
                         <td>{{ $result['car'] }}</td>
-                        <td>{{ $result['laps'] }}</td>
-                        <td>{{ Times::toString($result['time']) }}</td>
-                        <td>{{ ($result['toBest'] > 0) ? '+'.Times::toString($result['toBest']) : '-' }}</td>
-                        <td>{{ ($result['toLast'] > 0) ? '+'.Times::toString($result['toLast']) : '-' }}</td>
-                        <td>{{ abs($result['positionChange']) }}</td>
+                        <td class="text-center">{{ $result['laps'] }}</td>
+                        <td class="time">{{ Times::toString($result['time']) }}</td>
+                        <td class="time">{{ ($result['toBest'] > 0) ? '+'.Times::toString($result['toBest']) : '-' }}</td>
+                        <td class="time">{{ ($result['toLast'] > 0) ? '+'.Times::toString($result['toLast']) : '-' }}</td>
+                        <td class="text-right">{{ abs($result['positionChange']) }}</td>
                         <td>
                             @if ($result['positionChange'] > 0)
                                 <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
@@ -121,10 +121,10 @@
                                 <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
                             @endif
                         </td>
-                        <td class="{{ \Positions::colour($result['fastestLapPosition']) }}">
+                        <td class="time {{ \Positions::colour($result['fastestLapPosition']) }}">
                             {{ $result['lap'] ? Times::toString($result['lap']->time) : '-' }}
                         </td>
-                        <td>{{ ($result['toBestLap'] > 0) ? '+'.Times::toString($result['toBestLap']) : '-' }}</td>
+                        <td class="time">{{ ($result['toBestLap'] > 0) ? '+'.Times::toString($result['toBestLap']) : '-' }}</td>
                     </tr>
                 @endforeach
                 </tbody>

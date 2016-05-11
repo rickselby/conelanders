@@ -34,7 +34,7 @@
                     </a>
                 </th>
                 @foreach($seasons AS $season)
-                    <td>
+                    <td class="points">
                         @if ($season->isComplete())
                             {{ $detail['points'][$season->id] or '' }}
                         @else
@@ -44,7 +44,7 @@
                         @endif
                     </td>
                 @endforeach
-                <td>{{ $detail['total'] }}</td>
+                <td class="points">{{ $detail['total'] }}</td>
             </tr>
         @endforeach
         </tbody>

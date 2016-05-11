@@ -1,4 +1,4 @@
-.position {
+span.position {
     font-weight: bold;
 }
 
@@ -30,4 +30,12 @@
     width: 3em;
     margin-left: 0.2em;
     margin-right: 0.2em;
+}
+
+td.position, th.position, td.points, th.points {
+    text-align: center;
+}
+
+td.time, th.time {
+    text-align: right;
 }
