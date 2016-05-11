@@ -24,7 +24,7 @@
                 @endif
             </td>
             <td class="col-xs-1 text-right position">
-                {{ $race['result']->qualifying_position }}
+                {{ $race['result']->race_position }}
             </td>
         </tr>
         <tr>
