@@ -26,9 +26,9 @@
                     {{ $detail['entity']->name }}
                 </th>
                 @foreach($season->events AS $event)
-                    <td>{{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) : '' }}</td>
+                    <td class="points">{{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) : '' }}</td>
                 @endforeach
-                <td>{{ round($detail['total'], 2) }}</td>
+                <td class="points">{{ round($detail['total'], 2) }}</td>
             </tr>
         @endforeach
         </tbody>

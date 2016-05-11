@@ -34,12 +34,12 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                    <td class="text-muted">{{ Times::toString($detail['stageTimes'][$stage->id]) }}</td>
-                    <td>{{ $detail['stagePoints'][$stage->id] or '' }}</td>
+                    <td class="time text-muted">{{ Times::toString($detail['stageTimes'][$stage->id]) }}</td>
+                    <td class="points">{{ $detail['stagePoints'][$stage->id] or '' }}</td>
                 @endforeach
-                <td class="text-muted">{{ Times::toString($detail['total']['time']) }}</td>
-                <td>{{ $detail['eventPoints'] }}</td>
-                <td>{{ $detail['total']['points'] }}</td>
+                <td class="time text-muted">{{ Times::toString($detail['total']['time']) }}</td>
+                <td class="points">{{ $detail['eventPoints'] }}</td>
+                <td class="points">{{ $detail['total']['points'] }}</td>
             </tr>
             @endforeach
             </tbody>

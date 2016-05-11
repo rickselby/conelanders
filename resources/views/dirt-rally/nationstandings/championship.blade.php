@@ -33,7 +33,7 @@
                     {{ $detail['entity']->name }}
                 </th>
                 @foreach($seasons AS $season)
-                    <td>
+                    <td class="points">
                         @if ($season->isComplete())
                             {{ isset($detail['points'][$season->id]) ? round($detail['points'][$season->id], 2) : '' }}
                         @else
@@ -43,7 +43,7 @@
                         @endif
                     </td>
                 @endforeach
-                <td>{{ round($detail['total'], 2) }}</td>
+                <td class="points">{{ round($detail['total'], 2) }}</td>
             </tr>
         @endforeach
         </tbody>

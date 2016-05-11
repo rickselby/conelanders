@@ -26,9 +26,9 @@
                     <img src="{{ route('nation.image', $detail['entity']) }}" alt="{{ $detail['entity']->name }}" />
                     {{ $detail['entity']->name }}
                 </th>
-                <td>{{ $detail['total']['sum'] }}</td>
-                <td>{{ count($detail['points']) }}</td>
-                <td>{{ round($detail['total']['points'], 2) }}</td>
+                <td class="points">{{ $detail['total']['sum'] }}</td>
+                <td class="text-center">{{ count($detail['points']) }}</td>
+                <td class="points">{{ round($detail['total']['points'], 2) }}</td>
             </tr>
             @endforeach
             </tbody>

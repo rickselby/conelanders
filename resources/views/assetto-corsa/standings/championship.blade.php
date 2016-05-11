@@ -41,7 +41,7 @@
                 </th>
                 @foreach($races AS $race)
                     @if (isset($detail['races'][$race->id]))
-                        <td class="{{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
+                        <td class="position {{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
                             @if ($detail['races'][$race->id]['qualPosition'] == 1)
                                 <em>
                             @endif
@@ -60,7 +60,7 @@
                         <td></td>
                     @endif
                 @endforeach
-                <td>{{ $detail['total'] }}</td>
+                <td class="points">{{ $detail['total'] }}</td>
             </tr>
         @endforeach
         </tbody>

@@ -27,7 +27,7 @@
                     </a>
                 </th>
                 @foreach($seasons AS $season)
-                    <td class="{{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
+                    <td class="time {{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
                         @if ($season->isComplete())
                             {{ Times::toString($detail['seasons'][$season->id]) }}
                         @else
@@ -37,7 +37,7 @@
                         @endif
                     </td>
                 @endforeach
-                <td>{{ Times::toString($detail['total']) }}</td>
+                <td class="time">{{ Times::toString($detail['total']) }}</td>
             </tr>
         @endforeach
         </tbody>
