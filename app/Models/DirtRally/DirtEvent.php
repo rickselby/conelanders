@@ -3,11 +3,11 @@
 namespace App\Models\DirtRally;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
 
 class DirtEvent extends \Eloquent implements SluggableInterface
 {
-    use SluggableTrait;
+    use SluggableKeyedTrait;
 
     protected $fillable = ['name', 'opens', 'closes', 'racenet_event_id'];
 
@@ -19,7 +19,7 @@ class DirtEvent extends \Eloquent implements SluggableInterface
     ];
 
     protected $sluggable = [
-        'unique' => false,
+        'unique_key' => 'dirt_season_id',
     ];
 
     public function season()

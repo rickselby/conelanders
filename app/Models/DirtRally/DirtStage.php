@@ -3,11 +3,11 @@
 namespace App\Models\DirtRally;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
 
 class DirtStage extends \Eloquent implements SluggableInterface
 {
-    use SluggableTrait;
+    use SluggableKeyedTrait;
 
     protected $fillable = ['name', 'order', 'long'];
 
@@ -17,7 +17,7 @@ class DirtStage extends \Eloquent implements SluggableInterface
     ];
 
     protected $sluggable = [
-        'unique' => false,
+        'unique_key' => 'dirt_event_id',
     ];
 
     public function event()
