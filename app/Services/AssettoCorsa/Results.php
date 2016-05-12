@@ -115,17 +115,16 @@ class Results
     public function race(AcRace $race)
     {
         $results = [];
-        $bestLap = $bestTime = $lastTime = 0;
+        $bestTime = $lastTime = 0;
+        $bestLapEntrant = $race->entrants()->where('race_fastest_lap_position', 1)->first();
+        $bestLap = $bestLapEntrant ? $bestLapEntrant->raceFastestLap->time : null;
+
         foreach($race->entrants()->with('raceFastestLap', 'qualifyingLap', 'championshipEntrant.driver.nation')->orderBy('race_position')->get() AS $entrant) {
             if ($entrant->race_position) {
 
                 $gapToBestLap = null;
-                if ($entrant->raceFastestLap) {
-                    if ($bestLap) {
-                        $gapToBestLap = $entrant->raceFastestLap->time - $bestLap;
-                    } else {
-                        $bestLap = $entrant->raceFastestLap->time;
-                    }
+                if ($entrant->raceFastestLap && $bestLap) {
+                    $gapToBestLap = $entrant->raceFastestLap->time - $bestLap;
                 }
 
                 $gapToBest = null;
