@@ -2,13 +2,14 @@
 
 namespace App\Models\AssettoCorsa;
 
+use App\Services\SlugTrait;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
 
 class AcRace extends \Eloquent implements SluggableInterface
 {
-    use SluggableTrait;
+    use SluggableKeyedTrait;
 
     protected $fillable = ['name', 'order', 'time'];
 
@@ -20,7 +21,7 @@ class AcRace extends \Eloquent implements SluggableInterface
     ];
 
     protected $sluggable = [
-        'unique' => false,
+        'unique_key' => 'ac_championship_id',
     ];
 
     public function championship()

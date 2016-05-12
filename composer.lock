@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50783f31e8792c40023cfcd14a2c8a02",
-    "content-hash": "1e12d74e2a164a50a3e9dbf59641d64b",
+    "hash": "2bea4c824eb8cce29501f4d9bfb152f4",
+    "content-hash": "ab69cc1db805f1033af83cc7f4d6e7bc",
     "packages": [
         {
             "name": "adamwathan/eloquent-oauth",
@@ -1521,6 +1521,50 @@
             "time": "2016-03-09 05:03:14"
         },
         {
+            "name": "rickselby/eloquent-sluggable-keyed",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rickselby/eloquent-sluggable-keyed.git",
+                "reference": "29d5fc363a52bd92fb4ae9539fe8a2b54cb3f706"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rickselby/eloquent-sluggable-keyed/zipball/29d5fc363a52bd92fb4ae9539fe8a2b54cb3f706",
+                "reference": "29d5fc363a52bd92fb4ae9539fe8a2b54cb3f706",
+                "shasum": ""
+            },
+            "require": {
+                "cviebrock/eloquent-sluggable": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RickSelby\\EloquentSluggableKeyed\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rick Selby",
+                    "email": "rick@selby-family.co.uk",
+                    "homepage": "https://github.com/rickselby",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Extend cviebrock/eloquent-sluggable to group unique slugs by a key",
+            "homepage": "https://github.com/rickselby/eloquent-sluggable-keyed",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "slug"
+            ],
+            "time": "2016-05-12 14:47:50"
+        },
+        {
             "name": "rickselby/svglapchart",
             "version": "v0.2",
             "source": {
@@ -2803,7 +2847,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/f7b31bdbdceaaea930c71df20e4180b0b7172b4a",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/35ebf3a2ba9443e11fbdb9066cc363ec7b2245e4",
                 "reference": "f7b31bdbdceaaea930c71df20e4180b0b7172b4a",
                 "shasum": ""
             },

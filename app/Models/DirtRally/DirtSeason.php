@@ -4,16 +4,16 @@ namespace App\Models\DirtRally;
 
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
 
 class DirtSeason extends \Eloquent implements SluggableInterface
 {
-    use SluggableTrait;
+    use SluggableKeyedTrait;
 
     protected $fillable = ['name'];
 
     protected $sluggable = [
-        'unique' => false,
+        'unique_key' => 'dirt_championship_id',
     ];
 
     public function championship()
