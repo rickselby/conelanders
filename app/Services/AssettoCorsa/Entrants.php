@@ -22,6 +22,7 @@ class Entrants
         foreach($championship->entrants AS $entrant) {
             $entrant->number = $request->get('number')[$entrant->id];
             $entrant->colour = $request->get('colour')[$entrant->id];
+            $entrant->colour2 = $request->get('colour2')[$entrant->id];
             $entrant->rookie = isset($request->get('rookie')[$entrant->id]);
             $entrant->save();
         }

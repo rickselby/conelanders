@@ -38,18 +38,7 @@
                     <tr>
                         <th>{{ $qual['position'] }}</th>
                         <th>
-                            @if ($qual['driver']->nation)
-                                <img src="{{ route('nation.image', $qual['driver']->nation) }}" alt="{{ $qual['driver']->nation->name }}" />
-                            @endif
-                            @if ($qual['rookie'])
-                                <span class="badge pull-right">R</span>
-                            @endif
-                            <span class="badge driver-number" style="background-color: {{ $qual['colour'] }}">
-                                {{ $qual['number'] }}
-                            </span>
-                            <a href="{{ route('driver.show', $qual['driver']) }}">
-                                {{ $qual['driver']->name }}
-                            </a>
+                            @include('assetto-corsa.driver.name', ['entrant' => $qual])
                         </th>
                         <td>{{ $qual['car'] }}</td>
                         @if ($qual['lap'])
@@ -63,7 +52,7 @@
                                 <td></td>
                             @endforeach
                         @endif
-			<td class="time"><strong>{{ $qual['lap'] ? Times::toString($qual['lap']->time) : '' }}</strong></td>
+            			<td class="time"><strong>{{ $qual['lap'] ? Times::toString($qual['lap']->time) : '' }}</strong></td>
                         <td class="time">{{ ($qual['toBest'] > 0) ? '+'.Times::toString($qual['toBest']) : '-' }}</td>
                         <td class="time">{{ ($qual['toLast'] > 0) ? '+'.Times::toString($qual['toLast']) : '-' }}</td>
                     </tr>
@@ -95,18 +84,7 @@
                     <tr>
                         <th>{{ $result['position'] }}</th>
                         <th>
-                            @if ($result['driver']->nation)
-                                <img src="{{ route('nation.image', $result['driver']->nation) }}" alt="{{ $result['driver']->nation->name }}" />
-                            @endif
-                            @if ($result['rookie'])
-                                <span class="badge pull-right">R</span>
-                            @endif
-                            <span class="badge driver-number" style="background-color: {{ $result['colour'] }}">
-                                {{ $result['number'] }}
-                            </span>
-                            <a href="{{ route('driver.show', $result['driver']) }}">
-                                {{ $result['driver']->name }}
-                            </a>
+                            @include('assetto-corsa.driver.name', ['entrant' => $result])
                         </th>
                         <td>{{ $result['car'] }}</td>
                         <td class="text-center">{{ $result['laps'] }}</td>
@@ -135,7 +113,6 @@
             <img src="{{ route('assetto-corsa.standings.race.lapchart', [$system, $race->championship, $race]) }}" />
         @endif
 
-    @endif {{-- importing test --}}
-
+    @endif
 
 @endsection

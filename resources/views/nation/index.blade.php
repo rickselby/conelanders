@@ -24,7 +24,9 @@
         @foreach($nations as $nation)
             <tr>
                 <td>{{ $nation->name }}</td>
-                <td><img src="{{ route('nation.image', $nation) }}" alt="{{ $nation->name }}" /></td>
+                <td>
+                    @include('nation.image')
+                </td>
                 <td>{{ $nation->acronym }}</td>
                 <td>{{ count($nation->drivers) }}</td>
                 <td>

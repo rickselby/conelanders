@@ -26,18 +26,7 @@
                     {{ $detail['position'] }}
                 </th>
                 <th>
-                    @if ($detail['entrant']->driver->nation)
-                        <img src="{{ route('nation.image', $detail['entrant']->driver->nation) }}" alt="{{ $detail['entrant']->driver->nation->name }}" />
-                    @endif
-                    @if ($detail['entrant']->rookie)
-                        <span class="badge pull-right">R</span>
-                    @endif
-                    <span class="badge driver-number" style="background-color: {{ $detail['entrant']->colour }}">
-                        {{ $detail['entrant']->number }}
-                    </span>
-                    <a href="{{ route('driver.show', $detail['entrant']->driver) }}">
-                        {{ $detail['entrant']->driver->name }}
-                    </a>
+                    @include('assetto-corsa.driver.name', ['entrant' => $detail['entrant']])
                 </th>
                 @foreach($races AS $race)
                     @if (isset($detail['races'][$race->id]))
@@ -87,33 +76,18 @@
             </th>
             @if ($race->canBeReleased())
                 <td>
-                    @if ($summary[$race->id]['pole']['driver']->nation)
-                        <img src="{{ route('nation.image', $summary[$race->id]['pole']['driver']->nation) }}"
-                             alt="{{ $summary[$race->id]['pole']['driver']->nation->name }}" />
-                    @endif
-                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['pole']['colour'] }}">
-                        {{ $summary[$race->id]['pole']['number'] }}
-                    </span>
+                    @include('nation.image', ['nation' => $summary[$race->id]['pole']['driver']->nation])
+                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['pole']])
                     {{ $summary[$race->id]['pole']['driver']->name }}
                 </td>
                 <td>
-                    @if ($summary[$race->id]['fastestLap']['driver']->nation)
-                        <img src="{{ route('nation.image', $summary[$race->id]['fastestLap']['driver']->nation) }}"
-                             alt="{{ $summary[$race->id]['fastestLap']['driver']->nation->name }}" />
-                    @endif
-                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['fastestLap']['colour'] }}">
-                        {{ $summary[$race->id]['fastestLap']['number'] }}
-                    </span>
+                    @include('nation.image', ['nation' => $summary[$race->id]['fastestLap']['driver']->nation])
+                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['fastestLap']])
                     {{ $summary[$race->id]['fastestLap']['driver']->name }}
                 </td>
                 <td>
-                    @if ($summary[$race->id]['winner']['driver']->nation)
-                        <img src="{{ route('nation.image', $summary[$race->id]['winner']['driver']->nation) }}"
-                             alt="{{ $summary[$race->id]['winner']['driver']->nation->name }}" />
-                    @endif
-                    <span class="badge driver-number" style="background-color: {{ $summary[$race->id]['winner']['colour'] }}">
-                        {{ $summary[$race->id]['winner']['number'] }}
-                    </span>
+                    @include('nation.image', ['nation' => $summary[$race->id]['winner']['driver']->nation])
+                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['winner']])
                     {{ $summary[$race->id]['winner']['driver']->name }}
                 </td>
             @else
