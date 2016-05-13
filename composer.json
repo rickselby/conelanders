@@ -13,7 +13,7 @@
         "edvinaskrucas/notification": "^5.1",
         "cviebrock/eloquent-sluggable": "^3.1",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
-        "rickselby/svglapchart": "^0.2",
+        "rickselby/svglapchart": "^0.3",
         "rickselby/eloquent-sluggable-keyed": "^0.1"
     },
     "require-dev": {

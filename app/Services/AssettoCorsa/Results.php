@@ -58,6 +58,7 @@ class Results
                 'position' => $entrant->qualifying_position,
                 'driver' => $entrant->championshipEntrant->driver,
                 'colour' => $entrant->championshipEntrant->colour,
+                'colour2' => $entrant->championshipEntrant->colour2,
                 'number' => $entrant->championshipEntrant->number,
                 'rookie' => $entrant->championshipEntrant->rookie,
                 'car' => $entrant->car,
@@ -145,6 +146,7 @@ class Results
                     'position' => $entrant->race_position,
                     'driver' => $entrant->championshipEntrant->driver,
                     'colour' => $entrant->championshipEntrant->colour,
+                    'colour2' => $entrant->championshipEntrant->colour2,
                     'number' => $entrant->championshipEntrant->number,
                     'rookie' => $entrant->championshipEntrant->rookie,
                     'car' => $entrant->car,
@@ -224,9 +226,12 @@ class Results
 
         $chart = new Chart();
         foreach($race->entrants AS $entrant) {
+            $colour = $entrant->championshipEntrant->colour2
+                ? [$entrant->championshipEntrant->colour, $entrant->championshipEntrant->colour2]
+                : $entrant->championshipEntrant->colour;
             $chart->setDriver(
                 $entrant->championshipEntrant->driver->name,
-                $entrant->championshipEntrant->colour,
+                $colour,
                 $entrantPositions[$entrant->championshipEntrant->driver->id]
             );
         }
