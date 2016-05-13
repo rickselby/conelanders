@@ -5,6 +5,7 @@
     "jquery": "~2.2.0",
     "tablesorter": "jquery.tablesorter#~2.25.1",
     "bootstrap-social": "~4.12.0",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "flag-icon-css": "^2.2.0"
   }
 }

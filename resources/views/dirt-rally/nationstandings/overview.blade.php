@@ -16,8 +16,8 @@
             <th data-sorter="false"></th>
         </tr>
         <tr>
-            <th>Pos.</th>
-            <th>Nation</th>
+            <th>P.</th>
+            <th>N.</th>
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
                     <th data-sortinitialorder="desc" class="text-center">
@@ -36,7 +36,6 @@
                 <th>{{ $detail['position'] }}</th>
                 <th class="text-nowrap">
                     @include('nation.image', ['nation' => $detail['entity']])
-                    {{ $detail['entity']->acronym }}
                 </th>
                 @foreach($seasons AS $season)
                     @foreach($season->events AS $event)

@@ -22,7 +22,7 @@
         <div class="col-sm-10">
             {!! Form::text('acronym', null, ['class' => 'form-control']) !!}
             <p class="help-block">
-                Three-letter country code
+                Two-letter country code, lowercase
             </p>
         </div>
     </div>
