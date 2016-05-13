@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\DirtRally\DirtChampionship;
 use App\Models\DirtRally\DirtPointsSystem;
 use App\Http\Requests;
+use App\Models\Nation;
 
 class NationStandingsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('dirt-rally.validateSeason')->only(['season']);
-        $this->middleware('dirt-rally.validateEvent')->only(['event']);
-        $this->middleware('dirt-rally.validateStage')->only(['stage']);
+        $this->middleware('dirt-rally.validateEvent')->only(['event', 'detail']);
     }
 
     public function index()
@@ -69,4 +69,16 @@ class NationStandingsController extends Controller
             ->with('event', $event)
             ->with('points', \Positions::addEquals(\DirtRallyNationPoints::forEvent($system, $event)));
     }
+
+    public function detail(DirtPointsSystem $system, $championship, $season, $event, Nation $nation)
+    {
+        $event = \Request::get('event');
+        $event->load(['season.championship', 'stages.results.driver.nation', 'positions.driver.nation']);
+        return view('dirt-rally.nationstandings.detail')
+            ->with('system', $system)
+            ->with('event', $event)
+            ->with('nation', $nation)
+            ->with('results', \DirtRallyNationPoints::details($system, $event, $nation));
+    }
+
 }

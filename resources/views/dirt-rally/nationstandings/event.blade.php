@@ -24,7 +24,9 @@
                 <th>{{ $detail['position'] }}</th>
                 <th>
                     @include('nation.image', ['nation' => $detail['entity']])
-                    {{ $detail['entity']->name }}
+                    <a href="{{ route('dirt-rally.nationstandings.detail', [$system, $event->season->championship, $event->season, $event, $detail['entity']]) }}">
+                        {{ $detail['entity']->name }}
+                    </a>
                 </th>
                 <td class="points">{{ $detail['total']['sum'] }}</td>
                 <td class="text-center">{{ count($detail['points']) }}</td>
