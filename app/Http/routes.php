@@ -11,7 +11,6 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     })->name('home');
 
-    Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
     Route::resource('points-sequence', 'PointsSequenceController');

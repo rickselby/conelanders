@@ -1,3 +1,3 @@
 @if($nation)
-    <img src="{{ route('nation.image', $nation) }}" alt="{{ $nation->name }}" />
+    <span class="flag-icon flag-icon-{{ $nation->acronym }}" style="font-size: 1.25em;"></span>
 @endif
