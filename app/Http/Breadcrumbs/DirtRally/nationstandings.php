@@ -43,3 +43,12 @@ Breadcrumbs::register('dirt-rally.nationstandings.event',
         $breadcrumbs->push($event->name, route('dirt-rally.nationstandings.event', [$system, $event->season->championship, $event->season, $event]));
     }
 );
+
+
+Breadcrumbs::register('dirt-rally.nationstandings.detail',
+    function($breadcrumbs, \App\Models\DirtRally\DirtPointsSystem $system, $champSlug, $seasonSlug, $eventSlug, \App\Models\Nation $nation) {
+        $event = \Request::get('event');
+        $breadcrumbs->parent('dirt-rally.nationstandings.event', $system, '', '', '');
+        $breadcrumbs->push($nation->name, route('dirt-rally.nationstandings.detail', [$system, $event->season->championship, $event->season, $event, $nation]));
+    }
+);

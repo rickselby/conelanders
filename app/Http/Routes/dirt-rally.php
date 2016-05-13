@@ -17,12 +17,13 @@ Route::get('standings/{system}/{championship}/{season}', 'StandingsController@se
 Route::get('standings/{system}/{championship}/{season}/{event}', 'StandingsController@event')->name('dirt-rally.standings.event');
 Route::get('standings/{system}/{championship}/{season}/{event}/{stage}', 'StandingsController@stage')->name('dirt-rally.standings.stage');
 
-Route::get('nation-standings/', 'NationStandingsController@index')->name('dirt-rally.nationstandings.index');
+Route::get('nation-standings', 'NationStandingsController@index')->name('dirt-rally.nationstandings.index');
 Route::get('nation-standings/{system}', 'NationStandingsController@system')->name('dirt-rally.nationstandings.system');
 Route::get('nation-standings/{system}/{championship}', 'NationStandingsController@championship')->name('dirt-rally.nationstandings.championship');
 Route::get('nation-standings/{system}/{championship}/overview', 'NationStandingsController@overview')->name('dirt-rally.nationstandings.overview');
 Route::get('nation-standings/{system}/{championship}/{season}', 'NationStandingsController@season')->name('dirt-rally.nationstandings.season');
 Route::get('nation-standings/{system}/{championship}/{season}/{event}', 'NationStandingsController@event')->name('dirt-rally.nationstandings.event');
+Route::get('nation-standings/{system}/{championship}/{season}/{event}/{nation}', 'NationStandingsController@detail')->name('dirt-rally.nationstandings.detail');
 
 Route::get('times', 'TimesController@index')->name('dirt-rally.times.index');
 Route::get('times/{championship}', 'TimesController@championship')->name('dirt-rally.times.championship');

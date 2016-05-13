@@ -4,6 +4,7 @@ namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtPointsSystem;
+use App\Models\Nation;
 use Illuminate\Database\Eloquent\Collection;
 
 class NationPoints extends DriverPoints
@@ -77,6 +78,27 @@ class NationPoints extends DriverPoints
         }
 
         return $this->sumAndSort($points);
+    }
+
+    /**
+     * Get the points for drivers for the given nation
+     * @param DirtPointsSystem $system
+     * @param DirtEvent $event
+     * @param Nation $nation
+     * @return array
+     */
+    public function details(DirtPointsSystem $system, DirtEvent $event, Nation $nation)
+    {
+        $driverResults = \DirtRallyDriverPoints::forEvent($system, $event);
+
+        $results = [];
+        foreach($driverResults AS $result) {
+            if ($result['entity']->nation->id == $nation->id) {
+                $results[] = $result;
+            }
+        }
+
+        return $results;
     }
 
 }
