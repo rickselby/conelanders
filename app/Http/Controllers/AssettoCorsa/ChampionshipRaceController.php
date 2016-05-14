@@ -178,4 +178,28 @@ class ChampionshipRaceController extends Controller
         \Notification::add('success', 'Release Date Updated');
         return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
     }
+
+    public function qualifyingResultsScan($championship, $race)
+    {
+        $race = \Request::get('race');
+        if (\ACRace::hasResultsFile($race, config('constants.QUALIFYING_RESULTS'))) {
+            $this->dispatch(new ImportQualifyingJob($race));
+            \Notification::add('success', 'Qualifying import job queued. Results will be imported shortly.');
+        } else {
+            \Notification::add('warning', 'No qualifying results file found to scan');
+        }
+        return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
+    }
+
+    public function raceResultsScan($championship, $race)
+    {
+        $race = \Request::get('race');
+        if (\ACRace::hasResultsFile($race, config('constants.RACE_RESULTS'))) {
+            $this->dispatch(new ImportQualifyingJob($race));
+            \Notification::add('success', 'Race import job queued. Results will be imported shortly.');
+        } else {
+            \Notification::add('warning', 'No race results file found to scan');
+        }
+        return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
+    }
 }

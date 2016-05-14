@@ -14,12 +14,20 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#qualifyingResults">
-                    Upload Qualifying Results
+                    {{ \ACRace::hasResultsFile($race, config('constants.QUALIFYING_RESULTS')) ? '' : 'Upload ' }}Qualifying Results
                 </a> <span class="caret"></span>
             </h3>
         </div>
         <div class="panel-collapse collapse {{ \ACResults::hasQualifying($race) ? '' : 'in' }}" id="qualifyingResults" role="tabpanel">
             <div class="panel-body">
+
+                @if (\ACRace::hasResultsFile($race, config('constants.QUALIFYING_RESULTS')))
+                    <h4>Rescan current file</h4>
+                    <a role="button" class="btn btn-small btn-primary"
+                       href="{{ route('assetto-corsa.championship.race.qualifying-results-scan', [$race->championship, $race]) }}">Rescan Results</a>
+                    <h4>Upload a new results file</h4>
+                @endif
+
                 {!! Form::open(['route' => ['assetto-corsa.championship.race.qualifying-results-upload', $race->championship, $race], 'files' => true, 'class' => 'form-horizontal']) !!}
                 <label class="btn btn-info" for="my-file-selector">
                     <input id="my-file-selector" name="file" type="file" style="display:none;">
@@ -37,12 +45,20 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#raceResults">
-                    Upload Race Results
+                    {{ \ACRace::hasResultsFile($race, config('constants.RACE_RESULTS')) ? '' : 'Upload ' }}Race Results
                 </a> <span class="caret"></span>
             </h3>
         </div>
         <div class="panel-collapse collapse {{ \ACResults::hasRace($race) ? '' : 'in' }}" id="raceResults" role="tabpanel">
             <div class="panel-body">
+
+                @if (\ACRace::hasResultsFile($race, config('constants.RACE_RESULTS')))
+                    <h4>Rescan current file</h4>
+                    <a role="button" class="btn btn-small btn-primary"
+                       href="{{ route('assetto-corsa.championship.race.race-results-scan', [$race->championship, $race]) }}">Rescan Results</a>
+                    <h4>Upload a new results file</h4>
+                @endif
+
                 {!! Form::open(['route' => ['assetto-corsa.championship.race.race-results-upload', $race->championship, $race], 'files' => true, 'class' => 'form-horizontal']) !!}
                 <label class="btn btn-info" for="my-file-selector-2">
                     <input id="my-file-selector-2" name="file" type="file" style="display:none;">
