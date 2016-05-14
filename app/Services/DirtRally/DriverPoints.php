@@ -28,6 +28,7 @@ class DriverPoints
                         'points' => 0
                     ],
                     'stagePoints' => [],
+                    'stagePositions' => [],
                     'eventPosition' => $result['position'],
                     'eventPoints' => (isset($system['event'][$result['position']]) && !$result['dnf'] && $result['total'])
                         ? $system['event'][$result['position']]
@@ -42,6 +43,7 @@ class DriverPoints
                         isset($system['stage'][$result->position]) && !$result->dnf
                             ? $system['stage'][$result->position]
                             : 0;
+                    $points[$result->driver->id]['stagePositions'][$stage->id] = $result->position;
                 }
                 foreach($points AS $driverID => $point) {
                     // Map the stage times by ID, not order
