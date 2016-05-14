@@ -56,7 +56,9 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                <td class="time">{{ Times::toString($result['stage'][$stage->order]) }}</td>
+                <td class="time  {{ \Positions::colour(isset($result['stagePositions'][$stage->id]) ? $result['stagePositions'][$stage->id] : null) }}">
+                    {{ Times::toString($result['stage'][$stage->order]) }}
+                </td>
                 @endforeach
                 <td class="time">{{ Times::toString($result['total']) }}</td>
             </tr>
