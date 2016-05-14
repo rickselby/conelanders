@@ -27,7 +27,7 @@
                     </a>
                 </th>
                 @foreach($season->events AS $event)
-                    <td class="time {{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}">
+                    <td class="time {{ $detail['dnss'][$event->id] ? 'danger' : ($detail['dnfs'][$event->id] ? 'warning' : '') }}  {{ \Positions::colour(isset($detail['eventPositions'][$event->id]) ? $detail['eventPositions'][$event->id] : null) }}">
                         {{ Times::toString($detail['events'][$event->id]) }}
                     </td>
                 @endforeach

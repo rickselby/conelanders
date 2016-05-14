@@ -33,7 +33,7 @@
                     </a>
                 </th>
                 @foreach($event->stages AS $stage)
-                    <td class="time {{ isset($detail['worst'][$stage->order]) ? 'text-muted' : '' }}">
+                    <td class="time {{ isset($detail['worst'][$stage->order]) ? 'text-muted' : '' }} {{ \Positions::colour(isset($detail['stagePositions'][$stage->id]) ? $detail['stagePositions'][$stage->id] : null) }}">
                         {{ Times::toString($detail['stageTimes'][$stage->order]) }}
                     </td>
                 @endforeach

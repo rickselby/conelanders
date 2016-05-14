@@ -25,6 +25,7 @@ class Times
             $times[$result['driver']->id] = [
                 'driver' => $result['driver'],
                 'stageTimes' => $result['stage'],
+                'stagePositions' => $result['stagePositions'],
                 'dnf' => $result['dnf'],
                 'total' => $result['total'],
             ];
@@ -74,6 +75,7 @@ class Times
                 $dnf += $events[$event->id]['dnf'];
                 foreach ($events[$event->id]['times'] AS $result) {
                     $times[$result['driver']->id]['events'][$event->id] = $result['total'];
+                    $times[$result['driver']->id]['eventPositions'][$event->id] = $result['position'];
                     $times[$result['driver']->id]['dnfs'][$event->id] = $result['dnf'];
                     $times[$result['driver']->id]['dnss'][$event->id] = false;
                     $times[$result['driver']->id]['driver'] = $result['driver'];
@@ -117,6 +119,7 @@ class Times
             foreach ($seasonList[$season->id]['times'] AS $result) {
                 $times[$result['driver']->id]['driver'] = $result['driver'];
                 $times[$result['driver']->id]['seasons'][$season->id] = $result['total'];
+                $times[$result['driver']->id]['seasonPositions'][$season->id] = $result['position'];
             }
         }
 
