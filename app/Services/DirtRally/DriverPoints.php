@@ -28,6 +28,7 @@ class DriverPoints
                         'points' => 0
                     ],
                     'stagePoints' => [],
+                    'stagePositions' => [],
                     'eventPosition' => $result['position'],
                     'eventPoints' => (isset($system['event'][$result['position']]) && !$result['dnf'] && $result['total'])
                         ? $system['event'][$result['position']]
@@ -42,6 +43,7 @@ class DriverPoints
                         isset($system['stage'][$result->position]) && !$result->dnf
                             ? $system['stage'][$result->position]
                             : 0;
+                    $points[$result->driver->id]['stagePositions'][$stage->id] = $result->position;
                 }
                 foreach($points AS $driverID => $point) {
                     // Map the stage times by ID, not order
@@ -99,7 +101,7 @@ class DriverPoints
                 foreach ($this->forEvent($system, $event) AS $result) {
                     $points[$result['entity']->id]['entity'] = $result['entity'];
                     $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
-                    $points[$result['entity']->id]['positions'][] = $result['position'];
+                    $points[$result['entity']->id]['positions'][$event->id] = $result['position'];
                 }
             }
         }
@@ -149,8 +151,7 @@ class DriverPoints
             foreach ($this->forSeason($system, $season) AS $result) {
                 $points[$result['entity']->id]['entity'] = $result['entity'];
                 $points[$result['entity']->id]['points'][$season->id] = $result['total'];
-                $points[$result['entity']->id]['positions'][] = $result['position'];
-                $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
+                $points[$result['entity']->id]['positions'][$season->id] = $result['position'];
             }
         }
 
@@ -167,7 +168,8 @@ class DriverPoints
         // Step through each driver, sum their points, and sort their positions
         foreach($points AS $driverID => $point) {
             $points[$driverID]['total'] = array_sum($point['points']);
-            sort($points[$driverID]['positions']);
+            $points[$driverID]['sortedPositions'] = $points[$driverID]['positions'];
+            sort($points[$driverID]['sortedPositions']);
         }
 
         // Sort the drivers
@@ -198,18 +200,18 @@ class DriverPoints
         }
 
         // Then, best finishing positions; all the way down...
-        for($i = 0; $i < max(count($a['positions']), count($b['positions'])); $i++) {
+        for($i = 0; $i < max(count($a['sortedPositions']), count($b['sortedPositions'])); $i++) {
             // Check both have a position set
-            if (isset($a['positions'][$i]) && isset($b['positions'][$i])) {
+            if (isset($a['sortedPositions'][$i]) && isset($b['sortedPositions'][$i])) {
                 // If they're different, compare them
                 // If not, loop again
-                if ($a['positions'][$i] != $b['positions'][$i]) {
-                    return $a['positions'][$i] - $b['positions'][$i];
+                if ($a['sortedPositions'][$i] != $b['sortedPositions'][$i]) {
+                    return $a['sortedPositions'][$i] - $b['sortedPositions'][$i];
                 }
-            } elseif (isset($a['positions'][$i])) {
+            } elseif (isset($a['sortedPositions'][$i])) {
                 // $a has less results; $b takes priority
                 return -1;
-            } elseif (isset($b['positions'][$i])) {
+            } elseif (isset($b['sortedPositions'][$i])) {
                 // $b has less results; $a takes priority
                 return 1;
             }

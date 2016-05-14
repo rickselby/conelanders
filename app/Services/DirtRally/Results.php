@@ -17,6 +17,7 @@ class Results
                 $results[$result->driver->id]['driver'] = $result->driver;
                 $results[$result->driver->id]['stage'][$stage->order] =
                     $result->dnf ? 'DNF' : $result->time;
+                $results[$result->driver->id]['stagePositions'][$stage->id] = $result->position;
                 if (isset($results[$result->driver->id]['dnf'])) {
                     $results[$result->driver->id]['dnf'] |= $result->dnf;
                 } else {
@@ -96,7 +97,7 @@ class Results
                     'position' => $result->stage->event->season->championship->isComplete()
                         ? $driverPoints['position']
                         : NULL,
-                    'seasonPositions' => $driverPoints['seasonPosition'],
+                    'seasonPositions' => $driverPoints['positions'],
                     'seasons' => [],
                 ];
             }

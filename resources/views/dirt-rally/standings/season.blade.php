@@ -27,7 +27,9 @@
                     </a>
                 </th>
                 @foreach($season->events AS $event)
-                    <td class="points">{{ $detail['points'][$event->id] or '' }}</td>
+                    <td class="points {{ \Positions::colour(isset($detail['positions'][$event->id]) ? $detail['positions'][$event->id] : null) }}">
+                        {{ $detail['points'][$event->id] or '' }}
+                    </td>
                 @endforeach
                 <td class="points">{{ $detail['total'] }}</td>
             </tr>

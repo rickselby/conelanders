@@ -27,7 +27,7 @@
                     </a>
                 </th>
                 @foreach($seasons AS $season)
-                    <td class="time {{ $detail['dnss'][$season->id] ? 'danger' : '' }}">
+                    <td class="time {{ $detail['dnss'][$season->id] ? 'danger' : '' }} {{ \Positions::colour(isset($detail['seasonPositions'][$season->id]) ? $detail['seasonPositions'][$season->id] : null) }}">
                         @if ($season->isComplete())
                             {{ Times::toString($detail['seasons'][$season->id]) }}
                         @else

@@ -26,7 +26,9 @@
                     {{ $detail['entity']->name }}
                 </th>
                 @foreach($season->events AS $event)
-                    <td class="points">{{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) : '' }}</td>
+                    <td class="points  {{ \Positions::colour(isset($detail['positions'][$event->id]) ? $detail['positions'][$event->id] : null) }}">
+                        {{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) : '' }}
+                    </td>
                 @endforeach
                 <td class="points">{{ round($detail['total'], 2) }}</td>
             </tr>
