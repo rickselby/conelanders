@@ -16,41 +16,26 @@ class Import
 {
     use DispatchesJobs;
 
-    public function getResults(AcRace $race, $qualifying = false)
+    public function getResults(AcRace $race, $type)
     {
-        if (is_file($this->getPath($race, $qualifying))) {
-            $json = file_get_contents($this->getPath($race, $qualifying));
+        if (\ACRace::hasResultsFile($race, $type)) {
+            $json = file_get_contents(\ACRace::getResultsFilePath($race, $type));
             return json_decode($json);
         } else {
             return null;
         }
     }
 
-    public function saveUpload(Request $request, AcRace $race, $qualifying = false)
+    public function saveUpload(Request $request, AcRace $race, $type)
     {
         if ($request->hasFile('file')) {
-            $request->file('file')->move($this->getDirectory(), $this->getFileName($race, $qualifying));
+            $request->file('file')->move(\ACRace::getResultsFileDirectory(), \ACRace::getResultsFileName($race, $type));
         }
     }
 
-    private function getPath(AcRace $race, $qualifying = false)
+    public function processEntrants(AcRace $race, $type)
     {
-        return $this->getDirectory().$this->getFileName($race, $qualifying);
-    }
-
-    private function getDirectory()
-    {
-        return storage_path('uploads/ac-results/');
-    }
-
-    private function getFileName(AcRace $race, $qualifying = false)
-    {
-        return $race->id.'-'.($qualifying ? 'q' : 'r').'.json';
-    }
-
-    public function processEntrants(AcRace $race, $qualifying = false)
-    {
-        $results = $this->getResults($race, $qualifying);
+        $results = $this->getResults($race, $type);
         $cars = $drivers = [];
         foreach($results->Cars AS $car) {
             $cars[] = $car->Model;
@@ -112,7 +97,7 @@ class Import
 
     public function saveQualifying(AcRace $race)
     {
-        $results = $this->getResults($race, true);
+        $results = $this->getResults($race, config('constants.QUALIFYING_RESULTS'));
         $entrants = $this->getEntrantsByID($race);
         $bestLaps = [];
 
@@ -142,7 +127,7 @@ class Import
 
     public function saveRace(AcRace $race)
     {
-        $results = $this->getResults($race);
+        $results = $this->getResults($race, config('constants.RACE_RESULTS'));
         $entrants = $this->getEntrantsByID($race);
         $bestLaps = [];
 

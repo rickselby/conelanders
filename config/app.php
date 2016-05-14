@@ -232,6 +232,7 @@ return [
         'ACEntrants' => App\Services\Facades\AssettoCorsa\EntrantsFacade::class,
         'ACImport' => App\Services\Facades\AssettoCorsa\ImportFacade::class,
         'ACPointsSystems' => App\Services\Facades\AssettoCorsa\PointsSystemsFacade::class,
+        'ACRace' => App\Services\Facades\AssettoCorsa\RaceFacade::class,
         'ACResults' => App\Services\Facades\AssettoCorsa\ResultsFacade::class,
 
         'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,

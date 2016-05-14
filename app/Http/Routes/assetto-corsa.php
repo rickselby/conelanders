@@ -16,6 +16,10 @@ Route::post('/championship/{championship}/race/{race}/qualifying-results-upload'
     'ChampionshipRaceController@qualifyingResultsUpload')->name('assetto-corsa.championship.race.qualifying-results-upload');
 Route::post('/championship/{championship}/race/{race}/race-results-upload',
     'ChampionshipRaceController@raceResultsUpload')->name('assetto-corsa.championship.race.race-results-upload');
+Route::get('/championship/{championship}/race/{race}/qualifying-results-scan',
+    'ChampionshipRaceController@qualifyingResultsScan')->name('assetto-corsa.championship.race.qualifying-results-scan');
+Route::get('/championship/{championship}/race/{race}/race-results-scan',
+    'ChampionshipRaceController@raceResultsScan')->name('assetto-corsa.championship.race.race-results-scan');
 
 Route::resource('championship.race', 'ChampionshipRaceController', [['except' => ['index']]]);
 
