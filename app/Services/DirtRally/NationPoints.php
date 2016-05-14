@@ -41,6 +41,8 @@ class NationPoints extends DriverPoints
             foreach ($points AS $ref => $point) {
                 $points[$ref]['total']['sum'] = array_sum($point['points']);
                 $points[$ref]['total']['points'] = $points[$ref]['total']['sum'] / count($point['points']);
+                $points[$ref]['sortedPositions'] = $points[$ref]['positions'];
+                sort($points[$ref]['sortedPositions']);
             }
 
             usort($points, [$this, 'pointsSort']);
