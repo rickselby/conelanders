@@ -96,7 +96,7 @@ class Results
                     'position' => $result->stage->event->season->championship->isComplete()
                         ? $driverPoints['position']
                         : NULL,
-                    'seasonPositions' => $driverPoints['seasonPosition'],
+                    'seasonPositions' => $driverPoints['positions'],
                     'seasons' => [],
                 ];
             }

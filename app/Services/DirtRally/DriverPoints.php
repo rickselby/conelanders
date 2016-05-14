@@ -151,8 +151,7 @@ class DriverPoints
             foreach ($this->forSeason($system, $season) AS $result) {
                 $points[$result['entity']->id]['entity'] = $result['entity'];
                 $points[$result['entity']->id]['points'][$season->id] = $result['total'];
-                $points[$result['entity']->id]['positions'][] = $result['position'];
-                $points[$result['entity']->id]['seasonPosition'][$season->id] = $result['position'];
+                $points[$result['entity']->id]['positions'][$season->id] = $result['position'];
             }
         }
 
