@@ -23,4 +23,7 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/assetto-corsa.php');
     });
 
+    Route::get('about', function() {
+        return view('about');
+    })->name('about');
 });
