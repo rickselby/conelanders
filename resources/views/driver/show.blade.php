@@ -2,6 +2,11 @@
 
 @section('content')
 
+    <h1>
+        @include('nation.image', ['nation' => $driver->nation])
+        {{ $driver->name }}
+    </h1>
+
     <div>
 
         <ul class="nav nav-tabs" role="tablist">
@@ -28,12 +33,5 @@
         </div>
 
     </div>
-
-    <script type="text/javascript">
-        $('#driverTabs a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-    </script>
 
 @endsection
