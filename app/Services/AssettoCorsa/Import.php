@@ -47,9 +47,9 @@ class Import
         ];
     }
 
-    public function saveEntrants(Request $request, AcRace $race)
+    public function saveEntrants(Request $request, AcRace $race, $type)
     {
-        $results = $this->getResults($race, ($request->get('from') == 'qualifying'));
+        $results = $this->getResults($race, $type);
         $cars = $request->get('car');
         foreach($results->Cars AS $car) {
             $championshipEntrant = $this->getChampionshipEntrant($race->championship, $car->Driver->Name, $car->Driver->Guid);
@@ -59,7 +59,7 @@ class Import
             $race->entrants()->save($raceEntrant);
         }
 
-        if ($request->get('from') == 'qualifying') {
+        if ($type == config('constants.QUALIFYING_RESULTS')) {
             $this->dispatch(new ImportQualifyingJob($race));
         } else {
             $this->dispatch(new ImportRaceJob($race));

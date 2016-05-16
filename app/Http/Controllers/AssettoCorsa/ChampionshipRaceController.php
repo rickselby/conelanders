@@ -158,7 +158,7 @@ class ChampionshipRaceController extends Controller
     public function saveEntrants(Request $request, $championship, $race, Import $import)
     {
         $race = \Request::get('race');
-        $import->saveEntrants($request, $race);
+        $import->saveEntrants($request, $race, $request->get('results_type'));
         \Notification::add('success',
             'Entrants added; '.($request->get('results_type') == config('constants.QUALIFYING_RESULTS') ? 'qualifying' : 'race')
             .' results queued for processing');
