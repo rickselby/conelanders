@@ -27,6 +27,7 @@ class DriverPoints
                     'qualPosition' => $entrant->qualifying_position,
                     'racePoints' => $racePoints,
                     'racePosition' => $entrant->race_position,
+                    'raceDSQ' => $entrant->race_disqualified,
                     'lapsPoints' => $lapsPoints,
                     'lapsPosition' => $entrant->race_fastest_lap_position,
                     'points' => $racePoints + $lapsPoints,

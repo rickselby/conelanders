@@ -8,6 +8,7 @@ use App\Jobs\AssettoCorsa\ImportQualifyingJob;
 use App\Jobs\AssettoCorsa\ImportRaceJob;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcRace;
+use App\Models\AssettoCorsa\AcRaceEntrant;
 use App\Services\AssettoCorsa\Import;
 use App\Services\AssettoCorsa\Results;
 use Carbon\Carbon;
@@ -119,11 +120,11 @@ class ChampionshipRaceController extends Controller
     public function qualifyingResultsUpload(Request $request, $championship, $race, Import $import)
     {
         $race = \Request::get('race');
-        $import->saveUpload($request, $race, true);
+        $import->saveUpload($request, $race, config('constants.QUALIFYING_RESULTS'));
         if (!count($race->entrants)) {
             // Need entrants first
             return \Redirect::route('assetto-corsa.championship.race.entrants', [$race->championship, $race])
-                ->with('from', 'qualifying');
+                ->with('results_type', config('constants.QUALIFYING_RESULTS'));
         } else {
             $this->dispatch(new ImportQualifyingJob($race));
             \Notification::add('success', 'Qualifying import job queued. Results will be imported shortly.');
@@ -134,11 +135,11 @@ class ChampionshipRaceController extends Controller
     public function raceResultsUpload(Request $request, $championship, $race, Import $import)
     {
         $race = \Request::get('race');
-        $import->saveUpload($request, $race);
+        $import->saveUpload($request, $race, config('constants.RACE_RESULTS'));
         if (!count($race->entrants)) {
             // Need entrants first
             return \Redirect::route('assetto-corsa.championship.race.entrants', [$race->championship, $race])
-                ->with('from', 'race');
+                ->with('results_type', config('constants.RACE_RESULTS'));
         } else {
             $this->dispatch(new ImportRaceJob($race));
             \Notification::add('success', 'Race import job queued. Results will be imported shortly.');
@@ -151,21 +152,23 @@ class ChampionshipRaceController extends Controller
         $race = \Request::get('race');
         return view('assetto-corsa.race.entrants')
             ->with('race', $race)
-            ->with('entrants', $import->processEntrants($race, (session('from') == 'qualifying')));
+            ->with('entrants', $import->processEntrants($race, session('results_type')));
     }
 
     public function saveEntrants(Request $request, $championship, $race, Import $import)
     {
         $race = \Request::get('race');
         $import->saveEntrants($request, $race);
-        \Notification::add('success', 'Entrants and '.($request->get('from') == 'qualifying' ? 'qualifying' : 'race').' results added');
+        \Notification::add('success',
+            'Entrants added; '.($request->get('results_type') == config('constants.QUALIFYING_RESULTS') ? 'qualifying' : 'race')
+            .' results queued for processing');
         return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
     }
 
     public function updateEntrants(Request $request, $championship, $race)
     {
         $race = \Request::get('race');
-        \ACEntrants::updateCarsAndColours($request, $race);
+        \ACEntrants::updateRaceEntrants($request, $race);
         \Notification::add('success', 'Entrants updated');
         return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
     }
@@ -199,6 +202,18 @@ class ChampionshipRaceController extends Controller
             \Notification::add('success', 'Race import job queued. Results will be imported shortly.');
         } else {
             \Notification::add('warning', 'No race results file found to scan');
+        }
+        return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
+    }
+
+    public function deleteEntrant($championship, $race, AcRaceEntrant $entrant)
+    {
+        $race = \Request::get('race');
+        if ($entrant->canBeDeleted()) {
+            \Notification::add('success', $entrant->championshipEntrant->driver->name.' removed as an entrant');
+            $entrant->delete();
+        } else {
+            \Notification::add('warning', 'Cannot delete '.$entrant->championshipEntrant->driver->name.' - they have a qualifying lap or race laps');
         }
         return \Redirect::route('assetto-corsa.championship.race.show', [$race->championship, $race]);
     }

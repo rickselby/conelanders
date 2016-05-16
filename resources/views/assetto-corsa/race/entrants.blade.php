@@ -3,7 +3,7 @@
 @section('content')
 
     {!! Form::open(['route' => ['assetto-corsa.championship.race.save-entrants', $race->championship, $race], 'class' => 'form-horizontal']) !!}
-    {!! Form::hidden('from', session('from')) !!}
+    {!! Form::hidden('results_type', session('results_type')) !!}
     <h2>Name Cars</h2>
     @foreach($entrants['cars'] AS $car)
         <div class="form-group">

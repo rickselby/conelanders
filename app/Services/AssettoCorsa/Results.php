@@ -152,6 +152,7 @@ class Results
                     'car' => $entrant->car,
                     'laps' => $entrant->race_laps,
                     'time' => $entrant->race_time,
+                    'DSQ' => $entrant->race_disqualified,
                     'toBest' => $gapToBest,
                     'toLast' => $gapToLast,
                     'positionChange' => $entrant->qualifying_position - $entrant->race_position,

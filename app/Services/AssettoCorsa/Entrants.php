@@ -9,10 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 class Entrants
 {
 
-    public function updateCars(Request $request, AcRace $race)
+    public function updateRaceEntrants(Request $request, AcRace $race)
     {
         foreach($race->entrants AS $entrant) {
             $entrant->car = $request->get('car')[$entrant->id];
+            $entrant->race_disqualified = isset($request->get('race_disqualified')[$entrant->id]);
             $entrant->save();
         }
     }

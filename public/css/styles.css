@@ -26,6 +26,11 @@ span.position {
     background-color: #cfcfff;
 }
 
+.position-dsq {
+    background-color: #000;
+    color: #fff;
+}
+
 .driver-number, .driver-number-white {
     width: 3em;
     margin-left: 0.2em;

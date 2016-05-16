@@ -10,6 +10,8 @@ Route::post('/championship/{championship}/race/{race}/save-entrants',
     'ChampionshipRaceController@saveEntrants')->name('assetto-corsa.championship.race.save-entrants');
 Route::post('/championship/{championship}/race/{race}/update-entrants',
     'ChampionshipRaceController@updateEntrants')->name('assetto-corsa.championship.race.update-entrants');
+Route::get('/championship/{championship}/race/{race}/delete-entrant/{entrant}',
+    'ChampionshipRaceController@deleteEntrant')->name('assetto-corsa.championship.race.delete-entrant');
 Route::post('/championship/{championship}/race/{race}/update-release-date',
     'ChampionshipRaceController@updateReleaseDate')->name('assetto-corsa.championship.race.update-release-date');
 Route::post('/championship/{championship}/race/{race}/qualifying-results-upload',
