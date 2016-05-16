@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcRaceEntrant extends \Eloquent
 {
-    protected $fillable = ['ballast', 'car'];
+    protected $fillable = ['ballast', 'car', 'race_disqualified'];
 
     protected $casts = [
         'ballast' => 'integer',
@@ -13,6 +13,7 @@ class AcRaceEntrant extends \Eloquent
         'race_time' => 'integer',
         'race_behind' => 'integer',
         'race_fastest_lap_position' => 'integer',
+        'race_disqualified' => false,
     ];
 
     public function race()
@@ -38,5 +39,10 @@ class AcRaceEntrant extends \Eloquent
     public function raceLaps()
     {
         return $this->hasMany(AcRaceLap::class);
+    }
+
+    public function canBeDeleted()
+    {
+        return (count($this->raceLaps) == 0) && !$this->qualifyingLap;
     }
 }

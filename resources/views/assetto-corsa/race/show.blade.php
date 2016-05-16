@@ -89,6 +89,7 @@
                         <tr>
                             <th>Driver</th>
                             <th>Car</th>
+                            <th>Functions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -97,6 +98,16 @@
                                 <th>{{ $entrant->championshipEntrant->driver->name }}</th>
                                 <td>
                                     {!! Form::text('car['.$entrant->id.']', $entrant->car, ['class' => 'form-control']) !!}
+                                </td>
+                                <td>
+                                    @if ($entrant->canBeDeleted())
+                                        <a class="btn btn-small btn-danger"
+                                           href="{{ route('assetto-corsa.championship.race.delete-entrant', [$race->championship, $race, $entrant]) }}">
+                                            Delete
+                                        </a>
+                                    @else
+                                        DSQ {!! Form::checkbox('race_disqualified['.$entrant->id.']', 1, $entrant->race_disqualified) !!}
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

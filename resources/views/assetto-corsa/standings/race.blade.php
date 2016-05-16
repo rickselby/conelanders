@@ -82,7 +82,11 @@
                 <tbody>
                 @foreach($results AS $result)
                     <tr>
-                        <th>{{ $result['position'] }}</th>
+                        @if ($result['DSQ'])
+                            <th class="position-dsq">DSQ</th>
+                        @else
+                            <th>{{ $result['position'] }}</th>
+                        @endif
                         <th>
                             @include('assetto-corsa.driver.name', ['entrant' => $result])
                         </th>

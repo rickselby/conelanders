@@ -30,21 +30,25 @@
                 </th>
                 @foreach($races AS $race)
                     @if (isset($detail['races'][$race->id]))
-                        <td class="position {{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
-                            @if ($detail['races'][$race->id]['qualPosition'] == 1)
-                                <em>
-                            @endif
-                            @if ($detail['races'][$race->id]['lapsPosition'] == 1)
-                                <strong>
-                            @endif
-                                {{  $detail['races'][$race->id]['racePosition'] or '' }}
-                            @if ($detail['races'][$race->id]['lapsPosition'] == 1)
-                                </strong>
-                            @endif
-                            @if ($detail['races'][$race->id]['qualPosition'] == 1)
-                                </em>
-                            @endif
-                        </td>
+                        @if ($detail['races'][$race->id]['raceDSQ'])
+                            <td class="position position-dsq">DSQ</td>
+                        @else
+                            <td class="position {{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
+                                @if ($detail['races'][$race->id]['qualPosition'] == 1)
+                                    <em>
+                                @endif
+                                @if ($detail['races'][$race->id]['lapsPosition'] == 1)
+                                    <strong>
+                                @endif
+                                    {{  $detail['races'][$race->id]['racePosition'] or '' }}
+                                @if ($detail['races'][$race->id]['lapsPosition'] == 1)
+                                    </strong>
+                                @endif
+                                @if ($detail['races'][$race->id]['qualPosition'] == 1)
+                                    </em>
+                                @endif
+                            </td>
+                        @endif
                     @else
                         <td></td>
                     @endif
