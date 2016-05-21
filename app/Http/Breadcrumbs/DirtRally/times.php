@@ -1,14 +1,9 @@
 <?php
 
-Breadcrumbs::register('dirt-rally.times.index', function($breadcrumbs) {
-    $breadcrumbs->parent('dirt-rally.index');
-    $breadcrumbs->push('Total Times', route('dirt-rally.times.index'));
-});
-
 Breadcrumbs::register('dirt-rally.times.championship',
     function($breadcrumbs, \App\Models\DirtRally\DirtChampionship $championship) {
-        $breadcrumbs->parent('dirt-rally.times.index');
-        $breadcrumbs->push($championship->name, route('dirt-rally.times.championship', $championship));
+        $breadcrumbs->parent('dirt-rally.championship', $championship);
+        $breadcrumbs->push('Total Times', route('dirt-rally.times.championship', $championship));
     }
 );
 

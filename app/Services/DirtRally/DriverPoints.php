@@ -3,7 +3,6 @@
 namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\DirtEvent;
-use App\Models\DirtRally\DirtPointsSystem;
 use App\Models\DirtRally\DirtSeason;
 use Illuminate\Database\Eloquent\Collection;
 

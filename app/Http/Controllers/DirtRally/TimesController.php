@@ -16,12 +16,6 @@ class TimesController extends Controller
         $this->middleware('dirt-rally.validateStage')->only(['stage']);
     }
 
-    public function index()
-    {
-        return view('dirt-rally.times.index')
-            ->with('championships', DirtChampionship::all()->sortBy('closes'));
-    }
-
     public function championship(DirtChampionship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');

@@ -15,13 +15,6 @@ class NationStandingsController extends Controller
         $this->middleware('dirt-rally.validateEvent')->only(['event', 'detail']);
     }
 
-    public function index()
-    {
-        return view('dirt-rally.nationstandings.index')
-            ->with('championships', DirtChampionship::all()->sortBy('closes'));
-
-    }
-
     public function championship(DirtChampionship $championship)
     {
         $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');

@@ -17,8 +17,6 @@
                href="{{ route('dirt-rally.nationstandings.championship', $currentChampionship) }}">Nation Standings</a>
             <a class="btn btn-info"  role="button"
                href="{{ route('dirt-rally.times.championship', $currentChampionship) }}">Total Times</a>
-            <a class="btn btn-info"  role="button"
-               href="{{ route('dirt-rally.championship.show', $currentChampionship) }}">Results</a>
         </div>
     @endif
 
@@ -33,8 +31,6 @@
                    href="{{ route('dirt-rally.nationstandings.championship', $championship) }}">Nation Standings</a>
                 <a class="btn btn-info"  role="button"
                    href="{{ route('dirt-rally.times.championship', $championship) }}">Total Times</a>
-                <a class="btn btn-info"  role="button"
-                   href="{{ route('dirt-rally.championship.show', $championship) }}">Results</a>
             </div>
         @endforeach
     @endif

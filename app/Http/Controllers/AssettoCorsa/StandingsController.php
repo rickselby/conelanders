@@ -16,13 +16,6 @@ class StandingsController extends Controller
         $this->middleware('assetto-corsa.validateRace')->only(['race', 'lapChart']);
     }
 
-    public function index()
-    {
-        return view('assetto-corsa.standings.index')
-            ->with('championships', AcChampionship::all()->sortBy('closes'));
-
-    }
-
     public function championship(AcChampionship $championship, DriverPoints $driverPoints, Results $resultsService)
     {
         $championship->load('races.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
@@ -45,10 +38,10 @@ class StandingsController extends Controller
             ;
     }
 
-    public function lapChart($championship, $race, Results $results)
+    public function lapChart($championship, $race, Results $resultsService)
     {
         $race = \Request::get('race');
-        $content = $results->lapChart($race);
+        $content = $resultsService->lapChart($race);
         $response = \Response::make($content);
         $response->header('Content-type',  'image/svg+xml');
         return $response;

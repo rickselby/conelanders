@@ -2,7 +2,7 @@
 
 Breadcrumbs::register('dirt-rally.championship.index', function($breadcrumbs) {
     $breadcrumbs->parent('dirt-rally.index');
-    $breadcrumbs->push('Results', route('dirt-rally.championship.index'));
+    $breadcrumbs->push('Championship Management', route('dirt-rally.championship.index'));
 });
 
 Breadcrumbs::register('dirt-rally.championship.create', function($breadcrumbs) {
