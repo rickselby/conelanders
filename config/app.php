@@ -235,6 +235,7 @@ return [
         'ACResults' => App\Services\Facades\AssettoCorsa\ResultsFacade::class,
 
         'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,
+        'DirtRallyEvents' => App\Services\Facades\DirtRally\EventsFacade::class,
         'DirtRallyImportDirt' => App\Services\Facades\DirtRally\ImportDirtFacade::class,
         'DirtRallyImportCSV' => App\Services\Facades\DirtRally\ImportCSVFacade::class,
         'DirtRallyNationPoints' => App\Services\Facades\DirtRally\NationPointsFacade::class,

@@ -26,6 +26,8 @@ Route::get('{championship}/times/{season}', 'TimesController@season')->name('dir
 Route::get('{championship}/times/{season}/{event}', 'TimesController@event')->name('dirt-rally.times.event');
 Route::get('{championship}/times/{season}/{event}/{stage}', 'TimesController@stage')->name('dirt-rally.times.stage');
 
+Route::get('event/{championship}/{season}/{event}', 'DirtRallyController@event')->name('dirt-rally.event');
+
 Route::group(['middleware' => ['admin']], function() {
     Route::get('event-id-help', function () {
         return view('dirt-rally.event-id-help');

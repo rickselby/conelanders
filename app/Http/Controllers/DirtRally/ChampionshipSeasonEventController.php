@@ -56,6 +56,7 @@ class ChampionshipSeasonEventController extends Controller
     public function show($championship, $season, $event)
     {
         $event = \Request::get('event');
+        $event->load('stages.results.driver', 'positions.driver');
         return view('dirt-rally.event.show')
             ->with('event', $event)
             ->with('results', \Positions::addEquals(\DirtRallyResults::getEventResults($event)));

@@ -8,6 +8,19 @@
 
 @section('content')
 
+    @if (count($currentEvents))
+        <h2>Current Events</h2>
+        <ul>
+            @foreach($currentEvents AS $event)
+                <li>
+                    <a href="{{ route('dirt-rally.event', [$event->season->championship, $event->season, $event]) }}">
+                        {{ $event->fullName }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
     @if ($currentChampionship)
         <h2>Current Championship: {{ $currentChampionship->name }}</h2>
         <div class="btn-group btn-group-lg" role="group">
@@ -34,5 +47,6 @@
             </div>
         @endforeach
     @endif
+
 
 @endsection

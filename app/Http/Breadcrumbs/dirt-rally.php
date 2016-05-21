@@ -10,6 +10,12 @@ Breadcrumbs::register('dirt-rally.championship', function ($breadcrumbs, \App\Mo
     $breadcrumbs->push($championship->name, route('dirt-rally.championship', $championship));
 });
 
+Breadcrumbs::register('dirt-rally.event', function($breadcrumbs, $champSlug, $seasonSlug, $eventSlug) {
+    $event = \Request::get('event');
+    $breadcrumbs->parent('dirt-rally.index');
+    $breadcrumbs->push($event->fullName, route('dirt-rally.event', [$event->season->championship, $event->season, $event]));
+});
+
 include('DirtRally/championship.php');
 include('DirtRally/championship-season.php');
 include('DirtRally/championship-season-event.php');
