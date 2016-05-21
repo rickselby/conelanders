@@ -1,14 +1,9 @@
 <?php
 
-Breadcrumbs::register('dirt-rally.standings.index', function($breadcrumbs) {
-    $breadcrumbs->parent('dirt-rally.index');
-    $breadcrumbs->push('Driver Standings', route('dirt-rally.standings.index'));
-});
-
 Breadcrumbs::register('dirt-rally.standings.championship',
     function($breadcrumbs, \App\Models\DirtRally\DirtChampionship $championship) {
-        $breadcrumbs->parent('dirt-rally.standings.index');
-        $breadcrumbs->push($championship->name, route('dirt-rally.standings.championship', $championship));
+        $breadcrumbs->parent('dirt-rally.championship', $championship);
+        $breadcrumbs->push('Driver Standings', route('dirt-rally.standings.championship', $championship));
     }
 );
 

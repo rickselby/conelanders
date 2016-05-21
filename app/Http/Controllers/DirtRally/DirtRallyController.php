@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
+use App\Models\DirtRally\DirtChampionship;
 use App\Services\DirtRally\Championships;
 
 class DirtRallyController extends Controller
@@ -12,5 +13,11 @@ class DirtRallyController extends Controller
         return view('dirt-rally.index')
             ->with('currentChampionship', $championships->getCurrent())
             ->with('completeChampionships', $championships->getComplete());
+    }
+
+    public function championship(DirtChampionship $championship)
+    {
+        return view('dirt-rally.championship')
+            ->with('championship', $championship);
     }
 }
