@@ -3,7 +3,6 @@
 namespace App\Services\AssettoCorsa;
 
 use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcPointsSystem;
 use App\Models\AssettoCorsa\AcRace;
 use App\Models\Driver;
 use LapChart\Chart;
@@ -267,10 +266,7 @@ class Results
                 if (!isset($championships[$championshipID])) {
                     // Load back down the chain
                     $result->race->championship->load('entrants.driver', 'races.entrants.championshipEntrant.driver');
-                    $points = \ACDriverPoints::forChampionship(
-                        AcPointsSystem::where('default', true)->first(),
-                        $result->race->championship
-                    );
+                    $points = \ACDriverPoints::forChampionship($result->race->championship);
                     $points = array_where($points, function($key, $value) use ($driver) {
                         return $value['entrant']->driver->id == $driver->id;
                     });

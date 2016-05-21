@@ -8,7 +8,7 @@
             <th colspan="2" rowspan="2" data-sorter="false"></th>
             @foreach($seasons AS $season)
                 <th colspan="{{ $season->stageCount + count($season->events) }}" data-sorter="false" class="text-center">
-                    <a href="{{ route('dirt-rally.standings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.standings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>
@@ -19,7 +19,7 @@
             @foreach($seasons AS $season)
                 @foreach($season->events AS $event)
                     <th colspan="{{ count($event->stages) + 1 }}" data-sorter="false" class="text-center">
-                        <a href="{{ route('dirt-rally.standings.event', [$system, $championship, $season, $event]) }}" class="tablesorter-noSort">
+                        <a href="{{ route('dirt-rally.standings.event', [$championship, $season, $event]) }}" class="tablesorter-noSort">
                             {{ $event->name }}
                         </a>
                     </th>
@@ -33,7 +33,7 @@
                 @foreach($season->events AS $event)
                     @foreach($event->stages AS $stage)
                         <th data-sortInitialOrder="desc">
-                            <a href="{{ route('dirt-rally.standings.stage', [$system, $championship, $season, $event, $stage]) }}" class="tablesorter-noSort">
+                            <a href="{{ route('dirt-rally.standings.stage', [$championship, $season, $event, $stage]) }}" class="tablesorter-noSort">
                                 {{ $stage->order }}
                             </a>
                         </th>

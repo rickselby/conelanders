@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\AssettoCorsa;
 
 use App\Http\Controllers\Controller;
-use App\Models\AssettoCorsa\AcPointsSystem;
 use App\Services\AssettoCorsa\Championships;
 
 class AssettoCorsaController extends Controller
@@ -12,8 +11,6 @@ class AssettoCorsaController extends Controller
     {
         return view('assetto-corsa.index')
             ->with('currentChampionship', $championships->getCurrent())
-            ->with('completeChampionships', $championships->getComplete())
-            ->with('defaultPointSystem', AcPointsSystem::where('default', true)->first())
-            ;
+            ->with('completeChampionships', $championships->getComplete());
     }
 }

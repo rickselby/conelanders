@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\DirtRally;
 
 use App\Http\Controllers\Controller;
-use App\Models\DirtRally\DirtPointsSystem;
 use App\Services\DirtRally\Championships;
 
 class DirtRallyController extends Controller
@@ -12,7 +11,6 @@ class DirtRallyController extends Controller
     {
         return view('dirt-rally.index')
             ->with('currentChampionship', $championships->getCurrent())
-            ->with('completeChampionships', $championships->getComplete())
-            ->with('defaultPointSystem', DirtPointsSystem::where('default', true)->first());
+            ->with('completeChampionships', $championships->getComplete());
     }
 }

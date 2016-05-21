@@ -11,7 +11,7 @@
         <h2>Current Championship: {{ $currentChampionship->name }}</h2>
         <div class="btn-group btn-group-lg" role="group">
             <a class="btn btn-primary" role="button"
-               href="{{ route('assetto-corsa.standings.championship', [$defaultPointSystem, $currentChampionship]) }}">Driver Standings</a>
+               href="{{ route('assetto-corsa.standings.championship', $currentChampionship) }}">Driver Standings</a>
         </div>
     @endif
 
@@ -21,7 +21,7 @@
             <h3>{{ $championship->name }}</h3>
             <div class="btn-group" role="group">
                 <a class="btn btn-primary"  role="button"
-                   href="{{ route('assetto-corsa.standings.championship', [$defaultPointSystem, $championship]) }}">Driver Standings</a>
+                   href="{{ route('assetto-corsa.standings.championship', $championship) }}">Driver Standings</a>
             </div>
         @endforeach
     @endif

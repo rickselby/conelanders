@@ -114,7 +114,7 @@
 
             <h2>Lap Chart</h2>
 
-            <img src="{{ route('assetto-corsa.standings.race.lapchart', [$system, $race->championship, $race]) }}" />
+            <img src="{{ route('assetto-corsa.standings.race.lapchart', [$race->championship, $race]) }}" />
         @endif
 
     @endif

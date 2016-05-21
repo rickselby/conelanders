@@ -26,7 +26,7 @@
                         </a>
                     </th>
                     <td class="time">{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
-                    <td class="points">{{ $points['stage'][intval($result['position'])] or '' }}</td>
+                    <td class="points">{{ $points[intval($result['position'])] or '' }}</td>
                 </tr>
             @endforeach
             </tbody>

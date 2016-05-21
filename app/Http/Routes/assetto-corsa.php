@@ -25,13 +25,10 @@ Route::get('/championship/{championship}/race/{race}/race-results-scan',
 
 Route::resource('championship.race', 'ChampionshipRaceController', [['except' => ['index']]]);
 
-Route::resource('points-system', 'PointsSystemController');
-
 Route::get('standings', 'StandingsController@index')->name('assetto-corsa.standings.index');
-Route::get('standings/{system}', 'StandingsController@system')->name('assetto-corsa.standings.system');
-Route::get('standings/{system}/{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
-Route::get('standings/{system}/{championship}/{race}', 'StandingsController@race')->name('assetto-corsa.standings.race');
-Route::get('standings/{system}/{championship}/{race}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.race.lapchart');
+Route::get('standings/{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
+Route::get('standings/{championship}/{race}', 'StandingsController@race')->name('assetto-corsa.standings.race');
+Route::get('standings/{championship}/{race}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.race.lapchart');
 
 Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
 Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantController@update')->name('assetto-corsa.championship.entrants.update');

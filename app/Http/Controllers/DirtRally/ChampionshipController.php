@@ -33,7 +33,8 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        return view('dirt-rally.championship.create');
+        return view('dirt-rally.championship.create')
+            ->with('sequences', \PointSequences::forSelect());
     }
 
     /**
@@ -72,7 +73,8 @@ class ChampionshipController extends Controller
     public function edit(DirtChampionship $championship)
     {
         return view('dirt-rally.championship.edit')
-            ->with('championship', $championship);
+            ->with('championship', $championship)
+            ->with('sequences', \PointSequences::forSelect());
     }
 
     /**

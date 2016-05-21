@@ -11,7 +11,7 @@
             <th>Driver</th>
             @foreach($races AS $race)
                 <th>
-                    <a href="{{ route('assetto-corsa.standings.race', [$system, $championship, $race]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('assetto-corsa.standings.race', [$championship, $race]) }}" class="tablesorter-noSort">
                         {{ \Helpers::getInitials($race->name) }}
                     </a>
                 </th>
@@ -74,7 +74,7 @@
         @foreach($races AS $race)
         <tr>
             <th>
-                <a href="{{ route('assetto-corsa.standings.race', [$system, $championship, $race]) }}">
+                <a href="{{ route('assetto-corsa.standings.race', [$championship, $race]) }}">
                     {{ $race->name }}
                 </a>
             </th>

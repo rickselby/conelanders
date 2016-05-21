@@ -7,5 +7,4 @@ Breadcrumbs::register('assetto-corsa.index', function($breadcrumbs) {
 
 include('AssettoCorsa/championship.php');
 include('AssettoCorsa/championship-race.php');
-include('AssettoCorsa/points-systems.php');
 include('AssettoCorsa/standings.php');

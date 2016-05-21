@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Point;
 use App\Models\PointsSequence;
-use App\Models\DirtRally\DirtPointsSystem;
 
 class PointSequences
 {
@@ -63,5 +61,14 @@ class PointSequences
     public function forSelect()
     {
         return PointsSequence::orderBy('name')->pluck('name', 'id');
+    }
+    
+    public function get(PointsSequence $sequence)
+    {
+        $positions = [];
+        foreach($sequence->points AS $point) {
+            $positions[$point->position] = $point->points;
+        }
+        return $positions;
     }
 }

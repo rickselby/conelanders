@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DriverPoints
 {
-    public function forEvent(DirtPointsSystem $system, DirtEvent $event)
+    public function forEvent(DirtEvent $event)
     {
         $points = [];
 
         if ($event->isComplete()) {
-            $system = \DirtRallyPointSequences::forSystem($system);
+            $system['event'] = \PointSequences::get($event->season->championship->eventPointsSequence);
+            $system['stage'] = \PointSequences::get($event->season->championship->stagePointsSequence);
             /**
              * Get the results for this event, and mangle them into points
              */
@@ -89,16 +90,15 @@ class DriverPoints
 
     /**
      * Get points for the given system for the given season
-     * @param DirtPointsSystem $system
      * @param DirtSeason $season
      * @return array
      */
-    public function forSeason(DirtPointsSystem $system, DirtSeason $season)
+    public function forSeason(DirtSeason $season)
     {
         $points = [];
         foreach($season->events AS $event) {
             if ($event->isComplete()) {
-                foreach ($this->forEvent($system, $event) AS $result) {
+                foreach ($this->forEvent($event) AS $result) {
                     $points[$result['entity']->id]['entity'] = $result['entity'];
                     $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
                     $points[$result['entity']->id]['positions'][$event->id] = $result['position'];
@@ -111,17 +111,16 @@ class DriverPoints
 
     /**
      * Get points for the given system for each event in the given championship
-     * @param DirtPointsSystem $system
      * @param Collection $seasons
      * @return array
      */
-    public function overview(DirtPointsSystem $system, Collection $seasons)
+    public function overview(Collection $seasons)
     {
         $points = [];
         foreach($seasons AS $season) {
             foreach ($season->events AS $event) {
                 if ($event->isComplete()) {
-                    foreach ($this->forEvent($system, $event) AS $result) {
+                    foreach ($this->forEvent($event) AS $result) {
                         foreach($result['stagePoints'] AS $stage => $stagePoints) {
                             $points[$result['entity']->id]['stages'][$stage] = $stagePoints;
                         }
@@ -139,16 +138,15 @@ class DriverPoints
 
     /**
      * Get overall points for the given system (on the given collection of seasons)
-     * @param DirtPointsSystem $system
      * @param Collection $seasons
      * @return array
      */
-    public function overall(DirtPointsSystem $system, Collection $seasons)
+    public function overall(Collection $seasons)
     {
         $points = [];
         // Step through the seasons and pull in results
         foreach($seasons AS $season) {
-            foreach ($this->forSeason($system, $season) AS $result) {
+            foreach ($this->forSeason($season) AS $result) {
                 $points[$result['entity']->id]['entity'] = $result['entity'];
                 $points[$result['entity']->id]['points'][$season->id] = $result['total'];
                 $points[$result['entity']->id]['positions'][$season->id] = $result['position'];
