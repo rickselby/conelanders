@@ -2,7 +2,8 @@
 
 Route::get('/', 'AssettoCorsaController@index')->name('assetto-corsa.index');
 
-Route::resource('championship', 'ChampionshipController');
+Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
+Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantController@update')->name('assetto-corsa.championship.entrants.update');
 
 Route::get('/championship/{championship}/race/{race}/entrants',
     'ChampionshipRaceController@entrants')->name('assetto-corsa.championship.race.entrants');
@@ -23,12 +24,10 @@ Route::get('/championship/{championship}/race/{race}/qualifying-results-scan',
 Route::get('/championship/{championship}/race/{race}/race-results-scan',
     'ChampionshipRaceController@raceResultsScan')->name('assetto-corsa.championship.race.race-results-scan');
 
+Route::resource('championship', 'ChampionshipController');
 Route::resource('championship.race', 'ChampionshipRaceController', [['except' => ['index']]]);
 
-Route::get('standings', 'StandingsController@index')->name('assetto-corsa.standings.index');
-Route::get('standings/{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
-Route::get('standings/{championship}/{race}', 'StandingsController@race')->name('assetto-corsa.standings.race');
-Route::get('standings/{championship}/{race}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.race.lapchart');
+Route::get('{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
+Route::get('{championship}/{race}', 'StandingsController@race')->name('assetto-corsa.standings.race');
+Route::get('{championship}/{race}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.race.lapchart');
 
-Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
-Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantController@update')->name('assetto-corsa.championship.entrants.update');

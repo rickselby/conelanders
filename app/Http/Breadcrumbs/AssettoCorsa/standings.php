@@ -7,7 +7,7 @@ Breadcrumbs::register('assetto-corsa.standings.index', function($breadcrumbs) {
 
 Breadcrumbs::register('assetto-corsa.standings.championship',
     function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
-        $breadcrumbs->parent('assetto-corsa.standings.index');
+        $breadcrumbs->parent('assetto-corsa.index');
         $breadcrumbs->push($championship->name, route('assetto-corsa.standings.championship', $championship));
     }
 );
