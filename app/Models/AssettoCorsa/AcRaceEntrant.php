@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcRaceEntrant extends \Eloquent
 {
-    protected $fillable = ['ballast', 'car', 'race_disqualified'];
+    protected $fillable = ['ballast', 'car'];
 
     protected $casts = [
         'ballast' => 'integer',
@@ -13,7 +13,8 @@ class AcRaceEntrant extends \Eloquent
         'race_time' => 'integer',
         'race_behind' => 'integer',
         'race_fastest_lap_position' => 'integer',
-        'race_disqualified' => false,
+        'race_disqualified' => 'boolean',
+        'race_retired' => 'boolean',
     ];
 
     public function race()

@@ -32,6 +32,8 @@
                     @if (isset($detail['races'][$race->id]))
                         @if ($detail['races'][$race->id]['raceDSQ'])
                             <td class="position position-dsq">DSQ</td>
+                        @elseif ($detail['races'][$race->id]['raceDNF'])
+                            <td class="position position-dnf">Ret</td>
                         @else
                             <td class="position {{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
                                 @if ($detail['races'][$race->id]['qualPosition'] == 1)

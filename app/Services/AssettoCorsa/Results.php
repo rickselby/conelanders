@@ -116,7 +116,7 @@ class Results
     public function race(AcRace $race)
     {
         $results = [];
-        $bestTime = $lastTime = 0;
+        $bestTime = $lastTime = $numLaps = 0;
         $bestLapEntrant = $race->entrants()->where('race_fastest_lap_position', 1)->first();
         $bestLap = $bestLapEntrant ? $bestLapEntrant->raceFastestLap->time : null;
 
@@ -130,11 +130,14 @@ class Results
 
                 $gapToBest = null;
                 $gapToLast = null;
+                $lapsBehind = null;
                 if ($entrant->race_time) {
                     if ($bestTime) {
                         $gapToBest = $entrant->race_time - $bestTime;
+                        $lapsBehind = $numLaps - $entrant->race_laps;
                     } else {
                         $bestTime = $entrant->race_time;
+                        $numLaps = $entrant->race_laps;
                     }
                     if ($lastTime) {
                         $gapToLast = $entrant->race_time - $lastTime;
@@ -151,8 +154,10 @@ class Results
                     'rookie' => $entrant->championshipEntrant->rookie,
                     'car' => $entrant->car,
                     'laps' => $entrant->race_laps,
+                    'lapsBehind' => $lapsBehind,
                     'time' => $entrant->race_time,
                     'DSQ' => $entrant->race_disqualified,
+                    'DNF' => $entrant->race_retired,
                     'toBest' => $gapToBest,
                     'toLast' => $gapToLast,
                     'positionChange' => $entrant->qualifying_position - $entrant->race_position,
