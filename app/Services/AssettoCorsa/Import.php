@@ -101,23 +101,32 @@ class Import
         $entrants = $this->getEntrantsByID($race);
         $bestLaps = [];
 
+        // Tidy up things we're going to overwrite
+        foreach($entrants AS $entrant) {
+            $entrant->qualifyingLap()->delete();
+        }
+
         $position = 1;
         foreach($results->Result AS $result) {
-            $entrant = $entrants[$result->DriverGuid];
+            if (isset($entrants[$result->DriverGuid])) {
+                $entrant = $entrants[$result->DriverGuid];
 
-            $entrant->qualifying_position = $position++;
-            // Need to do qualifying lap
-            $bestLaps[$result->DriverGuid] = $result->BestLap;
+                $entrant->qualifying_position = $position++;
+                // Need to do qualifying lap
+                $bestLaps[$result->DriverGuid] = $result->BestLap;
 
-            $entrant->save();
+                $entrant->save();
+            }
         }
 
         foreach($results->Laps AS $lap) {
-            if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
-                $acLap = $this->createLap($lap);
-                // Associate with the entrant
-                $entrants[$lap->DriverGuid]->qualifyingLap()->associate($acLap);
-                $entrants[$lap->DriverGuid]->save();
+            if (isset($entrants[$lap->DriverGuid])) {
+                if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
+                    $acLap = $this->createLap($lap);
+                    // Associate with the entrant
+                    $entrants[$lap->DriverGuid]->qualifyingLap()->associate($acLap);
+                    $entrants[$lap->DriverGuid]->save();
+                }
             }
         }
 
@@ -131,44 +140,55 @@ class Import
         $entrants = $this->getEntrantsByID($race);
         $bestLaps = [];
 
+        // Tidy up things we're going to overwrite
+        foreach($entrants AS $entrant) {
+            $entrant->raceFastestLap()->delete();
+            $entrant->raceLaps()->delete();
+        }
+
         $position = 1;
         $bestTime = 0;
         foreach($results->Result AS $result) {
-            $entrant = $entrants[$result->DriverGuid];
+            if (isset($entrants[$result->DriverGuid])) {
+                $entrant = $entrants[$result->DriverGuid];
 
-            $entrant->race_position = $position++;
-            $entrant->race_time = $result->TotalTime;
-            $entrant->race_laps = 0;
+                $entrant->race_position = $position++;
+                $entrant->race_time = $result->TotalTime;
+                $entrant->race_laps = 0;
 
-            if ($bestTime) {
-                $entrant->race_behind = $result->TotalTime - $bestTime;
-            } else {
-                $bestTime = $result->TotalTime;
-                $entrant->race_behind = null;
+                if ($bestTime) {
+                    $entrant->race_behind = $result->TotalTime - $bestTime;
+                } else {
+                    $bestTime = $result->TotalTime;
+                    $entrant->race_behind = null;
+                }
+                $bestLaps[$result->DriverGuid] = $result->BestLap;
             }
-            $bestLaps[$result->DriverGuid] = $result->BestLap;
         }
 
         foreach($results->Laps AS $lap) {
-            // Save the lap details
-            $acLap = $this->createLap($lap);
+            if (isset($entrants[$lap->DriverGuid])) {
 
-            // Create a race lap entry for it
-            $raceLap = AcRaceLap::create([
-                'time' => $lap->Timestamp,
-            ]);
-            $raceLap->lap()->associate($acLap);
-            $raceLap->save();
-
-            // Associate the lap with the entrant
-            $entrants[$lap->DriverGuid]->race_laps++;
-            $entrants[$lap->DriverGuid]->raceLaps()->save($raceLap);
-
-            // Is it their best lap?
-            if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
+                // Save the lap details
                 $acLap = $this->createLap($lap);
-                // Associate with the entrant
-                $entrants[$lap->DriverGuid]->raceFastestLap()->associate($acLap);
+
+                // Create a race lap entry for it
+                $raceLap = AcRaceLap::create([
+                    'time' => $lap->Timestamp,
+                ]);
+                $raceLap->lap()->associate($acLap);
+                $raceLap->save();
+
+                // Associate the lap with the entrant
+                $entrants[$lap->DriverGuid]->race_laps++;
+                $entrants[$lap->DriverGuid]->raceLaps()->save($raceLap);
+
+                // Is it their best lap?
+                if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
+                    $acLap = $this->createLap($lap);
+                    // Associate with the entrant
+                    $entrants[$lap->DriverGuid]->raceFastestLap()->associate($acLap);
+                }
             }
         }
 
