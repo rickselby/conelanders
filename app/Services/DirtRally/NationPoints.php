@@ -3,7 +3,6 @@
 namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\DirtEvent;
-use App\Models\DirtRally\DirtPointsSystem;
 use App\Models\Nation;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -11,16 +10,15 @@ class NationPoints extends DriverPoints
 {
     /**
      * Get event points and work out average points per nation
-     * @param DirtPointsSystem $system
      * @param DirtEvent $event
      * @return array
      */
-    public function forEvent(DirtPointsSystem $system, DirtEvent $event)
+    public function forEvent(DirtEvent $event)
     {
         $points = [];
 
         if ($event->isComplete()) {
-            $driverResults = parent::forEvent($system, $event);
+            $driverResults = parent::forEvent($event);
 
             foreach ($driverResults AS $driver) {
                 $nationID = $driver['entity']->nation->id;
@@ -60,17 +58,16 @@ class NationPoints extends DriverPoints
 
     /**
      * Get points for the given system for each event in the given championship
-     * @param DirtPointsSystem $system
      * @param Collection $season
      * @return array
      */
-    public function overview(DirtPointsSystem $system, Collection $seasons)
+    public function overview(Collection $seasons)
     {
         $points = [];
         foreach($seasons AS $season) {
             foreach ($season->events AS $event) {
                 if ($event->isComplete()) {
-                    foreach ($this->forEvent($system, $event) AS $position => $result) {
+                    foreach ($this->forEvent($event) AS $position => $result) {
                         $points[$result['entity']->id]['entity'] = $result['entity'];
                         $points[$result['entity']->id]['points'][$event->id] = $result['total']['points'];
                         $points[$result['entity']->id]['positions'][] = $position;
@@ -84,14 +81,13 @@ class NationPoints extends DriverPoints
 
     /**
      * Get the points for drivers for the given nation
-     * @param DirtPointsSystem $system
      * @param DirtEvent $event
      * @param Nation $nation
      * @return array
      */
-    public function details(DirtPointsSystem $system, DirtEvent $event, Nation $nation)
+    public function details(DirtEvent $event, Nation $nation)
     {
-        $driverResults = \DirtRallyDriverPoints::forEvent($system, $event);
+        $driverResults = \DirtRallyDriverPoints::forEvent($event);
 
         $results = [];
         foreach($driverResults AS $result) {

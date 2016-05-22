@@ -2,7 +2,7 @@
 
 Breadcrumbs::register('assetto-corsa.championship.index', function($breadcrumbs) {
     $breadcrumbs->parent('assetto-corsa.index');
-    $breadcrumbs->push('Results', route('assetto-corsa.championship.index'));
+    $breadcrumbs->push('Championship Management', route('assetto-corsa.championship.index'));
 });
 
 Breadcrumbs::register('assetto-corsa.championship.create', function($breadcrumbs) {

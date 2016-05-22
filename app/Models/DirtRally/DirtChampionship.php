@@ -2,6 +2,7 @@
 
 namespace App\Models\DirtRally;
 
+use App\Models\PointsSequence;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
@@ -11,7 +12,7 @@ class DirtChampionship extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'event_points_sequence', 'stage_points_sequence'];
 
     protected $sluggable = [
         'build_from' => 'shortName'
@@ -21,6 +22,16 @@ class DirtChampionship extends \Eloquent implements SluggableInterface
     {
         // Can't sort at database level
         return $this->hasMany(DirtSeason::class);
+    }
+
+    public function eventPointsSequence()
+    {
+        return $this->belongsTo(PointsSequence::class, 'event_points_sequence');
+    }
+
+    public function stagePointsSequence()
+    {
+        return $this->belongsTo(PointsSequence::class, 'stage_points_sequence');
     }
 
     public function getOpensAttribute()

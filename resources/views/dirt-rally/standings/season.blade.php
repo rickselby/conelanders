@@ -9,7 +9,7 @@
             <th>Driver</th>
             @foreach($season->events AS $event)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('dirt-rally.standings.event', [$system, $season->championship, $season, $event]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.standings.event', [$season->championship, $season, $event]) }}" class="tablesorter-noSort">
                         {{ $event->name }}
                     </a>
                 </th>

@@ -24,7 +24,7 @@
                 <th>{{ $detail['position'] }}</th>
                 <th>
                     @include('nation.image', ['nation' => $detail['entity']])
-                    <a href="{{ route('dirt-rally.nationstandings.detail', [$system, $event->season->championship, $event->season, $event, $detail['entity']]) }}">
+                    <a href="{{ route('dirt-rally.nationstandings.detail', [$event->season->championship, $event->season, $event, $detail['entity']]) }}">
                         {{ $detail['entity']->name }}
                     </a>
                 </th>

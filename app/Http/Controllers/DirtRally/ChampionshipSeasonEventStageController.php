@@ -10,7 +10,7 @@ class ChampionshipSeasonEventStageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['show']]);
+        $this->middleware('admin');
         $this->middleware('dirt-rally.validateEvent', ['only' => ['create', 'store']]);
         $this->middleware('dirt-rally.validateStage', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }

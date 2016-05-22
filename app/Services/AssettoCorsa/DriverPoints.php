@@ -3,18 +3,18 @@
 namespace App\Services\AssettoCorsa;
 
 use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcPointsSystem;
 use App\Models\AssettoCorsa\AcRace;
-use Illuminate\Database\Eloquent\Collection;
 
 class DriverPoints
 {
-    public function forRace(AcPointsSystem $system, AcRace $race)
+    public function forRace(AcRace $race)
     {
         $points = [];
 
         if ($race->canBeReleased()) {
-            $system = \ACPointsSystems::forSystem($system);
+            $system['qual'] = \PointSequences::get($race->championship->qualPointsSequence);
+            $system['race'] = \PointSequences::get($race->championship->racePointsSequence);
+            $system['laps'] = \PointSequences::get($race->championship->lapsPointsSequence);
 
             foreach($race->entrants AS $entrant) {
 
@@ -73,11 +73,10 @@ class DriverPoints
 
     /**
      * Get points for the given system for the given season
-     * @param ACPointsSystem $system
      * @param AcChampionship $championship
      * @return array
      */
-    public function forChampionship(AcPointsSystem $system, AcChampionship $championship)
+    public function forChampionship(AcChampionship $championship)
     {
         $championship->load('races.entrants.championshipEntrant.driver.nation');
         $points = [];
@@ -89,7 +88,7 @@ class DriverPoints
         }
         foreach($championship->races AS $race) {
             if ($race->canBeReleased()) {
-                foreach ($this->forRace($system, $race) AS $result) {
+                foreach ($this->forRace($race) AS $result) {
                     $points[$result['driver']->id]['points'][$race->id] = $result['points'];
                     $points[$result['driver']->id]['races'][$race->id] = $result;
                     $points[$result['driver']->id]['positions'][] = $result['position'];

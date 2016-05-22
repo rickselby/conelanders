@@ -10,7 +10,7 @@ class ChampionshipSeasonEventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' => ['show']]);
+        $this->middleware('admin');
         $this->middleware('dirt-rally.validateSeason', ['only' => ['create', 'store']]);
         $this->middleware('dirt-rally.validateEvent', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }
@@ -56,6 +56,7 @@ class ChampionshipSeasonEventController extends Controller
     public function show($championship, $season, $event)
     {
         $event = \Request::get('event');
+        $event->load('stages.results.driver', 'positions.driver');
         return view('dirt-rally.event.show')
             ->with('event', $event)
             ->with('results', \Positions::addEquals(\DirtRallyResults::getEventResults($event)));

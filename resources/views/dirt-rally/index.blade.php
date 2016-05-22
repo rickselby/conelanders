@@ -8,17 +8,28 @@
 
 @section('content')
 
+    @if (count($currentEvents))
+        <h2>Current Events</h2>
+        <ul>
+            @foreach($currentEvents AS $event)
+                <li>
+                    <a href="{{ route('dirt-rally.event', [$event->season->championship, $event->season, $event]) }}">
+                        {{ $event->fullName }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
     @if ($currentChampionship)
         <h2>Current Championship: {{ $currentChampionship->name }}</h2>
         <div class="btn-group btn-group-lg" role="group">
             <a class="btn btn-primary"  role="button"
-               href="{{ route('dirt-rally.standings.championship', [$defaultPointSystem, $currentChampionship]) }}">Driver Standings</a>
+               href="{{ route('dirt-rally.standings.championship', $currentChampionship) }}">Driver Standings</a>
             <a class="btn btn-info"  role="button"
-               href="{{ route('dirt-rally.nationstandings.championship', [$defaultPointSystem, $currentChampionship]) }}">Nation Standings</a>
+               href="{{ route('dirt-rally.nationstandings.championship', $currentChampionship) }}">Nation Standings</a>
             <a class="btn btn-info"  role="button"
                href="{{ route('dirt-rally.times.championship', $currentChampionship) }}">Total Times</a>
-            <a class="btn btn-info"  role="button"
-               href="{{ route('dirt-rally.championship.show', $currentChampionship) }}">Results</a>
         </div>
     @endif
 
@@ -28,15 +39,14 @@
             <h3>{{ $championship->name }}</h3>
             <div class="btn-group" role="group">
                 <a class="btn btn-primary"  role="button"
-                   href="{{ route('dirt-rally.standings.championship', [$defaultPointSystem, $championship]) }}">Driver Standings</a>
+                   href="{{ route('dirt-rally.standings.championship', $championship) }}">Driver Standings</a>
                 <a class="btn btn-info"  role="button"
-                   href="{{ route('dirt-rally.nationstandings.championship', [$defaultPointSystem, $championship]) }}">Nation Standings</a>
+                   href="{{ route('dirt-rally.nationstandings.championship', $championship) }}">Nation Standings</a>
                 <a class="btn btn-info"  role="button"
                    href="{{ route('dirt-rally.times.championship', $championship) }}">Total Times</a>
-                <a class="btn btn-info"  role="button"
-                   href="{{ route('dirt-rally.championship.show', $championship) }}">Results</a>
             </div>
         @endforeach
     @endif
+
 
 @endsection

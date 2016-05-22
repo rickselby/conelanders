@@ -231,17 +231,16 @@ return [
         'ACDriverPoints' => App\Services\Facades\AssettoCorsa\DriverPointsFacade::class,
         'ACEntrants' => App\Services\Facades\AssettoCorsa\EntrantsFacade::class,
         'ACImport' => App\Services\Facades\AssettoCorsa\ImportFacade::class,
-        'ACPointsSystems' => App\Services\Facades\AssettoCorsa\PointsSystemsFacade::class,
         'ACRace' => App\Services\Facades\AssettoCorsa\RaceFacade::class,
         'ACResults' => App\Services\Facades\AssettoCorsa\ResultsFacade::class,
 
         'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,
+        'DirtRallyEvents' => App\Services\Facades\DirtRally\EventsFacade::class,
         'DirtRallyImportDirt' => App\Services\Facades\DirtRally\ImportDirtFacade::class,
         'DirtRallyImportCSV' => App\Services\Facades\DirtRally\ImportCSVFacade::class,
         'DirtRallyNationPoints' => App\Services\Facades\DirtRally\NationPointsFacade::class,
         'DirtRallyResults' => App\Services\Facades\DirtRally\ResultsFacade::class,
         'DirtRallyPositions' => App\Services\Facades\DirtRally\PositionsFacade::class,
-        'DirtRallyPointSequences' => App\Services\Facades\DirtRally\PointSequencesFacade::class,
         'DirtRallyTimes' => App\Services\Facades\DirtRally\TimesFacade::class,
     ],
 

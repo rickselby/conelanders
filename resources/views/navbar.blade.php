@@ -36,15 +36,12 @@
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Dirt Rally</li>
                         <li>
-                            <a href="{{ route('dirt-rally.points-system.index') }}">Points Systems</a>
+                            <a href="{{ route('dirt-rally.championship.index') }}">Championship Management</a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Assetto Corsa</li>
                         <li>
                             <a href="{{ route('assetto-corsa.championship.index') }}">Championship/Race Management</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('assetto-corsa.points-system.index') }}">Points Systems</a>
                         </li>
                     </ul>
                 </li>

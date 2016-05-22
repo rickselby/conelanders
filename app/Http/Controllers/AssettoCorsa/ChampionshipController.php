@@ -31,7 +31,8 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        return view('assetto-corsa.championship.create');
+        return view('assetto-corsa.championship.create')
+            ->with('sequences', \PointSequences::forSelect());
     }
 
     /**
@@ -69,7 +70,8 @@ class ChampionshipController extends Controller
     public function edit(AcChampionship $championship)
     {
         return view('assetto-corsa.championship.edit')
-            ->with('championship', $championship);
+            ->with('championship', $championship)
+            ->with('sequences', \PointSequences::forSelect());         
     }
 
     /**

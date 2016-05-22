@@ -2,6 +2,7 @@
 
 namespace App\Models\AssettoCorsa;
 
+use App\Models\PointsSequence;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
@@ -11,7 +12,7 @@ class AcChampionship extends \Eloquent implements SluggableInterface
 {
     use SluggableTrait;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'qual_points_sequence', 'race_points_sequence', 'laps_points_sequence'];
 
     protected $sluggable = [
         'build_from' => 'shortName'
@@ -25,6 +26,21 @@ class AcChampionship extends \Eloquent implements SluggableInterface
     public function entrants()
     {
         return $this->hasMany(AcChampionshipEntrant::class);
+    }
+
+    public function qualPointsSequence()
+    {
+        return $this->belongsTo(PointsSequence::class, 'qual_points_sequence');
+    }
+
+    public function racePointsSequence()
+    {
+        return $this->belongsTo(PointsSequence::class, 'race_points_sequence');
+    }
+
+    public function lapsPointsSequence()
+    {
+        return $this->belongsTo(PointsSequence::class, 'laps_points_sequence');
     }
 
     public function getShortNameAttribute()

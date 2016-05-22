@@ -3,7 +3,7 @@
 @section('content')
 
     <p>
-        <a href="{{ route('dirt-rally.nationstandings.overview', [$system, $championship]) }}"
+        <a href="{{ route('dirt-rally.nationstandings.overview', $championship) }}"
            class="btn btn-primary" role="button">
             View all points on one page
         </a>
@@ -16,7 +16,7 @@
             <th>Nation</th>
             @foreach($seasons AS $season)
                 <th data-sortInitialOrder="desc">
-                    <a href="{{ route('dirt-rally.nationstandings.season', [$system, $championship, $season]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('dirt-rally.nationstandings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
                     </a>
                 </th>

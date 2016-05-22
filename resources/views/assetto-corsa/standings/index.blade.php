@@ -3,10 +3,10 @@
 @section('content')
 
     <ul>
-        @foreach($systems AS $system)
+        @foreach($championships AS $championship)
             <li>
-                <a href="{{ route('assetto-corsa.standings.system', $system) }}" class="tablesorter-noSort">
-                    {{ $system->name }}
+                <a href="{{ route('assetto-corsa.standings.championship', $championship) }}">
+                    {{ $championship->name }}
                 </a>
             </li>
         @endforeach

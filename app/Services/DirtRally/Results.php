@@ -4,7 +4,6 @@ namespace App\Services\DirtRally;
 
 use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
-use App\Models\DirtRally\DirtPointsSystem;
 use App\Models\DirtRally\DirtResult;
 
 class Results
@@ -83,10 +82,7 @@ class Results
             if (!isset($championships[$championshipID])) {
                 // Load back down the chain
                 $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
-                $points = \DirtRallyDriverPoints::overall(
-                    DirtPointsSystem::where('default', true)->first(),
-                    $result->stage->event->season->championship->seasons
-                );
+                $points = \DirtRallyDriverPoints::overall($result->stage->event->season->championship->seasons);
                 $points = array_where($points, function($key, $value) use ($driver) {
                     return $value['entity']->id == $driver->id;
                 });
