@@ -107,6 +107,7 @@
                                         </a>
                                     @else
                                         DSQ {!! Form::checkbox('race_disqualified['.$entrant->id.']', 1, $entrant->race_disqualified) !!}
+                                        DNF {!! Form::checkbox('race_retired['.$entrant->id.']', 1, $entrant->race_retired) !!}
                                     @endif
                                 </td>
                             </tr>

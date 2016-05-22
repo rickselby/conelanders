@@ -17,10 +17,19 @@ class DriverPoints
             $system = \ACPointsSystems::forSystem($system);
 
             foreach($race->entrants AS $entrant) {
-                $racePoints = isset($system['race'][$entrant->race_position])
-                    ? $system['race'][$entrant->race_position] : 0;
-                $lapsPoints = isset($system['laps'][$entrant->race_fastest_lap_position])
-                    ? $system['laps'][$entrant->race_fastest_lap_position] : 0;
+
+                $racePoints =
+                    (isset($system['race'][$entrant->race_position])
+                        && !$entrant->race_disqualified
+                        && !$entrant->race_retired)
+                    ? $system['race'][$entrant->race_position]
+                    : 0;
+
+                $lapsPoints =
+                    isset($system['laps'][$entrant->race_fastest_lap_position])
+                    ? $system['laps'][$entrant->race_fastest_lap_position]
+                    : 0;
+
                 $points[$entrant->championshipEntrant->driver->id] = [
                     'driver' => $entrant->championshipEntrant->driver,
                     'rookie' => $entrant->championshipEntrant->rookie,
@@ -28,6 +37,7 @@ class DriverPoints
                     'racePoints' => $racePoints,
                     'racePosition' => $entrant->race_position,
                     'raceDSQ' => $entrant->race_disqualified,
+                    'raceDNF' => $entrant->race_retired,
                     'lapsPoints' => $lapsPoints,
                     'lapsPosition' => $entrant->race_fastest_lap_position,
                     'points' => $racePoints + $lapsPoints,

@@ -14,6 +14,7 @@ class Entrants
         foreach($race->entrants AS $entrant) {
             $entrant->car = $request->get('car')[$entrant->id];
             $entrant->race_disqualified = isset($request->get('race_disqualified')[$entrant->id]);
+            $entrant->race_retired = isset($request->get('race_retired')[$entrant->id]);
             $entrant->save();
         }
     }

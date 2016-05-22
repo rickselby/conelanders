@@ -84,6 +84,8 @@
                     <tr>
                         @if ($result['DSQ'])
                             <th class="position-dsq">DSQ</th>
+                        @elseif ($result['DNF'])
+                            <th class="position-dnf">Ret</th>
                         @else
                             <th>{{ $result['position'] }}</th>
                         @endif
@@ -93,7 +95,15 @@
                         <td>{{ $result['car'] }}</td>
                         <td class="text-center">{{ $result['laps'] }}</td>
                         <td class="time">{{ Times::toString($result['time']) }}</td>
-                        <td class="time">{{ ($result['toBest'] > 0) ? '+'.Times::toString($result['toBest']) : '-' }}</td>
+                        <td class="time">
+                            @if ($result['DSQ'] || $result['DNF'])
+                                -
+                            @elseif ($result['lapsBehind'])
+                                {{ '+ '.$result['lapsBehind'].' lap'.($result['lapsBehind'] > 1 ? 's' : '') }}
+                            @elseif ($result['toBest'] > 0)
+                                {{ '+'.Times::toString($result['toBest']) }}
+                            @endif
+                        </td>
                         <td class="time">{{ ($result['toLast'] > 0) ? '+'.Times::toString($result['toLast']) : '-' }}</td>
                         <td class="text-right">{{ abs($result['positionChange']) }}</td>
                         <td>
