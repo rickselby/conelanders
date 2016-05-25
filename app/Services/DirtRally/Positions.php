@@ -46,10 +46,10 @@ class Positions
         foreach($event->stages AS $stage) {
             foreach($stage->results AS $result) {
                 if (!isset($times[$result->driver->id])) {
-                    $times[$result->driver->id] = ['time' => 0, 'stages' => 0];
+                    $times[$result->driver->id] = ['time' => 0, 'stages' => 0, 'dnf' => false];
                 }
                 if ($result->dnf) {
-                    $times[$result->driver->id]['time'] += $stage->long ? ImportAbstract::LONG_DNF : ImportAbstract::SHORT_DNF;
+                    $times[$result->driver->id]['dnf'] = true;
                 } else {
                     $times[$result->driver->id]['time'] += $result->time;
                 }
@@ -60,7 +60,13 @@ class Positions
         // Sort the drivers by the number of stages (desc) and time (asc)
         uasort($times, function($a, $b) {
             if ($a['stages'] == $b['stages']) {
-                return $a['time'] - $b['time'];
+		if (!$a['dnf'] && !$b['dnf']) {
+                    return $a['time'] - $b['time'];
+                } elseif ($a['dnf']) {
+                    return 1;
+                } else {
+                    return -1;
+                }
             } else {
                 return $b['stages'] - $a['stages'];
             }
