@@ -33,11 +33,10 @@
                                        href="{{ route('assetto-corsa.championship.event.session.entrants.destroy', [$session->event->championship, $session->event, $session, $entrant]) }}">
                                         Delete
                                     </a>
-                                @else
-                                    @if ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_RACE)
-                                        DSQ {!! Form::checkbox('dsq['.$entrant->id.']', 1, $entrant->dsq) !!}
-                                        DNF {!! Form::checkbox('dnf['.$entrant->id.']', 1, $entrant->dnf) !!}
-                                    @endif
+                                @endif
+                                @if ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_RACE)
+                                    DSQ {!! Form::checkbox('dsq['.$entrant->id.']', 1, $entrant->dsq) !!}
+                                    DNF {!! Form::checkbox('dnf['.$entrant->id.']', 1, $entrant->dnf) !!}
                                 @endif
                             </td>
                         </tr>

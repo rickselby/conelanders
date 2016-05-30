@@ -58,8 +58,8 @@ class Results
                 $entrantID = $result['entrant']->id;
                 $results[$entrantID]['points'] += $result['points'];
                 $results[$entrantID]['eventPoints'][$event->id] = $result['points'];
-                $results[$entrantID]['positions'][] = $result['position'];
-                sort($results[$entrantID]['positions']);
+                $results[$entrantID]['positions'][$event->id] = $result['position'];
+                asort($results[$entrantID]['positions']);
             }
         }
 
