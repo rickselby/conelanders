@@ -14,17 +14,17 @@
            href="{{ route('assetto-corsa.championship.entrants.index', $championship) }}">Manage Entrants</a>
     </p>
 
-    <h2>Races</h2>
+    <h2>Events</h2>
     <p>
         <a class="btn btn-small btn-info"
-           href="{{ route('assetto-corsa.championship.race.create', $championship) }}">Add a new race</a>
+           href="{{ route('assetto-corsa.championship.event.create', $championship) }}">Add a new event</a>
     </p>
 
     <ul>
-        @forelse($championship->races AS $race)
+        @forelse($championship->events AS $event)
             <li>
-                <a href="{{ route('assetto-corsa.championship.race.show', [$championship, $race]) }}">
-                    {{ $race->name }}
+                <a href="{{ route('assetto-corsa.championship.event.show', [$championship, $event]) }}">
+                    {{ $event->name }}
                 </a>
             </li>
         @empty

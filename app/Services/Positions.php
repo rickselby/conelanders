@@ -9,7 +9,7 @@ class Positions
 {
     /**
      * @param [] $array
-     * @param \Closure $equalFunction
+     * @param callable $equalFunction
      */
     public function addToArray($array, $equalFunction)
     {

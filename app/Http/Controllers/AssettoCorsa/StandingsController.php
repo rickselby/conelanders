@@ -13,35 +13,31 @@ class StandingsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('assetto-corsa.validateRace')->only(['race', 'lapChart']);
+        $this->middleware('assetto-corsa.validateEvent')->only(['event']);
+        $this->middleware('assetto-corsa.validateSession')->only(['lapChart']);
     }
 
-    public function championship(AcChampionship $championship, DriverPoints $driverPoints, Results $resultsService)
+    public function championship(AcChampionship $championship, Results $resultsService)
     {
-        $championship->load('races.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
-        $races = $championship->races()->get()->sortBy('time');
+        $championship->load('events.sessions.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
+        $events = $championship->events()->get()->sortBy('time');
         return view('assetto-corsa.standings.championship')
             ->with('championship', $championship)
-            ->with('races', $races)
-            ->with('points', \Positions::addEquals($driverPoints->forChampionship($championship)))
-            ->with('summary', $resultsService->summary($championship));
+            ->with('events', $events)
+            ->with('points', \Positions::addEquals($resultsService->championship($championship)));
     }
 
-    public function race($championship, $race, Results $resultsService)
+    public function event($championshipStub, $eventStub)
     {
-        $race = \Request::get('race');
-        $race->load('entrants.championshipEntrant.driver.nation');
-        return view('assetto-corsa.standings.race')
-            ->with('race', $race)
-            ->with('qualifying', $resultsService->qualifying($race))
-            ->with('results', $resultsService->race($race))
-            ;
+        $event = \Request::get('event');
+        return view('assetto-corsa.standings.event')
+            ->with('event', $event);
     }
 
-    public function lapChart($championship, $race, Results $resultsService)
+    public function lapChart($championshipStub, $raceStub, $sessionStub, Results $resultsService)
     {
-        $race = \Request::get('race');
-        $content = $resultsService->lapChart($race);
+        $session = \Request::get('session');
+        $content = $resultsService->lapChart($session);
         $response = \Response::make($content);
         $response->header('Content-type',  'image/svg+xml');
         return $response;

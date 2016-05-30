@@ -9,10 +9,10 @@
         <tr>
             <th>Pos.</th>
             <th>Driver</th>
-            @foreach($races AS $race)
+            @foreach($events AS $event)
                 <th>
-                    <a href="{{ route('assetto-corsa.standings.race', [$championship, $race]) }}" class="tablesorter-noSort">
-                        {{ \Helpers::getInitials($race->name) }}
+                    <a href="{{ route('assetto-corsa.standings.event', [$championship, $event]) }}" class="tablesorter-noSort">
+                        {{ \Helpers::getInitials($event->name) }}
                     </a>
                 </th>
             @endforeach
@@ -28,82 +28,17 @@
                 <th>
                     @include('assetto-corsa.driver.name', ['entrant' => $detail['entrant']])
                 </th>
-                @foreach($races AS $race)
-                    @if (isset($detail['races'][$race->id]))
-                        @if ($detail['races'][$race->id]['raceDSQ'])
-                            <td class="position position-dsq">DSQ</td>
-                        @elseif ($detail['races'][$race->id]['raceDNF'])
-                            <td class="position position-dnf">Ret</td>
-                        @else
-                            <td class="position {{ \Positions::colour($detail['races'][$race->id]['racePosition'], $detail['races'][$race->id]['racePoints']) }}">
-                                @if ($detail['races'][$race->id]['qualPosition'] == 1)
-                                    <em>
-                                @endif
-                                @if ($detail['races'][$race->id]['lapsPosition'] == 1)
-                                    <strong>
-                                @endif
-                                    {{  $detail['races'][$race->id]['racePosition'] or '' }}
-                                @if ($detail['races'][$race->id]['lapsPosition'] == 1)
-                                    </strong>
-                                @endif
-                                @if ($detail['races'][$race->id]['qualPosition'] == 1)
-                                    </em>
-                                @endif
-                            </td>
-                        @endif
+                @foreach($events AS $event)
+                    @if (isset($detail['eventPoints'][$event->id]))
+                        <td class="position {{-- \Positions::colour($detail['races'][$event->id]['racePosition'], $detail['races'][$event->id]['racePoints']) --}}">
+                            {{ $detail['eventPoints'][$event->id] }}
+                        </td>
                     @else
                         <td></td>
                     @endif
                 @endforeach
-                <td class="points">{{ $detail['total'] }}</td>
+                <td class="points">{{ $detail['points'] }}</td>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
-
-    <h2>Summary</h2>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Race</th>
-            <th>Pole Position</th>
-            <th>Fastest Lap</th>
-            <th>Winning Driver</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($races AS $race)
-        <tr>
-            <th>
-                <a href="{{ route('assetto-corsa.standings.race', [$championship, $race]) }}">
-                    {{ $race->name }}
-                </a>
-            </th>
-            @if ($race->canBeReleased())
-                <td>
-                    @include('nation.image', ['nation' => $summary[$race->id]['pole']['driver']->nation])
-                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['pole']])
-                    {{ $summary[$race->id]['pole']['driver']->name }}
-                </td>
-                <td>
-                    @include('nation.image', ['nation' => $summary[$race->id]['fastestLap']['driver']->nation])
-                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['fastestLap']])
-                    {{ $summary[$race->id]['fastestLap']['driver']->name }}
-                </td>
-                <td>
-                    @include('nation.image', ['nation' => $summary[$race->id]['winner']['driver']->nation])
-                    @include('assetto-corsa.driver.badge', ['driver' => $summary[$race->id]['winner']])
-                    {{ $summary[$race->id]['winner']['driver']->name }}
-                </td>
-            @else
-                <td colspan="3" class="text-muted">
-                    @if ($race->release)
-                        {{ $race->release->format('l jS F Y, H:i e') }}
-                    @endif
-                </td>
-            @endif
-        </tr>
         @endforeach
         </tbody>
     </table>

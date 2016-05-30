@@ -18,29 +18,14 @@ class AcChampionship extends \Eloquent implements SluggableInterface
         'build_from' => 'shortName'
     ];
 
-    public function races()
+    public function events()
     {
-        return $this->hasMany(AcRace::class)->orderBy('time');
+        return $this->hasMany(AcEvent::class)->orderBy('time');
     }
 
     public function entrants()
     {
         return $this->hasMany(AcChampionshipEntrant::class);
-    }
-
-    public function qualPointsSequence()
-    {
-        return $this->belongsTo(PointsSequence::class, 'qual_points_sequence');
-    }
-
-    public function racePointsSequence()
-    {
-        return $this->belongsTo(PointsSequence::class, 'race_points_sequence');
-    }
-
-    public function lapsPointsSequence()
-    {
-        return $this->belongsTo(PointsSequence::class, 'laps_points_sequence');
     }
 
     public function getShortNameAttribute()
@@ -51,16 +36,16 @@ class AcChampionship extends \Eloquent implements SluggableInterface
     public function getEndsAttribute()
     {
         $dates = [];
-        foreach($this->races AS $race) {
-            $dates[] = max($race->time, $race->release);
+        foreach($this->events AS $event) {
+            $dates[] = max($event->time, $event->release);
         }
         return count($dates) ? max($dates) : Carbon::now();
     }
 
     public function isComplete()
     {
-        foreach($this->races AS $race) {
-            if (!$race->canBeReleased()) {
+        foreach($this->events AS $event) {
+            if (!$event->canBeReleased()) {
                 return false;
             }
         }

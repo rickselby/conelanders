@@ -228,10 +228,9 @@ return [
         'Positions' => App\Services\Facades\PositionsFacade::class,
 
         'ACChampionships' => App\Services\Facades\AssettoCorsa\ChampionshipsFacade::class,
-        'ACDriverPoints' => App\Services\Facades\AssettoCorsa\DriverPointsFacade::class,
         'ACEntrants' => App\Services\Facades\AssettoCorsa\EntrantsFacade::class,
         'ACImport' => App\Services\Facades\AssettoCorsa\ImportFacade::class,
-        'ACRace' => App\Services\Facades\AssettoCorsa\RaceFacade::class,
+        'ACSession' => App\Services\Facades\AssettoCorsa\SessionFacade::class,
         'ACResults' => App\Services\Facades\AssettoCorsa\ResultsFacade::class,
 
         'DirtRallyDriverPoints' => App\Services\Facades\DirtRally\DriverPointsFacade::class,

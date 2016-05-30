@@ -11,7 +11,7 @@
         <div id="ac-championship-{{ $championship['championship']->id }}" class="panel-collapse collapse" role="tabpanel">
             <div class="panel-body">
 
-                @include('assetto-corsa.driver.all-results.races')
+                @include('assetto-corsa.driver.all-results.events')
 
             </div>
         </div>
