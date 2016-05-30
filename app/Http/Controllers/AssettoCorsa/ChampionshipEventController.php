@@ -102,8 +102,8 @@ class ChampionshipEventController extends Controller
     public function destroy($championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
-        if ($event->entrants()->count()) {
-            \Notification::add('error', 'Event "'.$event->name.'" cannot be deleted - there are results entered');
+        if ($event->sessions()->count()) {
+            \Notification::add('error', 'Event "'.$event->name.'" cannot be deleted - there are sessions added');
             return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
         } else {
             $event->delete();
