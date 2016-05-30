@@ -106,7 +106,6 @@ class Import
         foreach($results->Result AS $result) {
             if (isset($entrants[$result->DriverGuid])) {
                 $entrants[$result->DriverGuid]->position = $position++;
-#                $entrants[$result->DriverGuid]->lap_count = 0;
                 if ($session->type == AcSession::TYPE_RACE) {
                     $entrants[$result->DriverGuid]->time = $result->TotalTime;
                 }
@@ -131,7 +130,6 @@ class Import
                 $sessionLap->save();
 
                 // And attach it to the entrant
-#                $entrants[$lap->DriverGuid]->lap_count++;
                 $entrants[$lap->DriverGuid]->laps()->save($sessionLap);
 
                 // Check if this is their fastest lap
@@ -142,9 +140,7 @@ class Import
             }
         }
         
-#        if ($session->type == AcSession::TYPE_RACE) {
             $this->setFastestLapPositions($entrants);
-#        }
 
         $session->importing = false;
         $session->save();

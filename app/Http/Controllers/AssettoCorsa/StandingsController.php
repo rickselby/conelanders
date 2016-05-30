@@ -24,8 +24,7 @@ class StandingsController extends Controller
         return view('assetto-corsa.standings.championship')
             ->with('championship', $championship)
             ->with('events', $events)
-            ->with('points', \Positions::addEquals($resultsService->championship($championship)))
-            ->with('summary', $resultsService->summary($championship));
+            ->with('points', \Positions::addEquals($resultsService->championship($championship)));
     }
 
     public function event($championshipStub, $eventStub)
