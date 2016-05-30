@@ -3,10 +3,16 @@
 namespace App\Services\AssettoCorsa;
 
 use App\Models\AssettoCorsa\AcChampionship;
+use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcRace;
 
 class DriverPoints
 {
+    
+    public function forEvent(AcEvent $event) {
+        $points = [];
+    }
+    
     public function forRace(AcRace $race)
     {
         $points = [];

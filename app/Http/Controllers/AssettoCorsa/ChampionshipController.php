@@ -21,7 +21,7 @@ class ChampionshipController extends Controller
     public function index()
     {
         return view('assetto-corsa.championship.index')
-            ->with('championships', AcChampionship::with('races')->get()->sortBy('ends'));
+            ->with('championships', AcChampionship::with('events')->get()->sortBy('ends'));
     }
 
     /**
@@ -31,8 +31,7 @@ class ChampionshipController extends Controller
      */
     public function create()
     {
-        return view('assetto-corsa.championship.create')
-            ->with('sequences', \PointSequences::forSelect());
+        return view('assetto-corsa.championship.create');
     }
 
     /**
@@ -70,8 +69,7 @@ class ChampionshipController extends Controller
     public function edit(AcChampionship $championship)
     {
         return view('assetto-corsa.championship.edit')
-            ->with('championship', $championship)
-            ->with('sequences', \PointSequences::forSelect());         
+            ->with('championship', $championship);         
     }
 
     /**
@@ -98,7 +96,7 @@ class ChampionshipController extends Controller
      */
     public function destroy(AcChampionship $championship)
     {
-        if ($championship->races->count()) {
+        if ($championship->events->count()) {
             \Notification::add('error', 'Championship "'.$championship->name.'" cannot be deleted - there are races assigned to it');
             return \Redirect::route('assetto-corsa.championship.show', $championship);
         } else {

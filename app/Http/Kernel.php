@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
         'dirt-rally.validateSeason' => \App\Http\Middleware\DirtRally\ValidateSeason::class,
         'dirt-rally.validateEvent' => \App\Http\Middleware\DirtRally\ValidateEvent::class,
         'dirt-rally.validateStage' => \App\Http\Middleware\DirtRally\ValidateStage::class,
-        'assetto-corsa.validateRace' => \App\Http\Middleware\AssettoCorsa\ValidateRace::class,
+        'assetto-corsa.validateEvent' => \App\Http\Middleware\AssettoCorsa\ValidateEvent::class,
+        'assetto-corsa.validateSession' => \App\Http\Middleware\AssettoCorsa\ValidateSession::class,
     ];
 }

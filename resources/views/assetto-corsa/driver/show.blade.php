@@ -3,6 +3,8 @@
 
     <div class="panel panel-default">
         @include('assetto-corsa.driver.best-results.championship')
+        @include('assetto-corsa.driver.best-results.event')
+        @include('assetto-corsa.driver.best-results.practice')
         @include('assetto-corsa.driver.best-results.qualifying')
         @include('assetto-corsa.driver.best-results.race')
         @include('assetto-corsa.driver.best-results.race-lap')

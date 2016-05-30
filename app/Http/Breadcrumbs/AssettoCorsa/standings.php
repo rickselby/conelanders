@@ -12,12 +12,12 @@ Breadcrumbs::register('assetto-corsa.standings.championship',
     }
 );
 
-Breadcrumbs::register('assetto-corsa.standings.race',
-    function($breadcrumbs, $champSlug, $raceSlug, $race = null) {
-        if (!$race) {
-            $race = \Request::get('race');
+Breadcrumbs::register('assetto-corsa.standings.event',
+    function($breadcrumbs, $champSlug, $raceSlug, $event = null) {
+        if (!$event) {
+            $event = \Request::get('event');
         }
-        $breadcrumbs->parent('assetto-corsa.standings.championship', $race->championship);
-        $breadcrumbs->push($race->name, route('assetto-corsa.standings.race', [$race->championship, $race]));
+        $breadcrumbs->parent('assetto-corsa.standings.championship', $event->championship);
+        $breadcrumbs->push($event->name, route('assetto-corsa.standings.event', [$event->championship, $event]));
     }
 );

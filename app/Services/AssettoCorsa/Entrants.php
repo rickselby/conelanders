@@ -3,18 +3,19 @@
 namespace App\Services\AssettoCorsa;
 
 use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcRace;
+use App\Models\AssettoCorsa\AcSession;
 use Symfony\Component\HttpFoundation\Request;
 
 class Entrants
 {
-
-    public function updateRaceEntrants(Request $request, AcRace $race)
+    public function updateSessionEntrants(Request $request, AcSession $session)
     {
-        foreach($race->entrants AS $entrant) {
+        foreach($session->entrants AS $entrant) {
             $entrant->car = $request->get('car')[$entrant->id];
-            $entrant->race_disqualified = isset($request->get('race_disqualified')[$entrant->id]);
-            $entrant->race_retired = isset($request->get('race_retired')[$entrant->id]);
+            if ($session->type == AcSession::TYPE_RACE) {
+                $entrant->dsq = isset($request->get('dsq')[$entrant->id]);
+                $entrant->dnf = isset($request->get('dnf')[$entrant->id]);
+            }
             $entrant->save();
         }
     }

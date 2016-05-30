@@ -2,12 +2,11 @@
 
 namespace App\Services\AssettoCorsa;
 
-use App\Jobs\AssettoCorsa\ImportQualifyingJob;
-use App\Jobs\AssettoCorsa\ImportRaceJob;
+use App\Jobs\AssettoCorsa\ImportResultsJob;
 use App\Models\AssettoCorsa\AcEntrant;
 use App\Models\AssettoCorsa\AcLaptime;
-use App\Models\AssettoCorsa\AcRace;
-use App\Models\AssettoCorsa\AcRaceLap;
+use App\Models\AssettoCorsa\AcSession;
+use App\Models\AssettoCorsa\AcSessionLap;
 use App\Models\Driver;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -16,26 +15,26 @@ class Import
 {
     use DispatchesJobs;
 
-    public function getResults(AcRace $race, $type)
+    public function getResults(AcSession $session)
     {
-        if (\ACRace::hasResultsFile($race, $type)) {
-            $json = file_get_contents(\ACRace::getResultsFilePath($race, $type));
+        if (\ACSession::hasResultsFile($session)) {
+            $json = file_get_contents(\ACSession::getResultsFilePath($session));
             return json_decode($json);
         } else {
             return null;
         }
     }
 
-    public function saveUpload(Request $request, AcRace $race, $type)
+    public function saveUpload(Request $request, AcSession $session)
     {
         if ($request->hasFile('file')) {
-            $request->file('file')->move(\ACRace::getResultsFileDirectory(), \ACRace::getResultsFileName($race, $type));
+            $request->file('file')->move(\ACSession::getResultsFileDirectory(), \ACSession::getResultsFileName($session));
         }
     }
 
-    public function processEntrants(AcRace $race, $type)
+    public function processEntrants(AcSession $session)
     {
-        $results = $this->getResults($race, $type);
+        $results = $this->getResults($session);
         $cars = $drivers = [];
         foreach($results->Cars AS $car) {
             $cars[] = $car->Model;
@@ -47,23 +46,19 @@ class Import
         ];
     }
 
-    public function saveEntrants(Request $request, AcRace $race, $type)
+    public function saveEntrants(Request $request, AcSession $session)
     {
-        $results = $this->getResults($race, $type);
+        $results = $this->getResults($session);
         $cars = $request->get('car');
         foreach($results->Cars AS $car) {
-            $championshipEntrant = $this->getChampionshipEntrant($race->championship, $car->Driver->Name, $car->Driver->Guid);
+            $championshipEntrant = $this->getChampionshipEntrant($session->event->championship, $car->Driver->Name, $car->Driver->Guid);
 
-            $raceEntrant = $race->entrants()->create(['car' => $cars[$car->Model], 'ballast' => $car->BallastKG]);
-            $raceEntrant->championshipEntrant()->associate($championshipEntrant);
-            $race->entrants()->save($raceEntrant);
+            $sessionEntrant = $session->entrants()->create(['car' => $cars[$car->Model], 'ballast' => $car->BallastKG]);
+            $sessionEntrant->championshipEntrant()->associate($championshipEntrant);
+            $session->entrants()->save($sessionEntrant);
         }
 
-        if ($type == config('constants.QUALIFYING_RESULTS')) {
-            $this->dispatch(new ImportQualifyingJob($race));
-        } else {
-            $this->dispatch(new ImportRaceJob($race));
-        }
+        $this->dispatch(new ImportResultsJob($session));
     }
 
     public function getChampionshipEntrant($championship, $name, $guid)
@@ -95,73 +90,29 @@ class Import
         return $driver;
     }
 
-    public function saveQualifying(AcRace $race)
+    public function saveResults(AcSession $session)
     {
-        $results = $this->getResults($race, config('constants.QUALIFYING_RESULTS'));
-        $entrants = $this->getEntrantsByID($race);
+        $results = $this->getResults($session);
+        $entrants = $this->getEntrantsByID($session);
         $bestLaps = [];
 
         // Tidy up things we're going to overwrite
         foreach($entrants AS $entrant) {
-            $entrant->qualifyingLap()->delete();
+            $entrant->fastestLap()->delete();
+            $entrant->laps()->delete();
         }
 
         $position = 1;
         foreach($results->Result AS $result) {
             if (isset($entrants[$result->DriverGuid])) {
-                $entrant = $entrants[$result->DriverGuid];
-
-                $entrant->qualifying_position = $position++;
-                // Need to do qualifying lap
-                $bestLaps[$result->DriverGuid] = $result->BestLap;
-
-                $entrant->save();
-            }
-        }
-
-        foreach($results->Laps AS $lap) {
-            if (isset($entrants[$lap->DriverGuid])) {
-                if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
-                    $acLap = $this->createLap($lap);
-                    // Associate with the entrant
-                    $entrants[$lap->DriverGuid]->qualifyingLap()->associate($acLap);
-                    $entrants[$lap->DriverGuid]->save();
+                $entrants[$result->DriverGuid]->position = $position++;
+#                $entrants[$result->DriverGuid]->lap_count = 0;
+                if ($session->type == AcSession::TYPE_RACE) {
+                    $entrants[$result->DriverGuid]->time = $result->TotalTime;
                 }
-            }
-        }
+                $entrants[$result->DriverGuid]->save();
 
-        $race->qualifying_import = false;
-        $race->save();
-    }
-
-    public function saveRace(AcRace $race)
-    {
-        $results = $this->getResults($race, config('constants.RACE_RESULTS'));
-        $entrants = $this->getEntrantsByID($race);
-        $bestLaps = [];
-
-        // Tidy up things we're going to overwrite
-        foreach($entrants AS $entrant) {
-            $entrant->raceFastestLap()->delete();
-            $entrant->raceLaps()->delete();
-        }
-
-        $position = 1;
-        $bestTime = 0;
-        foreach($results->Result AS $result) {
-            if (isset($entrants[$result->DriverGuid])) {
-                $entrant = $entrants[$result->DriverGuid];
-
-                $entrant->race_position = $position++;
-                $entrant->race_time = $result->TotalTime;
-                $entrant->race_laps = 0;
-
-                if ($bestTime) {
-                    $entrant->race_behind = $result->TotalTime - $bestTime;
-                } else {
-                    $bestTime = $result->TotalTime;
-                    $entrant->race_behind = null;
-                }
+                // Save the best lap time, for easier sorting later
                 $bestLaps[$result->DriverGuid] = $result->BestLap;
             }
         }
@@ -173,34 +124,41 @@ class Import
                 $acLap = $this->createLap($lap);
 
                 // Create a race lap entry for it
-                $raceLap = AcRaceLap::create([
+                $sessionLap = AcSessionLap::create([
                     'time' => $lap->Timestamp,
                 ]);
-                $raceLap->lap()->associate($acLap);
-                $raceLap->save();
+                $sessionLap->lap()->associate($acLap);
+                $sessionLap->save();
 
-                // Associate the lap with the entrant
-                $entrants[$lap->DriverGuid]->race_laps++;
-                $entrants[$lap->DriverGuid]->raceLaps()->save($raceLap);
+                // And attach it to the entrant
+#                $entrants[$lap->DriverGuid]->lap_count++;
+                $entrants[$lap->DriverGuid]->laps()->save($sessionLap);
 
-                // Is it their best lap?
+                // Check if this is their fastest lap
                 if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {
-                    $acLap = $this->createLap($lap);
-                    // Associate with the entrant
-                    $entrants[$lap->DriverGuid]->raceFastestLap()->associate($acLap);
+                    $entrants[$lap->DriverGuid]->fastestLap()->associate($acLap);
+                    $entrants[$lap->DriverGuid]->save();
                 }
             }
         }
+        
+#        if ($session->type == AcSession::TYPE_RACE) {
+            $this->setFastestLapPositions($entrants);
+#        }
 
+        $session->importing = false;
+        $session->save();
+    }
+
+    private function setFastestLapPositions(&$entrants)
+    {
         $fastestLaps = [];
         foreach($entrants AS $entrant) {
-            $entrant->save();
-            if ($entrant->raceFastestLap) {
-                $fastestLaps[] = [
-                    'entrant' => $entrant,
-                    'lap' => $entrant->raceFastestLap->time,
-                ];
-            }
+            $fastestLaps[] = [
+                'entrant' => $entrant,
+                // No lap? Push to back
+                'lap' => $entrant->fastestLap ? $entrant->fastestLap->time : PHP_INT_MAX,
+            ];
         }
 
         usort($fastestLaps, function($a, $b) {
@@ -212,13 +170,10 @@ class Import
         });
 
         foreach($fastestLaps AS $lapDetail) {
-            $lapDetail['entrant']->race_fastest_lap_position = $lapDetail['position'];
+            $lapDetail['entrant']->fastest_lap_position = $lapDetail['position'];
             $lapDetail['entrant']->save();
         }
-
-        $race->race_import = false;
-        $race->save();
-   }
+    }
 
     private function createLap($lap)
     {
@@ -235,10 +190,10 @@ class Import
         return $acLap;
     }
 
-    private function getEntrantsByID(AcRace $race)
+    private function getEntrantsByID(AcSession $session)
     {
         $entrants = [];
-        foreach($race->entrants AS $entrant) {
+        foreach($session->entrants AS $entrant) {
             $entrants[$entrant->championshipEntrant->driver->ac_guid] = $entrant;
         }
         return $entrants;

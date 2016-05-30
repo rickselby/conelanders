@@ -24,6 +24,6 @@ class AcChampionshipEntrant extends \Eloquent
 
     public function entries()
     {
-        return $this->hasMany(AcRaceEntrant::class);
+        return $this->hasMany(AcSessionEntrant::class);
     }
 }
