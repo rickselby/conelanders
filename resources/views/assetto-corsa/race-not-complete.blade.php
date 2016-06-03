@@ -3,6 +3,6 @@
         <h3 class="panel-title">Race not yet complete</h3>
     </div>
     <div class="panel-body">
-        This event has not finished, or we are waiting on a final import of results. Hold tight!
+        This race may not have run, or the results may not have been released yet.
     </div>
 </div>
