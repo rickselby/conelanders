@@ -1,8 +1,8 @@
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">Event not yet complete</h3>
+        <h3 class="panel-title">Results are being imported</h3>
     </div>
     <div class="panel-body">
-        The results will change as times are set and imported.
+        The results will be shown here again once the import has completed.
     </div>
 </div>
