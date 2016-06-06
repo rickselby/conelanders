@@ -57,6 +57,7 @@ class Positions
 
     public function colour($position, $points = NULL)
     {
+        $position = str_replace('=', '', $position);
         if (is_numeric($position)) {
             switch ($position) {
                 case 1:

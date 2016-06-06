@@ -54,11 +54,14 @@ class Results
             $results[$entrant->id]['positions'] = [];
         }
         foreach($championship->events AS $event) {
-            foreach ($this->event($event) AS $result) {
+            $eventResults = $this->event($event);
+            $eventResultsWithEquals = \Positions::addEquals($eventResults);
+            foreach ($eventResults AS $key => $result) {
                 $entrantID = $result['entrant']->id;
                 $results[$entrantID]['points'] += $result['points'];
                 $results[$entrantID]['eventPoints'][$event->id] = $result['points'];
-                $results[$entrantID]['positions'][$event->id] = $result['position'];
+                $results[$entrantID]['positions'][] = $result['position'];
+                $results[$entrantID]['eventPositions'][$event->id] = $eventResultsWithEquals[$key]['position'];
                 asort($results[$entrantID]['positions']);
             }
         }
