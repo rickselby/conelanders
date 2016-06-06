@@ -18,6 +18,9 @@
                     <th>Pos</th>
                     <th>Driver</th>
                     <th>Car</th>
+                    @if (\ACSession::hasBallast($session))
+                        <th>Ballast</th>
+                    @endif
                     <th>Laps</th>
                     <th>Time</th>
                     <th>Gap to 1st</th>
@@ -40,6 +43,9 @@
                             @include('assetto-corsa.driver.name', ['entrant' => $entrant->championshipEntrant])
                         </th>
                         <td>{{ $entrant->car }}</td>
+                        @if (\ACSession::hasBallast($session))
+                            <td>{{ $entrant->ballast }}kg</td>
+                        @endif
                         <td class="text-center">{{ count($entrant->laps) }}</td>
                         <td class="time">{{ Times::toString($entrant->time) }}</td>
                         <td class="time">
