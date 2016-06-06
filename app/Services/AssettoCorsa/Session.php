@@ -79,13 +79,7 @@ class Session
      */
     public function hasPoints(AcSession $session)
     {
-        foreach($session->entrants AS $entrant) {
-            if ($entrant->points) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->checkEntrantsForValue($session, 'points');
     }
 
     /**
@@ -96,8 +90,31 @@ class Session
      */
     public function hasFastestLapPoints(AcSession $session)
     {
+        return $this->checkEntrantsForValue($session, 'fastest_lap_points');
+    }
+
+    /**
+     * Check if anyone in this session had ballast
+     *
+     * @param AcSession $session
+     * @return bool
+     */
+    public function hasBallast(AcSession $session)
+    {
+        return $this->checkEntrantsForValue($session, 'ballast');
+    }
+
+    /**
+     * Check the entrants for a given key
+     *
+     * @param AcSession $session
+     * @param string $key
+     * @return bool
+     */
+    private function checkEntrantsForValue(AcSession $session, $key)
+    {
         foreach($session->entrants AS $entrant) {
-            if ($entrant->fastest_lap_points) {
+            if ($entrant->{$key}) {
                 return true;
             }
         }

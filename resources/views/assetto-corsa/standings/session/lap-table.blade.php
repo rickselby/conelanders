@@ -4,6 +4,9 @@
         <th>Pos</th>
         <th>Driver</th>
         <th>Car</th>
+        @if (\ACSession::hasBallast($session))
+            <th>Ballast</th>
+        @endif
         @if (isset($showLaps) && $showLaps)
             <th>Laps</th>
         @endif
@@ -26,6 +29,9 @@
                 @include('assetto-corsa.driver.name', ['entrant' => $entrant->championshipEntrant])
             </th>
             <td>{{ $entrant->car }}</td>
+            @if (\ACSession::hasBallast($session))
+                <td>{{ $entrant->ballast }}kg</td>
+            @endif
             @if (isset($showLaps) && $showLaps)
                 <td>{{ count($entrant->laps) }}</td>
             @endif
