@@ -11,7 +11,7 @@ class Helpers
 {
     public static function getInitials($string)
     {
-        if (strlen($string) > 3) {
+        if (strlen($string) > 10) {
             $words = explode(' ', $string);
             $initials = [];
             foreach($words AS $word) {
