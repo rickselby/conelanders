@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\DirtRally\DirtChampionship;
+use App\Models\Point;
 use App\Models\PointsSequence;
 
 class PointSequences
@@ -45,9 +47,9 @@ class PointSequences
     {
         // Build an array of sequence ids that are in use
         $usedSequences = [];
-        foreach(DirtPointsSystem::with(['eventSequence', 'stageSequence'])->get() AS $system) {
-            $usedSequences[] = $system->eventSequence->id;
-            $usedSequences[] = $system->stageSequence->id;
+        foreach(DirtChampionship::all() AS $dirtChampionship) {
+            $usedSequences[] = $dirtChampionship->event_points_sequence;
+            $usedSequences[] = $dirtChampionship->stage_points_sequence;
         }
 
         // Check the array
