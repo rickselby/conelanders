@@ -30,8 +30,8 @@
                 </th>
                 @foreach($events AS $event)
                     @if (isset($detail['eventPoints'][$event->id]))
-                        <td class="position {{  \Positions::colour($detail['positions'][$event->id], $detail['eventPoints'][$event->id]) }}">
-                            {{ $detail['positions'][$event->id] }}
+                        <td class="position {{  \Positions::colour($detail['eventPositions'][$event->id], $detail['eventPoints'][$event->id]) }}">
+                            {{ $detail['eventPositions'][$event->id] }}
                         </td>
                     @else
                         <td></td>
