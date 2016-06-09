@@ -205,7 +205,7 @@ class Session
      */
     private function setPointsFor(AcSessionEntrant $entrant, $points)
     {
-        if (!$entrant->dsq && !$entrant->dnf && $points !== NULL) {
+        if ($points !== NULL) {
             $entrant->points = $points;
         } else {
             $entrant->points = 0;
