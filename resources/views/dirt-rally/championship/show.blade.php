@@ -2,21 +2,17 @@
 
 @section('content')
 
-    @if (Auth::user() && Auth::user()->admin)
-        {!! Form::open(['route' => ['dirt-rally.championship.destroy', $championship], 'method' => 'delete', 'class' => 'form-inline']) !!}
-            <a class="btn btn-small btn-warning"
-               href="{{ route('dirt-rally.championship.edit', $championship) }}">Edit championship</a>
-            {!! Form::submit('Delete championship', array('class' => 'btn btn-danger')) !!}
-        {!! Form::close() !!}
-    @endif
+    {!! Form::open(['route' => ['dirt-rally.championship.destroy', $championship], 'method' => 'delete', 'class' => 'form-inline']) !!}
+        <a class="btn btn-small btn-warning"
+           href="{{ route('dirt-rally.championship.edit', $championship) }}">Edit championship</a>
+        {!! Form::submit('Delete championship', array('class' => 'btn btn-danger')) !!}
+    {!! Form::close() !!}
 
     <h2>Seasons</h2>
-    @if (Auth::user() && Auth::user()->admin)
-        <p>
-            <a class="btn btn-small btn-info"
-               href="{{ route('dirt-rally.championship.season.create', $championship) }}">Add a new season</a>
-        </p>
-    @endif
+    <p>
+        <a class="btn btn-small btn-info"
+           href="{{ route('dirt-rally.championship.season.create', $championship) }}">Add a new season</a>
+    </p>
     <ul>
         @forelse($seasons AS $season)
             <li>

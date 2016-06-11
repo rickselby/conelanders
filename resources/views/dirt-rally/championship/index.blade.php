@@ -2,11 +2,9 @@
 
 @section('content')
 
-    @if (Auth::user() && Auth::user()->admin)
-        <p>
-            <a class="btn btn-small btn-info" href="{{ route('dirt-rally.championship.create') }}">Add a new championship</a>
-        </p>
-    @endif
+    <p>
+        <a class="btn btn-small btn-info" href="{{ route('dirt-rally.championship.create') }}">Add a new championship</a>
+    </p>
 
     <h2>Championships</h2>
 

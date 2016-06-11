@@ -2,10 +2,10 @@
 
 @section('content')
 
-    @if(!$event->canBeReleased() && !(Auth::user() && Auth::user()->admin))
+    @if(!$event->canBeReleased() && !Gate::check('assetto-corsa-admin'))
         @include('assetto-corsa.race-not-complete')
     @else
-        @if (Auth::user() && Auth::user()->admin && !$event->canBeReleased())
+        @if (Gate::check('assetto-corsa-admin') && !$event->canBeReleased())
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title">Admin Only View</h3>

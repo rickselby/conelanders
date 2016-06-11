@@ -26,6 +26,11 @@ class PermissionsCommand extends Command {
     // List of permissions
     protected $permissions = [
         'role-admin',
+        'nation-admin',
+        'points-admin',
+        'dirt-rally-admin',
+        'assetto-corsa-admin',
+        'driver-admin',
     ];
 
     /**
@@ -36,8 +41,8 @@ class PermissionsCommand extends Command {
     public function handle()
     {
         foreach($this->permissions AS $permissionName) {
-            $permission = Permission::find($permissionName);
-            if (!$permission) {
+            $permission = Permission::where('name', $permissionName)->first();
+            if (!$permission || !$permission->exists) {
                 Permission::create(['name' => $permissionName]);
             }
         }

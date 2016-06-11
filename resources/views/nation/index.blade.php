@@ -2,11 +2,9 @@
 
 @section('content')
 
-    @if (Auth::user() && Auth::user()->admin)
-        <p>
-            <a class="btn btn-small btn-info" href="{{ route('nation.create') }}">Add a new nation</a>
-        </p>
-    @endif
+    <p>
+        <a class="btn btn-small btn-info" href="{{ route('nation.create') }}">Add a new nation</a>
+    </p>
 
     <h2>Nations</h2>
 
