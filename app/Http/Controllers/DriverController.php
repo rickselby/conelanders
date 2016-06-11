@@ -11,7 +11,7 @@ class DriverController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' =>
+        $this->middleware('can:driver-admin', ['except' =>
             ['index', 'show']
         ]);
     }

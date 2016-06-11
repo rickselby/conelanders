@@ -16,7 +16,7 @@ class ChampionshipEventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('can:assetto-corsa-admin');
         $this->middleware('assetto-corsa.validateEvent', ['except' => ['create', 'store']]);
     }
 

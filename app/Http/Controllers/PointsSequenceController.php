@@ -12,7 +12,7 @@ class PointsSequenceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('can:points-admin');
     }
 
     /**

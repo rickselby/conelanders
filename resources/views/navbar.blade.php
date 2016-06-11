@@ -20,29 +20,45 @@
                 <li>
                     <a href="{{ route('assetto-corsa.index') }}">Assetto Corsa</a>
                 </li>
-
-            @if (Auth::user() && Auth::user()->admin)
+            @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        @can('role-admin')
+                        <li>
+                            <a href="{{ route('role.index') }}">Manage Roles</a>
+                        </li>
+                        @endcan
+                        @can('nation-admin')
                         <li>
                             <a href="{{ route('nation.index') }}">Manage Nations</a>
                         </li>
+                        @endcan
+                        @can('points-admin')
                         <li>
                             <a href="{{ route('points-sequence.index') }}">Points Sequences</a>
                         </li>
+                        @endcan
+                        @can('dirt-rally-admin')
+                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin'))
                         <li role="separator" class="divider"></li>
+                        @endif
                         <li class="dropdown-header">Dirt Rally</li>
                         <li>
                             <a href="{{ route('dirt-rally.championship.index') }}">Championship Management</a>
                         </li>
+                        @endcan
+                        @can('assetto-corsa-admin')
+                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin'))
                         <li role="separator" class="divider"></li>
+                        @endif
                         <li class="dropdown-header">Assetto Corsa</li>
                         <li>
                             <a href="{{ route('assetto-corsa.championship.index') }}">Championship/Race Management</a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
             @endif
@@ -51,17 +67,19 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+            @if (Auth::check())
                 <li>
-                @if (Auth::check())
                     <a href="{{route('logout')}}">Logout</a>
-                @else
+                </li>
+            @else
+                <li>
                     <form method="get" action="{{ route('login.google') }}">
                         <button class="btn btn-social btn-google navbar-btn btn-sm">
                             <span class="fa fa-google"></span> Sign in with Google
                         </button>
                     </form>
-                @endif
                 </li>
+            @endif
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->

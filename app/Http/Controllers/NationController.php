@@ -10,7 +10,7 @@ class NationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' =>
+        $this->middleware('can:nation-admin', ['except' =>
             ['image']
         ]);
     }

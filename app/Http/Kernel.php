@@ -45,13 +45,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'admin' => \App\Http\Middleware\Admin::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
         'dirt-rally.validateSeason' => \App\Http\Middleware\DirtRally\ValidateSeason::class,
         'dirt-rally.validateEvent' => \App\Http\Middleware\DirtRally\ValidateEvent::class,
         'dirt-rally.validateStage' => \App\Http\Middleware\DirtRally\ValidateStage::class,
+
         'assetto-corsa.validateEvent' => \App\Http\Middleware\AssettoCorsa\ValidateEvent::class,
         'assetto-corsa.validateSession' => \App\Http\Middleware\AssettoCorsa\ValidateSession::class,
     ];

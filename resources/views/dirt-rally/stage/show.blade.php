@@ -6,15 +6,11 @@
         @include('dirt-rally.import-in-progress')
     @else
 
-        @if (Auth::user() && Auth::user()->admin)
-            {!! Form::open(['route' => ['dirt-rally.championship.season.event.stage.destroy', $stage->event->season->championship, $stage->event->season, $stage->event, $stage], 'method' => 'delete', 'class' => 'form-inline']) !!}
-                <a class="btn btn-small btn-warning"
-                   href="{{ route('dirt-rally.championship.season.event.stage.edit', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]) }}">Edit stage</a>
-                {!! Form::submit('Delete Stage', array('class' => 'btn btn-danger')) !!}
-            {!! Form::close() !!}
-            <p>
-            </p>
-        @endif
+        {!! Form::open(['route' => ['dirt-rally.championship.season.event.stage.destroy', $stage->event->season->championship, $stage->event->season, $stage->event, $stage], 'method' => 'delete', 'class' => 'form-inline']) !!}
+            <a class="btn btn-small btn-warning"
+               href="{{ route('dirt-rally.championship.season.event.stage.edit', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]) }}">Edit stage</a>
+            {!! Form::submit('Delete Stage', array('class' => 'btn btn-danger')) !!}
+        {!! Form::close() !!}
 
         <h2>Stage Results</h2>
 

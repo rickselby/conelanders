@@ -10,7 +10,7 @@ class ChampionshipEntrantController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('can:assetto-corsa-admin');
     }
 
     public function index(AcChampionship $championship)
