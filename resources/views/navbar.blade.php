@@ -20,13 +20,17 @@
                 <li>
                     <a href="{{ route('assetto-corsa.index') }}">Assetto Corsa</a>
                 </li>
-
-            @if (Auth::user() && Auth::user()->admin)
+            @if (Gate::check('role-admin'))
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
+                        @can('role-admin')
+                        <li>
+                            <a href="{{ route('role.index') }}">Manage Roles</a>
+                        </li>
+                        @endcan
                         <li>
                             <a href="{{ route('nation.index') }}">Manage Nations</a>
                         </li>

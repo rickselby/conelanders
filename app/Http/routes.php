@@ -14,6 +14,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('nation', 'NationController', [['except' => ['show']]]);
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
     Route::resource('points-sequence', 'PointsSequenceController');
+    Route::resource('role', 'RoleController');
+    Route::group(['prefix' => 'role/{role}'], function() {
+        Route::post('add-user', 'RoleController@addUser')->name('role.add-user');
+        Route::delete('remove-user/{user}', 'RoleController@removeUser')->name('role.remove-user');
+        Route::post('add-permission', 'RoleController@addPermission')->name('role.add-permission');
+        Route::delete('remove-permission/{permission}', 'RoleController@removePermission')->name('role.remove-permission');
+    });
 
     Route::group(['prefix' => 'dirt-rally', 'namespace' => 'DirtRally'], function() {
         include('Routes/dirt-rally.php');

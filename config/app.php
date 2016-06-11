@@ -167,6 +167,7 @@ return [
         Krucas\Notification\NotificationServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*
