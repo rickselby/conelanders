@@ -25,6 +25,11 @@ class Driver extends \Eloquent implements SluggableInterface
     {
         return $this->hasMany(AssettoCorsa\AcChampionshipEntrant::class);
     }
+    
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 
     public function getRouteKeyName()
     {

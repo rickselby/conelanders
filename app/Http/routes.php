@@ -33,4 +33,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('about', function() {
         return view('about');
     })->name('about');
+
+    Route::get('user', 'UserController@show')->name('user.show');
+    Route::post('user/select-driver', 'UserController@selectDriver')->name('user.select-driver');
 });

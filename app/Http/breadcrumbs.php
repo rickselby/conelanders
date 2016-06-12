@@ -10,3 +10,4 @@ include('Breadcrumbs/drivers.php');
 include('Breadcrumbs/nations.php');
 include('Breadcrumbs/points-sequences.php');
 include('Breadcrumbs/role.php');
+include('Breadcrumbs/user.php');

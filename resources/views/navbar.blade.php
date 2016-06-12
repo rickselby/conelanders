@@ -69,6 +69,9 @@
             <ul class="nav navbar-nav navbar-right">
             @if (Auth::check())
                 <li>
+                    <a href="{{route('user.show')}}">My Profile</a>
+                </li>
+                <li>
                     <a href="{{route('logout')}}">Logout</a>
                 </li>
             @else
