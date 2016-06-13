@@ -10,9 +10,11 @@
         @if (isset($showLaps) && $showLaps)
             <th>Laps</th>
         @endif
-        @foreach($lapTimes[0]->fastestLap->sectors AS $sector)
-            <th>Sector {{ $sector->sector }}</th>
-        @endforeach
+        @if (count($lapTimes))
+            @foreach($lapTimes[0]->fastestLap->sectors AS $sector)
+                <th>Sector {{ $sector->sector }}</th>
+            @endforeach
+        @endif
         <th>Laptime</th>
         <th>Gap to 1st</th>
         <th>Gap ahead</th>

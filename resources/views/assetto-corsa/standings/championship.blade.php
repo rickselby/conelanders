@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($points AS $position => $detail)
+        @foreach($points AS $detail)
             <tr>
                 <th>
                     {{ $detail['position'] }}

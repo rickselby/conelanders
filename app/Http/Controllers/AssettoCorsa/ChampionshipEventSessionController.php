@@ -11,6 +11,7 @@ use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcEventEntrant;
 use App\Models\AssettoCorsa\AcSession;
 use App\Services\AssettoCorsa\Import;
+use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 
@@ -164,6 +165,24 @@ class ChampionshipEventSessionController extends Controller
         } else {
             \Notification::add('warning', 'No results file found to scan');
         }
+        return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
+    }
+    
+    /**
+     * Update the release date for the event
+     *
+     * @param Request $request
+     * @param string $championshipSlug
+     * @param string $eventSlug
+     * @param string $sessionSlug
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function releaseDate(Request $request, $championshipSlug, $eventSlug, $sessionSlug)
+    {
+        $session = \Request::get('session');
+        $session->release = Carbon::createFromFormat('jS F Y, H:i', $request->release);
+        $session->save();
+        \Notification::add('success', 'Release Date Updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
 }

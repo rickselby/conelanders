@@ -26,4 +26,6 @@
         @include('assetto-corsa.session.show-fastest-lap-points')
     @endif
 
+    @include('assetto-corsa.session.show-release-date')
+
 @endsection

@@ -16,7 +16,9 @@ class AcSession extends \Eloquent implements SluggableInterface
 
     use SluggableKeyedTrait;
 
-    protected $fillable = ['name', 'order', 'type'];
+    protected $fillable = ['name', 'order', 'type', 'release'];
+
+    protected $dates = ['release'];
 
     protected $casts = [
         'importing' => 'boolean',
@@ -44,7 +46,10 @@ class AcSession extends \Eloquent implements SluggableInterface
     }
 
     public function canBeReleased() {
-        return !$this->importing;
+        return !$this->importing
+            && $this->release !== NULL
+            && $this->release <= Carbon::now()
+            ;
     }
 
     public function getRouteKeyName()
