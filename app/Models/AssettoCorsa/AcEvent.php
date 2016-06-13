@@ -10,9 +10,9 @@ class AcEvent extends \Eloquent implements SluggableInterface
 {
     use SluggableKeyedTrait;
 
-    protected $fillable = ['name', 'time', 'release'];
+    protected $fillable = ['name', 'time'];
 
-    protected $dates = ['time', 'release'];
+    protected $dates = ['time'];
 
     protected $sluggable = [
         'unique_key' => 'ac_championship_id',
@@ -33,12 +33,8 @@ class AcEvent extends \Eloquent implements SluggableInterface
         return $this->championship->name.' - '.$this->name;
     }
 
-    public function canBeReleased() {
-        if (($this->release === NULL)
-            || ($this->release >= Carbon::now())) {
-            return false;
-        }
-
+    public function canBeReleased() 
+    {
         foreach($this->sessions AS $session) {
             if (!$session->canBeReleased()) {
                 return false;

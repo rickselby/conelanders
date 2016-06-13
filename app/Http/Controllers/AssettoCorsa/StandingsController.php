@@ -27,11 +27,12 @@ class StandingsController extends Controller
             ->with('points', \Positions::addEquals($resultsService->championship($championship)));
     }
 
-    public function event($championshipStub, $eventStub)
+    public function event($championshipStub, $eventStub, Results $resultsService)
     {
         $event = \Request::get('event');
         return view('assetto-corsa.standings.event')
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('points', \Positions::addEquals($resultsService->eventSummary($event)));
     }
 
     public function lapChart($championshipStub, $raceStub, $sessionStub, Results $resultsService)

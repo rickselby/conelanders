@@ -11,15 +11,14 @@ Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantC
 
 Route::resource('championship.event', 'ChampionshipEventController', [['except' => ['index']]]);
 
-Route::put('/championship/{championship}/event/{event}/release-date',
-    'ChampionshipEventController@releaseDate')->name('assetto-corsa.championship.event.release-date');
-
 Route::resource('championship.event.session', 'ChampionshipEventSessionController', [['except' => ['index']]]);
 
 Route::post('/championship/{championship}/event/{event}/session/{session}/results-upload',
     'ChampionshipEventSessionController@resultsUpload')->name('assetto-corsa.championship.event.session.results-upload');
 Route::get('/championship/{championship}/event/{event}/session/{session}/results-scan',
     'ChampionshipEventSessionController@resultsScan')->name('assetto-corsa.championship.event.session.results-scan');
+Route::put('/championship/{championship}/event/{event}/session/{session}/release-date',
+    'ChampionshipEventSessionController@releaseDate')->name('assetto-corsa.championship.event.session.release-date');
 
 Route::resource('championship.event.session.entrants', 'ChampionshipEventSessionEntrantController', [['except' => ['index', 'show', 'update', 'destroy']]]);
 

@@ -58,3 +58,7 @@ td.time, th.time {
 .tablesorter-bootstrap tfoot td, .tablesorter-bootstrap tfoot th, .tablesorter-bootstrap thead td, .tablesorter-bootstrap thead th {
     font-size: smaller;
 }
+
+ul.nav-tabs {
+    margin-bottom: 1em;
+}

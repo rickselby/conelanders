@@ -11,6 +11,41 @@ use LapChart\Chart;
 
 class Results
 {
+    public function eventSummary(AcEvent $event)
+    {
+        $results = [];
+
+        foreach($event->sessions AS $session) {
+            foreach($session->entrants AS $entrant) {
+                $entrantID = $entrant->championshipEntrant->id;
+
+                if (!isset($results[$entrantID])) {
+                    $results[$entrantID] = [
+                        'entrant' => $entrant->championshipEntrant,
+                        'points' => 0,
+                        'positions' => [],
+                    ];
+                }
+
+                if ($session->canBeReleased()) {
+                    $results[$entrantID]['sessionPoints'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
+                    $results[$entrantID]['points'] += $results[$entrantID]['sessionPoints'][$session->id];
+                    if ($session->type == AcSession::TYPE_RACE) {
+                        $results[$entrantID]['positions'][] = $entrant->position;
+                        sort($results[$entrantID]['positions']);
+                    }
+                    $results[$entrantID]['sessionPositions'][$session->id] = $entrant->position;
+                }
+            }
+        }
+
+        usort($results, [$this, 'pointsSort']);
+
+        $results = \Positions::addToArray($results, [$this, 'arePointsEqual']);
+
+        return $results;
+    }
+
     public function event(AcEvent $event)
     {
         $results = [];
@@ -27,7 +62,7 @@ class Results
                             'positions' => [],
                         ];
                     }
-                    $results[$entrantID]['points'] += $entrant->points + $entrant->fastest_lap_points;
+                    $results[$entrantID]['points'] += $results[$entrantID]['sessionPoints'][$session->id];
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$entrantID]['positions'][] = $entrant->position;
                         sort($results[$entrantID]['positions']);
@@ -62,7 +97,7 @@ class Results
                 $results[$entrantID]['eventPoints'][$event->id] = $result['points'];
                 $results[$entrantID]['positions'][] = $result['position'];
                 $results[$entrantID]['eventPositions'][$event->id] = $eventResultsWithEquals[$key]['position'];
-                asort($results[$entrantID]['positions']);
+                sort($results[$entrantID]['positions']);
             }
         }
 

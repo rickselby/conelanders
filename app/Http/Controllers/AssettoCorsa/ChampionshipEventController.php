@@ -111,21 +111,4 @@ class ChampionshipEventController extends Controller
             return \Redirect::route('assetto-corsa.championship.show', $event->championship);
         }
     }
-
-    /**
-     * Update the release date for the event
-     *
-     * @param Request $request
-     * @param string $championshipSlug
-     * @param string $eventSlug
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function releaseDate(Request $request, $championshipSlug, $eventSlug)
-    {
-        $event = \Request::get('event');
-        $event->release = Carbon::createFromFormat('jS F Y, H:i', $request->release);
-        $event->save();
-        \Notification::add('success', 'Release Date Updated');
-        return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
-    }
 }
