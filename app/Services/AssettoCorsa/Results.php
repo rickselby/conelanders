@@ -62,7 +62,7 @@ class Results
                             'positions' => [],
                         ];
                     }
-                    $results[$entrantID]['points'] += $results[$entrantID]['sessionPoints'][$session->id];
+                    $results[$entrantID]['points'] += $entrant->points + $entrant->fastest_lap_points;
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$entrantID]['positions'][] = $entrant->position;
                         sort($results[$entrantID]['positions']);
