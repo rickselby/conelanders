@@ -10,7 +10,7 @@
         @if (isset($showLaps) && $showLaps)
             <th>Laps</th>
         @endif
-        @if (count($lapTimes))
+        @if (count($lapTimes) && count($lapTimes[0]->fastestLap->sectors) > 1)
             @foreach($lapTimes[0]->fastestLap->sectors AS $sector)
                 <th>Sector {{ $sector->sector }}</th>
             @endforeach
@@ -37,13 +37,13 @@
             @if (isset($showLaps) && $showLaps)
                 <td>{{ count($entrant->laps) }}</td>
             @endif
-            @if ($entrant->fastestLap)
+            @if ($entrant->fastestLap && count($entrant->fastestLap->sectors) > 1)
                 @foreach($entrant->fastestLap->sectors AS $sector)
                     <td class="time {{ isset($entrant->sectorPosition[$sector->sector]) ? \Positions::colour($entrant->sectorPosition[$sector->sector]) : '' }}">
                         {{ Times::toString($sector->time) }}
                     </td>
                 @endforeach
-            @else
+            @elseif (count($lapTimes[0]->fastestLap->sectors) > 1)
                 @foreach($lapTimes[0]->fastestLap->sectors AS $sector)
                     <td></td>
                 @endforeach
