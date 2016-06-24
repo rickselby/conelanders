@@ -20,7 +20,7 @@
                 <li>
                     <a href="{{ route('assetto-corsa.index') }}">Assetto Corsa</a>
                 </li>
-            @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') )
+            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
@@ -30,6 +30,11 @@
                         <li>
                             <a href="{{ route('role.index') }}">Manage Roles</a>
                         </li>
+                        @endcan
+                        @can('user-admin')
+                            <li>
+                                <a href="{{ route('user.assignments') }}">Driver Assignments</a>
+                            </li>
                         @endcan
                         @can('nation-admin')
                         <li>

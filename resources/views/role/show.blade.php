@@ -46,7 +46,7 @@
     {!! Form::open(['route' => ['role.add-user', $role], 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         <div class="col-sm-4">
-            {!! Form::select('user', $users->pluck('email', 'id'), null, ['class' => 'form-control']) !!}
+            {!! Form::select('user', $users->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
         </div>
         <div class="col-sm-8">
             {!! Form::submit('Add user to this role', array('class' => 'btn btn-success')) !!}
@@ -62,7 +62,7 @@
     @foreach($role->users AS $user)
     {!! Form::open(['route' => ['role.remove-user', $role, $user], 'method' => 'delete', 'class' => 'form-horizontal']) !!}
     <div class="form-group">
-        <div class="col-sm-4 control-label">{{ $user->email }}</div>
+        <div class="col-sm-4 control-label">{{ $user->name }}</div>
         <div class="col-sm-8">
             {!! Form::submit('Remove User', ['class' => 'btn btn-danger']) !!}
         </div>

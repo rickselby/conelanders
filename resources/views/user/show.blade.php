@@ -6,7 +6,7 @@
 
         @if ($user->driver_confirmed)
 
-            idk?
+            Hi {{ $user->driver->name }}. Not a whole lot to do here right now.
 
         @else
             <div class="panel panel-info">

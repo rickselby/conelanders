@@ -36,4 +36,13 @@ class User extends Authenticatable
         return $this->belongsTo(Driver::class);
     }
 
+    public function getNameAttribute($name)
+    {
+        if ($this->driver) {
+            return $this->driver->name;
+        } else {
+            return $this->getAttributeValue('email');
+        }
+    }
+
 }

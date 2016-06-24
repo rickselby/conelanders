@@ -13,7 +13,7 @@ class LinkUsersToDrivers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('driver_id')->index();
+            $table->integer('driver_id')->index()->nullable();
             $table->boolean('driver_confirmed');
         });
         
