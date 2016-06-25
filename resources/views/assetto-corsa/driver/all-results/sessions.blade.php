@@ -41,7 +41,7 @@
                                     @endif
                                 </td>
                                 <td class="col-xs-1 text-right position">
-                                    {{ $session['fastestLap']['result']->position }}
+                                    {{ $session['fastestLap']['result']->fastest_lap_position }}
                                 </td>
                             </tr>
                         </table>
