@@ -6,22 +6,19 @@ use App\Models\AssettoCorsa\AcEvent;
 
 class Event
 {
+
+    protected $driverIDs = [];
+
     /**
      * Can we show the given event's results to the current user?
      *
      * @param AcEvent $event
-     * 
+     *
      * @return bool
      */
     public function canBeShown(AcEvent $event)
     {
-        foreach($event->sessions AS $session) {
-            if (!\ACSession::canBeShown($session)) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->currentUserInEvent($event) || $event->canBeReleased();
     }
 
     /**
@@ -49,15 +46,17 @@ class Event
      */
     private function getDriverIDs(AcEvent $event)
     {
-        # nice query here to get the list of driver ids that have taken part in a given event
-        # will be quicker than going through eloquent models every time
-        # we should cache this as well? maybe?
-        return \DB::table('drivers')
-            ->join('ac_championship_entrants', 'drivers.id', '=', 'ac_championship_entrants.driver_id')
-            ->join('ac_session_entrants', 'ac_championship_entrants.id', '=', 'ac_session_entrants.ac_championship_entrant_id')
-            ->join('ac_sessions', 'ac_session_entrants.ac_session_id', '=', 'ac_sessions.id')
-            ->select('drivers.id')
-            ->where('ac_sessions.ac_event_id', '=', $event->id)
-            ->pluck('id');
+        # I will/may eventually use proper caching for this, and other things. That's a bigger project though.
+        if (!isset($this->driverIDs[$event->id])) {
+            $this->driverIDs[$event->id] = \DB::table('drivers')
+                ->join('ac_championship_entrants', 'drivers.id', '=', 'ac_championship_entrants.driver_id')
+                ->join('ac_session_entrants', 'ac_championship_entrants.id', '=', 'ac_session_entrants.ac_championship_entrant_id')
+                ->join('ac_sessions', 'ac_session_entrants.ac_session_id', '=', 'ac_sessions.id')
+                ->select('drivers.id')
+                ->where('ac_sessions.ac_event_id', '=', $event->id)
+                ->pluck('id');
+        }
+
+        return $this->driverIDs[$event->id];
     }
 }

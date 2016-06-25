@@ -30,6 +30,7 @@ class StandingsController extends Controller
     public function event($championshipStub, $eventStub, Results $resultsService)
     {
         $event = \Request::get('event');
+        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.entrants.laps', 'sessions.event');
         return view('assetto-corsa.standings.event')
             ->with('event', $event)
             ->with('points', \Positions::addEquals($resultsService->eventSummary($event)));
@@ -38,6 +39,7 @@ class StandingsController extends Controller
     public function lapChart($championshipStub, $raceStub, $sessionStub, Results $resultsService)
     {
         $session = \Request::get('session');
+        $session->load('entrants.championshipEntrant.driver', 'entrants.laps');
         $content = $resultsService->lapChart($session);
         $response = \Response::make($content);
         $response->header('Content-type',  'image/svg+xml');

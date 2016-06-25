@@ -39,7 +39,7 @@
                                 <h3 class="panel-title">Admin Only View</h3>
                             </div>
                             <div class="panel-body">
-                                Only admins and entrants can see this page, these results have not yet been released.
+                                Only admins and entrants #can see this page, these results have not yet been released.
                                 @if ($session->release)
                                     They will be released on {{ $session->release->format('l jS \\of F Y h:i:s A') }}
                                 @endif
