@@ -18,7 +18,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->driver->name }}</td>
                 <td>
-                    <a class="btn btn-success" href="{{ route('driver.assign', $user) }}">Confirm</a>
+                    <a class="btn btn-success" href="{{ route('user.assign', $user) }}">Confirm</a>
                 </td>
             </tr>
         @endforeach
