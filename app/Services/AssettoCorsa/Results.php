@@ -27,7 +27,7 @@ class Results
                     ];
                 }
 
-                if (\ACSession::canBeShown()) {
+                if (\ACSession::canBeShown($session)) {
                     $results[$entrantID]['sessionPoints'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
                     $results[$entrantID]['points'] += $results[$entrantID]['sessionPoints'][$session->id];
                     if ($session->type == AcSession::TYPE_RACE) {
@@ -50,7 +50,7 @@ class Results
     {
         $results = [];
 
-        if ($event->canBeReleased()) {
+        if (\ACEvent::canBeShown($event)) {
             foreach($event->sessions AS $session) {
                 foreach($session->entrants AS $entrant) {
                     $entrantID = $entrant->championshipEntrant->id;
