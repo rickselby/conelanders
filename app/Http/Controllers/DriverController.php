@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\Nation;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -47,9 +48,11 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Driver $driver)
     {
-        //
+        return view('driver.edit')
+            ->with('driver', $driver)
+            ->with('nations', Nation::all());
     }
 
     /**
@@ -59,8 +62,10 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Driver $driver)
     {
-        //
+        $driver->fill($request->all());
+        $driver->save();
+        return \Redirect::route('driver.index');
     }
 }

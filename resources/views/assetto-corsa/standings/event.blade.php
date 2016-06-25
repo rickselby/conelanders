@@ -2,6 +2,10 @@
 
 @section('content')
 
+    @if (!$event->canBeReleased() && \ACEvent::canBeShown($event))
+        @include('unreleased')
+    @endif
+
     <div>
         {{-- Tabs --}}
         <ul class="nav nav-tabs" role="tablist">
@@ -27,7 +31,7 @@
             </div>
             @foreach($event->sessions as $session)
                 <div role="tabpanel" class="tab-pane" id="session-{{ $session->id }}">
-                @if ($session->canBeReleased() || Gate::check('assetto-corsa-admin'))
+                @if (\ACSession::canBeShown($session) || Gate::check('assetto-corsa-admin'))
 
                     @if (Gate::check('assetto-corsa-admin') && !$session->canBeReleased())
                         <div class="panel panel-warning">
@@ -35,7 +39,7 @@
                                 <h3 class="panel-title">Admin Only View</h3>
                             </div>
                             <div class="panel-body">
-                                Only admins can see this page, these results have not yet been released.
+                                Only admins and entrants can see this page, these results have not yet been released.
                                 @if ($session->release)
                                     They will be released on {{ $session->release->format('l jS \\of F Y h:i:s A') }}
                                 @endif

@@ -4,6 +4,10 @@
 
     <h2>Standings</h2>
 
+    @if (\ACChampionships::shownBeforeRelease($championship))
+        @include('unreleased')
+    @endif
+
     <table class="table sortable table-condensed">
         <thead>
         <tr>

@@ -31,6 +31,7 @@ class PermissionsCommand extends Command {
         'dirt-rally-admin',
         'assetto-corsa-admin',
         'driver-admin',
+        'user-admin',
     ];
 
     /**

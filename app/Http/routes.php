@@ -15,6 +15,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('driver', 'DriverController', [['except' => ['create', 'store', 'destroy']]]);
     Route::resource('points-sequence', 'PointsSequenceController');
     Route::resource('role', 'RoleController');
+
     Route::group(['prefix' => 'role/{role}'], function() {
         Route::post('add-user', 'RoleController@addUser')->name('role.add-user');
         Route::delete('remove-user/{user}', 'RoleController@removeUser')->name('role.remove-user');
@@ -33,4 +34,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('about', function() {
         return view('about');
     })->name('about');
+
+    Route::get('user', 'UserController@show')->name('user.show');
+    Route::post('user/select-driver', 'UserController@selectDriver')->name('user.select-driver');
+    Route::get('user/assignments', 'UserController@assignments')->name('user.assignments');
+    Route::get('user/assign/{user}', 'UserController@assign')->name('user.assign');
 });

@@ -26,4 +26,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $casts = [
+        'driver_confirmed' => 'boolean',
+    ];
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    public function getNameAttribute($name)
+    {
+        if ($this->driver) {
+            return $this->driver->name;
+        } else {
+            return $this->getAttributeValue('email');
+        }
+    }
+
 }

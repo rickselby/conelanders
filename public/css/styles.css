@@ -58,6 +58,19 @@ td.time, th.time {
     font-size: smaller;
 }
 
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+
+}
+
+.row-eq-height DIV {
+    vertical-align: bottom;
+}
+
+
 ul.nav-tabs {
     margin-bottom: 1em;
 }

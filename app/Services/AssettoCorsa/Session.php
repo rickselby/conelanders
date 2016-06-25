@@ -9,6 +9,19 @@ use App\Models\PointsSequence;
 class Session
 {
     /**
+     * Can we show the given session's results to the user?
+     *
+     * @param AcSession $session
+     *
+     * @return bool
+     */
+    public function canBeShown(AcSession $session)
+    {
+        return \ACEvent::currentUserInEvent($session->event)
+            || $session->canBeReleased();
+    }
+    
+    /**
      * Get the directory in which results files are stored
      * 
      * @return string
