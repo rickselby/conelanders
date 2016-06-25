@@ -1,4 +1,4 @@
-span.position {
+div.position {
     font-weight: bold;
 }
 
@@ -54,11 +54,14 @@ td.time, th.time {
     text-align: right;
 }
 
-
 .tablesorter-bootstrap tfoot td, .tablesorter-bootstrap tfoot th, .tablesorter-bootstrap thead td, .tablesorter-bootstrap thead th {
     font-size: smaller;
 }
 
 ul.nav-tabs {
     margin-bottom: 1em;
+}
+
+H4 A.event-results {
+    font-size: 90%;
 }

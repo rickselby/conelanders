@@ -1,24 +1,35 @@
 @foreach($season['events'] AS $event)
     <div class="panel panel-default">
-        <div class="panel-heading" role="tab">
+        <div class="panel-heading container-fluid" role="tab">
+            <div class="row">
+                <div class="col-xs-4">
+                    @if ($event['event']->isComplete())
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" href="#event-{{ $event['event']->id }}">
+                                {{ $event['event']->name }}
+                                <span class="caret"></span>
+                            </a>
+                        </h4>
+                    @else
+                        {{ $event['event']->name }}
+                    @endif
+                </div>
+                <div class="col-xs-4">
+                    <a class="event-results"
+                       href="{{ route('dirt-rally.standings.event', [$championship['championship'], $season['season'], $event['event']]) }}">
+                        View event results
+                    </a>
+                </div>
+                <div class="col-xs-4 text-right position">
+                    <span class="position pull-right">
+                        {{ $event['result'] ? $event['result']->position : 'In Progress' }}
+                </span>
+                </div>
+            </div>
+
             <h4 class="panel-title">
 
-                @if ($event['event']->isComplete())
-                    <a role="button" data-toggle="collapse" href="#event-{{ $event['event']->id }}">
-                        {{ $event['event']->name }}
-                        <span class="caret"></span>
-                    </a>
-                @else
-                    {{ $event['event']->name }}
-                @endif
 
-                <span class="position pull-right">
-                    @if ($event['result'])
-                        {{ $event['result']->position }}
-                    @else
-                        In Progress
-                    @endif
-                </span>
 
             </h4>
         </div>
