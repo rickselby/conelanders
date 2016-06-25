@@ -62,7 +62,7 @@ class RoleController extends Controller
     {
         return view('role.show')
             ->with('role', $role)
-            ->with('users', User::whereNotIn('id', $role->users->pluck('id'))->get())
+            ->with('users', User::with('driver')->whereNotIn('id', $role->users->pluck('id'))->get())
             ->with('permissions', Permission::whereNotIn('id', $role->permissions->pluck('id')));
     }
 

@@ -1,4 +1,4 @@
-@if (!$event->canBeReleased())
+@if (!$event->canBeReleased() && !\ACEvent::canBeShown($event))
     <div class="panel panel-danger">
         <div class="panel-heading">
             <h3 class="panel-title">Full results not released yet</h3>
