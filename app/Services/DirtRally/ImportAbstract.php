@@ -71,8 +71,9 @@ abstract class ImportAbstract
         $this->initialiseDrivers();
 
         if (isset($this->drivers['ids'][$racenetID])) {
-            // Update the driver name, if required
-            if ($this->drivers['ids'][$racenetID]->name != $driverName) {
+            // Update the driver name, if required, and if the driver isn't locked
+            if (!$this->drivers['ids'][$racenetID]->locked
+                && ($this->drivers['ids'][$racenetID]->name != $driverName)) {
                 $this->drivers['ids'][$racenetID]->name = $driverName;
                 $this->drivers['ids'][$racenetID]->save();
             }
