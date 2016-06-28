@@ -3,18 +3,15 @@
 namespace App\Models\DirtRally;
 
 use Carbon\Carbon;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class DirtSeason extends \Eloquent implements SluggableInterface
+class DirtSeason extends \Eloquent
 {
-    use SluggableKeyedTrait;
+    use Sluggable;
 
     protected $fillable = ['name'];
-
-    protected $sluggable = [
-        'unique_key' => 'dirt_championship_id',
-    ];
 
     public function championship()
     {
@@ -63,6 +60,11 @@ class DirtSeason extends \Eloquent implements SluggableInterface
         return $stages;
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->championship->name.' - '.$this->name;
+    }
+
     public function isComplete() {
         foreach($this->events AS $event) {
             if (!$event->isComplete()) {
@@ -72,13 +74,32 @@ class DirtSeason extends \Eloquent implements SluggableInterface
         return true;
     }
 
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
+    }
+
+    /**
+     * Sluggable configuration
+     * Make the slugs unique based on the championship id
+     */
+    public function scopeWithUniqueSlugConstraints(Builder $query, Model $model, $attribute, $config, $slug)
+    {
+        return $query->where('dirt_championship_id', $model->dirt_championship_id);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    public function getFullNameAttribute()
-    {
-        return $this->championship->name.' - '.$this->name;
-    }
 }

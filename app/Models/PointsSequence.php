@@ -2,18 +2,31 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class PointsSequence extends \Eloquent implements SluggableInterface
+class PointsSequence extends \Eloquent
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $fillable = ['name'];
 
     public function points()
     {
         return $this->hasMany(Point::class)->orderBy('position');
+    }
+
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
     }
 
     public function getRouteKeyName()

@@ -41,8 +41,7 @@ class ChampionshipEventController extends Controller
     public function store(ChampionshipEventRequest $request, AcChampionship $championship)
     {
         /** @var AcEvent $event */
-        $event = AcEvent::create($request->all());
-        $championship->events()->save($event);
+        $event = $championship->events()->create($request->all());
         \Notification::add('success', 'Event "'.$event->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.show', [$championship, $event]);
     }

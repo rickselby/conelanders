@@ -11,10 +11,9 @@
         "laravelista/ekko": "^1.0",
         "laravelcollective/html": "^5.2",
         "edvinaskrucas/notification": "^5.1",
-        "cviebrock/eloquent-sluggable": "^3.1",
+        "cviebrock/eloquent-sluggable": "^4.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "rickselby/svglapchart": "^0.3",
-        "rickselby/eloquent-sluggable-keyed": "^0.1",
         "spatie/laravel-permission": "^1.4"
     },
     "require-dev": {

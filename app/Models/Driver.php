@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class Driver extends \Eloquent implements SluggableInterface
+class Driver extends \Eloquent
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $fillable = ['name', 'nation_id', 'dirt_racenet_driver_id', 'ac_guid', 'locked'];
 
@@ -29,6 +28,20 @@ class Driver extends \Eloquent implements SluggableInterface
     public function user()
     {
         return $this->hasOne(User::class);
+    }
+
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
     }
 
     public function getRouteKeyName()
