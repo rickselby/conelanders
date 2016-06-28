@@ -438,7 +438,7 @@ class Results
                                 return $a['result']->position;
                             });
                             $this->getBest($bests['raceLap'], $session, function($a) {
-                                return $a['result']['fastestLap']->position;
+                                return $a['fastestLap']['position'];
                             });
                             break;
 
