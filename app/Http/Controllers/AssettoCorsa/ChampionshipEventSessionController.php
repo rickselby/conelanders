@@ -52,9 +52,7 @@ class ChampionshipEventSessionController extends Controller
     public function store(ChampionshipEventSessionRequest $request, $championshipStub, $eventStub)
     {
         $event = \Request::get('event');
-        /** @var AcEvent $event */
-        $session = AcSession::create($request->all());
-        $event->sessions()->save($session);
+        $session = $event->sessions()->create($request->all());
         \Notification::add('success', 'Session "'.$session->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]);
     }

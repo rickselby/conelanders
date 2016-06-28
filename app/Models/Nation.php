@@ -2,24 +2,33 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class Nation extends \Eloquent implements SluggableInterface
+class Nation extends \Eloquent
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $fillable = ['name', 'acronym', 'dirt_reference'];
-
-    protected $sluggable = [
-        'build_from' => 'acronym',
-    ];
 
     public function drivers()
     {
         return $this->hasMany(Driver::class);
     }
 
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'acronym',
+            ]
+        ];
+    }
+    
     public function getRouteKeyName()
     {
         return 'slug';

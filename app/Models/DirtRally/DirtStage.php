@@ -2,22 +2,19 @@
 
 namespace App\Models\DirtRally;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class DirtStage extends \Eloquent implements SluggableInterface
+class DirtStage extends \Eloquent
 {
-    use SluggableKeyedTrait;
+    use Sluggable;
 
     protected $fillable = ['name', 'order', 'long'];
 
     protected $casts = [
         'order' => 'integer',
         'long' => 'boolean',
-    ];
-
-    protected $sluggable = [
-        'unique_key' => 'dirt_event_id',
     ];
 
     public function event()
@@ -30,13 +27,37 @@ class DirtStage extends \Eloquent implements SluggableInterface
         return $this->hasMany(DirtResult::class)->orderBy('position');
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-    
     public function getFullNameAttribute()
     {
         return $this->event->fullName.' - '.$this->name;
     }
+
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
+    }
+
+    /**
+     * Sluggable configuration
+     * Make the slugs unique based on the championship id
+     */
+    public function scopeWithUniqueSlugConstraints(Builder $query, Model $model, $attribute, $config, $slug)
+    {
+        return $query->where('dirt_event_id', $model->dirt_event_id);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

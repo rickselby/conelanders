@@ -36,8 +36,7 @@ class ChampionshipSeasonController extends Controller
     public function store(ChampionshipSeasonRequest $request, DirtChampionship $championship)
     {
         /** @var DirtSeason $season */
-        $season = DirtSeason::create($request->all());
-        $championship->seasons()->save($season);
+        $season = $championship->seasons()->create($request->all());
         \Notification::add('success', 'Season "'.$season->name.'" created');
         return \Redirect::route('dirt-rally.championship.season.show', [$championship, $season]);
     }

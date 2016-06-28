@@ -2,19 +2,18 @@
 
 namespace App\Models\AssettoCorsa;
 
-use App\Services\SlugTrait;
 use Carbon\Carbon;
-use ConstHelpers\Returning;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use RickSelby\EloquentSluggableKeyed\SluggableKeyedTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class AcSession extends \Eloquent implements SluggableInterface
+class AcSession extends \Eloquent
 {
     const TYPE_PRACTICE = 1;
     const TYPE_QUALIFYING = 2;
     const TYPE_RACE = 3;
 
-    use SluggableKeyedTrait;
+    use Sluggable;
 
     protected $fillable = ['name', 'order', 'type', 'release'];
 
@@ -24,10 +23,6 @@ class AcSession extends \Eloquent implements SluggableInterface
         'importing' => 'boolean',
         'order' => 'integer',
         'type' => 'integer',
-    ];
-
-    protected $sluggable = [
-        'unique_key' => 'ac_event_id',
     ];
 
     public function event()
@@ -52,11 +47,34 @@ class AcSession extends \Eloquent implements SluggableInterface
             ;
     }
 
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ]
+        ];
+    }
+
+    /**
+     * Sluggable configuration
+     * Make the slugs unique based on the championship id
+     */
+    public function scopeWithUniqueSlugConstraints(Builder $query, Model $model, $attribute, $config, $slug)
+    {
+        return $query->where('ac_event_id', $model->ac_event_id);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
     }
-    
+
     static public function getTypes()
     {
         return [

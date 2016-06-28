@@ -39,8 +39,7 @@ class ChampionshipSeasonEventController extends Controller
     public function store(ChampionshipSeasonEventRequest $request, $championship, $season)
     {
         $season = \Request::get('season');
-        $event = DirtEvent::create($request->all());
-        $season->events()->save($event);
+        $event = $season->events()->create($request->all());
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }

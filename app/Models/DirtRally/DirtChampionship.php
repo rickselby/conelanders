@@ -4,19 +4,14 @@ namespace App\Models\DirtRally;
 
 use App\Models\PointsSequence;
 use Carbon\Carbon;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
-
-class DirtChampionship extends \Eloquent implements SluggableInterface
+class DirtChampionship extends \Eloquent
 {
-    use SluggableTrait;
+    use Sluggable, SluggableScopeHelpers;
 
     protected $fillable = ['name', 'event_points_sequence', 'stage_points_sequence'];
-
-    protected $sluggable = [
-        'build_from' => 'shortName'
-    ];
 
     public function seasons()
     {
@@ -74,6 +69,20 @@ class DirtChampionship extends \Eloquent implements SluggableInterface
             }
         }
         return true;
+    }
+
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'shortName',
+            ]
+        ];
     }
 
     public function getRouteKeyName()

@@ -2,21 +2,15 @@
 
 namespace App\Models\AssettoCorsa;
 
-use App\Models\PointsSequence;
 use Carbon\Carbon;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
-
-class AcChampionship extends \Eloquent implements SluggableInterface
+class AcChampionship extends \Eloquent
 {
-    use SluggableTrait;
+    use Sluggable, SluggableScopeHelpers;
 
     protected $fillable = ['name', 'qual_points_sequence', 'race_points_sequence', 'laps_points_sequence'];
-
-    protected $sluggable = [
-        'build_from' => 'shortName'
-    ];
 
     public function events()
     {
@@ -50,6 +44,20 @@ class AcChampionship extends \Eloquent implements SluggableInterface
             }
         }
         return true;
+    }
+
+    /**
+     * Sluggable configuration
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'shortName',
+            ]
+        ];
     }
 
     public function getRouteKeyName()
