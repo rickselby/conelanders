@@ -157,11 +157,14 @@ class ImportDirt extends ImportAbstract
      */
     protected function processDriver(\App\Models\Driver $driver, $nationalityImage)
     {
-        $dirtReference = basename($nationalityImage, '.jpg');
-        /** @var \App\Models\Nation $nation */
-        $nation = \Nations::findOrAdd($dirtReference, 'https://www.dirtgame.com'.$nationalityImage);
-        $driver->nation()->associate($nation);
-        $driver->save();
+        // Only update the driver's nation if they're not locked
+        if (!$driver->locked) {
+            $dirtReference = basename($nationalityImage, '.jpg');
+            /** @var \App\Models\Nation $nation */
+            $nation = \Nations::findOrAdd($dirtReference, 'https://www.dirtgame.com' . $nationalityImage);
+            $driver->nation()->associate($nation);
+            $driver->save();
+        }
     }
 
     /**
