@@ -94,4 +94,14 @@ class NationController extends Controller
             return \Redirect::route('nation.index');
         }
     }
+
+    /**
+     * Get the flag for a nation
+     * @param Nation $nation
+     * @return \Illuminate\Http\Response
+     */
+    public function image(Nation $nation)
+    {
+        return response()->file(\Nations::getFlagPath($nation));
+    }
 }

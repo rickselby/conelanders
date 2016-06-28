@@ -10,6 +10,15 @@
 
     {!! Form::model($nation, ['route' => ['nation.update', $nation], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
+    @if(!$nation->name)
+        <div class="form-group">
+            <label for="flag" class="col-sm-2 control-label">Flag from dirtgame.com</label>
+            <div class="col-sm-10">
+                <img src="{{ route('nation.image', $nation) }}" />
+            </div>
+        </div>
+    @endif
+
     <div class="form-group">
         {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
