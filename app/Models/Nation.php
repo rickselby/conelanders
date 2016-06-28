@@ -22,9 +22,10 @@ class Nation extends \Eloquent
      */
     public function sluggable()
     {
+        // If there is no acronym to use as a slug, use the id
         return [
             'slug' => [
-                'source' => 'acronym',
+                'source' => $this->acronym ? 'acronym' : 'id',
             ]
         ];
     }
