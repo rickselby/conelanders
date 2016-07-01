@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Facades\AssettoCorsa;
+namespace App\Facades\DirtRally;
 
-use App\Services\AssettoCorsa\Results;
+use App\Services\DirtRally\Results;
 use \Illuminate\Support\Facades\Facade;
 
 class ResultsFacade extends Facade {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Facades\DirtRally;
+namespace App\Facades\DirtRally;
 
 use App\Services\DirtRally\DriverPoints;
 use \Illuminate\Support\Facades\Facade;

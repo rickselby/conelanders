@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Facades;
+namespace App\Facades;
 
 use App\Services\Nations;
 use \Illuminate\Support\Facades\Facade;

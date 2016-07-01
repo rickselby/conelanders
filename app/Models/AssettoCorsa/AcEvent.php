@@ -2,6 +2,7 @@
 
 namespace App\Models\AssettoCorsa;
 
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,25 @@ class AcEvent extends \Eloquent
         }
         
         return true;
+    }
+
+    public function getNextUpdate()
+    {
+        if (!$this->canBeReleased()) {
+            foreach ($this->sessions AS $session) {
+                if ($session->release > Carbon::now()) {
+                    if (!isset($nextDate)) {
+                        $nextDate = $session->release;
+                    } else {
+                        $nextDate = min($nextDate, $session->release);
+                    }
+                }
+            }
+            if (isset($nextDate)) {
+                return $nextDate;
+            }
+        }
+        return false;
     }
 
     /**

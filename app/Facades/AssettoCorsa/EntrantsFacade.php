@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Facades\AssettoCorsa;
+namespace App\Facades\AssettoCorsa;
 
 use App\Services\AssettoCorsa\Entrants;
 use \Illuminate\Support\Facades\Facade;

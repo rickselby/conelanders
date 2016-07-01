@@ -140,10 +140,12 @@ class Import
             }
         }
         
-            $this->setFastestLapPositions($entrants);
+        $this->setFastestLapPositions($entrants);
 
         $session->importing = false;
         $session->save();
+        // Clear the session cache
+        app(Results::class)->clearSessionCache($session);
     }
 
     private function setFastestLapPositions(&$entrants)

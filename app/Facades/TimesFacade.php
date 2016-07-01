@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Facades\DirtRally;
+namespace App\Facades;
 
-use App\Services\DirtRally\Times;
+use App\Services\Times;
 use \Illuminate\Support\Facades\Facade;
 
 class TimesFacade extends Facade {
