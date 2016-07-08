@@ -6,7 +6,7 @@ Breadcrumbs::register('dirt-rally.championship.season.event.stage.show',
             $stage = \Request::get('stage');
         }
         $breadcrumbs->parent('dirt-rally.championship.season.event.show', '', '', '', $stage->event);
-        $breadcrumbs->push($stage->name, route('dirt-rally.championship.season.event.stage.show', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]));
+        $breadcrumbs->push('SS'.$stage->order.': '.$stage->name, route('dirt-rally.championship.season.event.stage.show', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]));
     }
 );
 
