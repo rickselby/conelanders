@@ -31,6 +31,11 @@ class DirtStage extends \Eloquent
     {
         return $this->event->fullName.' - '.$this->name;
     }
+    
+    public function getSSAttribute()
+    {
+        return 'SS'.$this->order;
+    }
 
     /**
      * Sluggable configuration

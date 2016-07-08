@@ -28,7 +28,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                 <th>
-                    SS{{ $stage->order }}
+                    {{ $stage->ss }}
                 </th>
                 @endforeach
                 <th>Total</th>
