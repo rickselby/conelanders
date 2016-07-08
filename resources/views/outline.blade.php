@@ -29,6 +29,14 @@
         <script src="{{ asset('bower/tablesorter/dist/js/jquery.tablesorter.widgets.min.js') }}"></script>
         <script src="{{ asset('bower/moment/min/moment.min.js') }}"></script>
         <script src="{{ asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script src="{{ asset('bower/Sortable/jquery.fn.sortable.min.js') }}"></script>
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{!! csrf_token() !!}'
+                }
+            })
+        </script>
     </head>
     <body>
         <div class="container">

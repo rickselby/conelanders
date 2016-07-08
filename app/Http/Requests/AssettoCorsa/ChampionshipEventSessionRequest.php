@@ -15,7 +15,6 @@ class ChampionshipEventSessionRequest extends Request
     {
         return [
             'name' => 'required|string',
-            'order' => 'required|numeric',
             'type' => 'required|numeric',
         ];
     }

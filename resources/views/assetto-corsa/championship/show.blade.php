@@ -20,12 +20,19 @@
            href="{{ route('assetto-corsa.championship.event.create', $championship) }}">Add a new event</a>
     </p>
 
-    <ul>
+    <ul class="list-group">
         @forelse($championship->events AS $event)
-            <li>
-                <a href="{{ route('assetto-corsa.championship.event.show', [$championship, $event]) }}">
-                    {{ $event->name }}
-                </a>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <a href="{{ route('assetto-corsa.championship.event.show', [$championship, $event]) }}">
+                            {{ $event->name }}
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-9">
+                        {{ $event->time->format('Y-m-d H:i:s e') }}
+                    </div>
+                </div>
             </li>
         @empty
             <li>No events</li>

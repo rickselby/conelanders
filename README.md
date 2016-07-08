@@ -1,5 +1,6 @@
-# dirt-rally
-Dirt rally season / event system handler, pulling times from the website
+# Conelanders
+
+Website to handle the Conelanders racing league events and results
 
 
 ## Installation
@@ -7,6 +8,11 @@ Dirt rally season / event system handler, pulling times from the website
     composer install
     bower install
     chmod -R 777 storage bootstrap/cache
+
+    cd public/bower/Sortable
+    npm install
+    node_modules/grunt/bin/grunt jquery
+    rm -rf node_modules
 
 ... set up .env ...
 

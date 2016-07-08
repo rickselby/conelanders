@@ -33,9 +33,10 @@
         {!! Form::close() !!}
     @endif
 
-    <ul>
+    <ul class="list-group" id="sessions">
         @forelse($event->sessions AS $session)
-            <li>
+            <li class="list-group-item" data-id="{{ $session->id }}">
+                <span class="glyphicon glyphicon-menu-hamburger my-handle" aria-hidden="true"></span>
                 <a href="{{ route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]) }}">
                     {{ $session->name }}
                 </a>
@@ -44,5 +45,24 @@
             <li>No sessions</li>
         @endforelse
     </ul>
+
+    <script type="text/javascript">
+        $("#sessions").sortable({
+            store: {
+                get: function(sortable) {
+                    return [];
+                },
+                set: function(sortable) {
+                    console.log(sortable.toArray());
+                    $.post(
+                        "{{ route('assetto-corsa.championship.event.sort-sessions', [$event->championship, $event]) }}",
+                        {
+                            order: sortable.toArray()
+                        }
+                    );
+                }
+            }
+        });
+    </script>
 
 @endsection

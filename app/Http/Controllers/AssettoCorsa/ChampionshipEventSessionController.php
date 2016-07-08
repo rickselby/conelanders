@@ -52,7 +52,12 @@ class ChampionshipEventSessionController extends Controller
     public function store(ChampionshipEventSessionRequest $request, $championshipStub, $eventStub)
     {
         $event = \Request::get('event');
-        $session = $event->sessions()->create($request->all());
+        // Could we do this as an event listener? Or something?
+        $order = count($event->sessions) + 1;
+        $session = $event->sessions()->create(array_merge(
+            $request->all(),
+            ['order' => $order]
+        ));
         \Notification::add('success', 'Session "'.$session->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]);
     }

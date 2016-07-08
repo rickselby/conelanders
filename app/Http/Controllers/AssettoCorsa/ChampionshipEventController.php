@@ -7,6 +7,7 @@ use App\Http\Requests\AssettoCorsa\ChampionshipEventRequest;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcEventEntrant;
+use App\Models\AssettoCorsa\AcSession;
 use App\Services\AssettoCorsa\Import;
 use App\Services\AssettoCorsa\Results;
 use Carbon\Carbon;
@@ -126,5 +127,15 @@ class ChampionshipEventController extends Controller
             $event->sessions()->create($session->toArray());
         }
         return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
+    }
+
+    public function sortSessions(Request $request, $championshipSlug, $eventSlug)
+    {
+        $counter = 1;
+        foreach($request->get('order') AS $sessionID) {
+            $session = AcSession::findOrFail($sessionID);
+            $session->order = $counter++;
+            $session->save();
+        }
     }
 }
