@@ -29,6 +29,22 @@ class AcEvent extends \Eloquent
         return $this->championship->name.' - '.$this->name;
     }
 
+    public function getShortNameAttribute()
+    {
+        $words = explode(' ', $this->name);
+
+        // Grab first three letters of the first name
+        $shortName = mb_substr($words[0], 0, 3);
+
+        if (count($words) > 1) {
+            for ($i = 1; $i < count($words); $i++) {
+                $shortName .= ' '.substr($words[$i], 0, 1);
+            }
+        }
+
+        return mb_strtoupper($shortName);
+    }
+
     public function canBeReleased() 
     {
         foreach($this->sessions AS $session) {
