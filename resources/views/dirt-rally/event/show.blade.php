@@ -35,7 +35,7 @@
                 @foreach($event->stages AS $stage)
                 <th>
                     <a href="{{ route('dirt-rally.championship.season.event.stage.show', [$event->season->championship, $event->season, $event, $stage]) }}" class="tablesorter-noSort">
-                        {{ count($event->stages) > 4 ? $stage->order : $stage->name }}
+                        {{ $stage->ss }}
                     </a>
                 </th>
                 @endforeach

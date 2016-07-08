@@ -28,7 +28,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                 <th>
-                    {{ count($event->stages) > 4 ? $stage->order : $stage->name }}
+                    {{ $stage->ss }}
                 </th>
                 @endforeach
                 <th>Total</th>

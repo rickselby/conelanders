@@ -16,7 +16,7 @@
             @foreach($events AS $event)
                 <th>
                     <a href="{{ route('assetto-corsa.standings.event', [$championship, $event]) }}" class="tablesorter-noSort">
-                        {{ \Helpers::getInitials($event->name) }}
+                        {{ $event->shortName }}
                     </a>
                 </th>
             @endforeach
