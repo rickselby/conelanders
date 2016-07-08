@@ -15,7 +15,7 @@ class AcSession extends \Eloquent
 
     use Sluggable;
 
-    protected $fillable = ['name', 'order', 'type', 'release'];
+    protected $fillable = ['name', 'order', 'type'];
 
     protected $dates = ['release'];
 

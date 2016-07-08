@@ -9,6 +9,8 @@ Route::resource('championship', 'ChampionshipController');
 Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
 Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantController@update')->name('assetto-corsa.championship.entrants.update');
 
+Route::post('/championship/{championship}/event/{event}/copy-sessions',
+    'ChampionshipEventController@copySessions')->name('assetto-corsa.championship.event.copy-sessions');
 Route::resource('championship.event', 'ChampionshipEventController', [['except' => ['index']]]);
 
 Route::resource('championship.event.session', 'ChampionshipEventSessionController', [['except' => ['index']]]);
