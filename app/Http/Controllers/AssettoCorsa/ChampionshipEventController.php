@@ -56,9 +56,9 @@ class ChampionshipEventController extends Controller
     public function show($championshipSlug, $eventSlug, Results $resultsService)
     {
         $event = \Request::get('event');
-#        $event->load('sessions');
         return view('assetto-corsa.event.show')
-            ->with('event', $event);
+            ->with('event', $event)
+            ->with('otherEvents', $event->championship->events()->where('id', '!=', $event->id)->pluck('name', 'id'));
     }
 
     /**
@@ -109,5 +109,22 @@ class ChampionshipEventController extends Controller
             \Notification::add('success', 'Event "'.$event->name.'" deleted');
             return \Redirect::route('assetto-corsa.championship.show', $event->championship);
         }
+    }
+
+    /**
+     * Copy sessions from one event to another
+     *
+     * @param Request $request
+     * @param $championshipSlug
+     * @param $eventSlug
+     */
+    public function copySessions(Request $request, $championshipSlug, $eventSlug)
+    {
+        $event = \Request::get('event');
+        $fromEvent = AcEvent::findOrFail($request->get('from-event'));
+        foreach($fromEvent->sessions AS $session) {
+            $event->sessions()->create($session->toArray());
+        }
+        return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
     }
 }
