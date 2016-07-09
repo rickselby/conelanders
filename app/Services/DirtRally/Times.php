@@ -9,7 +9,9 @@ use App\Models\DirtRally\DirtSeason;
 
 class Times implements TimesInterface
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function forEvent(DirtEvent $event)
     {
         $times = [];
@@ -65,6 +67,9 @@ class Times implements TimesInterface
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function forSeason(DirtSeason $season)
     {
         $times = [];
@@ -111,6 +116,9 @@ class Times implements TimesInterface
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function overall(DirtChampionship $championship)
     {
         $championship->load([
@@ -147,12 +155,22 @@ class Times implements TimesInterface
         return \Positions::addToArray($times, [$this, 'areTimesEqual']);
     }
 
+    /**
+     * Get the value of the DNF penalty
+     * @return int
+     */
     private function dnfPenalty()
     {
         // ten minutes in milliseconds
         return 10*60*1000;
     }
 
+    /**
+     * Check if the two given times are equal
+     * @param $a
+     * @param $b
+     * @return bool
+     */
     public function areTimesEqual($a, $b)
     {
         return $a['total'] == $b['total'];

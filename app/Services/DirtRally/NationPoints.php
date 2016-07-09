@@ -14,9 +14,7 @@ class NationPoints implements NationPointsInterface
     use Points;
 
     /**
-     * Get event points and work out average points per nation
-     * @param DirtEvent $event
-     * @return array
+     * {@inheritdoc}
      */
     public function forEvent(DirtEvent $event)
     {
@@ -62,9 +60,7 @@ class NationPoints implements NationPointsInterface
     }
 
     /**
-     * Get points for the given system for each event in the given championship
-     * @param Collection $season
-     * @return array
+     * {@inheritdoc}
      */
     public function overview(DirtChampionship $championship)
     {
@@ -91,10 +87,7 @@ class NationPoints implements NationPointsInterface
     }
 
     /**
-     * Get the points for drivers for the given nation
-     * @param DirtEvent $event
-     * @param Nation $nation
-     * @return array
+     * {@inheritdoc}
      */
     public function details(DirtEvent $event, Nation $nation)
     {

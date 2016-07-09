@@ -88,7 +88,14 @@ class Results implements ResultsInterface
         );
     }
 
-    private function eventCache(AcEvent $event, $key, $function)
+    /**
+     * Work out if / how we can cache event-related things
+     * @param AcEvent $event
+     * @param string $key Key for the tag
+     * @param callable $function Function to run to get the event-related thing
+     * @return mixed
+     */
+    private function eventCache(AcEvent $event, $key, callable $function)
     {
         $tagStore = $this->cache->tags(\ACCacheHandler::eventTag($event));
 

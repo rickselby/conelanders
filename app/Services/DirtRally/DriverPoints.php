@@ -6,12 +6,14 @@ use App\Interfaces\DirtRally\DriverPointsInterface;
 use App\Models\DirtRally\DirtChampionship;
 use App\Models\DirtRally\DirtEvent;
 use App\Services\DirtRally\Traits\Points;
-use Illuminate\Database\Eloquent\Collection;
 
 class DriverPoints implements DriverPointsInterface
 {
     use Points;
 
+    /**
+     * {@inheritdoc}
+     */
     public function forEvent(DirtEvent $event)
     {
         $points = [];
@@ -92,9 +94,7 @@ class DriverPoints implements DriverPointsInterface
     }
 
     /**
-     * Get points for the given system for each event in the given championship
-     * @param Collection $seasons
-     * @return array
+     * {@inheritdoc}
      */
     public function overview(DirtChampionship $championship)
     {

@@ -2,10 +2,11 @@
 
 namespace App\Services\Cached\AssettoCorsa;
 
+use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
 use Illuminate\Contracts\Cache\Repository;
 
-class Event
+class Event implements EventInterface
 {
     /**
      * @var Repository

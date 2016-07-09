@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 trait Points
 {
     /**
-     * Get points for the given system for the given season
-     * @param DirtSeason $season
-     * @return array
+     * {@inheritdoc}
      */
     public function forSeason(DirtSeason $season)
     {
@@ -31,9 +29,7 @@ trait Points
     }
 
     /**
-     * Get overall points for the given system (on the given collection of seasons)
-     * @param Collection $seasons
-     * @return array
+     * {@inheritdoc}
      */
     public function overall(DirtChampionship $championship)
     {

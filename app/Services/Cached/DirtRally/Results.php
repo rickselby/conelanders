@@ -37,8 +37,6 @@ class Results implements ResultsInterface
      */
     public function getEventResults(DirtEvent $event)
     {
-        // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
-        // (any updates to the session will clear the cache)
         return $this->cache->tags(\DirtRallyCacheHandler::eventTag($event))->rememberForever(
             $this->cacheKey.'event.'.$event->id, 
             function() use ($event) {
@@ -52,8 +50,6 @@ class Results implements ResultsInterface
      */
     public function getStageResults(DirtStage $stage)
     {
-        // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
-        // (any updates to the session will clear the cache)
         return $this->cache->tags(\DirtRallyCacheHandler::stageTag($stage))->rememberForever(
             $this->cacheKey.'stage.'.$stage->id,
             function() use ($stage) {
@@ -67,8 +63,6 @@ class Results implements ResultsInterface
      */
     public function forDriver(Driver $driver)
     {
-        // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
-        // (any updates to the session will clear the cache)
         return $this->cache->rememberForever(\DirtRallyCacheHandler::driverKey($driver), function() use ($driver) {
             return $this->resultsService->forDriver($driver);
         });
