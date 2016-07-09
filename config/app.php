@@ -236,6 +236,7 @@ return [
         'ACResults' => App\Facades\AssettoCorsa\ResultsFacade::class,
         'ACSession' => App\Facades\AssettoCorsa\SessionFacade::class,
 
+        'DirtRallyCacheHandler' => App\Facades\Cached\DirtRally\HandlerFacade::class,
         'DirtRallyDriverPoints' => App\Facades\DirtRally\DriverPointsFacade::class,
         'DirtRallyEvents' => App\Facades\DirtRally\EventsFacade::class,
         'DirtRallyImportDirt' => App\Facades\DirtRally\ImportDirtFacade::class,

@@ -24,7 +24,7 @@ class Results implements ResultsInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'results.';
+    protected $cacheKey = 'ac.results.';
 
     public function __construct(Repository $cache, \App\Services\AssettoCorsa\Results $resultsService)
     {

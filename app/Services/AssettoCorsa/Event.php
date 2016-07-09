@@ -35,13 +35,12 @@ class Event
     public function getDriverIDs(AcEvent $event)
     {
         if (!isset($this->driverIDs[$event->id])) {
-            $this->driverIDs[$event->id] = \DB::table('drivers')
-                ->join('ac_championship_entrants', 'drivers.id', '=', 'ac_championship_entrants.driver_id')
+            $this->driverIDs[$event->id] = \DB::table('ac_championship_entrants')
                 ->join('ac_session_entrants', 'ac_championship_entrants.id', '=', 'ac_session_entrants.ac_championship_entrant_id')
                 ->join('ac_sessions', 'ac_session_entrants.ac_session_id', '=', 'ac_sessions.id')
-                ->select('drivers.id')
+                ->select('ac_championship_entrants.driver_id')
                 ->where('ac_sessions.ac_event_id', '=', $event->id)
-                ->pluck('id');
+                ->pluck('driver_id');
         }
 
         return $this->driverIDs[$event->id];

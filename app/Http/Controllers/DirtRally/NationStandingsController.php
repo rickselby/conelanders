@@ -17,20 +17,16 @@ class NationStandingsController extends Controller
 
     public function championship(DirtChampionship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
         return view('dirt-rally.nationstandings.championship')
             ->with('championship', $championship)
-            ->with('seasons', $seasons)
-            ->with('points', \Positions::addEquals(\DirtRallyNationPoints::overall($seasons)));
+            ->with('points', \Positions::addEquals(\DirtRallyNationPoints::overall($championship)));
     }
 
     public function overview(DirtChampionship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver.nation', 'events.positions.driver.nation'])->get()->sortBy('closes');
         return view('dirt-rally.nationstandings.overview')
             ->with('championship', $championship)
-            ->with('seasons', $seasons)
-            ->with('points', \Positions::addEquals(\DirtRallyNationPoints::overview($seasons)));
+            ->with('points', \Positions::addEquals(\DirtRallyNationPoints::overview($championship)));
     }
 
     public function season($championship, $season)

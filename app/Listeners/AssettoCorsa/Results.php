@@ -14,13 +14,6 @@ use Illuminate\Events\Dispatcher;
 
 class Results implements ShouldQueue
 {
-    protected $acResultsCache;
-
-    public function __construct(\App\Services\Cached\AssettoCorsa\Results $acResultsCache)
-    {
-        $this->acResultsCache = $acResultsCache;
-    }
-
     public function subscribe(Dispatcher $events)
     {
         $events->listen(

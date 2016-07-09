@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Interfaces\AssettoCorsa\EventInterface;
-use App\Interfaces\AssettoCorsa\ResultsInterface;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,15 +28,32 @@ class AppServiceProvider extends ServiceProvider
          * We can't check if the cache is taggable when register() is processed,
          * so we must defer till later and check when the interface is requested.
          */
-        $this->app->bind(ResultsInterface::class,  function() {
-            return $this->checkCache(\App\Services\Cached\AssettoCorsa\Results::class, \App\Services\AssettoCorsa\Results::class);
+        $this->app->bind(\App\Interfaces\AssettoCorsa\ResultsInterface::class,  function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Results::class, \App\Services\AssettoCorsa\Results::class);
         });
-        $this->app->bind(EventInterface::class, function() {
-            return $this->checkCache(\App\Services\Cached\AssettoCorsa\Event::class, \App\Services\AssettoCorsa\Event::class);
+        $this->app->bind(\App\Interfaces\AssettoCorsa\EventInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Event::class, \App\Services\AssettoCorsa\Event::class);
+        });
+        $this->app->bind(\App\Interfaces\DirtRally\ResultsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\Results::class, \App\Services\DirtRally\Results::class);
+        });
+        $this->app->bind(\App\Interfaces\DirtRally\DriverPointsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\DriverPoints::class, \App\Services\DirtRally\DriverPoints::class);
+        });
+        $this->app->bind(\App\Interfaces\DirtRally\NationPointsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\NationPoints::class, \App\Services\DirtRally\NationPoints::class);
+        });
+        $this->app->bind(\App\Interfaces\DirtRally\TimesInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\Times::class, \App\Services\DirtRally\Times::class);
         });
     }
 
-    protected function checkCache($ifCacheTaggable, $ifCacheNotTaggable)
+    /**
+     * Check if the cache implementation is taggable. If it is, return the first class; if not, return the second.
+     * @param string $ifCacheTaggable Fully Qualified Class Name
+     * @param string $ifCacheNotTaggable Fully Qualified Class Name
+     */
+    protected function checkCacheTaggable($ifCacheTaggable, $ifCacheNotTaggable)
     {
         if (\Cache::getStore() instanceof TaggableStore) {
             return app($ifCacheTaggable);

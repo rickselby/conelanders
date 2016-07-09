@@ -2,9 +2,9 @@
 
 namespace App\Facades\DirtRally;
 
-use App\Services\DirtRally\Results;
+use App\Interfaces\DirtRally\ResultsInterface;
 use \Illuminate\Support\Facades\Facade;
 
 class ResultsFacade extends Facade {
-    protected static function getFacadeAccessor() { return Results::class; }
+    protected static function getFacadeAccessor() { return ResultsInterface::class; }
 }

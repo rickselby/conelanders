@@ -2,12 +2,17 @@
 
 namespace App\Services\DirtRally;
 
+use App\Interfaces\DirtRally\NationPointsInterface;
+use App\Models\DirtRally\DirtChampionship;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\Nation;
+use App\Services\DirtRally\Traits\Points;
 use Illuminate\Database\Eloquent\Collection;
 
-class NationPoints extends DriverPoints
+class NationPoints implements NationPointsInterface
 {
+    use Points;
+
     /**
      * Get event points and work out average points per nation
      * @param DirtEvent $event
@@ -18,7 +23,7 @@ class NationPoints extends DriverPoints
         $points = [];
 
         if ($event->isComplete()) {
-            $driverResults = parent::forEvent($event);
+            $driverResults = \DirtRallyDriverPoints::forEvent($event);
 
             foreach ($driverResults AS $driver) {
                 $nationID = $driver['entity']->nation->id;
@@ -61,10 +66,16 @@ class NationPoints extends DriverPoints
      * @param Collection $season
      * @return array
      */
-    public function overview(Collection $seasons)
+    public function overview(DirtChampionship $championship)
     {
         $points = [];
-        foreach($seasons AS $season) {
+        $championship->load([
+            'seasons.events.stages.results.driver.nation',
+            'seasons.events.positions.driver.nation',
+            'seasons.events.season.championship.eventPointsSequence',
+            'seasons.events.season.championship.stagePointsSequence',
+        ]);
+        foreach($championship->seasons AS $season) {
             foreach ($season->events AS $event) {
                 if ($event->isComplete()) {
                     foreach ($this->forEvent($event) AS $position => $result) {

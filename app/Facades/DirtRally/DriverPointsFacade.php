@@ -2,9 +2,9 @@
 
 namespace App\Facades\DirtRally;
 
-use App\Services\DirtRally\DriverPoints;
+use App\Interfaces\DirtRally\DriverPointsInterface;
 use \Illuminate\Support\Facades\Facade;
 
 class DriverPointsFacade extends Facade {
-    protected static function getFacadeAccessor() { return DriverPoints::class; }
+    protected static function getFacadeAccessor() { return DriverPointsInterface::class; }
 }

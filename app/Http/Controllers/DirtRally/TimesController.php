@@ -18,11 +18,9 @@ class TimesController extends Controller
 
     public function championship(DirtChampionship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('dirt-rally.times.championship')
             ->with('championship', $championship)
-            ->with('seasons', $seasons)
-            ->with('times', \Positions::addEquals(\DirtRallyTimes::overall($seasons)));
+            ->with('times', \Positions::addEquals(\DirtRallyTimes::overall($championship)));
     }
 
     public function season($championship, $season)
@@ -49,7 +47,7 @@ class TimesController extends Controller
         $stage->load('event.season');
         return view('dirt-rally.times.stage')
             ->with('stage', $stage)
-            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage->id)));
+            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage)));
     }
 
 }

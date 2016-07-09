@@ -2,11 +2,12 @@
 
 namespace App\Services\DirtRally;
 
+use App\Interfaces\DirtRally\TimesInterface;
+use App\Models\DirtRally\DirtChampionship;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtSeason;
-use Illuminate\Database\Eloquent\Collection;
 
-class Times
+class Times implements TimesInterface
 {
 
     public function forEvent(DirtEvent $event)
@@ -110,11 +111,15 @@ class Times
         ];
     }
 
-    public function overall(Collection $seasons)
+    public function overall(DirtChampionship $championship)
     {
+        $championship->load([
+            'seasons.events.stages.results.driver',
+            'seasons.events.positions.driver',
+        ]);
         $times = [];
         $seasonList = [];
-        foreach($seasons AS $season) {
+        foreach($championship->seasons AS $season) {
             $seasonList[$season->id] = $this->forSeason($season);
             foreach ($seasonList[$season->id]['times'] AS $result) {
                 $times[$result['driver']->id]['driver'] = $result['driver'];
@@ -124,7 +129,7 @@ class Times
         }
 
         foreach($times AS $driverID => $detail) {
-            foreach($seasons AS $season) {
+            foreach($championship->seasons AS $season) {
                 if (!isset($detail['seasons'][$season->id])) {
                     $times[$driverID]['seasons'][$season->id] = $seasonList[$season->id]['dnf'];
                     $times[$driverID]['dnss'][$season->id] = true;

@@ -15,7 +15,7 @@ class Handler
      */
     protected $cache;
 
-    protected $cacheKey = 'ac.';
+    protected $cacheKey = 'ac.tag.';
 
     public function __construct(Repository $cache)
     {
@@ -53,8 +53,8 @@ class Handler
     }
 
     /**
-     * Get the tag for an championship
-     * @param AcChampionship $championship
+     * Get the tag for a drivers' results
+     * @param Driver $driver
      * @return string
      */
     public function driverKey(Driver $driver)

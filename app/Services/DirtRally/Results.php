@@ -2,12 +2,17 @@
 
 namespace App\Services\DirtRally;
 
+use App\Interfaces\DirtRally\ResultsInterface;
+use App\Models\DirtRally\DirtStage;
 use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtResult;
 
-class Results
+class Results implements ResultsInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function getEventResults(DirtEvent $event)
     {
         $results = [];
@@ -49,11 +54,17 @@ class Results
         return $results;
     }
 
-    public function getStageResults($stageID)
+    /**
+     * {@inheritdoc}
+     */
+    public function getStageResults(DirtStage $stage)
     {
-        return DirtResult::with('driver')->where('dirt_stage_id', $stageID)->orderBy('position')->get()->toArray();
+        return DirtResult::with('driver')->where('dirt_stage_id', $stage->id)->orderBy('position')->get()->toArray();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function forDriver(Driver $driver)
     {
         $results['all'] = $this->getAllForDriver($driver);

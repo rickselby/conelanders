@@ -18,20 +18,16 @@ class StandingsController extends Controller
 
     public function championship(DirtChampionship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('dirt-rally.standings.championship')
             ->with('championship', $championship)
-            ->with('seasons', $seasons)
-            ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::overall($seasons)));
+            ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::overall($championship)));
     }
 
     public function overview(DirtChampionship $championship)
     {
-        $seasons = $championship->seasons()->with(['events.stages.results.driver', 'events.positions.driver'])->get()->sortBy('closes');
         return view('dirt-rally.standings.overview')
             ->with('championship', $championship)
-            ->with('seasons', $seasons)
-            ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::overview($seasons)));
+            ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::overview($championship)));
     }
 
     public function season($championship, $season)
@@ -58,7 +54,7 @@ class StandingsController extends Controller
         $stage->load(['event.season.championship']);
         return view('dirt-rally.standings.stage')
             ->with('stage', $stage)
-            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage->id)))
+            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage)))
             ->with('points', \PointSequences::get($stage->event->season->championship->stagePointsSequence));
     }
 

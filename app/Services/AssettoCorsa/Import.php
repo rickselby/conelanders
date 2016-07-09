@@ -8,6 +8,7 @@ use App\Models\AssettoCorsa\AcLaptime;
 use App\Models\AssettoCorsa\AcSession;
 use App\Models\AssettoCorsa\AcSessionLap;
 use App\Models\Driver;
+use App\Services\Cached\AssettoCorsa\Handler;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 
@@ -145,7 +146,7 @@ class Import
         $session->importing = false;
         $session->save();
         // Clear the session cache
-        app(Results::class)->clearSessionCache($session);
+        app(Handler::class)->clearSessionCache($session);
     }
 
     private function setFastestLapPositions(&$entrants)
