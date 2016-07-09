@@ -6,10 +6,10 @@ use App\Events\AssettoCorsa\ChampionshipUpdated;
 use App\Events\AssettoCorsa\EventUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssettoCorsa\ChampionshipEventRequest;
-use App\Http\Requests\Request;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcSession;
+use Illuminate\Http\Request;
 
 class ChampionshipEventController extends Controller
 {
