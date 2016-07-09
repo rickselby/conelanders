@@ -3,6 +3,8 @@
 namespace App\Interfaces\AssettoCorsa;
 
 
+use App\Models\AssettoCorsa\AcEvent;
+
 interface EventInterface
 {
     /**

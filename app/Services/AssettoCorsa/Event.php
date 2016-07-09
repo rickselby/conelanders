@@ -2,9 +2,10 @@
 
 namespace App\Services\AssettoCorsa;
 
+use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
 
-class Event
+class Event implements EventInterface
 {
 
     protected $driverIDs = [];
