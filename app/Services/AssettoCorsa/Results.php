@@ -96,6 +96,7 @@ class Results implements ResultsInterface
             $results[$entrant->id]['points'] = 0;
             $results[$entrant->id]['eventPoints'] = [];
             $results[$entrant->id]['positions'] = [];
+            $results[$entrant->id]['dropped'] = [];
         }
         foreach($championship->events AS $event) {
             $eventResults = \ACResults::event($event);
@@ -110,9 +111,74 @@ class Results implements ResultsInterface
             }
         }
 
+        $results = $this->dropEvents($championship, $results);
         usort($results, [$this, 'pointsSort']);
         $results = \Positions::addToArray($results, [$this, 'arePointsEqual']);
 
+        return $results;
+    }
+
+    /**
+     * See if any events need dropping from the total points
+     * @param AcChampionship $championship
+     * @param $results
+     * @return []
+     */
+    private function dropEvents(AcChampionship $championship, $results)
+    {
+        $dropEvents = 0;
+
+        // First, calculate how many dropped events to show
+        if ($championship->drop_events != 0) {
+
+            // we need to know how many events are available
+            $totalEvents = $shownEvents = 0;
+            foreach($championship->events AS $event) {
+                $totalEvents++;
+                if (\ACEvent::canBeShown($event)) {
+                    $shownEvents++;
+                }
+            }
+
+            // then work out how many dropped events should be shown
+            // for 1, show it half way through
+            // for 2, show one after a third, and the 2nd after 2/3rds
+            // etc
+            for ($i = 1; $i <= $championship->drop_events; $i++) {
+                if ($shownEvents >= ($i / ($championship->drop_events + 1))) {
+                    $dropEvents++;
+                }
+            }
+        }
+
+        if ($dropEvents != 0) {
+            // how many events can count?
+            $countEvents = $shownEvents - $dropEvents;
+
+            // Work through each entrant
+            foreach($results AS $entrantID => $result) {
+                $points = $result['eventPoints'];
+
+                // Sort the points to get rid of the lower one(s)
+                arsort($points);
+
+                // Do we need to drop any events?
+                if (count($points) > $countEvents) {
+
+                    // The keys of the points array are the event IDs; get those keys beyond the number of events to count
+                    $eventsToDrop = array_slice(array_keys($points), $countEvents);
+
+                    // Step through the events to drop
+                    foreach($eventsToDrop AS $eventID) {
+                        // Remove the points
+                        $results[$entrantID]['points'] -= $result['eventPoints'][$eventID];
+                        // Mark that this event was dropped
+                        $results[$entrantID]['dropped'][] = $eventID;
+                    }
+                }
+
+            }
+        }
         return $results;
     }
 
