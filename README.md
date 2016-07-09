@@ -14,7 +14,7 @@ Tag-based cache. I'm just using APC, it seems fine for now. Don't use files
 
     cd public/bower/Sortable
     npm install
-    node_modules/grunt/bin/grunt jquery
+    node_modules/grunt/bin/grunt jquery:min
     rm -rf node_modules
 
 ... set up .env ...

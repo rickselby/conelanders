@@ -6,8 +6,10 @@ use App\Events\AssettoCorsa\ChampionshipUpdated;
 use App\Events\AssettoCorsa\EventUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssettoCorsa\ChampionshipEventRequest;
+use App\Http\Requests\Request;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
+use App\Models\AssettoCorsa\AcSession;
 
 class ChampionshipEventController extends Controller
 {
@@ -128,6 +130,12 @@ class ChampionshipEventController extends Controller
         return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
     }
 
+    /**
+     * Set the ordering of sessions for this event
+     * @param Request $request
+     * @param $championshipSlug
+     * @param $eventSlug
+     */
     public function sortSessions(Request $request, $championshipSlug, $eventSlug)
     {
         $counter = 1;
