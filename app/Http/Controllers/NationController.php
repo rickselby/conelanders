@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NationUpdated;
 use App\Models\Nation;
 use Illuminate\Http\Request;
 use App\Http\Requests\NationRequest;
@@ -72,6 +73,7 @@ class NationController extends Controller
     {
         $nation->fill($request->all());
         $nation->save();
+        \Event::fire(new NationUpdated($nation));
 
         \Notification::add('success', 'Nation "'.$nation->name.'" updated');
         return \Redirect::route('nation.index');

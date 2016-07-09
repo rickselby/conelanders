@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AssettoCorsa;
 
+use App\Events\AssettoCorsa\SessionUpdated;
 use App\Http\Controllers\Controller;
 use App\Models\AssettoCorsa\AcSession;
 use App\Models\AssettoCorsa\AcSessionEntrant;
@@ -49,6 +50,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     {
         $session = $request->get('session');
         $import->saveEntrants($request, $session);
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Entrants added; results queued for processing');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -67,6 +69,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     {
         $session = $request->get('session');
         $entrants->updateSessionEntrants($request, $session);
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Entrants updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -87,6 +90,7 @@ class ChampionshipEventSessionEntrantController extends Controller
         if ($entrant->session->id == $session->id) {
             if ($entrant->canBeDeleted()) {
                 $entrant->delete();
+                \Event::fire(new SessionUpdated($session));
                 \Notification::add('success', $entrant->championshipEntrant->driver->name . ' removed as an entrant');
             } else {
                 \Notification::add('warning', 'Cannot delete ' . $entrant->championshipEntrant->driver->name . ' - they have laps assigned');
@@ -112,6 +116,7 @@ class ChampionshipEventSessionEntrantController extends Controller
         $session = $request->get('session');
         $sequence = PointsSequence::findOrFail($request->get('sequence'));
         $sessionService->applyPointsSequence($session, $sequence);
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points sequence applied to results');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -131,6 +136,7 @@ class ChampionshipEventSessionEntrantController extends Controller
         $session = $request->get('session');
         $sequence = PointsSequence::findOrFail($request->get('sequence'));
         $sessionService->applyFastestLapPointsSequence($session, $sequence);
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points sequence applied to results');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -149,6 +155,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     {
         $session = $request->get('session');
         $sessionService->setPoints($session, $request->get('points'));
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -167,6 +174,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     {
         $session = $request->get('session');
         $sessionService->setFastestLapPoints($session, $request->get('points'));
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -185,6 +193,7 @@ class ChampionshipEventSessionEntrantController extends Controller
         $thisSession = $request->get('session');
         $fromSession = AcSession::findOrFail($request->get('from-session'));
         $sessionService->setStartedFromSession($thisSession, $fromSession);
+        \Event::fire(new SessionUpdated($thisSession));
         \Notification::add('success', 'Starting positions set to results from '.$fromSession->name);
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$thisSession->event->championship, $thisSession->event, $thisSession]);
     }
@@ -203,6 +212,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     {
         $session = $request->get('session');
         $sessionService->setStarted($session, $request->get('started'));
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Starting positions updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }

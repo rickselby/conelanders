@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AssettoCorsa\AcChampionship;
 
 use App\Http\Requests;
-use App\Services\AssettoCorsa\DriverPoints;
-use App\Services\AssettoCorsa\Results;
+use Illuminate\Cache\TaggableStore;
 
 class StandingsController extends Controller
 {
@@ -17,30 +16,30 @@ class StandingsController extends Controller
         $this->middleware('assetto-corsa.validateSession')->only(['lapChart']);
     }
 
-    public function championship(AcChampionship $championship, Results $resultsService)
+    public function championship(AcChampionship $championship)
     {
         $championship->load('events.sessions.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
         $events = $championship->events()->get()->sortBy('time');
         return view('assetto-corsa.standings.championship')
             ->with('championship', $championship)
             ->with('events', $events)
-            ->with('points', \Positions::addEquals($resultsService->championship($championship)));
+            ->with('points', \Positions::addEquals(\ACResults::championship($championship)));
     }
 
-    public function event($championshipStub, $eventStub, Results $resultsService)
+    public function event($championshipStub, $eventStub)
     {
         $event = \Request::get('event');
         $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.entrants.laps', 'sessions.event');
         return view('assetto-corsa.standings.event')
             ->with('event', $event)
-            ->with('points', \Positions::addEquals($resultsService->eventSummary($event)));
+            ->with('points', \Positions::addEquals(\ACResults::eventSummary($event)));
     }
 
-    public function lapChart($championshipStub, $raceStub, $sessionStub, Results $resultsService)
+    public function lapChart($championshipStub, $raceStub, $sessionStub)
     {
         $session = \Request::get('session');
         $session->load('entrants.championshipEntrant.driver', 'entrants.laps');
-        $content = $resultsService->lapChart($session);
+        $content = \ACResults::lapChart($session);
         $response = \Response::make($content);
         $response->header('Content-type',  'image/svg+xml');
         return $response;

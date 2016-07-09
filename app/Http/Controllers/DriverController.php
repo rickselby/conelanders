@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DriverUpdated;
 use App\Models\Driver;
 use App\Models\Nation;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class DriverController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Driver $driver
      * @return \Illuminate\Http\Response
      */
     public function edit(Driver $driver)
@@ -59,13 +60,14 @@ class DriverController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Driver  $driver
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Driver $driver)
     {
         $driver->fill($request->all());
         $driver->save();
+        \Event::fire(new DriverUpdated($driver));
         return \Redirect::route('driver.index');
     }
 }

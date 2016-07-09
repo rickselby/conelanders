@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\AssettoCorsa;
 
+use App\Events\AssettoCorsa\ChampionshipUpdated;
+use App\Events\AssettoCorsa\EventUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssettoCorsa\ChampionshipEventRequest;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
-use App\Models\AssettoCorsa\AcEventEntrant;
-use App\Services\AssettoCorsa\Import;
-use App\Services\AssettoCorsa\Results;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class ChampionshipEventController extends Controller
 {
@@ -42,6 +39,7 @@ class ChampionshipEventController extends Controller
     {
         /** @var AcEvent $event */
         $event = $championship->events()->create($request->all());
+        \Event::fire(new ChampionshipUpdated($championship));
         \Notification::add('success', 'Event "'.$event->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.show', [$championship, $event]);
     }
@@ -53,7 +51,7 @@ class ChampionshipEventController extends Controller
      * @param  string $eventSlug
      * @return \Illuminate\Http\Response
      */
-    public function show($championshipSlug, $eventSlug, Results $resultsService)
+    public function show($championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
         return view('assetto-corsa.event.show')
@@ -87,6 +85,7 @@ class ChampionshipEventController extends Controller
         $event = \Request::get('event');
         $event->fill($request->all());
         $event->save();
+        \Event::fire(new EventUpdated($event));
         \Notification::add('success', 'Event "'.$event->name.'" updated');
         return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
     }
@@ -106,6 +105,7 @@ class ChampionshipEventController extends Controller
             return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
         } else {
             $event->delete();
+            \Event::fire(new EventUpdated($event));
             \Notification::add('success', 'Event "'.$event->name.'" deleted');
             return \Redirect::route('assetto-corsa.championship.show', $event->championship);
         }

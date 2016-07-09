@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DirtRally;
 
+use App\Events\DirtRally\ChampionshipUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipRequest;
 use App\Models\DirtRally\DirtChampionship;
@@ -86,7 +87,7 @@ class ChampionshipController extends Controller
     {
         $championship->fill($request->all());
         $championship->save();
-
+        \Event::fire(new ChampionshipUpdated($championship));
         \Notification::add('success', 'Championship "'.$championship->name.'" updated');
         return \Redirect::route('dirt-rally.championship.show', $championship);
     }
@@ -104,6 +105,7 @@ class ChampionshipController extends Controller
             return \Redirect::route('dirt-rally.championship.show', $championship);
         } else {
             $championship->delete();
+            \Event::fire(new ChampionshipUpdated($championship));
             \Notification::add('success', 'Championship "'.$championship->name.'" deleted');
             return \Redirect::route('dirt-rally.championship.index');
         }

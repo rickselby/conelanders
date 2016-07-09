@@ -17,6 +17,7 @@ use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtResult;
 use App\Models\DirtRally\DirtStage;
+use App\Services\Cached\DirtRally\Handler;
 use Carbon\Carbon;
 
 abstract class ImportAbstract
@@ -197,6 +198,7 @@ abstract class ImportAbstract
         }
         $event->save();
         \DirtRallyPositions::updateEventPositions($event);
+        app(Handler::class)->clearEventStages($event);
     }
 
 }

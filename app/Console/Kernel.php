@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
     {
         // Import results every 3 hours
         $schedule->command('results:import')->cron('0 */3 * * *');
-
+        
         // Check for a last pull every minute (ouch)
         $schedule->call(function() {
             \DirtRallyImportDirt::queueLastImport();

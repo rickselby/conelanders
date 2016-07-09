@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\DirtRally;
 
+use App\Events\DirtRally\EventUpdated;
+use App\Events\DirtRally\StageUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonEventStageRequest;
 use App\Models\DirtRally\DirtStage;
@@ -42,6 +44,7 @@ class ChampionshipSeasonEventStageController extends Controller
     {
         $event = \Request::get('event');
         $stage = $event->stages()->create($request->all());
+        \Event::fire(new EventUpdated($event));
         \Notification::add('success', 'Stage "'.$stage->name.'" added to "'.$event->name.'" ('.$event->season->name.')');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
@@ -60,7 +63,7 @@ class ChampionshipSeasonEventStageController extends Controller
         $stage = \Request::get('stage');
         return view('dirt-rally.stage.show')
             ->with('stage', $stage)
-            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage->id)));
+            ->with('results', \Positions::addEquals(\DirtRallyResults::getStageResults($stage)));
     }
 
     /**
@@ -93,6 +96,7 @@ class ChampionshipSeasonEventStageController extends Controller
         $stage = \Request::get('stage');
         $stage->fill($request->all());
         $stage->save();
+        \Event::fire(new StageUpdated($stage));
         \Notification::add('success', $stage->name . ' updated');
         return \Redirect::route('dirt-rally.championship.season.event.stage.show', [$championship, $season, $event, $stage]);
     }
@@ -114,6 +118,7 @@ class ChampionshipSeasonEventStageController extends Controller
             return \Redirect::route('dirt-rally.championship.season.event.stage.show', [$championship, $season, $event, $stage]);
         } else {
             $stage->delete();
+            \Event::fire(new StageUpdated($stage));
             \Notification::add('success', $stage->name . ' deleted');
             return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
         }

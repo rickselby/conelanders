@@ -14,7 +14,7 @@
         <tr>
             <th>Pos.</th>
             <th>Driver</th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 <th data-sortInitialOrder="desc">
                     <a href="{{ route('dirt-rally.standings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
@@ -33,7 +33,7 @@
                         {{ $detail['entity']->name }}
                     </a>
                 </th>
-                @foreach($seasons AS $season)
+                @foreach($championship->getOrderedSeasons() AS $season)
                     <td class="points {{ \Positions::colour(isset($detail['positions'][$season->id]) ? $detail['positions'][$season->id] : null) }}">
                         @if ($season->isComplete())
                             {{ $detail['points'][$season->id] or '' }}

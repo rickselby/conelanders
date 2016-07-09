@@ -45,6 +45,26 @@ class AcChampionship extends \Eloquent
         }
         return true;
     }
+    
+    public function getNextUpdate() 
+    {
+        if (!$this->isComplete()) {
+            foreach ($this->events AS $event) {
+                $nextUpdate = $event->getNextUpdate();
+                if ($nextUpdate) {
+                    if (!isset($nextDate)) {
+                        $nextDate = $nextUpdate;
+                    } else {
+                        $nextDate = min($nextDate, $nextUpdate);
+                    }
+                }
+            }
+            if (isset($nextDate)) {
+                return $nextDate;
+            }
+        }
+        return false;        
+    }
 
     /**
      * Sluggable configuration

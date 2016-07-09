@@ -2,13 +2,16 @@
 
 namespace App\Services\DirtRally;
 
+use App\Interfaces\DirtRally\TimesInterface;
+use App\Models\DirtRally\DirtChampionship;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtSeason;
-use Illuminate\Database\Eloquent\Collection;
 
-class Times
+class Times implements TimesInterface
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function forEvent(DirtEvent $event)
     {
         $times = [];
@@ -64,6 +67,9 @@ class Times
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function forSeason(DirtSeason $season)
     {
         $times = [];
@@ -110,11 +116,18 @@ class Times
         ];
     }
 
-    public function overall(Collection $seasons)
+    /**
+     * {@inheritdoc}
+     */
+    public function overall(DirtChampionship $championship)
     {
+        $championship->load([
+            'seasons.events.stages.results.driver',
+            'seasons.events.positions.driver',
+        ]);
         $times = [];
         $seasonList = [];
-        foreach($seasons AS $season) {
+        foreach($championship->seasons AS $season) {
             $seasonList[$season->id] = $this->forSeason($season);
             foreach ($seasonList[$season->id]['times'] AS $result) {
                 $times[$result['driver']->id]['driver'] = $result['driver'];
@@ -124,7 +137,7 @@ class Times
         }
 
         foreach($times AS $driverID => $detail) {
-            foreach($seasons AS $season) {
+            foreach($championship->seasons AS $season) {
                 if (!isset($detail['seasons'][$season->id])) {
                     $times[$driverID]['seasons'][$season->id] = $seasonList[$season->id]['dnf'];
                     $times[$driverID]['dnss'][$season->id] = true;
@@ -142,12 +155,22 @@ class Times
         return \Positions::addToArray($times, [$this, 'areTimesEqual']);
     }
 
+    /**
+     * Get the value of the DNF penalty
+     * @return int
+     */
     private function dnfPenalty()
     {
         // ten minutes in milliseconds
         return 10*60*1000;
     }
 
+    /**
+     * Check if the two given times are equal
+     * @param $a
+     * @param $b
+     * @return bool
+     */
     public function areTimesEqual($a, $b)
     {
         return $a['total'] == $b['total'];

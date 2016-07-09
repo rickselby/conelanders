@@ -13,6 +13,8 @@ class DirtChampionship extends \Eloquent
 
     protected $fillable = ['name', 'event_points_sequence', 'stage_points_sequence'];
 
+    protected $orderedSeasons;
+
     public function seasons()
     {
         // Can't sort at database level
@@ -62,13 +64,22 @@ class DirtChampionship extends \Eloquent
         return trim(str_ireplace('championship', '', $this->name));
     }
 
-    public function isComplete() {
+    public function isComplete()
+    {
         foreach($this->seasons AS $season) {
             if (!$season->isComplete()) {
                 return false;
             }
         }
         return true;
+    }
+
+    public function getOrderedSeasons()
+    {
+        if (!isset($this->orderedSeasons)) {
+            $this->orderedSeasons = $this->seasons()->get()->sortBy('closes');
+        }
+        return $this->orderedSeasons;
     }
 
     /**

@@ -14,7 +14,7 @@
         <tr>
             <th>Pos.</th>
             <th>Nation</th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 <th data-sortInitialOrder="desc">
                     <a href="{{ route('dirt-rally.nationstandings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
@@ -32,7 +32,7 @@
                     @include('nation.image', ['nation' => $detail['entity']])
                     {{ $detail['entity']->name }}
                 </th>
-                @foreach($seasons AS $season)
+                @foreach($championship->getOrderedSeasons() AS $season)
                     <td class="points {{ \Positions::colour(isset($detail['positions'][$season->id]) ? $detail['positions'][$season->id] : null) }}">
                         @if ($season->isComplete())
                             {{ isset($detail['points'][$season->id]) ? round($detail['points'][$season->id], 2) : '' }}
