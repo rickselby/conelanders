@@ -2,59 +2,46 @@
 
 namespace App\Services\AssettoCorsa;
 
+use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
 
-class Event
+class Event implements EventInterface
 {
 
     protected $driverIDs = [];
 
     /**
-     * Can we show the given event's results to the current user?
-     *
-     * @param AcEvent $event
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function canBeShown(AcEvent $event)
     {
-        return $this->currentUserInEvent($event) || $event->canBeReleased();
+        return \ACEvent::currentUserInEvent($event) || $event->canBeReleased();
     }
 
     /**
-     * Check if the currently logged in user is part of the given event
-     *
-     * @param AcEvent $event
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function currentUserInEvent(AcEvent $event)
     {
         if (\Auth::check() && \Auth::user()->driver) {
-            return in_array(\Auth::user()->driver->id, $this->getDriverIDs($event));
+            return in_array(\Auth::user()->driver->id, \ACEvent::getDriverIDs($event));
         } else {
             return false;
         }
     }
 
     /**
-     * Get a list of driver IDs that are listed against a session for the given event
-     *
-     * @param AcEvent $event
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    private function getDriverIDs(AcEvent $event)
+    public function getDriverIDs(AcEvent $event)
     {
-        # I will/may eventually use proper caching for this, and other things. That's a bigger project though.
         if (!isset($this->driverIDs[$event->id])) {
-            $this->driverIDs[$event->id] = \DB::table('drivers')
-                ->join('ac_championship_entrants', 'drivers.id', '=', 'ac_championship_entrants.driver_id')
+            $this->driverIDs[$event->id] = \DB::table('ac_championship_entrants')
                 ->join('ac_session_entrants', 'ac_championship_entrants.id', '=', 'ac_session_entrants.ac_championship_entrant_id')
                 ->join('ac_sessions', 'ac_session_entrants.ac_session_id', '=', 'ac_sessions.id')
-                ->select('drivers.id')
+                ->select('ac_championship_entrants.driver_id')
                 ->where('ac_sessions.ac_event_id', '=', $event->id)
-                ->pluck('id');
+                ->pluck('driver_id');
         }
 
         return $this->driverIDs[$event->id];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AssettoCorsa;
 
+use App\Events\AssettoCorsa\ChampionshipUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssettoCorsa\ChampionshipRequest;
 use App\Models\AssettoCorsa\AcChampionship;
@@ -83,7 +84,7 @@ class ChampionshipController extends Controller
     {
         $championship->fill($request->all());
         $championship->save();
-
+        \Event::fire(new ChampionshipUpdated($championship));
         \Notification::add('success', 'Championship "'.$championship->name.'" updated');
         return \Redirect::route('assetto-corsa.championship.show', $championship);
     }
@@ -101,6 +102,7 @@ class ChampionshipController extends Controller
             return \Redirect::route('assetto-corsa.championship.show', $championship);
         } else {
             $championship->delete();
+            \Event::fire(new ChampionshipUpdated($championship));
             \Notification::add('success', 'Championship "'.$championship->name.'" deleted');
             return \Redirect::route('assetto-corsa.championship.index');
         }

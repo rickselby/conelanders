@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\DirtRally;
 
+use App\Events\DirtRally\EventUpdated;
+use App\Events\DirtRally\SeasonUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonEventRequest;
 use App\Models\DirtRally\DirtEvent;
@@ -40,6 +42,7 @@ class ChampionshipSeasonEventController extends Controller
     {
         $season = \Request::get('season');
         $event = $season->events()->create($request->all());
+        \Event::fire(new SeasonUpdated($season));
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
@@ -89,6 +92,7 @@ class ChampionshipSeasonEventController extends Controller
         $event = \Request::get('event');
         $event->fill($request->all());
         $event->save();
+        \Event::fire(new EventUpdated($event));
         \Notification::add('success', $event->name . ' updated');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
@@ -111,6 +115,7 @@ class ChampionshipSeasonEventController extends Controller
             return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
         } else {
             $event->delete();
+            \Event::fire(new EventUpdated($event));
             \Notification::add('success', $event->name . ' deleted');
             return \Redirect::route('dirt-rally.championship.season.show', [$championship, $season]);
         }

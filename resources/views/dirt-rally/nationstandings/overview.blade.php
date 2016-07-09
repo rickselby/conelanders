@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th colspan="2" data-sorter="false"></th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 <th colspan="{{ count($season->events) }}" data-sorter="false" class="text-center">
                     <a href="{{ route('dirt-rally.nationstandings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
@@ -18,7 +18,7 @@
         <tr>
             <th>P.</th>
             <th>N.</th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 @foreach($season->events AS $event)
                     <th data-sortinitialorder="desc" class="text-center">
                         <a href="{{ route('dirt-rally.nationstandings.event', [$championship, $season, $event]) }}" class="tablesorter-noSort">
@@ -37,7 +37,7 @@
                 <th class="text-nowrap">
                     @include('nation.image', ['nation' => $detail['entity']])
                 </th>
-                @foreach($seasons AS $season)
+                @foreach($championship->getOrderedSeasons() AS $season)
                     @foreach($season->events AS $event)
                         <td>{{ isset($detail['points'][$event->id]) ? round($detail['points'][$event->id], 2) : '' }}</td>
                     @endforeach

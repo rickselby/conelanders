@@ -7,7 +7,7 @@
         <tr>
             <th>Pos.</th>
             <th>Driver</th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 <th>
                     <a href="{{ route('dirt-rally.times.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
@@ -26,7 +26,7 @@
                         {{ $detail['driver']->name }}
                     </a>
                 </th>
-                @foreach($seasons AS $season)
+                @foreach($championship->getOrderedSeasons() AS $season)
                     <td class="time {{ $detail['dnss'][$season->id] ? 'danger' : '' }} {{ \Positions::colour(isset($detail['seasonPositions'][$season->id]) ? $detail['seasonPositions'][$season->id] : null) }}">
                         @if ($season->isComplete())
                             {{ Times::toString($detail['seasons'][$season->id]) }}

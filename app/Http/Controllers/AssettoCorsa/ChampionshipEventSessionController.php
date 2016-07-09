@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\AssettoCorsa;
 
+use App\Events\AssettoCorsa\EventUpdated;
+use App\Events\AssettoCorsa\SessionUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssettoCorsa\ChampionshipEventSessionRequest;
 use App\Jobs\AssettoCorsa\ImportQualifyingJob;
 use App\Jobs\AssettoCorsa\ImportEventJob;
 use App\Jobs\AssettoCorsa\ImportResultsJob;
-use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcEventEntrant;
 use App\Models\AssettoCorsa\AcSession;
 use App\Services\AssettoCorsa\Import;
@@ -58,6 +59,7 @@ class ChampionshipEventSessionController extends Controller
             $request->all(),
             ['order' => $order]
         ));
+        \Event::fire(new EventUpdated($event));
         \Notification::add('success', 'Session "'.$session->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]);
     }
@@ -108,6 +110,7 @@ class ChampionshipEventSessionController extends Controller
         $session = \Request::get('session');
         $session->fill($request->all());
         $session->save();
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Session "'.$session->name.'" updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -128,6 +131,7 @@ class ChampionshipEventSessionController extends Controller
             return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
         } else {
             $session->delete();
+            \Event::fire(new SessionUpdated($session));
             \Notification::add('success', 'Session "'.$session->name.'" deleted');
             return \Redirect::route('assetto-corsa.championship.event.show', [$session->event->championship, $session->event]);
         }
@@ -148,6 +152,7 @@ class ChampionshipEventSessionController extends Controller
         $session = \Request::get('session');
         $import->saveUpload($request, $session);
         $session->entrants()->delete();
+        \Event::fire(new SessionUpdated($session));
         return \Redirect::route('assetto-corsa.championship.event.session.entrants.create', [$session->event->championship, $session->event, $session]);
     }
 
@@ -185,6 +190,7 @@ class ChampionshipEventSessionController extends Controller
         $session = \Request::get('session');
         $session->release = Carbon::createFromFormat('jS F Y, H:i', $request->release);
         $session->save();
+        \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Release Date Updated');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }

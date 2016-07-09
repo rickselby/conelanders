@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th colspan="2" rowspan="2" data-sorter="false"></th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 <th colspan="{{ $season->stageCount + count($season->events) }}" data-sorter="false" class="text-center">
                     <a href="{{ route('dirt-rally.standings.season', [$championship, $season]) }}" class="tablesorter-noSort">
                         {{ $season->name }}
@@ -16,7 +16,7 @@
             <th rowspan="2" data-sorter="false"></th>
         </tr>
         <tr>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 @foreach($season->events AS $event)
                     <th colspan="{{ count($event->stages) + 1 }}" data-sorter="false" class="text-center">
                         <a href="{{ route('dirt-rally.standings.event', [$championship, $season, $event]) }}" class="tablesorter-noSort">
@@ -29,7 +29,7 @@
         <tr>
             <th>Pos.</th>
             <th>Driver</th>
-            @foreach($seasons AS $season)
+            @foreach($championship->getOrderedSeasons() AS $season)
                 @foreach($season->events AS $event)
                     @foreach($event->stages AS $stage)
                         <th data-sortInitialOrder="desc">
@@ -55,7 +55,7 @@
                         {{ $detail['entity']->name }}
                     </a>
                 </th>
-                @foreach($seasons AS $season)
+                @foreach($championship->getOrderedSeasons() AS $season)
                     @foreach($season->events AS $event)
                         @foreach($event->stages AS $stage)
                             <td>{{ $detail['stages'][$stage->id] or '' }}</td>

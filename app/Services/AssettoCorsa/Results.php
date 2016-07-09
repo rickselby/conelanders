@@ -4,13 +4,16 @@ namespace App\Services\AssettoCorsa;
 
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
-use App\Models\AssettoCorsa\AcRace;
 use App\Models\AssettoCorsa\AcSession;
 use App\Models\Driver;
+use App\Interfaces\AssettoCorsa\ResultsInterface;
 use LapChart\Chart;
 
-class Results
+class Results implements ResultsInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function eventSummary(AcEvent $event)
     {
         $results = [];
@@ -46,6 +49,9 @@ class Results
         return $results;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function event(AcEvent $event)
     {
         $results = [];
@@ -78,6 +84,9 @@ class Results
         return $results;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function championship(AcChampionship $championship)
     {
         $championship->load('events.sessions.entrants.championshipEntrant.driver.nation');
@@ -89,7 +98,7 @@ class Results
             $results[$entrant->id]['positions'] = [];
         }
         foreach($championship->events AS $event) {
-            $eventResults = $this->event($event);
+            $eventResults = \ACResults::event($event);
             $eventResultsWithEquals = \Positions::addEquals($eventResults);
             foreach ($eventResults AS $key => $result) {
                 $entrantID = $result['entrant']->id;
@@ -153,6 +162,9 @@ class Results
         return 0;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function forRace(AcSession $session)
     {
         if ($session->type == AcSession::TYPE_RACE) {
@@ -189,6 +201,9 @@ class Results
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function fastestLaps(AcSession $session)
     {
         $firstEntrant = null;
@@ -201,13 +216,9 @@ class Results
             'laps'
         )->orderBy('fastest_lap_position')->get();
 
-        $pos = [];
         foreach($fastestLaps AS $entrant) {
             if (!$firstEntrant) {
                 $firstEntrant = $entrant;
-                if (!$entrant->fastest_lap_id) {
-                    dd($entrant);
-                }
             }
 
             if ($entrant->fastestLap) {
@@ -259,6 +270,9 @@ class Results
         return $fastestLaps;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function lapChart(AcSession $session)
     {
         $entrantLapCount = [];
@@ -312,7 +326,9 @@ class Results
         return $chart->generate();
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     public function forDriver(Driver $driver)
     {
         $results['all'] = $this->getAllForDriver($driver);
@@ -321,6 +337,10 @@ class Results
         return $results;
     }
 
+    /**
+     * @param Driver $driver
+     * @return array
+     */
     protected function getAllForDriver(Driver $driver)
     {
         $driver->load('acEntries.entries.session.event.championship');
@@ -339,7 +359,7 @@ class Results
                 if (!isset($championships[$championshipID])) {
                     // Load back down the chain
                     $result->session->event->championship->load('entrants.driver', 'events.sessions.entrants.championshipEntrant.driver');
-                    $points = $this->championship($result->session->event->championship);
+                    $points = \ACResults::championship($result->session->event->championship);
                     $points = array_where($points, function($key, $value) use ($driver) {
                         return $value['entrant']->driver->id == $driver->id;
                     });
@@ -356,7 +376,7 @@ class Results
 
                 if (!isset($championships[$championshipID]['events'][$eventID])) {
                     $result->session->event->load('sessions.entrants.championshipEntrant.driver');
-                    $points = $this->event($result->session->event);
+                    $points = \ACResults::event($result->session->event);
                     $points = array_where($points, function($key, $value) use ($driver) {
                         return $value['entrant']->driver->id == $driver->id;
                     });
@@ -373,7 +393,7 @@ class Results
 
                 if ($result->session->event->canBeReleased()) {
 
-                    $fastLapResults = $this->fastestLaps($result->session);
+                    $fastLapResults = \ACResults::fastestLaps($result->session);
 
                     $fastLapResults = array_where($fastLapResults, function($key, $value) use ($driver) {
                         return $value->championshipEntrant->driver->id == $driver->id;
@@ -387,7 +407,7 @@ class Results
                     ];
 
                     if ($result->session->type == AcSession::TYPE_RACE) {
-                        $raceResults = $this->forRace($result->session);
+                        $raceResults = \ACResults::forRace($result->session);
 
                         $raceResults = array_where($raceResults, function($key, $value) use ($driver) {
                             return $value->championshipEntrant->driver->id == $driver->id;
