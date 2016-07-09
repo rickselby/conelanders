@@ -41,7 +41,7 @@
                             <div class="panel-body">
                                 Only admins and entrants can see this page, these results have not yet been released.
                                 @if ($session->release)
-                                    They will be released on {{ $session->release->format('l jS \\of F Y h:i:s A') }}
+                                    They will be released on {{ $session->release->format('l jS \\of F Y H:i:s e') }}
                                 @endif
                             </div>
                         </div>

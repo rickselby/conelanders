@@ -127,4 +127,14 @@ class ChampionshipEventController extends Controller
         }
         return \Redirect::route('assetto-corsa.championship.event.show', [$event->championship, $event]);
     }
+
+    public function sortSessions(Request $request, $championshipSlug, $eventSlug)
+    {
+        $counter = 1;
+        foreach($request->get('order') AS $sessionID) {
+            $session = AcSession::findOrFail($sessionID);
+            $session->order = $counter++;
+            $session->save();
+        }
+    }
 }
