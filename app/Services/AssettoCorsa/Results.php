@@ -145,7 +145,7 @@ class Results implements ResultsInterface
             // for 2, show one after a third, and the 2nd after 2/3rds
             // etc
             for ($i = 1; $i <= $championship->drop_events; $i++) {
-                if ($shownEvents >= ($i / ($championship->drop_events + 1))) {
+                if ($shownEvents >= (($i / ($championship->drop_events + 1)) * $totalEvents)) {
                     $dropEvents++;
                 }
             }
