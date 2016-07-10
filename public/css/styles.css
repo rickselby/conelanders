@@ -35,6 +35,30 @@ div.position {
     background-color: #efcfff;
 }
 
+.position-first.dropped {
+    background: repeating-linear-gradient(-45deg, #ffffbf, #ffffbf 5px, #d0d0d0 5px, #d0d0d0 7px);
+}
+
+.position-second.dropped {
+    background: repeating-linear-gradient(-45deg, #dfdfdf, #dfdfdf 5px, #d0d0d0 5px, #d0d0d0 7px);
+}
+
+.position-third.dropped {
+    background: repeating-linear-gradient(-45deg, #ffdf9f, #ffdf9f 5px, #d0d0d0 5px, #d0d0d0 7px);
+}
+
+.position-points.dropped {
+    background: repeating-linear-gradient(-45deg, #dfffdf, #dfffdf 5px, #d0d0d0 5px, #d0d0d0 7px);
+}
+
+.position-finished.dropped {
+    background: repeating-linear-gradient(-45deg, #cfcfff, #cfcfff 5px, #dfdfdf 5px, #dfdfdf 7px);
+}
+
+.dropped {
+    color: #888;
+}
+
 .driver-number, .driver-number-white {
     width: 3em;
     margin-left: 0.2em;
