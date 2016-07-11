@@ -64,19 +64,19 @@ class ImportDirt extends ImportAbstract
     public function getEvent(DirtEvent $event)
     {
         if ($event->racenet_event_id) {
-            \Log::info('Loading results for event '.$event->id.' from website : Begin');
+            \Log::info('Loading results for event from website : Begin', ['id' => $event->id]);
             // Remember when we started processing this event
             $this->startEventImport($event);
 
             $dirtEvent = $this->getPage($this->getShortEventPath($event));
 
-            \Log::info($dirtEvent->TotalStages.' stages to process');
+            \Log::info('Found stages for event', ['event' => $event->id, 'stages' => $dirtEvent->TotalStages]);
             for ($stageNum = 1; $stageNum <= $dirtEvent->TotalStages; $stageNum++) {
                 $this->processStage($event, $stageNum);
             }
 
             $this->completeEventImport($event);
-            \Log::info('Loading results for event '.$event->id.' from website : End');
+            \Log::info('Loading results for event from website : End', ['id' => $event->id]);
         }
     }
 
@@ -93,7 +93,7 @@ class ImportDirt extends ImportAbstract
             // Get the first page
             $page = $this->getPage($this->getEventPath($event, $stageNum));
 
-            \Log::info('Stage '.$stage->id.' has '.$page->Pages.' pages to process');
+            \Log::info('Found pages for stage', ['stage' => $stage->id, 'pages' => $page->Pages]);
             if ($page->Pages > 0) {
                 $this->clearStageResults($stage);
                 $this->processPage($stage, $page);
@@ -113,7 +113,7 @@ class ImportDirt extends ImportAbstract
      */
     protected function processPage(DirtStage $stage, $page)
     {
-        \Log::info('Processing page for stage '.$stage->id.': '.count($page->Entries).' entries');
+        \Log::info('Processing page', ['stage' => $stage->id, 'entries' => count($page->Entries)]);
         foreach($page->Entries as $entry) {
             $this->processResult($stage, $entry->Name, $this->getRacenetID($entry->ProfileUrl), $entry->Time, $entry->NationalityImage);
         }
@@ -200,7 +200,7 @@ class ImportDirt extends ImportAbstract
     {
         $start = microtime(true);
         $file = json_decode(file_get_contents($url));
-        \Log::info('Page took '.(microtime(true) - $start).'s to load');
+        \Log::info('Page loaded', ['time' => (microtime(true) - $start)]);
         return $file;
     }
 
