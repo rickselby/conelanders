@@ -96,6 +96,7 @@ class Handler
      */
     public function clearStageCache(DirtStage $stage, $propogate = true)
     {
+        \Log::info('Clearing Dirt Rally Stage Cache', ['stage' => $stage->id]);
         $this->cache->tags($this->stageTag($stage))->flush();
         if ($propogate) {
             $this->clearEventCache($stage->event);
@@ -108,6 +109,7 @@ class Handler
      */
     public function clearEventCache(DirtEvent $event, $propogate = true)
     {
+        \Log::info('Clearing Dirt Rally Event Cache', ['event' => $event->id]);
         $this->cache->tags($this->eventTag($event))->flush();
         if ($propogate) {
             $this->clearSeasonCache($event->season);
@@ -120,16 +122,18 @@ class Handler
      */
     public function clearSeasonCache(DirtSeason $season)
     {
+        \Log::info('Clearing Dirt Rally Season Cache', ['season' => $season->id]);
         $this->cache->tags($this->seasonTag($season))->flush();
         $this->clearChampionshipCache($season->championship);
     }
-    
+
     /**
      * Clear the cache for a championship, and each entrants' driver cache
      * @param DirtChampionship $championship
      */
     public function clearChampionshipCache(DirtChampionship $championship)
     {
+        \Log::info('Clearing Dirt Rally Championship Cache', ['championship' => $championship->id]);
         $this->cache->tags($this->championshipTag($championship))->flush();
 
         // We need to clear cache for drivers that were in this championship...

@@ -68,6 +68,7 @@ class Handler
      */
     public function clearSessionCache(AcSession $session)
     {
+        \Log::info('Clearing Assetto Corsa Session Cache', ['session' => $session->id]);
         $this->cache->tags($this->sessionTag($session))->flush();
         $this->clearEventCache($session->event);
     }
@@ -78,6 +79,7 @@ class Handler
      */
     public function clearEventCache(AcEvent $event)
     {
+        \Log::info('Clearing Assetto Corsa Event Cache', ['event' => $event->id]);
         $this->cache->tags($this->eventTag($event))->flush();
         $this->clearChampionshipCache($event->championship);
     }
@@ -88,6 +90,7 @@ class Handler
      */
     public function clearChampionshipCache(AcChampionship $championship)
     {
+        \Log::info('Clearing Assetto Corsa Championship Cache', ['championship' => $championship->id]);
         $this->cache->tags($this->championshipTag($championship))->flush();
         foreach($championship->entrants AS $entrant) {
             $this->cache->forget($this->driverKey($entrant->driver));
