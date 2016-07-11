@@ -93,7 +93,7 @@ class Results implements ResultsInterface
             if (!isset($championships[$championshipID])) {
                 // Load back down the chain
                 $result->stage->event->season->championship->seasons->load('events.stages.results.driver', 'events.positions.driver');
-                $points = \DirtRallyDriverPoints::overall($result->stage->event->season->championship->seasons);
+                $points = \DirtRallyDriverPoints::overall($result->stage->event->season->championship);
                 $points = array_where($points, function($key, $value) use ($driver) {
                     return $value['entity']->id == $driver->id;
                 });
