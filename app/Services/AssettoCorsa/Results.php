@@ -558,4 +558,19 @@ class Results implements ResultsInterface
             $current['things']->push($new);
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWinner(AcEvent $event)
+    {
+        $winners = [];
+        $eventResult = \ACResults::eventSummary($event);
+        foreach($eventResult AS $result) {
+            if ($result['position'] == 1) {
+                $winners[] = $result['entrant'];
+            }
+        }
+        return $winners;
+    }
 }

@@ -17,8 +17,8 @@ class Session
      */
     public function canBeShown(AcSession $session)
     {
-        return \ACEvent::currentUserInEvent($session->event)
-            || $session->canBeReleased();
+        return $session->canBeReleased()
+            || \ACEvent::currentUserInEvent($session->event);
     }
     
     /**

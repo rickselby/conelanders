@@ -58,4 +58,10 @@ interface ResultsInterface
      */
     public function forDriver(Driver $driver);
 
+    /**
+     * Get the winner of an event
+     * @param AcEvent $event
+     * @return mixed
+     */
+    public function getWinner(AcEvent $event);
 }
