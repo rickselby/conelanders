@@ -154,9 +154,9 @@ class Results implements ResultsInterface
 
         // Cache forever if all championships are complete; or until the next championship update if not
         if (!$nextUpdate) {
-            $this->cache->rememberForever($key, $function);
+            return $this->cache->rememberForever($key, $function);
         } else {
-            $this->cache->remember($key, $nextUpdate, $function);
+            return $this->cache->remember($key, $nextUpdate, $function);
         }
     }
 
