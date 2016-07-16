@@ -54,4 +54,13 @@ class Event implements EventInterface
             return $this->eventService->getDriverIDs($event);
         });
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNews()
+    {
+        // Don't cache for now; needs a lot more thought on how to cache / clear
+        return $this->eventService->getNews();
+    }
 }

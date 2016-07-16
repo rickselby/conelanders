@@ -55,4 +55,26 @@ class Championships
         return $championships;
     }
 
+    /**
+     * Get news on completed championships
+     * @return array
+     */
+    public function getNews()
+    {
+        $news = [];
+        foreach(AcChampionship::with('events.sessions')->get() AS $championship) {
+            if ($championship->completeAt) {
+                if (!isset($news[$championship->completeAt->timestamp])) {
+                    $news[$championship->completeAt->timestamp] = [];
+                }
+                $news[$championship->completeAt->timestamp][] = $championship;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $championships) {
+            $views[$date] = \View::make('assetto-corsa.championship.news', ['championships' => $championships])->render();
+        }
+        return $views;
+    }
+
 }

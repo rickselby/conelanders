@@ -8,7 +8,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('welcome')
+            ->with('news', \News::get());
     })->name('home');
 
     Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');

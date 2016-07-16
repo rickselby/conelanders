@@ -56,4 +56,26 @@ class Championships
 
         return $this->driverIDs[$championship->id];
     }
+
+    /**
+     * Get 
+     * @return array
+     */
+    public function getNews()
+    {
+        $news = [];
+        foreach(DirtChampionship::with('seasons.events')->get() AS $championship) {
+            if ($championship->isComplete()) {
+                if (!isset($news[$championship->completeAt->timestamp])) {
+                    $news[$championship->completeAt->timestamp] = [];
+                }
+                $news[$championship->completeAt->timestamp][] = $championship;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $championships) {
+            $views[$date] = \View::make('dirt-rally.championship.news', ['championships' => $championships])->render();
+        }
+        return $views;
+    }
 }

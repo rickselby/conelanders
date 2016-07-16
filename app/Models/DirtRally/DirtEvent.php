@@ -39,6 +39,15 @@ class DirtEvent extends \Eloquent
         return $this->season->fullName.' - '.$this->name;
     }
 
+    public function getCompleteAtAttribute()
+    {
+        if ($this->isComplete()) {
+            return $this->last_import;
+        } else {
+            return null;
+        }
+    }
+
     public function isComplete()
     {
         return $this->closes < $this->last_import;

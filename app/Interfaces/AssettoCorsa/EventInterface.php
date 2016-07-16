@@ -33,4 +33,10 @@ interface EventInterface
      * @return array
      */
     public function getDriverIDs(AcEvent $event);
+
+    /**
+     * Get news about events
+     * @return mixed
+     */
+    public function getNews();
 }

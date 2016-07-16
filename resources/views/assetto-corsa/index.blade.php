@@ -1,7 +1,7 @@
 @extends('page')
 
 @section('header')
-    <div class="jumbotron">
+    <div class="page-header">
         <h1>Assetto Corsa</h1>
     </div>
 @endsection

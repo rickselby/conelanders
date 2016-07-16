@@ -46,4 +46,33 @@ class Event implements EventInterface
 
         return $this->driverIDs[$event->id];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNews()
+    {
+        $news = [];
+        foreach(AcEvent::with('sessions', 'championship')->get() AS $event) {
+            foreach($event->sessions AS $session) {
+                if ($session->release) {
+                    if (!isset($news[$session->release->timestamp])) {
+                        $news[$session->release->timestamp] = [];
+                    }
+                    if (!isset($news[$session->release->timestamp][$event->id])) {
+                        $news[$session->release->timestamp][$event->id] = [
+                            'event' => $event,
+                            'sessions' => [],
+                        ];
+                    }
+                    $news[$session->release->timestamp][$event->id]['sessions'][] = $session;
+                }
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $events) {
+            $views[$date] = \View::make('assetto-corsa.event.news', ['events' => $events])->render();
+        }
+        return $views;
+    }
 }
