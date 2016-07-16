@@ -4,6 +4,7 @@ namespace App\Services\Cached\AssettoCorsa;
 
 use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
+use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Repository;
 
 class Event implements EventInterface
@@ -58,9 +59,9 @@ class Event implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function getNews()
+    public function getNews(Carbon $start, Carbon $end)
     {
         // Don't cache for now; needs a lot more thought on how to cache / clear
-        return $this->eventService->getNews();
+        return $this->eventService->getNews($start, $end);
     }
 }

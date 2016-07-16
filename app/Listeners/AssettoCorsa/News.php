@@ -27,7 +27,7 @@ class News
 
     public function getNews(NewsRequest $event)
     {
-        return $this->newsService->getNews();
+        return $this->newsService->getNews($event->start, $event->end);
     }
 
 }

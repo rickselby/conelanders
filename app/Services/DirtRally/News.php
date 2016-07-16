@@ -2,6 +2,8 @@
 
 namespace App\Services\DirtRally;
 
+use Carbon\Carbon;
+
 class News
 {
     /**
@@ -26,13 +28,13 @@ class News
         $this->championships = $championships;
     }
 
-    public function getNews()
+    public function getNews(Carbon $start, Carbon $end)
     {
         $newsList = [];
         $news = [
-            $this->events->getNews(),
-            $this->seasons->getNews(),
-            $this->championships->getNews(),
+            $this->events->getNews($start, $end),
+            $this->seasons->getNews($start, $end),
+            $this->championships->getNews($start, $end),
         ];
         foreach($news AS $source) {
             foreach($source AS $time => $item) {

@@ -15,15 +15,15 @@ class Events
             ->get();
     }
 
-    public function getNews()
+    public function getNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(DirtEvent::with('stages', 'season.championship')->get() AS $event) {
-            if ($event->isComplete()) {
-                if (!isset($news[$event->last_import->timestamp])) {
-                    $news[$event->last_import->timestamp] = [];
+            if ($event->isComplete() && $event->completeAt->between($start, $end)) {
+                if (!isset($news[$event->completeAt->timestamp])) {
+                    $news[$event->completeAt->timestamp] = [];
                 }
-                $news[$event->last_import->timestamp][] = $event;
+                $news[$event->completeAt->timestamp][] = $event;
             }
         }
         $views = [];

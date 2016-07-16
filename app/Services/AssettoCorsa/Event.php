@@ -4,6 +4,7 @@ namespace App\Services\AssettoCorsa;
 
 use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
+use Carbon\Carbon;
 
 class Event implements EventInterface
 {
@@ -50,12 +51,12 @@ class Event implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function getNews()
+    public function getNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(AcEvent::with('sessions', 'championship')->get() AS $event) {
             foreach($event->sessions AS $session) {
-                if ($session->release) {
+                if ($session->release && $session->release->between($start, $end)) {
                     if (!isset($news[$session->release->timestamp])) {
                         $news[$session->release->timestamp] = [];
                     }

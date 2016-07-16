@@ -4,6 +4,7 @@ namespace App\Interfaces\AssettoCorsa;
 
 
 use App\Models\AssettoCorsa\AcEvent;
+use Carbon\Carbon;
 
 interface EventInterface
 {
@@ -38,5 +39,5 @@ interface EventInterface
      * Get news about events
      * @return mixed
      */
-    public function getNews();
+    public function getNews(Carbon $start, Carbon $end);
 }

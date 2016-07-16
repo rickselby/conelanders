@@ -3,6 +3,7 @@
 namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\DirtChampionship;
+use Carbon\Carbon;
 
 class Championships
 {
@@ -58,14 +59,14 @@ class Championships
     }
 
     /**
-     * Get 
+     * Get a list of completed championships between the given dates
      * @return array
      */
-    public function getNews()
+    public function getNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(DirtChampionship::with('seasons.events')->get() AS $championship) {
-            if ($championship->isComplete()) {
+            if ($championship->isComplete() && $championship->completeAt->between($start, $end)) {
                 if (!isset($news[$championship->completeAt->timestamp])) {
                     $news[$championship->completeAt->timestamp] = [];
                 }

@@ -9,20 +9,22 @@ class News
 {
     function get()
     {
-        $news = \Event::fire(new NewsRequest());
-        // need to merge and order things here
+        $news = \Event::fire(new NewsRequest(Carbon::now()->subMonth(), Carbon::now()));
+
+        // Merge the lists of news
         $newsList = [];
         foreach($news AS $source) {
             foreach($source AS $time => $item) {
-                if ($time < Carbon::now()->timestamp && $time > Carbon::now()->subWeek(2)->timestamp) {
-                    if (!isset($newsList[$time])) {
-                        $newsList[$time] = [];
-                    }
-                    $newsList[$time][] = $item;
+                if (!isset($newsList[$time])) {
+                    $newsList[$time] = [];
                 }
+                $newsList[$time][] = $item;
             }
         }
+
+        // Sort by timestamp, most recent first
         krsort($newsList);
+        
         return $newsList;
     }
 
