@@ -4,7 +4,8 @@ Website to handle the Conelanders racing league events and results
 
 ## Requirements
 
-Tag-based cache. I'm just using APC, it seems fine for now. Don't use files
+Tag-based cache that's NOT apc. APC can't be altered from the command line, so the dirt rally
+ import scripts can't actually clear the cache. On redis now...
 
 ## Installation
 
