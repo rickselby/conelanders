@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($championship->entrants as $entrant)
+        @foreach($championship->entrants()->orderByName()->get() as $entrant)
             <tr>
             <div class="row">
                 <td>{{ $entrant->driver->name }}</td>

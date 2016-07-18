@@ -1,4 +1,4 @@
-<div class="panel {{ \ACSession::hasFastestLapPoints($session) ? 'panel-success' : 'panel-danger' }}">
+<div class="panel {{ \ACSession::hasFastestLapPoints($session) ? 'panel-success' : 'panel-warning' }}">
     <div class="panel-heading">
         <h3 class="panel-title">
             <a role="button" data-toggle="collapse" href="#fastest-lap-points">
@@ -6,7 +6,7 @@
             </a> <span class="caret"></span>
         </h3>
     </div>
-    <div class="panel-collapse collapse {{ \ACSession::hasFastestLapPoints($session) ? '' : 'in' }}" id="fastest-lap-points" role="tabpanel">
+    <div class="panel-collapse collapse" id="fastest-lap-points" role="tabpanel">
         <div class="panel-body">
             @if (count($session->entrants))
                 {!! Form::open(['route' => ['assetto-corsa.championship.event.session.entrants.fastest-lap-points-sequence', $session->event->championship, $session->event, $session], 'class' => 'form-horizontal']) !!}

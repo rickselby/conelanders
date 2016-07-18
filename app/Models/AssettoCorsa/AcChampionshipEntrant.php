@@ -26,4 +26,16 @@ class AcChampionshipEntrant extends \Eloquent
     {
         return $this->hasMany(AcSessionEntrant::class);
     }
+
+    public function scopeOrderByName($query)
+    {
+        $relation = $this->driver();
+        $related = $relation->getRelated();
+        $table = $related->getTable();
+        $foreignKey = $relation->getForeignKey();
+
+        $query->join($table, $related->getQualifiedKeyName(), '=', $foreignKey)
+            ->orderBy($table.'.name')
+            ->select($this->getTable().'.*');
+    }
 }
