@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Events\CurrentNewsRequest;
-use App\Events\PastNewsRequest;
-use App\Events\UpcomingNewsRequest;
+use App\Events\News\RequestCurrent;
+use App\Events\News\RequestPast;
+use App\Events\News\RequestUpcoming;
 use Carbon\Carbon;
 
 class News
@@ -17,7 +17,7 @@ class News
     {
         // Get the news items from the past month
         $newsList = $this->mergeList(
-            \Event::fire(new PastNewsRequest(Carbon::now()->subMonth(), Carbon::now()))
+            \Event::fire(new RequestPast(Carbon::now()->subMonth(), Carbon::now()))
         );
 
         // Sort by timestamp, most recent first
@@ -29,7 +29,7 @@ class News
     public function getUpcoming()
     {
         $newsList = $this->mergeList(
-            \Event::fire(new UpcomingNewsRequest(Carbon::now(), Carbon::now()->addWeek()))
+            \Event::fire(new RequestUpcoming(Carbon::now(), Carbon::now()->addWeek()))
         );
 
         ksort($newsList);
@@ -40,7 +40,7 @@ class News
     public function getCurrent()
     {
         return $this->mergeList(
-            \Event::fire(new CurrentNewsRequest())
+            \Event::fire(new RequestCurrent())
         );
     }
 

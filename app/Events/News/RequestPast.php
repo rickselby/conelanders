@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\News;
 
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
-class PastNewsRequest extends Event
+class RequestPast extends Event
 {
     use SerializesModels;
 

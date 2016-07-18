@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\News;
 
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
-class CurrentNewsRequest extends Event
+class RequestCurrent extends Event
 {
     /**
      * Create a new event instance.

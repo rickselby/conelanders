@@ -2,9 +2,8 @@
 
 namespace App\Listeners\AssettoCorsa;
 
-use App\Events\NewsRequest;
-use App\Events\PastNewsRequest;
-use App\Events\UpcomingNewsRequest;
+use App\Events\News\RequestPast;
+use App\Events\News\RequestUpcoming;
 use Illuminate\Events\Dispatcher;
 
 class News
@@ -22,21 +21,21 @@ class News
     public function subscribe(Dispatcher $events)
     {
         $events->listen(
-            PastNewsRequest::class,
+            RequestPast::class,
             'App\Listeners\AssettoCorsa\News@getPastNews'
         );
         $events->listen(
-            UpcomingNewsRequest::class,
+            RequestUpcoming::class,
             'App\Listeners\AssettoCorsa\News@getUpcomingNews'
         );
     }
 
-    public function getPastNews(PastNewsRequest $event)
+    public function getPastNews(RequestPast $event)
     {
         return $this->newsService->getPastNews($event->start, $event->end);
     }
 
-    public function getUpcomingNews(UpcomingNewsRequest $event)
+    public function getUpcomingNews(RequestUpcoming $event)
     {
         return $this->newsService->getUpcomingNews($event->start, $event->end);
     }
