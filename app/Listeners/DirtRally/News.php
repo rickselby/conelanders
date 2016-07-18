@@ -2,7 +2,9 @@
 
 namespace App\Listeners\DirtRally;
 
-use App\Events\NewsRequest;
+use App\Events\CurrentNewsRequest;
+use App\Events\PastNewsRequest;
+use App\Events\UpcomingNewsRequest;
 use Illuminate\Events\Dispatcher;
 
 class News
@@ -20,14 +22,32 @@ class News
     public function subscribe(Dispatcher $events)
     {
         $events->listen(
-            NewsRequest::class,
-            'App\Listeners\DirtRally\News@getNews'
+            PastNewsRequest::class,
+            'App\Listeners\DirtRally\News@getPastNews'
+        );
+        $events->listen(
+            UpcomingNewsRequest::class,
+            'App\Listeners\DirtRally\News@getUpcomingNews'
+        );
+        $events->listen(
+            CurrentNewsRequest::class,
+            'App\Listeners\DirtRally\News@getCurrent'
         );
     }
 
-    public function getNews(NewsRequest $event)
+    public function getPastNews(PastNewsRequest $event)
     {
-        return $this->newsService->getNews($event->start, $event->end);
+        return $this->newsService->getPastNews($event->start, $event->end);
+    }
+
+    public function getUpcomingNews(UpcomingNewsRequest $event)
+    {
+        return $this->newsService->getUpcomingNews($event->start, $event->end);
+    }
+    
+    public function getCurrent(CurrentNewsRequest $event)
+    {
+        return $this->newsService->getCurrentNews();
     }
 
 }

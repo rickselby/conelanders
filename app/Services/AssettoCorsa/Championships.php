@@ -60,7 +60,7 @@ class Championships
      * Get news on completed championships
      * @return array
      */
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(AcChampionship::with('events.sessions')->get() AS $championship) {

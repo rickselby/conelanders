@@ -15,7 +15,7 @@ class Events
             ->get();
     }
 
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(DirtEvent::with('stages', 'season.championship')->get() AS $event) {
@@ -28,9 +28,39 @@ class Events
         }
         $views = [];
         foreach($news AS $date => $events) {
-            $views[$date] = \View::make('dirt-rally.event.news', ['events' => $events])->render();
+            $views[$date] = \View::make('dirt-rally.event.news.past', ['events' => $events])->render();
         }
         return $views;
     }
-    
+
+    public function getUpcomingNews(Carbon $start, Carbon $end)
+    {
+        $news = [];
+        foreach(DirtEvent::with('stages', 'season.championship')->get() AS $event) {
+            if ($event->opens->between($start, $end)) {
+                if (!isset($news[$event->opens->timestamp])) {
+                    $news[$event->opens->timestamp] = [];
+                }
+                $news[$event->opens->timestamp][] = $event;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $events) {
+            $views[$date] = \View::make('dirt-rally.event.news.upcoming', ['events' => $events])->render();
+        }
+        return $views;
+    }
+
+    public function getCurrentNews()
+    {
+        $events = [];
+        foreach(DirtEvent::with('stages', 'season.championship')->get() AS $event) {
+            if (Carbon::now()->between($event->opens, $event->closes)) {
+                $events[] = $event;
+            }
+        }
+        return [
+            \View::make('dirt-rally.event.news.current', ['events' => $events])->render()
+        ];
+    }
 }

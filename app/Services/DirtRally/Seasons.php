@@ -11,7 +11,7 @@ class Seasons
      * Get a list of completed seasons between the given dates
      * @return array
      */
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(DirtSeason::with('events', 'championship')->get() AS $season) {

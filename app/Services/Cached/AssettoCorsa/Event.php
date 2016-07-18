@@ -59,9 +59,18 @@ class Event implements EventInterface
     /**
      * {@inheritdoc}
      */
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
     {
         // Don't cache for now; needs a lot more thought on how to cache / clear
-        return $this->eventService->getNews($start, $end);
+        return $this->eventService->getPastNews($start, $end);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUpcomingNews(Carbon $start, Carbon $end)
+    {
+        // Don't cache for now; needs a lot more thought on how to cache / clear
+        return $this->eventService->getUpcomingNews($start, $end);
     }
 }

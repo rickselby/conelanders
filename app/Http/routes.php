@@ -9,7 +9,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
         return view('index')
-            ->with('news', \News::get());
+            ->with('pastNews', \News::getPast())
+            ->with('upcomingNews', \News::getUpcoming())
+            ->with('currentNews', \News::getCurrent());
     })->name('home');
 
     Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');

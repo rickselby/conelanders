@@ -62,7 +62,7 @@ class Championships
      * Get a list of completed championships between the given dates
      * @return array
      */
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
         foreach(DirtChampionship::with('seasons.events')->get() AS $championship) {

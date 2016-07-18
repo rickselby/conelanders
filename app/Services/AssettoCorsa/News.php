@@ -22,13 +22,24 @@ class News
         $this->championships = $championships;
     }
 
-    public function getNews(Carbon $start, Carbon $end)
+    public function getPastNews(Carbon $start, Carbon $end)
+    {
+        return $this->parseNews([
+            $this->event->getPastNews($start, $end),
+            $this->championships->getPastNews($start, $end),
+        ]);
+    }
+
+    public function getUpcomingNews(Carbon $start, Carbon $end)
+    {
+        return $this->parseNews([
+            $this->event->getUpcomingNews($start, $end),
+        ]);
+    }
+
+    protected function parseNews($news)
     {
         $newsList = [];
-        $news = [
-            $this->event->getNews($start, $end),
-            $this->championships->getNews($start, $end),
-        ];
         foreach($news AS $source) {
             foreach($source AS $time => $item) {
                 if (!isset($newsList[$time])) {
@@ -40,6 +51,6 @@ class News
                 $newsList[$time]['content'][] = $item;
             }
         }
-        return $newsList;        
+        return $newsList;
     }
 }

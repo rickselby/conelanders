@@ -39,5 +39,11 @@ interface EventInterface
      * Get news about events
      * @return mixed
      */
-    public function getNews(Carbon $start, Carbon $end);
+    public function getPastNews(Carbon $start, Carbon $end);
+    
+    /**
+     * Get news about events
+     * @return mixed
+     */
+    public function getUpcomingNews(Carbon $start, Carbon $end);
 }

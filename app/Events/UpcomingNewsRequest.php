@@ -5,7 +5,7 @@ namespace App\Events;
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
-class NewsRequest extends Event
+class UpcomingNewsRequest extends Event
 {
     use SerializesModels;
 
