@@ -2,8 +2,7 @@
 
 namespace App\Events\News;
 
-use Carbon\Carbon;
-use Illuminate\Queue\SerializesModels;
+use App\Events\Event;
 
 class RequestCurrent extends Event
 {

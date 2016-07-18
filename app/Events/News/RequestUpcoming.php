@@ -2,6 +2,7 @@
 
 namespace App\Events\News;
 
+use App\Events\Event;
 use Carbon\Carbon;
 use Illuminate\Queue\SerializesModels;
 
