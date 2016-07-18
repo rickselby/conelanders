@@ -4,6 +4,7 @@ namespace App\Services\Cached\AssettoCorsa;
 
 use App\Interfaces\AssettoCorsa\EventInterface;
 use App\Models\AssettoCorsa\AcEvent;
+use Carbon\Carbon;
 use Illuminate\Contracts\Cache\Repository;
 
 class Event implements EventInterface
@@ -53,5 +54,23 @@ class Event implements EventInterface
         return $this->cache->tags(\ACCacheHandler::eventTag($event))->rememberForever($this->cacheKey.'driverIDs.'.$event->id, function() use ($event) {
             return $this->eventService->getDriverIDs($event);
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPastNews(Carbon $start, Carbon $end)
+    {
+        // Don't cache for now; needs a lot more thought on how to cache / clear
+        return $this->eventService->getPastNews($start, $end);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUpcomingNews(Carbon $start, Carbon $end)
+    {
+        // Don't cache for now; needs a lot more thought on how to cache / clear
+        return $this->eventService->getUpcomingNews($start, $end);
     }
 }

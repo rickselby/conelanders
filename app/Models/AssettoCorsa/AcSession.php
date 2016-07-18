@@ -39,6 +39,11 @@ class AcSession extends \Eloquent
     {
         return $this->event->fullName.' - '.$this->name;
     }
+    
+    public function getCompleteAtAttribute()
+    {
+        return $this->release;
+    }
 
     public function canBeReleased() {
         return !$this->importing

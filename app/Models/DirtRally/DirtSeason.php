@@ -65,13 +65,36 @@ class DirtSeason extends \Eloquent
         return $this->championship->name.' - '.$this->name;
     }
 
-    public function isComplete() {
+    public function getShortNameAttribute()
+    {
+        return trim(str_ireplace('season', '', $this->name));
+    }
+
+    public function getCompleteAtAttribute()
+    {
+        $dates = [];
+
         foreach($this->events AS $event) {
             if (!$event->isComplete()) {
-                return false;
+                return null;
+            } else {
+                $dates[] = $event->completeAt;
             }
         }
-        return true;
+        return max($dates);
+    }
+
+    public function isComplete() {
+        if (count($this->events)) {
+            foreach ($this->events AS $event) {
+                if (!$event->isComplete()) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

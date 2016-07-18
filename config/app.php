@@ -220,10 +220,9 @@ return [
         'HTML'=> Collective\Html\HtmlFacade::class,
         'Notification' => Krucas\Notification\Facades\Notification::class,
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
-
-        'Helpers' => App\Services\Helpers::class,
-
+        
         'Nations' => App\Facades\NationsFacade::class,
+        'News' => App\Facades\NewsFacade::class,
         'PointSequences' => App\Facades\PointSequencesFacade::class,
         'Times' => App\Facades\TimesFacade::class,
         'Positions' => App\Facades\PositionsFacade::class,

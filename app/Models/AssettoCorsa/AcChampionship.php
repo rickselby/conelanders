@@ -27,6 +27,20 @@ class AcChampionship extends \Eloquent
         return trim(str_ireplace('championship', '', $this->name));
     }
 
+    public function getCompleteAtAttribute()
+    {
+        $dates = [];
+
+        foreach($this->events AS $event) {
+            if (!$event->completeAt) {
+                return null;
+            } else {
+                $dates[] = $event->completeAt;
+            }
+        }
+        return max($dates);
+    }
+
     public function getEndsAttribute()
     {
         $dates = [];
@@ -38,12 +52,16 @@ class AcChampionship extends \Eloquent
 
     public function isComplete()
     {
-        foreach($this->events AS $event) {
-            if (!$event->canBeReleased()) {
-                return false;
+        if (count($this->events)) {
+            foreach ($this->events AS $event) {
+                if (!$event->canBeReleased()) {
+                    return false;
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
     
     public function getNextUpdate() 

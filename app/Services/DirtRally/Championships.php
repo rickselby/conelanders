@@ -3,6 +3,7 @@
 namespace App\Services\DirtRally;
 
 use App\Models\DirtRally\DirtChampionship;
+use Carbon\Carbon;
 
 class Championships
 {
@@ -55,5 +56,27 @@ class Championships
         }
 
         return $this->driverIDs[$championship->id];
+    }
+
+    /**
+     * Get a list of completed championships between the given dates
+     * @return array
+     */
+    public function getPastNews(Carbon $start, Carbon $end)
+    {
+        $news = [];
+        foreach(DirtChampionship::with('seasons.events')->get() AS $championship) {
+            if ($championship->isComplete() && $championship->completeAt->between($start, $end)) {
+                if (!isset($news[$championship->completeAt->timestamp])) {
+                    $news[$championship->completeAt->timestamp] = [];
+                }
+                $news[$championship->completeAt->timestamp][] = $championship;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $championships) {
+            $views[$date] = \View::make('dirt-rally.championship.news', ['championships' => $championships])->render();
+        }
+        return $views;
     }
 }
