@@ -86,7 +86,7 @@ class Results implements ShouldQueue
     public function clearChampionshipSessionsCache(ChampionshipEntrantsUpdated $event)
     {
         foreach($event->championship->events AS $champEvent) {
-            foreach($champEvent->session AS $session) {
+            foreach($champEvent->sessions AS $session) {
                 \ACCacheHandler::clearSessionCache($session);
             }
         }
