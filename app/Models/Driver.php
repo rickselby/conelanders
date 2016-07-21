@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Driver extends \Eloquent
@@ -37,9 +38,11 @@ class Driver extends \Eloquent
      */
     public function sluggable()
     {
+        // Test what the slug would be if we used 'name' as the source
+        $possibleSlug = SlugService::createSlug(self::class, 'slug', $this->name, ['source' => 'name']);
         return [
             'slug' => [
-                'source' => 'name',
+                'source' => $possibleSlug ? 'name' : 'id',
             ]
         ];
     }
