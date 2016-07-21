@@ -43,4 +43,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('user/select-driver', 'UserController@selectDriver')->name('user.select-driver');
     Route::get('user/assignments', 'UserController@assignments')->name('user.assignments');
     Route::get('user/assign/{user}', 'UserController@assign')->name('user.assign');
+
+    Route::get('playlists', 'PlaylistController@index')->name('playlists.index');
 });

@@ -59,6 +59,9 @@ class ChampionshipEventSessionController extends Controller
             $request->all(),
             ['order' => $order]
         ));
+        if ($request->get('playlistLink')) {
+            $request->playlist()->create(['link' => $request->get('playlistLink')]);
+        }
         \Event::fire(new EventUpdated($event));
         \Notification::add('success', 'Session "'.$session->name.'" created');
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]);
@@ -109,6 +112,16 @@ class ChampionshipEventSessionController extends Controller
     {
         $session = \Request::get('session');
         $session->fill($request->all());
+        if ($session->playlist) {
+            if ($request->get('playlistLink')) {
+                $session->playlist->fill(['link' => $request->get('playlistLink')]);
+                $session->playlist->save();
+            } else {
+                $session->playlist->delete();
+            }
+        } elseif ($request->get('playlistLink')) {
+            $session->playlist()->create(['link' => $request->get('playlistLink')]);
+        }
         $session->save();
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Session "'.$session->name.'" updated');

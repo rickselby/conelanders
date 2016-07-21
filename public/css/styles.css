@@ -119,10 +119,19 @@ H4 A.event-results {
     margin-bottom: 0.5em;
 }
 
+.list-group-item-indent {
+    padding-left: 30px;
+}
+
 .list-group-condensed .list-group-item-indent {
-    padding: 5px 24px;
+    padding-left: 24px;
 }
 
 .list-group-item-season {
     background-color: #c0e1f2;
 }
+
+.btn-youtube{color:#fff;background-color:#DC2725;border-color:rgba(0,0,0,0.2)}.btn-youtube:hover,.btn-youtube:focus,.btn-youtube:active,.btn-youtube.active,.open>.dropdown-toggle.btn-youtube{color:#fff;background-color:#B21E1C;border-color:rgba(0,0,0,0.2)}
+.btn-youtube:active,.btn-youtube.active,.open>.dropdown-toggle.btn-youtube{background-image:none}
+.btn-youtube.disabled,.btn-youtube[disabled],fieldset[disabled] .btn-youtube,.btn-youtube.disabled:hover,.btn-youtube[disabled]:hover,fieldset[disabled] .btn-youtube:hover,.btn-youtube.disabled:focus,.btn-youtube[disabled]:focus,fieldset[disabled] .btn-youtube:focus,.btn-youtube.disabled:active,.btn-youtube[disabled]:active,fieldset[disabled] .btn-youtube:active,.btn-youtube.disabled.active,.btn-youtube[disabled].active,fieldset[disabled] .btn-youtube.active{background-color:#DC2725;border-color:rgba(0,0,0,0.2)}
+.btn-youtube .badge{color:#DC2725;background-color:#fff}

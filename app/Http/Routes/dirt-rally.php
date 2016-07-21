@@ -34,3 +34,4 @@ Route::group(['middleware' => ['admin']], function() {
     })->name('dirt-rally.event-id-help');
 });
 
+Route::post('playlists', 'PlaylistController@update')->name('dirt-rally.playlists');

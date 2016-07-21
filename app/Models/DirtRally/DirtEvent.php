@@ -2,6 +2,7 @@
 
 namespace App\Models\DirtRally;
 
+use App\Models\Playlist;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,11 @@ class DirtEvent extends \Eloquent
     public function positions()
     {
         return $this->hasMany(DirtEventPosition::class)->orderBy('position');
+    }
+
+    public function playlist()
+    {
+        return $this->morphOne(Playlist::class, 'playlistable');
     }
 
     public function getFullNameAttribute()

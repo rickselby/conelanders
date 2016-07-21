@@ -42,6 +42,9 @@ class ChampionshipSeasonEventController extends Controller
     {
         $season = \Request::get('season');
         $event = $season->events()->create($request->all());
+        if ($request->get('playlistLink')) {
+            $event->playlist()->create(['link' => $request->get('playlistLink')]);
+        }
         \Event::fire(new SeasonUpdated($season));
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
@@ -91,6 +94,16 @@ class ChampionshipSeasonEventController extends Controller
     {
         $event = \Request::get('event');
         $event->fill($request->all());
+        if ($event->playlist) {
+            if ($request->get('playlistLink')) {
+                $event->playlist->fill(['link' => $request->get('playlistLink')]);
+                $event->playlist->save();
+            } else {
+                $event->playlist->delete();
+            }
+        } elseif ($request->get('playlistLink')) {
+            $event->playlist()->create(['link' => $request->get('playlistLink')]);
+        }
         $event->save();
         \Event::fire(new EventUpdated($event));
         \Notification::add('success', $event->name . ' updated');
