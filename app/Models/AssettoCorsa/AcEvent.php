@@ -46,15 +46,33 @@ class AcEvent extends \Eloquent
         return mb_strtoupper($shortName);
     }
 
-    public function canBeReleased() 
+    public function getCompleteAtAttribute()
     {
+        $dates = [];
+
         foreach($this->sessions AS $session) {
-            if (!$session->canBeReleased()) {
-                return false;
+            if (!$session->completeAt) {
+                return null;
+            } else {
+                $dates[] = $session->completeAt;
             }
         }
-        
-        return true;
+        return max($dates);
+    }
+
+    public function canBeReleased() 
+    {
+        if (count($this->sessions)) {
+            foreach ($this->sessions AS $session) {
+                if (!$session->canBeReleased()) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function countReleasedSessions()

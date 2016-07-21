@@ -1,4 +1,4 @@
-<div class="panel {{ \ACSession::hasPoints($session) ? 'panel-success' : 'panel-danger' }}">
+<div class="panel {{ \ACSession::hasPoints($session) ? 'panel-success' : 'panel-warning' }}">
     <div class="panel-heading">
         <h3 class="panel-title">
             <a role="button" data-toggle="collapse" href="#points">
@@ -6,7 +6,7 @@
             </a> <span class="caret"></span>
         </h3>
     </div>
-    <div class="panel-collapse collapse {{ \ACSession::hasPoints($session) ? '' : 'in' }}" id="points" role="tabpanel">
+    <div class="panel-collapse collapse" id="points" role="tabpanel">
         <div class="panel-body">
             @if (count($session->entrants))
                 {!! Form::open(['route' => ['assetto-corsa.championship.event.session.entrants.points-sequence', $session->event->championship, $session->event, $session], 'class' => 'form-horizontal']) !!}

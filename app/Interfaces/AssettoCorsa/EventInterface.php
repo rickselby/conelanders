@@ -4,6 +4,7 @@ namespace App\Interfaces\AssettoCorsa;
 
 
 use App\Models\AssettoCorsa\AcEvent;
+use Carbon\Carbon;
 
 interface EventInterface
 {
@@ -33,4 +34,16 @@ interface EventInterface
      * @return array
      */
     public function getDriverIDs(AcEvent $event);
+
+    /**
+     * Get news about events
+     * @return mixed
+     */
+    public function getPastNews(Carbon $start, Carbon $end);
+    
+    /**
+     * Get news about events
+     * @return mixed
+     */
+    public function getUpcomingNews(Carbon $start, Carbon $end);
 }

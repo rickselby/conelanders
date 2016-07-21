@@ -26,6 +26,7 @@ class Results implements ResultsInterface
                     $results[$entrantID] = [
                         'entrant' => $entrant->championshipEntrant,
                         'points' => 0,
+                        'pointsList' => [],
                         'positions' => [],
                     ];
                 }
@@ -33,6 +34,8 @@ class Results implements ResultsInterface
                 if (\ACSession::canBeShown($session)) {
                     $results[$entrantID]['sessionPoints'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
                     $results[$entrantID]['points'] += $results[$entrantID]['sessionPoints'][$session->id];
+                    $results[$entrantID]['pointsList'][] = $results[$entrantID]['sessionPoints'][$session->id];
+                    rsort($results[$entrantID]['pointsList']);
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$entrantID]['positions'][] = $entrant->position;
                         sort($results[$entrantID]['positions']);
@@ -65,10 +68,13 @@ class Results implements ResultsInterface
                         $results[$entrantID] = [
                             'entrant' => $entrant->championshipEntrant,
                             'points' => 0,
+                            'pointsList' => [],
                             'positions' => [],
                         ];
                     }
                     $results[$entrantID]['points'] += $entrant->points + $entrant->fastest_lap_points;
+                    $results[$entrantID]['pointsList'][] = $entrant->points + $entrant->fastest_lap_points;
+                    rsort($results[$entrantID]['pointsList']);
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$entrantID]['positions'][] = $entrant->position;
                         sort($results[$entrantID]['positions']);
@@ -94,8 +100,10 @@ class Results implements ResultsInterface
         foreach($championship->entrants AS $entrant) {
             $results[$entrant->id]['entrant'] = $entrant;
             $results[$entrant->id]['points'] = 0;
+            $results[$entrant->id]['pointsList'] = [];
             $results[$entrant->id]['eventPoints'] = [];
             $results[$entrant->id]['positions'] = [];
+            $results[$entrant->id]['eventPositions'] = [];
             $results[$entrant->id]['dropped'] = [];
         }
         foreach($championship->events AS $event) {
@@ -104,10 +112,21 @@ class Results implements ResultsInterface
             foreach ($eventResults AS $key => $result) {
                 $entrantID = $result['entrant']->id;
                 $results[$entrantID]['points'] += $result['points'];
+                $results[$entrantID]['pointsList'][] = $result['points'];
                 $results[$entrantID]['eventPoints'][$event->id] = $result['points'];
                 $results[$entrantID]['positions'][] = $result['position'];
                 $results[$entrantID]['eventPositions'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                rsort($results[$entrantID]['pointsList']);
                 sort($results[$entrantID]['positions']);
+            }
+        }
+
+        // When the championship is complete, hide any drivers that have no results
+        if ($championship->isComplete()) {
+            foreach ($results AS $key => $info) {
+                if (count($info['positions']) == 0) {
+                    unset($results[$key]);
+                }
             }
         }
 
@@ -191,7 +210,8 @@ class Results implements ResultsInterface
     public function arePointsEqual($a, $b)
     {
         return ($a['points'] == $b['points'])
-        && ($a['positions'] == $b['positions']);
+            && ($a['positions'] == $b['positions'])
+            && ($a['pointsList'] == $b['pointsList']);
     }
 
     /**
@@ -219,6 +239,25 @@ class Results implements ResultsInterface
                 // $a has less results; $b takes priority
                 return -1;
             } elseif (isset($b['positions'][$i])) {
+                // $b has less results; $a takes priority
+                return 1;
+            }
+        }
+
+        // So, the drivers have the same positions. So, let's see if they
+        // Then, best points; all the way down...
+        for($i = 0; $i < max(count($a['pointsList']), count($b['pointsList'])); $i++) {
+            // Check both have a position set
+            if (isset($a['pointsList'][$i]) && isset($b['pointsList'][$i])) {
+                // If they're different, compare them
+                // If not, loop again
+                if ($a['pointsList'][$i] != $b['pointsList'][$i]) {
+                    return $b['pointsList'][$i] - $a['pointsList'][$i];
+                }
+            } elseif (isset($a['pointsList'][$i])) {
+                // $a has less results; $b takes priority
+                return -1;
+            } elseif (isset($b['pointsList'][$i])) {
                 // $b has less results; $a takes priority
                 return 1;
             }
