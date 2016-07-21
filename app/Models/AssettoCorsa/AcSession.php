@@ -2,6 +2,7 @@
 
 namespace App\Models\AssettoCorsa;
 
+use App\Models\Playlist;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,10 +35,22 @@ class AcSession extends \Eloquent
     {
         return $this->hasMany(AcSessionEntrant::class);
     }
-    
+
+    public function playlist()
+    {
+        return $this->morphOne(Playlist::class, 'playlistable');
+    }
+
     public function getFullNameAttribute()
     {
         return $this->event->fullName.' - '.$this->name;
+    }
+
+    public function getShortNameAttribute()
+    {
+        $shortName = trim(str_ireplace(['practice', 'qualifying', 'race'], '', $this->name));
+
+        return $shortName ?: $this->name;
     }
     
     public function getCompleteAtAttribute()

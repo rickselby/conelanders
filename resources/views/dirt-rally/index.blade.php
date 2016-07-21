@@ -56,6 +56,11 @@
                                     </a>
                                 </div>
                                 <div class="col-xs-6 col-sm-8 col-md-9">
+                                    @if ($event->playlist)
+                                        <span class="pull-right">
+                                            @include('playlist.icon', ['playlist' => $event->playlist])
+                                        </span>
+                                    @endif
                                     @if ($event->isComplete())
                                         @foreach(\DirtRallyResults::getEventWinner($event) AS $driver)
                                             @include('nation.image', ['nation' => $driver->nation])

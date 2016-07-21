@@ -47,6 +47,12 @@
                         </div>
                     @endif
 
+                    @if ($session->playlist)
+                        <div class="pull-right">
+                            @include('playlist.button', ['playlist' => $session->playlist])
+                        </div>
+                    @endif
+
                     @if ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_RACE)
                         @include('assetto-corsa.standings.session.race', ['session' => $session])
                     @elseif ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_QUALIFYING)

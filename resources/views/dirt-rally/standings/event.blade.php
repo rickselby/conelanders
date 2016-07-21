@@ -8,6 +8,12 @@
         @include('dirt-rally.event-not-complete')
     @else
 
+        @if ($event->playlist)
+            <p class="btn-group">
+                @include('playlist.button', ['playlist' => $event->playlist])
+            </p>
+        @endif
+
         <table class="table sortable table-bordered table-hover">
             <thead>
             <tr>
