@@ -16,7 +16,7 @@ class Event implements EventInterface
      */
     public function canBeShown(AcEvent $event)
     {
-        return \ACEvent::currentUserInEvent($event) || $event->canBeReleased();
+        return $event->canBeReleased() || \ACEvent::currentUserInEvent($event);
     }
 
     /**

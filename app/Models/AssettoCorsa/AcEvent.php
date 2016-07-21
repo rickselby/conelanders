@@ -74,6 +74,17 @@ class AcEvent extends \Eloquent
             return false;
         }
     }
+    
+    public function countReleasedSessions()
+    {
+        $count = 0;
+        foreach($this->sessions AS $session) {
+            if ($session->canBeReleased()) {
+                $count++;
+            }
+        }
+        return $count;
+    }
 
     public function getNextUpdate()
     {

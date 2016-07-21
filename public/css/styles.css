@@ -102,3 +102,27 @@ ul.nav-tabs {
 H4 A.event-results {
     font-size: 90%;
 }
+
+.list-group-condensed {
+    margin-top: 0.5em;
+}
+
+.panel .list-group-condensed {
+    margin-top: 0em;
+}
+
+.list-group-condensed .list-group-item {
+    padding: 5px 8px;
+}
+
+.btn-group-before-panel {
+    margin-bottom: 0.5em;
+}
+
+.list-group-condensed .list-group-item-indent {
+    padding: 5px 24px;
+}
+
+.list-group-item-season {
+    background-color: #c0e1f2;
+}

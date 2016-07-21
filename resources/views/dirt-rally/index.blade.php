@@ -8,45 +8,76 @@
 
 @section('content')
 
-    @if (count($currentEvents))
-        <h2>Current Events</h2>
-        <ul>
-            @foreach($currentEvents AS $event)
-                <li>
-                    <a href="{{ route('dirt-rally.event', [$event->season->championship, $event->season, $event]) }}">
-                        {{ $event->fullName }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
-    @endif
-
-    @if ($currentChampionship)
-        <h2>Current Championship: {{ $currentChampionship->name }}</h2>
-        <div class="btn-group btn-group-lg" role="group">
+    @foreach($championships AS $championship)
+        <h2>{{ $championship->name }}</h2>
+        <div class="btn-group btn-group-before-panel" role="group">
             <a class="btn btn-primary"  role="button"
-               href="{{ route('dirt-rally.standings.championship', $currentChampionship) }}">Driver Standings</a>
+               href="{{ route('dirt-rally.standings.championship', $championship) }}">Driver Standings</a>
             <a class="btn btn-info"  role="button"
-               href="{{ route('dirt-rally.nationstandings.championship', $currentChampionship) }}">Nation Standings</a>
+               href="{{ route('dirt-rally.nationstandings.championship', $championship) }}">Nation Standings</a>
             <a class="btn btn-info"  role="button"
-               href="{{ route('dirt-rally.times.championship', $currentChampionship) }}">Total Times</a>
+               href="{{ route('dirt-rally.times.championship', $championship) }}">Total Times</a>
         </div>
-    @endif
 
-    @if (count($completeChampionships))
-        <h2>Previous Championships</h2>
-        @foreach($completeChampionships AS $championship)
-            <h3>{{ $championship->name }}</h3>
-            <div class="btn-group" role="group">
-                <a class="btn btn-primary"  role="button"
-                   href="{{ route('dirt-rally.standings.championship', $championship) }}">Driver Standings</a>
-                <a class="btn btn-info"  role="button"
-                   href="{{ route('dirt-rally.nationstandings.championship', $championship) }}">Nation Standings</a>
-                <a class="btn btn-info"  role="button"
-                   href="{{ route('dirt-rally.times.championship', $championship) }}">Total Times</a>
-            </div>
-        @endforeach
-    @endif
+        <div class="panel panel-default">
 
+            @forelse($championship->getOrderedSeasons() AS $season)
+            <ul class="list-group list-group-condensed">
+                <li class="list-group-item {{ $season->isComplete() ? 'list-group-item-season' : '' }}">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-md-3">
+                            <a href="{{ route('dirt-rally.standings.season', [$championship, $season]) }}">
+                                {{ $season->name }}
+                            </a>
+                        </div>
+                        <div class="col-xs-6 col-sm-8 col-md-9">
+                            @if ($season->isComplete())
+                                @foreach(\DirtRallyResults::getSeasonWinner($season) AS $driver)
+                                    @include('nation.image', ['nation' => $driver->nation])
+                                    <a href="{{ route('driver.show', $driver) }}">
+                                        {{ $driver->name }}
+                                    </a>
+                                    <br />
+                                @endforeach
+                            @else
+                                Season will be completed {{ $season->closes->format('\o\n Y-m-d \a\t H:i:s e') }}
+                            @endif
+                        </div>
+                    </div>
+                </li>
+            </ul>
+                <ul class="list-group list-group-condensed list-group-">
+                @foreach($season->events AS $event)
+                        <li class="list-group-item {{ $event->isComplete() ? 'list-group-item-info' : '' }} list-group-item-indent">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4 col-md-3">
+                                    <a href="{{ route('dirt-rally.standings.event', [$championship, $season, $event]) }}">
+                                        {{ $event->name }}
+                                    </a>
+                                </div>
+                                <div class="col-xs-6 col-sm-8 col-md-9">
+                                    @if ($event->isComplete())
+                                        @foreach(\DirtRallyResults::getEventWinner($event) AS $driver)
+                                            @include('nation.image', ['nation' => $driver->nation])
+                                            <a href="{{ route('driver.show', $driver) }}">
+                                                {{ $driver->name }}
+                                            </a>
+                                            <br />
+                                        @endforeach
+                                    @else
+                                        Event will be completed {{ $event->closes->format('\o\n Y-m-d \a\t H:i:s e') }}
+                                    @endif
+                                </div>
+                            </div>
+                        </li>
+                @endforeach
+                </ul>
+            @empty
+                <p>No sessions</p>
+            @endforelse
+
+        </div>
+
+    @endforeach
 
 @endsection

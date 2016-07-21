@@ -4,6 +4,7 @@ namespace App\Services\Cached\DirtRally;
 
 use App\Interfaces\DirtRally\ResultsInterface;
 use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtSeason;
 use App\Models\DirtRally\DirtStage;
 use App\Models\Driver;
 use Illuminate\Contracts\Cache\Repository;
@@ -66,5 +67,31 @@ class Results implements ResultsInterface
         return $this->cache->rememberForever(\DirtRallyCacheHandler::driverKey($driver), function() use ($driver) {
             return $this->resultsService->forDriver($driver);
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSeasonWinner(DirtSeason $season)
+    {
+        return $this->cache->tags(\DirtRallyCacheHandler::seasonTag($season))->rememberForever(
+            $this->cacheKey.'season.winner.'.$season->id,
+            function() use ($season) {
+                return $this->resultsService->getSeasonWinner($season);
+            }
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEventWinner(DirtEvent $event)
+    {
+        return $this->cache->tags(\DirtRallyCacheHandler::eventTag($event))->rememberForever(
+            $this->cacheKey.'event.winner.'.$event->id,
+            function() use ($event) {
+                return $this->resultsService->getEventWinner($event);
+            }
+        );
     }
 }

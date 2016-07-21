@@ -184,4 +184,14 @@ class Results implements ResultsInterface
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getWinner(AcEvent $event)
+    {
+        return $this->cache->tags(\ACCacheHandler::eventTag($event))->rememberForever($this->cacheKey.'winner.'.$event->id, function() use ($event) {
+            return $this->resultsService->getWinner($event);
+        });
+    }
+
 }

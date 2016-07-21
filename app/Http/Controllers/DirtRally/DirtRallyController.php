@@ -17,9 +17,13 @@ class DirtRallyController extends Controller
     public function index(Championships $championships)
     {
         return view('dirt-rally.index')
-            ->with('currentChampionship', $championships->getCurrent())
-            ->with('completeChampionships', $championships->getComplete())
-            ->with('currentEvents', \DirtRallyEvents::getCurrent());
+            ->with('championships', DirtChampionship::with([
+                'seasons.events.stages.results.driver.nation',
+                'seasons.events.positions.driver.nation',
+                # Points are pulled at event level, so need to backtrack to them
+                'seasons.events.season.championship.eventPointsSequence.points',
+                'seasons.events.season.championship.stagePointsSequence.points',
+            ])->get()->sortByDesc('closes'));
     }
 
     public function championship(DirtChampionship $championship)
