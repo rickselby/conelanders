@@ -77,7 +77,7 @@ class DirtChampionship extends \Eloquent
     public function getOrderedSeasons()
     {
         if (!isset($this->orderedSeasons)) {
-            $this->orderedSeasons = $this->seasons()->get()->sortBy('closes');
+            $this->orderedSeasons = $this->seasons->sortBy('closes');
         }
         return $this->orderedSeasons;
     }

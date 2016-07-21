@@ -3,6 +3,7 @@
 namespace App\Services\DirtRally;
 
 use App\Interfaces\DirtRally\ResultsInterface;
+use App\Models\DirtRally\DirtSeason;
 use App\Models\DirtRally\DirtStage;
 use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
@@ -180,6 +181,39 @@ class Results implements ResultsInterface
         } elseif ($current['best'] == $newPosition) {
             $current['things']->push($new);
         }
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSeasonWinner(DirtSeason $season)
+    {
+        return $this->getWinners(\DirtRallyDriverPoints::forSeason($season));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEventWinner(DirtEvent $event)
+    {
+        return $this->getWinners(\DirtRallyDriverPoints::forEvent($event));
+    }
+
+    /**
+     * Pick out winners from results
+     * @param $results
+     * @return array
+     */
+    protected function getWinners($results)
+    {
+        $winners = [];
+        foreach($results AS $result) {
+            if ($result['position'] == 1) {
+                $winners[] = $result['entity'];
+            }
+        }
+        return $winners;
     }
 
 }
