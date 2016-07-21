@@ -10,7 +10,8 @@ class Playlists implements PlaylistsInterface
     public function getView()
     {
         return \View::make('assetto-corsa.playlist', [
-            'sessions' => AcSession::orderBy('release', 'desc')->orderBy('order', 'desc')->get()
+            'sessions' => AcSession::whereNotNull('release')->where('type', AcSession::TYPE_RACE)
+                ->orderBy('release', 'desc')->orderBy('order', 'desc')->get()
         ])->render();
     }
 }

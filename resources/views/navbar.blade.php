@@ -20,7 +20,7 @@
                 <li>
                     <a href="{{ route('assetto-corsa.index') }}">Assetto Corsa</a>
                 </li>
-            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') )
+            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
@@ -52,7 +52,7 @@
                             </li>
                         @endcan
                         @can('dirt-rally-admin')
-                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin'))
+                        @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin'))
                         <li role="separator" class="divider"></li>
                         @endif
                         <li class="dropdown-header">Dirt Rally</li>
@@ -61,7 +61,7 @@
                         </li>
                         @endcan
                         @can('assetto-corsa-admin')
-                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('dirt-rally-admin'))
+                        @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin'))
                         <li role="separator" class="divider"></li>
                         @endif
                         <li class="dropdown-header">Assetto Corsa</li>
