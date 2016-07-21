@@ -32,6 +32,7 @@ class PermissionsCommand extends Command {
         'assetto-corsa-admin',
         'driver-admin',
         'user-admin',
+        'playlist-admin',
     ];
 
     /**

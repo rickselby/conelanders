@@ -49,3 +49,5 @@ Route::get('{championship}', 'StandingsController@championship')->name('assetto-
 Route::get('{championship}/{event}', 'StandingsController@event')->name('assetto-corsa.standings.event');
 Route::get('{championship}/{event}/{session}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.event.session.lapchart');
 
+Route::post('playlists', 'PlaylistController@update')->name('assetto-corsa.playlists');
+

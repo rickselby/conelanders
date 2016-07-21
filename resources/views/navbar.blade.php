@@ -46,8 +46,13 @@
                             <a href="{{ route('points-sequence.index') }}">Points Sequences</a>
                         </li>
                         @endcan
+                        @can('playlist-admin')
+                            <li>
+                                <a href="{{ route('playlists.index') }}">YouTube Playlists</a>
+                            </li>
+                        @endcan
                         @can('dirt-rally-admin')
-                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin'))
+                        @if (Gate::check('role-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin'))
                         <li role="separator" class="divider"></li>
                         @endif
                         <li class="dropdown-header">Dirt Rally</li>
