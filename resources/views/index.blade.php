@@ -32,7 +32,7 @@
             <h2>Upcoming Events</h2>
             @foreach($upcomingNews AS $time => $items)
 
-                <h3>{{ \Carbon\Carbon::createFromTimestamp($time)->format('l jS F Y, H:i e') }}</h3>
+                <h3>{{ \Times::userTimezone(\Carbon\Carbon::createFromTimestamp($time)) }}</h3>
                 @foreach($items AS $type)
                     <div class="panel panel-info">
                         <div class="panel-heading">
@@ -53,7 +53,7 @@
             <h2>Past Events</h2>
             @foreach($pastNews AS $time => $items)
 
-                <h3>{{ \Carbon\Carbon::createFromTimestamp($time)->format('l jS F Y, H:i e') }}</h3>
+                <h3>{{ \Times::userTimezone(\Carbon\Carbon::createFromTimestamp($time)) }}</h3>
                 @foreach($items AS $type)
                 <div class="panel panel-info">
                     <div class="panel-heading">

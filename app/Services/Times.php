@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+
 class Times
 {
     public function fromString($string)
@@ -53,6 +55,19 @@ class Times
             } else {
                 return '';
             }
+        }
+    }
+
+    public function userTimezone(Carbon $time, $format = 'l jS F Y, H:i')
+    {
+        if (\Auth::check() && \Auth::user()->timezone) {
+            return \Timezone::convertFromUTC(
+                $time,
+                \Auth::user()->timezone,
+                $format
+            );
+        } else {
+            return $time->format($format.' e');
         }
     }
 }

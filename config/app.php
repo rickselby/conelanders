@@ -168,6 +168,7 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Camroncade\Timezone\TimezoneServiceProvider::class,
     ],
 
     /*

@@ -15,7 +15,8 @@
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "rickselby/svglapchart": "^0.3",
         "spatie/laravel-permission": "^1.4",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "camroncade/timezone": "^0.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

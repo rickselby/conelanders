@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         return view('user.show')
             ->with('user', \Auth::user())
-            ->with('drivers', Driver::orderBy('name')->get());
+            ->with('drivers', Driver::notLinkedToUser()->orderBy('name')->get());
     }
     
     public function selectDriver(Request $request)
@@ -53,5 +53,13 @@ class UserController extends Controller
             $user->save();
         }
         return \Redirect::route('user.assignments');
+    }
+    
+    public function updateProfile(Request $request)
+    {
+        \Auth::user()->timezone = $request->get('timezone');
+        \Auth::user()->save();
+        \Notification::add('success', 'Timezone updated.');
+        return \Redirect::route('user.show');
     }
 }

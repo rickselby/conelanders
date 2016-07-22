@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="col-xs-6 col-md-9">
-                        {{ $event->time->format('Y-m-d H:i:s e') }}
+                        {{ \Times::userTimezone($event->time) }}
                     </div>
                 </div>
             </li>
