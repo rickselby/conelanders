@@ -41,7 +41,7 @@
                             <div class="panel-body">
                                 Only admins and entrants can see this page, these results have not yet been released.
                                 @if ($session->release)
-                                    They will be released on {{ $session->release->format('l jS \\of F Y H:i:s e') }}
+                                    They will be released on {{ \Times::userTimezone($session->release) }}
                                 @endif
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                         </div>
                         <div class="panel-body">
                             @if ($session->release)
-                                The results for this session will be released on {{ $session->release->format('l jS \o\f F Y \a\t H:i') }} UTC
+                                The results for this session will be released on {{ \Times::userTimezone($session->release)) }} UTC
                             @else
                                 The results for this session are not yet available.
                             @endif

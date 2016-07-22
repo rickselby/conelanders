@@ -31,6 +31,18 @@ class Driver extends \Eloquent
         return $this->hasOne(User::class);
     }
 
+    public function scopeNotLinkedToUser($query)
+    {
+        $relation = $this->user();
+        $related = $relation->getRelated();
+        $table = $related->getTable();
+        $foreignKey = $relation->getForeignKey();
+
+        $query->leftJoin($table, $this->getQualifiedKeyName(), '=', $foreignKey)
+            ->whereNull($related->getQualifiedKeyName())
+            ->select($this->getTable().'.*');
+    }
+
     /**
      * Sluggable configuration
      *

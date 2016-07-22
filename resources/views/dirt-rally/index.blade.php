@@ -40,7 +40,7 @@
                                     <br />
                                 @endforeach
                             @else
-                                Season will be completed {{ $season->closes->format('\o\n Y-m-d \a\t H:i:s e') }}
+                                Season will be completed at {{ \Times::userTimezone($season->closes) }}
                             @endif
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                             <br />
                                         @endforeach
                                     @else
-                                        Event will be completed {{ $event->closes->format('\o\n Y-m-d \a\t H:i:s e') }}
+                                        Event will be completed {{ \Times::userTimezone($event->closes) }}
                                     @endif
                                 </div>
                             </div>

@@ -18,18 +18,18 @@
             @forelse($championship->events AS $event)
                 <li class="list-group-item {{ $event->countReleasedSessions() > 0 ? 'list-group-item-info' : '' }}">
                     <div class="row">
-                        <div class="col-xs-6 col-sm-3">
+                        <div class="col-xs-4 col-sm-3 col-md-2">
                             <a href="{{ route('assetto-corsa.standings.event', [$championship, $event]) }}">
                                 {{ $event->name }}
                             </a>
                         </div>
-                        <div class="col-xs-6 col-sm-4">
+                        <div class="col-xs-8 col-sm-4 col-md-6">
                             @if ($event->countReleasedSessions() == 0)
                                 @if ($event->getNextUpdate())
-                                    Results will be released {{ $event->getNextUpdate()->format('\o\n Y-m-d \a\t H:i:s e') }}
+                                    Results will be released on {{ \Times::userTimezone($event->getNextUpdate()) }}
                                 @endif
                             @elseif ($event->countReleasedSessions() < count($event->sessions))
-                                Some results released; next update will be  {{ $event->getNextUpdate()->format('\o\n Y-m-d \a\t H:i:s e') }}
+                                Some results released; next update will be on {{ \Times::userTimezone($event->getNextUpdate()) }}
                             @else
                                 @foreach(\ACResults::getWinner($event) AS $entrant)
                                     @include('assetto-corsa.driver.name', ['entrant' => $entrant])
@@ -37,7 +37,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="col-xs-12 col-sm-5 text-right">
+                        <div class="col-xs-12 col-sm-5 col-md-4 text-right">
                             @foreach($event->sessions AS $session)
                                 @if ($session->playlist)
                                     <a class="btn btn-social btn-xs btn-youtube" href="{{ $session->playlist->link }}">
