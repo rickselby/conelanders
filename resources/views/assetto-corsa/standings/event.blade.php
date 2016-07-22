@@ -68,7 +68,7 @@
                         </div>
                         <div class="panel-body">
                             @if ($session->release)
-                                The results for this session will be released on {{ \Times::userTimezone($session->release)) }} UTC
+                                The results for this session will be released on {{ \Times::userTimezone($session->release) }}
                             @else
                                 The results for this session are not yet available.
                             @endif

@@ -24,7 +24,7 @@
         @endif
 
         @if ($event->last_import && !$event->isComplete())
-            <p>Last update: {{ $event->last_import->toDayDateTimeString() }} UTC</p>
+            <p>Last update: {{ \Times::userTimezone($event->last_import) }}</p>
         @endif
 
         <table class="table sortable table-bordered table-hover">
