@@ -6,7 +6,7 @@
     @if (!$user->driver || !$user->driver_confirmed)
         <h2>Link your account to your Driver</h2>
 
-        @if (!$user->driver_confirmed)
+        @if ($user->driver && !$user->driver_confirmed)
             <div class="panel panel-info">
                 <div class="panel-body">
                     Your driver selection has been recorded. Go and pester dJomp on discord, reddit or YouTube
