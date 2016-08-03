@@ -43,11 +43,18 @@ Route::post('/championship/{championship}/event/{event}/session/{session}/entran
 Route::get('/championship/{championship}/event/{event}/session/{session}/entrants/{entrant}/delete',
     'ChampionshipEventSessionEntrantController@destroy')->name('assetto-corsa.championship.event.session.entrants.destroy');
 
-// Standings
+
+Route::get('server', 'ServerController@index')->name('assetto-corsa.server.index');
+Route::get('server/status', 'ServerController@status')->name('assetto-corsa.server.status');
+Route::post('server/config', 'ServerController@updateConfig')->name('assetto-corsa.server.update-config');
+Route::post('server/start', 'ServerController@start')->name('assetto-corsa.server.start');
+Route::post('server/stop', 'ServerController@stop')->name('assetto-corsa.server.stop');
+
+Route::post('playlists', 'PlaylistController@update')->name('assetto-corsa.playlists');
+
+// Standings - must go last, to catch anything not caught already
 
 Route::get('{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
 Route::get('{championship}/{event}', 'StandingsController@event')->name('assetto-corsa.standings.event');
 Route::get('{championship}/{event}/{session}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.event.session.lapchart');
-
-Route::post('playlists', 'PlaylistController@update')->name('assetto-corsa.playlists');
 
