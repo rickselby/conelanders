@@ -61,6 +61,36 @@
 
     {!! Form::close() !!}
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#entryList">
+                    Current Entry List
+                </a> <span class="caret"></span>
+            </h3>
+        </div>
+        <div class="panel-collapse collapse" id="entryList" role="tabpanel">
+            <pre class="panel-body">
+{{ $entryList }}
+            </pre>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#serverConfig">
+                    Current Server Config
+                </a> <span class="caret"></span>
+            </h3>
+        </div>
+        <div class="panel-collapse collapse" id="serverConfig" role="tabpanel">
+            <pre class="panel-body">
+{{ $serverConfig }}
+            </pre>
+        </div>
+    </div>
     <script type="text/javascript">
         $( document ).ready(function() {
 

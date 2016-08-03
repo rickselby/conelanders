@@ -8,6 +8,8 @@ class Server
 {
     protected $script;
     protected $configPath;
+    protected $entryList = 'entry_list.ini';
+    protected $serverConfig = 'server_cfg.ini';
 
     public function __construct()
     {
@@ -39,12 +41,12 @@ class Server
 
     public function updateEntryList(UploadedFile $file)
     {
-        $this->uploadFile($file, 'entry_list.ini');
+        $this->uploadFile($file, $this->entryList);
     }
 
     public function updateServerConfig(UploadedFile $file)
     {
-        $this->uploadFile($file, 'server_cfg.ini');
+        $this->uploadFile($file, $this->serverConfig);
     }
 
     protected function uploadFile(UploadedFile $file, $name)
@@ -59,6 +61,16 @@ class Server
             'file' => $localName,
             'user' => \Auth::user()->driver->name,
         ]);
+    }
+
+    public function getCurrentEntryList()
+    {
+        return file_get_contents($this->configPath.$this->entryList);
+    }
+
+    public function getCurrentConfigFile()
+    {
+        return file_get_contents($this->configPath.$this->serverConfig);
     }
 
 }

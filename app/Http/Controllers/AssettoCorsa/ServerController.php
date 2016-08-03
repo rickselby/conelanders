@@ -19,7 +19,9 @@ class ServerController extends Controller
 
     public function index()
     {
-        return view('assetto-corsa.server');
+        return view('assetto-corsa.server')
+            ->with('entryList', $this->server->getCurrentEntryList())
+            ->with('serverConfig', $this->server->getCurrentConfigFile());
     }
 
     public function updateConfig(Request $request)
