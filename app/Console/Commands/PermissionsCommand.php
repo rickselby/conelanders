@@ -33,6 +33,7 @@ class PermissionsCommand extends Command {
         'driver-admin',
         'user-admin',
         'playlist-admin',
+        'ac-server-admin',
     ];
 
     /**
