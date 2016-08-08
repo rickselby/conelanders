@@ -39,6 +39,7 @@
             <tr>
                 <th>{{ $result['position'] }}</th>
                 <th>
+                    @include('nation.image', ['nation' => $result['driver']->nation])
                     <a href="{{ route('driver.show', $result['driver']) }}">
                         {{ $result['driver']->name }}
                     </a>
