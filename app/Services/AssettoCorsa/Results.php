@@ -145,7 +145,7 @@ class Results implements ResultsInterface
      */
     private function dropEvents(AcChampionship $championship, $results)
     {
-        $dropEvents = 0;
+        $dropEvents = $shownEvents = 0;
 
         // First, calculate how many dropped events to show
         if ($championship->drop_events != 0) {
@@ -176,16 +176,12 @@ class Results implements ResultsInterface
 
             // Work through each entrant
             foreach($results AS $entrantID => $result) {
-                $points = $result['eventPoints'];
-
-                // Sort the points to get rid of the lower one(s)
-                arsort($points);
 
                 // Do we need to drop any events?
-                if (count($points) > $countEvents) {
+                if (count($result['eventPoints']) > $countEvents) {
 
-                    // The keys of the points array are the event IDs; get those keys beyond the number of events to count
-                    $eventsToDrop = array_slice(array_keys($points), $countEvents);
+                    // Get event IDs beyond the number of events to count
+                    $eventsToDrop = array_slice($this->getDropEventIDsSorted($result), $countEvents);
 
                     // Step through the events to drop
                     foreach($eventsToDrop AS $eventID) {
@@ -199,6 +195,33 @@ class Results implements ResultsInterface
             }
         }
         return $results;
+    }
+
+    /**
+     * Sort championship results by points (descending) and position (ascending) and return the event IDs in that order
+     * @param [] $result
+     * @return int[]
+     */
+    private function getDropEventIDsSorted($result)
+    {
+        // Build an array of points and positions
+        $list = [];
+        foreach($result['eventPoints'] AS $event => $points) {
+            $list[$event] = [
+                'points' => $points,
+                'position' => $result['eventPositions'][$event],
+            ];
+        }
+        // Sort it
+        uasort($list, function($a, $b) {
+            if ($a['points'] == $b['points']) {
+                // Points are the same; drop the higher numbered position
+                return $a['position'] - $b['position'];
+            } else {
+                return $b['points'] - $a['points'];
+            }
+        });
+        return array_keys($list);
     }
 
     /**
