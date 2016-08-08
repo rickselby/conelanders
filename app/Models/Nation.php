@@ -22,10 +22,11 @@ class Nation extends \Eloquent
      */
     public function sluggable()
     {
-        // If there is no acronym to use as a slug, use the id
+        // If there is no acronym to use as a slug, use the dirt_reference
+        // (id won't exist when creating a new nation...)
         return [
             'slug' => [
-                'source' => $this->acronym ? 'acronym' : 'id',
+                'source' => $this->acronym ? 'acronym' : 'dirt_reference',
             ]
         ];
     }
