@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         
         // Check for a last pull every minute (ouch)
         $schedule->call(function() {
-            \DirtRallyImportDirt::queueLastImport();
+            \DirtRallyImportDirt::queueImports();
         });
     }
 }

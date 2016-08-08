@@ -40,18 +40,26 @@ class ImportDirt extends ImportAbstract
     }
 
     /**
-     * Each event should have a final import 2-3 minutes before it closes
+     * Each event should have a final import 5 minutes before it closes
      * (just in case we can't get the results after this time)
+     * and an import one minute after it closes
      * This gets hit every minute (ouch) to see if this is true for any current event.
      */
-    public function queueLastImport()
+    public function queueImports()
     {
         foreach(DirtEvent::with('stages.results')->get() as $event) {
             $now = Carbon::now();
-            if ($now->between(
-                $event->closes->copy()->subMinutes(5),
-                $event->closes->copy()->subMinutes(4)->addSecond(),
-                true)) {
+            if (
+                $now->between(
+                    $event->closes->copy()->subMinutes(5),
+                    $event->closes->copy()->subMinutes(4)->addSecond(),
+                    true)
+                ||
+                $now->between(
+                    $event->closes->copy()->addMinutes(1),
+                    $event->closes->copy()->addMinutes(2)->subSecond(),
+                    true)
+            ) {
                 $this->dispatch(new ImportEventJob($event));
             }
         }

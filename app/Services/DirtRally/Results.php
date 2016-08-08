@@ -60,7 +60,7 @@ class Results implements ResultsInterface
      */
     public function getStageResults(DirtStage $stage)
     {
-        return DirtResult::with('driver')->where('dirt_stage_id', $stage->id)->orderBy('position')->get()->toArray();
+        return DirtResult::with('driver.nation')->where('dirt_stage_id', $stage->id)->orderBy('position')->get()->toArray();
     }
 
     /**

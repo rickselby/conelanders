@@ -21,6 +21,7 @@
                 <tr>
                     <th>{{ $result['position'] }}</th>
                     <th>
+                        <span class="flag-icon flag-icon-{{ $result['driver']['nation']['acronym'] }}" style="font-size: 1.25em;"></span>
                         <a href="{{ route('driver.show', $result['driver']) }}">
                             {{ $result['driver']['name'] }}
                         </a>

@@ -33,7 +33,13 @@ class StandingsController extends Controller
     public function season($championship, $season)
     {
         $season = \Request::get('season');
-        $season->load(['events.stages.results.driver', 'events.positions.driver', 'championship']);
+        $season->load([
+            'events.stages.results.driver.nation',
+            'events.positions.driver.nation',
+            'championship',
+            'events.season.championship.eventPointsSequence',
+            'events.season.championship.stagePointsSequence'
+        ]);
         return view('dirt-rally.standings.season')
             ->with('season', $season)
             ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::forSeason($season)));
@@ -42,7 +48,11 @@ class StandingsController extends Controller
     public function event($championship, $season, $event)
     {
         $event = \Request::get('event');
-        $event->load(['season.championship', 'stages.results.driver', 'positions.driver']);
+        $event->load([
+            'season.championship',
+            'stages.results.driver.nation',
+            'positions.driver.nation'
+        ]);
         return view('dirt-rally.standings.event')
             ->with('event', $event)
             ->with('points', \Positions::addEquals(\DirtRallyDriverPoints::forEvent($event)));
