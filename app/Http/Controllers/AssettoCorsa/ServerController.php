@@ -21,19 +21,22 @@ class ServerController extends Controller
     {
         return view('assetto-corsa.server')
             ->with('entryList', $this->server->getCurrentEntryList())
-            ->with('serverConfig', $this->server->getCurrentConfigFile());
+            ->with('serverConfig', $this->server->getCurrentConfigFile())
+            ->with('entryListLastUpdate', $this->server->getEntryListLastUpdate())
+            ->with('serverConfigLastUpdate', $this->server->getServerConfigLastUpdate());
     }
 
     public function updateConfig(Request $request)
     {
-        if ($request->file('entry_list')) {
-            $this->server->updateEntryList($request->file('entry_list'));
+
+        if ($this->server->updateEntryList($request->get('entry-list'))) {
             \Notification::add('success', 'Updated Entry List');
         }
-        if ($request->file('server_cfg')) {
-            $this->server->updateServerConfig($request->file('server_cfg'));
-            \Notification::add('success', 'Updated Server Config');
+
+        if ($this->server->updateServerConfig($request->get('server-config'))) {
+           \Notification::add('success', 'Updated Server Config');
         }
+
         return \Redirect::route('assetto-corsa.server.index');
     }
 
