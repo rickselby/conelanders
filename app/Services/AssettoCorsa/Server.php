@@ -10,6 +10,7 @@ class Server
     protected $configPath;
     protected $entryList = 'entry_list.ini';
     protected $serverConfig = 'server_cfg.ini';
+    protected $cacheKey = 'ac-server-started-by';
 
     public function __construct()
     {
@@ -19,15 +20,24 @@ class Server
 
     public function start()
     {
+        $userName = \Auth::user()->driver->name;
+        // Start the server
         exec($this->script.' start');
+        // Cache the user that started the server
+        \Cache::forever($this->cacheKey, $userName);
+        // Log the action
         \Log::info('Assetto Corsa Server: started', [
-            'user' => \Auth::user()->driver->name,
+            'user' => $userName,
         ]);
     }
 
     public function stop()
     {
+        // Stop the server
         exec($this->script.' stop');
+        // Clear the cache (not vital)
+        \Cache::forget($this->cacheKey);
+        // Log the action
         \Log::info('Assetto Corsa Server: stopped', [
             'user' => \Auth::user()->driver->name,
         ]);
@@ -36,7 +46,7 @@ class Server
     public function status()
     {
         exec($this->script.' status', $out);
-        return $out[0];
+        return $out[0].(\Cache::get($this->cacheKey) ? ' ('.\Cache::get($this->cacheKey).')' : '');
     }
 
     public function updateEntryList($contents)
