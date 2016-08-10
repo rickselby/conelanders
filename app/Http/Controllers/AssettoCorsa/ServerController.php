@@ -26,14 +26,15 @@ class ServerController extends Controller
 
     public function updateConfig(Request $request)
     {
-        if ($request->file('entry_list')) {
-            $this->server->updateEntryList($request->file('entry_list'));
+
+        if ($this->server->updateEntryList($request->get('entry-list'))) {
             \Notification::add('success', 'Updated Entry List');
         }
-        if ($request->file('server_cfg')) {
-            $this->server->updateServerConfig($request->file('server_cfg'));
-            \Notification::add('success', 'Updated Server Config');
+
+        if ($this->server->updateServerConfig($request->get('server-config'))) {
+           \Notification::add('success', 'Updated Server Config');
         }
+
         return \Redirect::route('assetto-corsa.server.index');
     }
 

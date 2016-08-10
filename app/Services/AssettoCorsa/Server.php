@@ -39,22 +39,27 @@ class Server
         return $out[0];
     }
 
-    public function updateEntryList(UploadedFile $file)
+    public function updateEntryList($contents)
     {
-        $this->uploadFile($file, $this->entryList);
+        $currentFile = $this->getCurrentEntryList();
+        $this->updateFile($contents, $this->entryList);
+        return ($contents != $currentFile);
     }
 
-    public function updateServerConfig(UploadedFile $file)
+    public function updateServerConfig($contents)
     {
-        $this->uploadFile($file, $this->serverConfig);
+        $currentFile = $this->getCurrentConfigFile();
+        $this->updateFile($contents, $this->serverConfig);
+        return ($contents != $currentFile);
     }
 
-    protected function uploadFile(UploadedFile $file, $name)
+    protected function updateFile($contents, $name)
     {
         $localPath = storage_path('uploads/ac-server/');
         $localName = time().'-'.$name;
-        // Move the uploaded file to the local storage of uploaded files
-        $file->move($localPath, $localName);
+
+        // Set the contents of the file
+        \File::put($localPath.$localName, $contents);
         // Then copy the file to the server config
         \File::copy($localPath.$localName, $this->configPath.$name);
         \Log::info('Assetto Corsa Server: file uploaded', [

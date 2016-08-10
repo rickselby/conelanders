@@ -19,60 +19,25 @@
     <button id="stop" type="button" class="btn btn-danger">Stop Server</button>
 
     <h3>Update Server Configuration</h3>
+    <p class="alert alert-warning">
+        File uploads have gone; open the configs below to edit the files.
+        You can always copy-paste your own files over the whole thing if you want.
+    </p>
 
-    {!! Form::open(['route' => 'assetto-corsa.server.update-config', 'files' => true, 'class' => 'form-horizontal']) !!}
-
-    <div class="form-group">
-        {!! Form::label('entry_list', 'Entry List', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            <div class="input-group">
-                <label class="input-group-btn">
-                    <span class="btn btn-primary">
-                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;
-                        Browse&hellip; <input name="entry_list" type="file" style="display: none;" multiple>
-                    </span>
-                </label>
-                <input type="text" class="form-control" readonly>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        {!! Form::label('server_cfg', 'Server Config', ['class' => 'col-sm-2 control-label']) !!}
-        <div class="col-sm-10">
-            <div class="input-group">
-                <label class="input-group-btn">
-                    <span class="btn btn-primary">
-                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;
-                        Browse&hellip; <input name="server_cfg" type="file" style="display: none;" multiple>
-                    </span>
-                </label>
-                <input type="text" class="form-control" readonly>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            {!! Form::submit('Upload new config files', ['class' => 'btn btn-primary']) !!}
-        </div>
-    </div>
-
-    {!! Form::close() !!}
+    {!! Form::open(['route' => 'assetto-corsa.server.update-config', 'class' => 'form-horizontal']) !!}
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#entryList">
-                    Current Entry List
+                    Entry List
                 </a> <span class="caret"></span>
             </h3>
         </div>
         <div class="panel-collapse collapse" id="entryList" role="tabpanel">
-            <pre class="panel-body">
-{{ $entryList }}
-            </pre>
+            <div class="panel-body">
+                <textarea name="entry-list" class="form-control" rows="40">{{ $entryList }}</textarea>
+            </div>
         </div>
     </div>
 
@@ -81,16 +46,20 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#serverConfig">
-                    Current Server Config
+                    Server Config
                 </a> <span class="caret"></span>
             </h3>
         </div>
         <div class="panel-collapse collapse" id="serverConfig" role="tabpanel">
-            <pre class="panel-body">
-{{ $serverConfig }}
-            </pre>
+            <div class="panel-body">
+                <textarea name="server-config" class="form-control" rows="40">{{ $serverConfig }}</textarea>
+            </div>
         </div>
     </div>
+
+        {!! Form::submit('Update configuration', ['class' => 'btn btn-primary']) !!}
+    {!! Form::close() !!}
+
     <script type="text/javascript">
         $( document ).ready(function() {
 
