@@ -30,7 +30,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#entryList">
-                    Entry List
+                    Entry List {{ $entryListLastUpdate ? '('.$entryListLastUpdate.')' : '' }}
                 </a> <span class="caret"></span>
             </h3>
         </div>
@@ -46,7 +46,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#serverConfig">
-                    Server Config
+                    Server Config {{ $serverConfigLastUpdate ? '('.$serverConfigLastUpdate.')' : '' }}
                 </a> <span class="caret"></span>
             </h3>
         </div>

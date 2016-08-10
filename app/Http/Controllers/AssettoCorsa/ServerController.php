@@ -21,7 +21,9 @@ class ServerController extends Controller
     {
         return view('assetto-corsa.server')
             ->with('entryList', $this->server->getCurrentEntryList())
-            ->with('serverConfig', $this->server->getCurrentConfigFile());
+            ->with('serverConfig', $this->server->getCurrentConfigFile())
+            ->with('entryListLastUpdate', $this->server->getEntryListLastUpdate())
+            ->with('serverConfigLastUpdate', $this->server->getServerConfigLastUpdate());
     }
 
     public function updateConfig(Request $request)
