@@ -8,6 +8,10 @@
 
 @section('content')
     @foreach($championships AS $championship)
+        @push('stylesheets')
+        <link href="{{ route('assetto-corsa.championship-css', $championship)}}" rel="stylesheet">
+        @endpush
+
         <h2>{{ $championship->name }}</h2>
         <div class="btn-group" role="group">
             <a class="btn btn-primary"  role="button"
