@@ -9,7 +9,7 @@
 @section('content')
     @foreach($championships AS $championship)
         @push('stylesheets')
-        <link href="{{ route('assetto-corsa.championship-css', $championship)}}" rel="stylesheet">
+        <link href="{{ route('assetto-corsa.championship-css', $championship) }}" rel="stylesheet">
         @endpush
 
         <h2>{{ $championship->name }}</h2>
