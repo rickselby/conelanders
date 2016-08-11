@@ -14,4 +14,12 @@ class AssettoCorsaController extends Controller
                 'events.sessions.entrants.championshipEntrant.driver.nation',
                 'events.sessions.event')->get()->sortByDesc('ends'));
     }
+
+    public function championshipCSS(AcChampionship $championship)
+    {
+        $championship->load('entrants');
+        return response()
+            ->view('assetto-corsa.entrants.css', ['championship' => $championship])
+            ->header('Content-Type', 'text/css');
+    }
 }
