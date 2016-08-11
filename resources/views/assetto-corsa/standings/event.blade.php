@@ -1,5 +1,9 @@
 @extends('page')
 
+@push('stylesheets')
+<link href="{{ route('assetto-corsa.championship-css', $event->championship) }}" rel="stylesheet" />
+@endpush
+
 @section('content')
 
     @if (!$event->canBeReleased() && \ACEvent::canBeShown($event))
