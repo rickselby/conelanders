@@ -23,10 +23,9 @@ class ChampionshipEntrantController extends Controller
 
     public function update(Request $request, AcChampionship $championship)
     {
-        \ACEntrants::updateNumbersAndColours($request, $championship);
+        \ACEntrants::updateNumbersAndCSS($request, $championship);
         \Event::fire(new ChampionshipEntrantsUpdated($championship));
         \Notification::add('success', 'Entrants updated');
         return \Redirect::route('assetto-corsa.championship.entrants.index', $championship);
     }
-
 }

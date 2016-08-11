@@ -54,6 +54,8 @@ Route::post('playlists', 'PlaylistController@update')->name('assetto-corsa.playl
 
 // Standings - must go last, to catch anything not caught already
 
+Route::get('championship-css/{championship}', 'AssettoCorsaController@championshipCSS')->name('assetto-corsa.championship-css');
+
 Route::get('{championship}', 'StandingsController@championship')->name('assetto-corsa.standings.championship');
 Route::get('{championship}/{event}', 'StandingsController@event')->name('assetto-corsa.standings.event');
 Route::get('{championship}/{event}/{session}/lapchart', 'StandingsController@lapChart')->name('assetto-corsa.standings.event.session.lapchart');

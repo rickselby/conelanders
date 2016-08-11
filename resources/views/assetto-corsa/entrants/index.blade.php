@@ -9,8 +9,7 @@
         <tr>
             <th>Driver</th>
             <th>Car #</th>
-            <th>Primary Colour</th>
-            <th>Secondary Colour</th>
+            <th>Badge CSS</th>
             <th>Rookie?</th>
         </tr>
         </thead>
@@ -23,10 +22,7 @@
                     {!! Form::text('number['.$entrant->id.']', $entrant->number, ['class' => 'form-control']) !!}
                 </td>
                 <td>
-                    {!! Form::text('colour['.$entrant->id.']', $entrant->colour, ['class' => 'form-control']) !!}
-                </td>
-                <td>
-                    {!! Form::text('colour2['.$entrant->id.']', $entrant->colour2, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('css['.$entrant->id.']', $entrant->css, ['class' => 'form-control', 'rows' => '2', 'style' => 'resize:vertical']) !!}
                 </td>
                 <td>
                     {!! Form::checkbox('rookie['.$entrant->id.']', 1, $entrant->rookie) !!}
