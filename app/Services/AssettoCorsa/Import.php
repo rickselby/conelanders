@@ -54,8 +54,11 @@ class Import
         foreach($results->Cars AS $car) {
             $championshipEntrant = $this->getChampionshipEntrant($session->event->championship, $car->Driver->Name, $car->Driver->Guid);
 
-            $sessionEntrant = $session->entrants()->create(['car' => $cars[$car->Model], 'ballast' => $car->BallastKG]);
-            $sessionEntrant->championshipEntrant()->associate($championshipEntrant);
+            $sessionEntrant = $session->entrants()->create([
+                'car' => $cars[$car->Model],
+                'ballast' => $car->BallastKG,
+                'ac_championship_entrant_id' => $championshipEntrant->id
+            ]);
             $session->entrants()->save($sessionEntrant);
         }
 
@@ -99,8 +102,8 @@ class Import
 
         // Tidy up things we're going to overwrite
         foreach($entrants AS $entrant) {
-            $entrant->fastestLap()->delete();
             $entrant->laps()->delete();
+            $entrant->fastestLap()->delete();
         }
 
         $position = 1;
@@ -124,14 +127,12 @@ class Import
                 $acLap = $this->createLap($lap);
 
                 // Create a race lap entry for it
-                $sessionLap = AcSessionLap::create([
+                $sessionLap = $entrants[$lap->DriverGuid]->laps()->create([
                     'time' => $lap->Timestamp,
+                    'ac_laptime_id' => $acLap->id,
                 ]);
                 $sessionLap->lap()->associate($acLap);
                 $sessionLap->save();
-
-                // And attach it to the entrant
-                $entrants[$lap->DriverGuid]->laps()->save($sessionLap);
 
                 // Check if this is their fastest lap
                 if ($bestLaps[$lap->DriverGuid] == $lap->LapTime) {

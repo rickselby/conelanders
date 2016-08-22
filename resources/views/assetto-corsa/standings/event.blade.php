@@ -35,7 +35,7 @@
             </div>
             @foreach($event->sessions as $session)
                 <div role="tabpanel" class="tab-pane" id="session-{{ $session->id }}">
-                @if (\ACSession::canBeShown($session) || Gate::check('assetto-corsa-admin'))
+                @if (count($session->entrants) && (\ACSession::canBeShown($session) || Gate::check('assetto-corsa-admin')))
 
                     @if (Gate::check('assetto-corsa-admin') && !$session->canBeReleased())
                         <div class="panel panel-warning">

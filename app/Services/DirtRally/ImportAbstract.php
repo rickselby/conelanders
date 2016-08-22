@@ -130,10 +130,9 @@ abstract class ImportAbstract
         // Update the flag to show the import has imported something
         $this->imported = true;
         // Create a result model; cache it for future stuff (if importing from website)
-        $this->results[$stage->id][$driver->id] = DirtResult::create(
+        $this->results[$stage->id][$driver->id] = $stage->results()->create(
             ['driver_id' => $driver->id]
         );
-        $stage->results()->save($this->results[$stage->id][$driver->id]);
 
         // Check if it's a DNF
         if (($stage->long && $timeInt == self::LONG_DNF) || (!$stage->long && $timeInt == self::SHORT_DNF)) {
