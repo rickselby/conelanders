@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcSessionLap extends \Eloquent
 {
-    protected $fillable = ['time'];
+    protected $fillable = ['time', 'ac_laptime_id'];
 
     protected $casts = [
         'time' => 'integer',

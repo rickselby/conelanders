@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcSessionEntrant extends \Eloquent
 {
-    protected $fillable = ['ballast', 'car'];
+    protected $fillable = ['ballast', 'car', 'ac_championship_entrant_id'];
 
     protected $casts = [
         'ballast' => 'integer',
