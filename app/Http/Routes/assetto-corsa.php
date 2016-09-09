@@ -26,8 +26,6 @@ Route::get('/championship/{championship}/event/{event}/session/{session}/results
 Route::put('/championship/{championship}/event/{event}/session/{session}/release-date',
     'ChampionshipEventSessionController@releaseDate')->name('assetto-corsa.championship.event.session.release-date');
 
-#Route::resource('championship.event.session.entrants', 'ChampionshipEventSessionEntrantController', [['except' => ['index', 'show', 'update', 'destroy']]]);
-
 Route::post('/championship/{championship}/event/{event}/session/{session}/entrants/update',
     'ChampionshipEventSessionEntrantController@update')->name('assetto-corsa.championship.event.session.entrants.update');
 Route::post('/championship/{championship}/event/{event}/session/{session}/entrants/points',

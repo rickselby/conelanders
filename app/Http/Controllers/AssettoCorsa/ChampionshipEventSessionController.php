@@ -164,7 +164,6 @@ class ChampionshipEventSessionController extends Controller
     {
         $session = \Request::get('session');
         $import->saveUpload($request, $session);
-        \Event::fire(new SessionUpdated($session));
         return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
 
