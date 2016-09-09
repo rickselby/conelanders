@@ -7,10 +7,11 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Driver</th>
-            <th>Car #</th>
-            <th>Badge CSS</th>
-            <th>Rookie?</th>
+            <th class="col-md-2">Driver</th>
+            <th class="col-md-1">Car #</th>
+            <th class="col-md-6">Badge CSS</th>
+            <th class="col-md-2">Colours</th>
+            <th class="col-md-1">Rookie?</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,10 @@
                 </td>
                 <td>
                     {!! Form::textarea('css['.$entrant->id.']', $entrant->css, ['class' => 'form-control', 'rows' => '2', 'style' => 'resize:vertical']) !!}
+                </td>
+                <td>
+                    {!! Form::text('colour['.$entrant->id.']', $entrant->colour, ['class' => 'form-control']) !!}
+                    {!! Form::text('colour2['.$entrant->id.']', $entrant->colour2, ['class' => 'form-control']) !!}
                 </td>
                 <td>
                     {!! Form::checkbox('rookie['.$entrant->id.']', 1, $entrant->rookie) !!}
