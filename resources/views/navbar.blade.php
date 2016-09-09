@@ -71,6 +71,9 @@
                             <li>
                                 <a href="{{ route('assetto-corsa.championship.index') }}">Championship/Race Management</a>
                             </li>
+                            <li>
+                                <a href="{{ route('assetto-corsa.car.index') }}">Cars</a>
+                            </li>
                             @endcan
                             @can('ac-server-admin')
                                 <li>

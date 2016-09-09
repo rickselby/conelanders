@@ -4,6 +4,8 @@ Route::get('/', 'AssettoCorsaController@index')->name('assetto-corsa.index');
 
 // Management
 
+Route::resource('car', 'CarController', ['except' => 'show']);
+
 Route::resource('championship', 'ChampionshipController');
 
 Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');

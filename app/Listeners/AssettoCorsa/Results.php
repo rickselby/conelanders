@@ -2,15 +2,19 @@
 
 namespace App\Listeners\AssettoCorsa;
 
+use App\Events\AssettoCorsa\CarUpdated;
 use App\Events\AssettoCorsa\ChampionshipEntrantsUpdated;
 use App\Events\AssettoCorsa\ChampionshipUpdated;
 use App\Events\AssettoCorsa\EventUpdated;
 use App\Events\AssettoCorsa\SessionUpdated;
 use App\Events\DriverUpdated;
 use App\Events\NationUpdated;
+use App\Models\AssettoCorsa\AcCar;
+use App\Models\AssettoCorsa\AcSessionEntrant;
 use App\Models\Driver;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Collection;
 
 class Results implements ShouldQueue
 {
@@ -39,6 +43,10 @@ class Results implements ShouldQueue
         $events->listen(
             NationUpdated::class,
             'App\Listeners\AssettoCorsa\Results@clearNationSessions'
+        );
+        $events->listen(
+            CarUpdated::class,
+            'App\Listeners\AssettoCorsa\Results@clearCarEntrants'
         );
     }
 
@@ -114,6 +122,22 @@ class Results implements ShouldQueue
             foreach($champEntry->entries AS $sessionEntry) {
                 \ACCacheHandler::clearSessionCache($sessionEntry->session);
             }
+        }
+    }
+
+    /**
+     * Clear all AC results that have a certain car
+     * @param CarUpdated $event
+     */
+    public function clearCarEntrants(CarUpdated $event)
+    {
+        /** @var Collection $sessions */
+        $sessions = collect($event->car->entrants)->map(function ($entrant) {
+            return $entrant->session;
+        });
+
+        foreach($sessions->unique() AS $session) {
+            \ACCacheHandler::clearSessionCache($session);
         }
     }
 }
