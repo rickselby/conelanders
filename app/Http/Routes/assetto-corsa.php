@@ -4,6 +4,8 @@ Route::get('/', 'AssettoCorsaController@index')->name('assetto-corsa.index');
 
 // Management
 
+Route::resource('car', 'CarController', ['except' => 'show']);
+
 Route::resource('championship', 'ChampionshipController');
 
 Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
@@ -23,8 +25,6 @@ Route::get('/championship/{championship}/event/{event}/session/{session}/results
     'ChampionshipEventSessionController@resultsScan')->name('assetto-corsa.championship.event.session.results-scan');
 Route::put('/championship/{championship}/event/{event}/session/{session}/release-date',
     'ChampionshipEventSessionController@releaseDate')->name('assetto-corsa.championship.event.session.release-date');
-
-Route::resource('championship.event.session.entrants', 'ChampionshipEventSessionEntrantController', [['except' => ['index', 'show', 'update', 'destroy']]]);
 
 Route::post('/championship/{championship}/event/{event}/session/{session}/entrants/update',
     'ChampionshipEventSessionEntrantController@update')->name('assetto-corsa.championship.event.session.entrants.update');

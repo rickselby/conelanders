@@ -38,7 +38,9 @@
                 </th>
                 @foreach($events AS $event)
                     @if (isset($detail['eventPoints'][$event->id]))
-                        <td class="position {{ \Positions::colour($detail['eventPositions'][$event->id], $detail['eventPoints'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}">
+                        <td class="position {{ \Positions::colour($detail['eventPositions'][$event->id], $detail['eventPoints'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}"
+                            data-points="{{ $detail['eventPoints'][$event->id] }}"
+                            data-position="{{ $detail['eventPositions'][$event->id] }}">
                             {{ $detail['eventPositions'][$event->id] }}
                         </td>
                     @else

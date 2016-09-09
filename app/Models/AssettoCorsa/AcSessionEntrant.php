@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcSessionEntrant extends \Eloquent
 {
-    protected $fillable = ['ballast', 'car', 'ac_championship_entrant_id'];
+    protected $fillable = ['ballast'];
 
     protected $casts = [
         'ballast' => 'integer',
@@ -36,6 +36,11 @@ class AcSessionEntrant extends \Eloquent
     public function laps()
     {
         return $this->hasMany(AcSessionLap::class);
+    }
+
+    public function car()
+    {
+        return $this->belongsTo(AcCar::class, 'ac_car_id');
     }
 
     public function canBeDeleted()

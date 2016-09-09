@@ -21,41 +21,6 @@ class ChampionshipEventSessionEntrantController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param string $championshipStub
-     * @param string $eventStub
-     * @param string $sessionStub
-     * @return \Illuminate\Http\Response
-     */
-    public function create($championshipStub, $eventStub, $sessionStub, Import $import)
-    {
-        $session = \Request::get('session');
-        return view('assetto-corsa.session-entrants.create')
-            ->with('session', $session)
-            ->with('entrants', $import->processEntrants($session));;
-    }
-
-    /**
-     * Store the entrants for the given session with the given form data
-     * 
-     * @param Request $request
-     * @param string $championshipStub
-     * @param string $eventStub
-     * @param string $sessionStub
-     * @param Import $import
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request, $championshipStub, $eventStub, $sessionStub, Import $import)
-    {
-        $session = $request->get('session');
-        $import->saveEntrants($request, $session);
-        \Event::fire(new SessionUpdated($session));
-        \Notification::add('success', 'Entrants added; results queued for processing');
-        return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
-    }
-
-    /**
      * Update the entrants for the given session
      * 
      * @param Request $request

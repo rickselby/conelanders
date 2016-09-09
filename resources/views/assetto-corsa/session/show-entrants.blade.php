@@ -25,7 +25,7 @@
                             <th>{{ $entrant->position }}</th>
                             <th>{{ $entrant->championshipEntrant->driver->name }}</th>
                             <td>
-                                {!! Form::text('car['.$entrant->id.']', $entrant->car, ['class' => 'form-control']) !!}
+                                {{ $entrant->car->name ?: '??' }}
                             </td>
                             <td>
                                 @if ($entrant->canBeDeleted())
