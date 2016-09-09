@@ -12,6 +12,7 @@ class AssettoCorsaController extends Controller
         return view('assetto-corsa.index')
             ->with('championships', AcChampionship::with(
                 'events.sessions.entrants.championshipEntrant.driver.nation',
+                'events.sessions.playlist',
                 'events.sessions.event')->get()->sortByDesc('ends'));
     }
 

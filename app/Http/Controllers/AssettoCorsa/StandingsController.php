@@ -29,7 +29,7 @@ class StandingsController extends Controller
     public function event($championshipStub, $eventStub)
     {
         $event = \Request::get('event');
-        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.entrants.laps', 'sessions.event');
+        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.event');
         return view('assetto-corsa.standings.event')
             ->with('event', $event)
             ->with('points', \Positions::addEquals(\ACResults::eventSummary($event)));

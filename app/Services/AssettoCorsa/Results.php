@@ -300,6 +300,7 @@ class Results implements ResultsInterface
             $lastEntrant = null;
 
             $raceEntrants = $session->entrants()->with(
+                'car',
                 'championshipEntrant.driver.nation',
                 'laps'
             )->orderBy('position')->get();
@@ -339,6 +340,7 @@ class Results implements ResultsInterface
         $sectors = [];
         
         $fastestLaps = $session->entrants()->with(
+            'car',
             'championshipEntrant.driver.nation',
             'fastestLap.sectors',
             'laps'
