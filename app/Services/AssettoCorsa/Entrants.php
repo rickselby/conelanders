@@ -11,7 +11,6 @@ class Entrants
     public function updateSessionEntrants(Request $request, AcSession $session)
     {
         foreach($session->entrants AS $entrant) {
-            $entrant->car = $request->get('car')[$entrant->id];
             if ($session->type == AcSession::TYPE_RACE) {
                 $entrant->dsq = isset($request->get('dsq')[$entrant->id]);
                 $entrant->dnf = isset($request->get('dnf')[$entrant->id]);

@@ -16,7 +16,7 @@
            href="{{ route('assetto-corsa.championship.event.session.create', [$event->championship, $event]) }}">Add a new session</a>
     </p>
 
-    @if (count($event->sessions) == 0)
+    @if (count($event->sessions) == 0 && count($otherEvents))
         {!! Form::open(['route' => ['assetto-corsa.championship.event.copy-sessions', $event->championship, $event], 'class' => 'form-horizontal']) !!}
         <div class="form-group">
             {!! Form::label('from-event', 'Copy sessions from', ['class' => 'col-sm-3 control-label']) !!}

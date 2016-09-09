@@ -38,6 +38,11 @@ class AcSessionEntrant extends \Eloquent
         return $this->hasMany(AcSessionLap::class);
     }
 
+    public function car()
+    {
+        return $this->belongsTo(AcCar::class, 'ac_car_id');
+    }
+
     public function canBeDeleted()
     {
         return (count($this->laps) == 0);
