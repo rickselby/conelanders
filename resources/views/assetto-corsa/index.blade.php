@@ -13,7 +13,7 @@
         @endpush
 
         <h2>{{ $championship->name }}</h2>
-        <h4>{{ \ACChampionships::cars($championship)->implode('name', ', ') }}</h4>
+        <h4>{{ \ACChampionships::cars($championship)->implode('full_name', ', ') }}</h4>
         <div class="btn-group" role="group">
             <a class="btn btn-primary"  role="button"
                href="{{ route('assetto-corsa.standings.championship', $championship) }}">Driver Standings</a>

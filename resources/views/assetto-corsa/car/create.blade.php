@@ -18,11 +18,21 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('full_name', 'Full Name', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::text('full_name', null, ['class' => 'form-control']) !!}
+            <p class="help-block">
+                Full name of the car
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('name', 'Short Name', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
             <p class="help-block">
-                Should be fairly short, results are already busy...
+                Keep it short, results are already busy...
             </p>
         </div>
     </div>
