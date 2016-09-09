@@ -2,17 +2,15 @@
 
 namespace App\Services\AssettoCorsa;
 
+use App\Interfaces\AssettoCorsa\ChampionshipInterface;
+use App\Models\AssettoCorsa\AcCar;
 use App\Models\AssettoCorsa\AcChampionship;
 use Carbon\Carbon;
 
-class Championships
+class Championships implements ChampionshipInterface
 {
     /**
-     * Check if the current championship has results that are being shown before they're released
-     *
-     * @param AcChampionship $championship
-     * 
-     * @return bool
+     * @inheritdoc
      */
     public function shownBeforeRelease(AcChampionship $championship)
     {
@@ -27,8 +25,7 @@ class Championships
     }
 
     /**
-     * Get news on completed championships
-     * @return array
+     * @inheritdoc
      */
     public function getPastNews(Carbon $start, Carbon $end)
     {
@@ -46,6 +43,14 @@ class Championships
             $views[$date] = \View::make('assetto-corsa.championship.news', ['championships' => $championships])->render();
         }
         return $views;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cars(AcChampionship $championship)
+    {
+        return AcCar::forChampionship($championship)->get();
     }
 
 }

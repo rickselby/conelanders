@@ -2,9 +2,9 @@
 
 namespace App\Facades\AssettoCorsa;
 
-use App\Services\AssettoCorsa\Championships;
+use App\Interfaces\AssettoCorsa\ChampionshipInterface;
 use \Illuminate\Support\Facades\Facade;
 
 class ChampionshipsFacade extends Facade {
-    protected static function getFacadeAccessor() { return Championships::class; }
+    protected static function getFacadeAccessor() { return ChampionshipInterface::class; }
 }
