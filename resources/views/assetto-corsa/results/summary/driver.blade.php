@@ -24,7 +24,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($points AS $detail)
+    @foreach(\Positions::addEquals(\ACDriverStandings::eventSummary($event)) AS $detail)
         <tr>
             <th>{{ $detail['position'] }}</th>
             <th>

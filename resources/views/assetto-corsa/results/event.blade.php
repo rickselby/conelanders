@@ -15,7 +15,7 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">
-                    Summary
+                    Driver Summary
                 </a>
             </li>
         @foreach($event->sessions AS $session)
@@ -31,7 +31,7 @@
         {{-- Content --}}
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="summary">
-                @include('assetto-corsa.standings.event-summary')
+                @include('assetto-corsa.results.summary.driver')
             </div>
             @foreach($event->sessions as $session)
                 <div role="tabpanel" class="tab-pane" id="session-{{ $session->id }}">
@@ -58,11 +58,11 @@
                     @endif
 
                     @if ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_RACE)
-                        @include('assetto-corsa.standings.session.race', ['session' => $session])
+                        @include('assetto-corsa.results.session.race', ['session' => $session])
                     @elseif ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_QUALIFYING)
-                        @include('assetto-corsa.standings.session.qualifying', ['session' => $session])
+                        @include('assetto-corsa.results.session.qualifying', ['session' => $session])
                     @elseif ($session->type == \App\Models\AssettoCorsa\AcSession::TYPE_PRACTICE)
-                        @include('assetto-corsa.standings.session.practice', ['session' => $session])
+                        @include('assetto-corsa.results.session.practice', ['session' => $session])
                     @endif
 
                 @else

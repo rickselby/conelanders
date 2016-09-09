@@ -230,6 +230,7 @@ return [
 
         'ACCacheHandler' => App\Facades\Cached\AssettoCorsa\HandlerFacade::class,
         'ACChampionships' => App\Facades\AssettoCorsa\ChampionshipsFacade::class,
+        'ACDriverStandings' => \App\Facades\AssettoCorsa\DriverStandingsFacade::class,
         'ACEntrants' => App\Facades\AssettoCorsa\EntrantsFacade::class,
         'ACEvent' => App\Facades\AssettoCorsa\EventFacade::class,
         'ACImport' => App\Facades\AssettoCorsa\ImportFacade::class,
