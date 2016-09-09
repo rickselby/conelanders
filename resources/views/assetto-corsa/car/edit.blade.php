@@ -36,4 +36,8 @@
 
     {!! Form::close() !!}
 
+    {!! Form::open(['route' => ['assetto-corsa.car.destroy', $car], 'method' => 'delete', 'class' => 'pull-right']) !!}
+    {!! Form::submit('Delete Car', array('class' => 'btn btn-danger')) !!}
+    {!! Form::close() !!}
+
 @endsection

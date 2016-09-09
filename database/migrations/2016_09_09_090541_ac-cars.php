@@ -20,7 +20,7 @@ class AcCars extends Migration
         });
 
         Schema::table('ac_session_entrants', function(Blueprint $table) {
-            $table->unsignedInteger('ac_car_id')->nullable()->after('ballast');
+            $table->unsignedInteger('ac_car_id')->after('ballast');
             $table->dropColumn('car');
 
             $table->foreign('ac_car_id')->references('id')->on('ac_cars')

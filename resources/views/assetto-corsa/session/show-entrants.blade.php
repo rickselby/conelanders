@@ -25,7 +25,7 @@
                             <th>{{ $entrant->position }}</th>
                             <th>{{ $entrant->championshipEntrant->driver->name }}</th>
                             <td>
-                                {{ $entrant->car ? $entrant->car->name : '??' }}
+                                {{ $entrant->car->name ?: '??' }}
                             </td>
                             <td>
                                 @if ($entrant->canBeDeleted())

@@ -30,7 +30,7 @@
             <th>
                 @include('assetto-corsa.driver.name', ['entrant' => $entrant->championshipEntrant])
             </th>
-            <td>{{ $entrant->car ? $entrant->car->name : '??' }}</td>
+            <td>{{ $entrant->car->name ?: '??' }}</td>
             @if (\ACSession::hasBallast($session))
                 <td>{{ $entrant->ballast }}kg</td>
             @endif

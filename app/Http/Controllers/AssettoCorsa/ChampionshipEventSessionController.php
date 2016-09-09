@@ -164,9 +164,8 @@ class ChampionshipEventSessionController extends Controller
     {
         $session = \Request::get('session');
         $import->saveUpload($request, $session);
-        $session->entrants()->delete();
         \Event::fire(new SessionUpdated($session));
-        return \Redirect::route('assetto-corsa.championship.event.session.entrants.create', [$session->event->championship, $session->event, $session]);
+        return \Redirect::route('assetto-corsa.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
 
     /**
@@ -177,7 +176,7 @@ class ChampionshipEventSessionController extends Controller
      * @param string $sessionSlug
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function resultsScan($championshipSlug, $eventSlug, $sessionSlug)
+    public function resultsScan($championshipSlug, $eventSlug, $sessionSlug, Import $import)
     {
         $session = \Request::get('session');
         if (\ACSession::hasResultsFile($session)) {

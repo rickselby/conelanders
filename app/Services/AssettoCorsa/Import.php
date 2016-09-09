@@ -3,9 +3,12 @@
 namespace App\Services\AssettoCorsa;
 
 use App\Jobs\AssettoCorsa\ImportResultsJob;
+use App\Models\AssettoCorsa\AcCar;
+use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEntrant;
 use App\Models\AssettoCorsa\AcLaptime;
 use App\Models\AssettoCorsa\AcSession;
+use App\Models\AssettoCorsa\AcSessionEntrant;
 use App\Models\AssettoCorsa\AcSessionLap;
 use App\Models\Driver;
 use App\Services\Cached\AssettoCorsa\Handler;
@@ -31,71 +34,13 @@ class Import
         if ($request->hasFile('file')) {
             $request->file('file')->move(\ACSession::getResultsFileDirectory(), \ACSession::getResultsFileName($session));
         }
-    }
-
-    public function processEntrants(AcSession $session)
-    {
-        $results = $this->getResults($session);
-        $cars = $drivers = [];
-        foreach($results->Cars AS $car) {
-            $cars[] = $car->Model;
-            $drivers[] = $this->getDriver($car->Driver->Name, $car->Driver->Guid);
-        }
-        return [
-            'cars' => array_unique($cars),
-            'drivers' => $drivers,
-        ];
-    }
-
-    public function saveEntrants(Request $request, AcSession $session)
-    {
-        $results = $this->getResults($session);
-        $cars = $request->get('car');
-        foreach($results->Cars AS $car) {
-            $championshipEntrant = $this->getChampionshipEntrant($session->event->championship, $car->Driver->Name, $car->Driver->Guid);
-
-            $sessionEntrant = $session->entrants()->create([
-                'car' => $cars[$car->Model],
-                'ballast' => $car->BallastKG,
-                'ac_championship_entrant_id' => $championshipEntrant->id
-            ]);
-            $session->entrants()->save($sessionEntrant);
-        }
-
         $this->dispatch(new ImportResultsJob($session));
-    }
-
-    public function getChampionshipEntrant($championship, $name, $guid)
-    {
-        $driver = $this->getDriver($name, $guid);
-        $entrant = $championship->entrants()->where('driver_id', $driver->id)->first();
-        if (!$entrant || !$entrant->exists) {
-            $entrant = $championship->entrants()->create([]);
-            $entrant->driver()->associate($driver);
-            $entrant->save();
-        }
-        return $entrant;
-    }
-
-    public function getDriver($name, $guid)
-    {
-        // Try by guid
-        $driver = Driver::where('ac_guid', $guid)->first();
-        if (!$driver || !$driver->exists) {
-            // Try by name?
-            $driver = Driver::where('name', $name)->first();
-            if (!$driver || !$driver->exists) {
-                $driver = Driver::create(['name' => $name, 'ac_guid' => $guid]);
-            } else {
-                $driver->ac_guid = $guid;
-                $driver->save();
-            }
-        }
-        return $driver;
     }
 
     public function saveResults(AcSession $session)
     {
+        $this->readEntrants($session);
+
         $results = $this->getResults($session);
         $entrants = $this->getEntrantsByID($session);
         $bestLaps = [];
@@ -148,6 +93,54 @@ class Import
         $session->save();
         // Clear the session cache
         app(Handler::class)->clearSessionCache($session);
+    }
+
+    public function readEntrants(AcSession $session)
+    {
+        # Clear the current entrants
+        $session->entrants()->delete();
+        $results = $this->getResults($session);
+        foreach($results->Cars AS $car) {
+            $championshipEntrant = $this->getChampionshipEntrant($session->event->championship, $car->Driver->Name, $car->Driver->Guid);
+
+            $sessionEntrant = new AcSessionEntrant([
+                'ballast' => $car->BallastKG,
+            ]);
+            $sessionEntrant->car()->associate(AcCar::firstOrCreate(['ac_identifier' => $car->Model]));
+            $sessionEntrant->championshipEntrant()->associate($championshipEntrant);
+            $sessionEntrant->session()->associate($session);
+            $sessionEntrant->save();
+        }
+    }
+
+    public function getChampionshipEntrant(AcChampionship $championship, $name, $guid)
+    {
+        $driver = $this->getDriver($name, $guid);
+
+        $entrant = $championship->entrants()->where('driver_id', $driver->id)->first();
+        if (!$entrant || !$entrant->exists) {
+            $entrant = $championship->entrants()->create([
+                'driver_id' => $driver->id
+            ]);
+        }
+        return $entrant;
+    }
+
+    public function getDriver($name, $guid)
+    {
+        // Try by guid
+        $driver = Driver::where('ac_guid', $guid)->first();
+        if (!$driver || !$driver->exists) {
+            // Try by name?
+            $driver = Driver::where('name', $name)->first();
+            if (!$driver || !$driver->exists) {
+                $driver = Driver::create(['name' => $name, 'ac_guid' => $guid]);
+            } else {
+                $driver->ac_guid = $guid;
+                $driver->save();
+            }
+        }
+        return $driver;
     }
 
     private function setFastestLapPositions(&$entrants)
