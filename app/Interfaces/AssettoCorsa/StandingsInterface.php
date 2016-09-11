@@ -28,4 +28,10 @@ interface StandingsInterface
      */
     public function championship(AcChampionship $championship);
 
+    /**
+     * Get the list of possible options for scoring this championship
+     * @return mixed
+     */
+    public function getOptions();
+
 }

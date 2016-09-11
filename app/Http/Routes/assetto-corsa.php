@@ -59,4 +59,5 @@ Route::get('championship-css/{championship}', 'AssettoCorsaController@championsh
 Route::get('{championship}', 'ResultsController@championship')->name('assetto-corsa.results.championship');
 Route::get('{championship}/results/{event}', 'ResultsController@event')->name('assetto-corsa.results.event');
 Route::get('{championship}/results/{event}/{session}/lapchart', 'ResultsController@lapChart')->name('assetto-corsa.results.event.session.lapchart');
-Route::get('{championship}/driver-standings', 'StandingsController@drivers')->name('assetto-corsa.standings.driver');
+Route::get('{championship}/driver-standings', 'StandingsController@drivers')->name('assetto-corsa.standings.drivers');
+Route::get('{championship}/constructor-standings', 'StandingsController@constructors')->name('assetto-corsa.standings.constructors');

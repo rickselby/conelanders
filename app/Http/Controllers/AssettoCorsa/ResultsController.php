@@ -28,7 +28,7 @@ class ResultsController extends Controller
     public function event($championshipStub, $eventStub)
     {
         $event = \Request::get('event');
-        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.event');
+        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.event', 'sessions.entrants.car');
         return view('assetto-corsa.results.event')
             ->with('event', $event);
     }

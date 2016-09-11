@@ -4,7 +4,11 @@
 
 <div class="btn-group" role="group">
     <a class="btn btn-primary"  role="button"
-       href="{{ route('assetto-corsa.standings.driver', $championship) }}">Driver Standings</a>
+       href="{{ route('assetto-corsa.standings.drivers', $championship) }}">Driver Standings</a>
+    @if(count(\ACChampionships::cars($championship)) > 1)
+        <a class="btn btn-info"  role="button"
+           href="{{ route('assetto-corsa.standings.constructors', $championship) }}">Constructors Standings</a>
+    @endif
 </div>
 
 <ul class="list-group list-group-condensed">
@@ -18,26 +22,26 @@
             </div>
             <div class="col-xs-8 col-sm-4 col-md-6">
                 @if ($event->countReleasedSessions() == 0)
-                @if ($event->getNextUpdate())
-                Results will be released on {{ \Times::userTimezone($event->getNextUpdate()) }}
-                @endif
+                    @if ($event->getNextUpdate())
+                        Results will be released on {{ \Times::userTimezone($event->getNextUpdate()) }}
+                    @endif
                 @elseif ($event->countReleasedSessions() < count($event->sessions))
-                Some results released; next update will be on {{ \Times::userTimezone($event->getNextUpdate()) }}
+                    Some results released; next update will be on {{ \Times::userTimezone($event->getNextUpdate()) }}
                 @else
-                @foreach(\ACResults::getWinner($event) AS $entrant)
-                @include('assetto-corsa.driver.name', ['entrant' => $entrant])
-                <br />
-                @endforeach
+                    @foreach(\ACResults::getWinner($event) AS $entrant)
+                        @include('assetto-corsa.driver.name', ['entrant' => $entrant])
+                        <br />
+                    @endforeach
                 @endif
             </div>
             <div class="col-xs-12 col-sm-5 col-md-4 text-right">
                 @foreach($event->sessions AS $session)
-                @if ($session->playlist)
-                <a class="btn btn-social btn-xs btn-youtube" href="{{ $session->playlist->link }}">
-                    <span class="fa fa-youtube-play"></span>
-                    {{ $session->shortName }}
-                </a>
-                @endif
+                    @if ($session->playlist)
+                        <a class="btn btn-social btn-xs btn-youtube" href="{{ $session->playlist->link }}">
+                            <span class="fa fa-youtube-play"></span>
+                            {{ $session->shortName }}
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>

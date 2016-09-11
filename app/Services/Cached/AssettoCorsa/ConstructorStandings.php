@@ -7,7 +7,7 @@ use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use Illuminate\Contracts\Cache\Repository;
 
-class DriverStandings implements StandingsInterface
+class ConstructorStandings implements StandingsInterface
 {
     /**
      * @var Repository
@@ -15,19 +15,19 @@ class DriverStandings implements StandingsInterface
     protected $cache;
 
     /**
-     * @var \App\Services\AssettoCorsa\DriverStandings
+     * @var StandingsInterface
      */
-    protected $driverStandingsService;
+    protected $standingsService;
 
     /**
      * @var string
      */
-    protected $cacheKey = 'ac.driver-standings.';
+    protected $cacheKey = 'ac.constructor-standings.';
 
-    public function __construct(Repository $cache, \App\Services\AssettoCorsa\DriverStandings $driverStandingsService)
+    public function __construct(Repository $cache, \App\Services\AssettoCorsa\ConstructorStandings $constructorStandingsService)
     {
         $this->cache = $cache;
-        $this->driverStandingsService = $driverStandingsService;
+        $this->standingsService = $constructorStandingsService;
     }
 
     /**
@@ -38,7 +38,7 @@ class DriverStandings implements StandingsInterface
         $tagStore = $this->cache->tags(\ACCacheHandler::championshipTag($championship));
         $key = $this->cacheKey . 'championship.' . $championship->id;
         $function = function () use ($championship) {
-            return $this->driverStandingsService->championship($championship);
+            return $this->standingsService->championship($championship);
         };
 
         // We don't cache for logged in users, unless the championship is complete
@@ -67,7 +67,7 @@ class DriverStandings implements StandingsInterface
             $event,
             $this->cacheKey . 'event.' . $event->id,
             function () use ($event) {
-                return $this->driverStandingsService->event($event);
+                return $this->standingsService->event($event);
             }
         );
     }
@@ -81,7 +81,7 @@ class DriverStandings implements StandingsInterface
             $event,
             $this->cacheKey . 'eventSummary.' . $event->id,
             function () use ($event) {
-                return $this->driverStandingsService->eventSummary($event);
+                return $this->standingsService->eventSummary($event);
             }
         );
     }

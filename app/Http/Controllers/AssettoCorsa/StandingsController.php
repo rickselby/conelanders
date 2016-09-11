@@ -22,4 +22,14 @@ class StandingsController extends Controller
             ->with('events', $events)
             ->with('points', \Positions::addEquals(\ACDriverStandings::championship($championship)));
     }
+
+    public function constructors(AcChampionship $championship)
+    {
+        $championship->load('events.sessions.entrants.championshipEntrant', 'events.sessions.entrants.car');
+        $events = $championship->events()->get()->sortBy('time');
+        return view('assetto-corsa.standings.constructors')
+            ->with('championship', $championship)
+            ->with('events', $events)
+            ->with('points', \Positions::addEquals(\ACConstructorStandings::championship($championship)));
+    }
 }
