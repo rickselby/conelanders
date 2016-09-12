@@ -8,8 +8,8 @@ Route::resource('car', 'CarController', ['except' => 'show']);
 
 Route::resource('championship', 'ChampionshipController');
 
-Route::get('championship/{championship}/entrants/', 'ChampionshipEntrantController@index')->name('assetto-corsa.championship.entrants.index');
-Route::post('championship/{championship}/entrants/update', 'ChampionshipEntrantController@update')->name('assetto-corsa.championship.entrants.update');
+Route::get('championship/{championship}/entrant/css', 'ChampionshipEntrantController@css')->name('assetto-corsa.championship.entrant.css');
+Route::resource('championship.entrant', 'ChampionshipEntrantController');
 
 Route::post('championship/{championship}/event/{event}/copy-sessions',
     'ChampionshipEventController@copySessions')->name('assetto-corsa.championship.event.copy-sessions');
@@ -53,8 +53,6 @@ Route::post('server/stop', 'ServerController@stop')->name('assetto-corsa.server.
 Route::post('playlists', 'PlaylistController@update')->name('assetto-corsa.playlists');
 
 // Standings - must go last, to catch anything not caught already
-
-Route::get('championship-css/{championship}', 'AssettoCorsaController@championshipCSS')->name('assetto-corsa.championship-css');
 
 Route::get('{championship}', 'ResultsController@championship')->name('assetto-corsa.results.championship');
 Route::get('{championship}/results/{event}', 'ResultsController@event')->name('assetto-corsa.results.event');

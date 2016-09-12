@@ -6,6 +6,7 @@ Breadcrumbs::register('assetto-corsa.index', function($breadcrumbs) {
 });
 
 include('AssettoCorsa/championship.php');
+include('AssettoCorsa/championship-entrants.php');
 include('AssettoCorsa/championship-event.php');
 include('AssettoCorsa/championship-event-session.php');
 include('AssettoCorsa/results.php');

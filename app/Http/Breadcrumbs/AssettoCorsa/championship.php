@@ -24,8 +24,3 @@ Breadcrumbs::register('assetto-corsa.championship.event.create', function($bread
     $breadcrumbs->parent('assetto-corsa.championship.show', $championship);
     $breadcrumbs->push('Create Race', route('assetto-corsa.championship.event.create', $championship));
 });
-
-Breadcrumbs::register('assetto-corsa.championship.entrants.index', function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
-    $breadcrumbs->parent('assetto-corsa.championship.show', $championship);
-    $breadcrumbs->push('Update Entrants', route('assetto-corsa.championship.entrants.index', $championship));
-});

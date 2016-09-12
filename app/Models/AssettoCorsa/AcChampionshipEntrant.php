@@ -6,7 +6,7 @@ use App\Models\Driver;
 
 class AcChampionshipEntrant extends \Eloquent
 {
-    protected $fillable = ['driver_id', 'rookie', 'number', 'css'];
+    protected $fillable = ['driver_id', 'rookie', 'number', 'css', 'colour', 'colour2'];
 
     protected $casts = [
         'rookie' => 'boolean',
