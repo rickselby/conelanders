@@ -16,9 +16,9 @@
 @if (count(\ACChampionships::cars($event->championship)) > 1)
     <h2>Constructors</h2>
     @if ($event->championship->constructors_count == \App\Services\AssettoCorsa\Standings::SUM)
-        @include('assetto-corsa.results.summary.constructors.sum')
+        @include('assetto-corsa.results.summary.constructors.by-session')
     @elseif ($event->championship->constructors_count == \App\Services\AssettoCorsa\Standings::AVERAGE_SESSION)
-        @include('assetto-corsa.results.summary.constructors.session-average')
+        @include('assetto-corsa.results.summary.constructors.by-session')
     @elseif ($event->championship->constructors_count == \App\Services\AssettoCorsa\Standings::AVERAGE_EVENT)
         @include('assetto-corsa.results.summary.constructors.event-average')
     @endif
