@@ -11,7 +11,7 @@
     <h2>Entrants</h2>
     <p>
         <a class="btn btn-small btn-primary"
-           href="{{ route('assetto-corsa.championship.entrants.index', $championship) }}">Manage Entrants</a>
+           href="{{ route('assetto-corsa.championship.entrant.index', $championship) }}">Manage Entrants</a>
     </p>
 
     <h2>Events</h2>
