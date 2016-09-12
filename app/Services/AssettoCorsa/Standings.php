@@ -51,10 +51,10 @@ abstract class Standings
             $countEvents = $shownEvents - $dropEvents;
 
             // Work through each entrant
-            foreach($results AS $entrantID => $result) {
+            foreach($results AS $id => $result) {
 
                 // Do we need to drop any events?
-                if (count($result['eventPoints']) > $countEvents) {
+                if (count($result['points']) > $countEvents) {
 
                     // Get event IDs beyond the number of events to count
                     $eventsToDrop = array_slice($this->getDropEventIDsSorted($result), $countEvents);
@@ -62,9 +62,9 @@ abstract class Standings
                     // Step through the events to drop
                     foreach($eventsToDrop AS $eventID) {
                         // Remove the points
-                        $results[$entrantID]['points'] -= $result['eventPoints'][$eventID];
+                        $results[$id]['totalPoints'] -= $result['points'][$eventID];
                         // Mark that this event was dropped
-                        $results[$entrantID]['dropped'][] = $eventID;
+                        $results[$id]['dropped'][] = $eventID;
                     }
                 }
 
@@ -82,10 +82,10 @@ abstract class Standings
     {
         // Build an array of points and positions
         $list = [];
-        foreach($result['eventPoints'] AS $event => $points) {
+        foreach($result['points'] AS $event => $points) {
             $list[$event] = [
                 'points' => $points,
-                'position' => $result['eventPositions'][$event],
+                'position' => $result['positions'][$event],
             ];
         }
         // Sort it
@@ -108,9 +108,9 @@ abstract class Standings
      */
     public function arePointsEqual($a, $b)
     {
-        return ($a['points'] == $b['points'])
-        && ($a['positions'] == $b['positions'])
-        && ($a['pointsList'] == $b['pointsList']);
+        return ($a['totalPoints'] == $b['totalPoints'])
+            && ($a['positions'] == $b['positions'])
+            && ($a['points'] == $b['points']);
     }
 
     /**
@@ -121,42 +121,56 @@ abstract class Standings
      */
     protected function pointsSort($a, $b)
     {
-        if ($a['points'] != $b['points']) {
-            return $b['points'] > $a['points'] ? 1 : -1;
+        if ($a['totalPoints'] != $b['totalPoints']) {
+            return $b['totalPoints'] > $a['totalPoints'] ? 1 : -1;
         }
 
+        $positions = [
+            'a' => array_values($a['positions']),
+            'b' => array_values($b['positions']),
+        ];
+        sort($positions['a']);
+        sort($positions['b']);
+
         // Then, best finishing positions; all the way down...
-        for($i = 0; $i < max(count($a['positions']), count($b['positions'])); $i++) {
+        for($i = 0; $i < max(count($positions['a']), count($positions['b'])); $i++) {
             // Check both have a position set
-            if (isset($a['positions'][$i]) && isset($b['positions'][$i])) {
+            if (isset($positions['a'][$i]) && isset($positions['b'][$i])) {
                 // If they're different, compare them
                 // If not, loop again
-                if ($a['positions'][$i] != $b['positions'][$i]) {
-                    return $a['positions'][$i] - $b['positions'][$i];
+                if ($positions['a'][$i] != $positions['b'][$i]) {
+                    return $positions['a'][$i] - $positions['b'][$i];
                 }
-            } elseif (isset($a['positions'][$i])) {
+            } elseif (isset($positions['a'][$i])) {
                 // $a has less results; $b takes priority
                 return -1;
-            } elseif (isset($b['positions'][$i])) {
+            } elseif (isset($positions['b'][$i])) {
                 // $b has less results; $a takes priority
                 return 1;
             }
         }
 
+        $points = [
+            'a' => array_values($a['points']),
+            'b' => array_values($b['points']),
+        ];
+        rsort($points['a']);
+        rsort($points['b']);
+
         // So, the drivers have the same positions. So, let's see if they
         // Then, best points; all the way down...
-        for($i = 0; $i < max(count($a['pointsList']), count($b['pointsList'])); $i++) {
+        for($i = 0; $i < max(count($points['a']), count($points['b'])); $i++) {
             // Check both have a position set
-            if (isset($a['pointsList'][$i]) && isset($b['pointsList'][$i])) {
+            if (isset($points['a'][$i]) && isset($points['b'][$i])) {
                 // If they're different, compare them
                 // If not, loop again
-                if ($a['pointsList'][$i] != $b['pointsList'][$i]) {
-                    return $b['pointsList'][$i] - $a['pointsList'][$i];
+                if ($points['a'][$i] != $points['b'][$i]) {
+                    return $points['b'][$i] - $points['a'][$i];
                 }
-            } elseif (isset($a['pointsList'][$i])) {
+            } elseif (isset($points['a'][$i])) {
                 // $a has less results; $b takes priority
                 return -1;
-            } elseif (isset($b['pointsList'][$i])) {
+            } elseif (isset($points['b'][$i])) {
                 // $b has less results; $a takes priority
                 return 1;
             }
@@ -177,6 +191,66 @@ abstract class Standings
             self::AVERAGE_SESSION => 'Mean Average: Sessions',
             self::AVERAGE_EVENT => 'Mean Average: Events',
         ];
+    }
+
+    /**
+     * Calculate the average of the pointsList and sort parts of the results
+     * @param $results
+     * @return mixed
+     */
+    protected function averagePoints($results)
+    {
+        foreach($results AS $id => $result) {
+            if (count($result['points'])) {
+                $results[$id]['totalPoints'] = array_sum($result['points']) / count($result['points']);
+            } else {
+                $results[$id]['totalPoints'] = 0;
+            }
+        }
+        return $results;
+    }
+
+    /**
+     * Sum the pointsList and sort parts of the results
+     * @param $results
+     * @return mixed
+     */
+    protected function sumPoints($results)
+    {
+        foreach($results AS $id => $result) {
+            $results[$id]['totalPoints'] = array_sum($result['points']);
+        }
+        return $results;
+    }
+
+    /**
+     * Sort the results, and add positions based on the sort
+     * @param $results
+     * @return mixed
+     */
+    protected function sortAndAddPositions($results)
+    {
+        usort($results, [$this, 'pointsSort']);
+        return \Positions::addToArray($results, [$this, 'arePointsEqual']);
+    }
+
+    /**
+     * Remove any entrants (etc) that have no results
+     * @param $championship
+     * @param $results
+     * @return mixed
+     */
+    protected function removeEmpty(AcChampionship $championship, $results)
+    {
+        if ($championship->isComplete()) {
+            foreach ($results AS $key => $info) {
+                if (count($info['positions']) == 0) {
+                    unset($results[$key]);
+                }
+            }
+        }
+
+        return $results;
     }
 
 }

@@ -3,7 +3,7 @@
     <thead>
     <tr>
         <th>Pos.</th>
-        <th>Driver</th>
+        <th>Car</th>
         @foreach($event->sessions AS $session)
             @if (\ACSession::hasPoints($session))
                 <th>{{ $session->name }}</th>
@@ -21,9 +21,9 @@
             </th>
             @foreach($event->sessions AS $session)
                 @if (\ACSession::hasPoints($session))
-                    @if (isset($detail['pointsList'][$session->id]))
-                        <td class="position {{ \Positions::colour($detail['positions'][$session->id], $detail['pointsList'][$session->id]) }}"
-                            data-points="{{ $detail['pointsList'][$session->id] }}"
+                    @if (isset($detail['points'][$session->id]))
+                        <td class="position {{ \Positions::colour($detail['positions'][$session->id], $detail['points'][$session->id]) }}"
+                            data-points="{{ $detail['points'][$session->id] }}"
                             data-position="{{ $detail['positions'][$session->id] }}">
                             {{ $detail['positions'][$session->id] }}
                         </td>
@@ -32,7 +32,7 @@
                     @endif
                 @endif
             @endforeach
-            <td class="points">{{ round($detail['points'], 2) }}</td>
+            <td class="points">{{ round($detail['totalPoints'], 2) }}</td>
         </tr>
     @endforeach
     </tbody>

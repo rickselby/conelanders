@@ -36,17 +36,17 @@
                     {{ $detail['car']->full_name }}
                 </th>
                 @foreach($events AS $event)
-                    @if (isset($detail['eventPoints'][$event->id]))
-                        <td class="position {{ \Positions::colour($detail['eventPositions'][$event->id], $detail['eventPoints'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}"
-                            data-points="{{ round($detail['eventPoints'][$event->id], 2) }}"
-                            data-position="{{ $detail['eventPositions'][$event->id] }}">
-                            {{ $detail['eventPositions'][$event->id] }}
+                    @if (isset($detail['points'][$event->id]))
+                        <td class="position {{ \Positions::colour($detail['positions'][$event->id], $detail['points'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}"
+                            data-points="{{ round($detail['points'][$event->id], 2) }}"
+                            data-position="{{ $detail['positionsWithEquals'][$event->id] }}">
+                            {{ $detail['positionsWithEquals'][$event->id] }}
                         </td>
                     @else
                         <td></td>
                     @endif
                 @endforeach
-                <td class="points">{{ round($detail['points'], 2) }}</td>
+                <td class="points">{{ round($detail['totalPoints'], 2) }}</td>
             </tr>
         @endforeach
         </tbody>

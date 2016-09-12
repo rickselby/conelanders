@@ -7,6 +7,7 @@ use App\Models\AssettoCorsa\AcCar;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcSession;
+use App\Models\AssettoCorsa\AcSessionEntrant;
 
 class ConstructorStandings extends Standings implements DriverStandingsInterface
 {
@@ -15,7 +16,23 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
      */
     public function eventSummary(AcEvent $event)
     {
-        return $this->event($event);
+        $results = [];
+
+        switch ($event->championship->constructors_count) {
+            case self::SUM:
+                $results = $this->eventSessionSummary($event, [$this, 'sumPoints']);
+                break;
+            case self::AVERAGE_SESSION:
+                $results = $this->eventSessionSummary($event, [$this, 'averagePoints']);
+                break;
+            case self::AVERAGE_EVENT:
+                if (\ACEvent::canBeShown($event)) {
+                    $results = $this->eventAverage($event);
+                }
+                break;
+        }
+
+        return $this->sortAndAddPositions($results);
     }
 
     /**
@@ -28,10 +45,10 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         if (\ACEvent::canBeShown($event)) {
             switch ($event->championship->constructors_count) {
                 case self::SUM:
-                    $results = $this->eventSum($event);
+                    $results = $this->eventSessionCount($event, [$this, 'sumPoints']);
                     break;
                 case self::AVERAGE_SESSION:
-                    $results = $this->eventSessionAverage($event);
+                    $results = $this->eventSessionCount($event, [$this, 'averagePoints']);
                     break;
                 case self::AVERAGE_EVENT:
                     $results = $this->eventAverage($event);
@@ -39,65 +56,28 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        usort($results, [$this, 'pointsSort']);
-
-        return \Positions::addToArray($results, [$this, 'arePointsEqual']);
+        return $this->sortAndAddPositions($results);
     }
 
     /**
-     * Sum the car points for the given event
-     *
+     * Get a count of points from each session, parsed by $func
      * @param AcEvent $event
-     *
+     * @param callable $func
      * @return mixed
      */
-    protected function eventSum(AcEvent $event)
+    protected function eventSessionCount(AcEvent $event, callable $func)
     {
         $results = [];
         foreach($event->sessions AS $session) {
             if (\ACSession::hasPoints($session)) {
-                foreach ($session->entrants AS $entrant) {
-                    $carID = $entrant->car->id;
-
-                    if (!isset($results[$carID])) {
-                        $results[$carID] = $this->initCar($entrant->car);
-                        $results[$carID]['entrantList'] = [];
-                    }
-                    $results[$carID]['pointsList'][] = $entrant->points + $entrant->fastest_lap_points;
-                    $results[$carID]['entrantList'][] = $entrant->championshipEntrant->id;
-
-                    if ($session->type == AcSession::TYPE_RACE) {
-                        $results[$carID]['positions'][] = $entrant->position;
-                    }
-                }
-            }
-        }
-
-        foreach($results AS $id => $result) {
-            $results[$id]['entrantList'] = array_unique($results[$id]['entrantList']);
-        }
-
-        return $this->sumAndSort($results);
-    }
-
-    /**
-     * Average the car points at session level
-     * @param AcEvent $event
-     * @return mixed
-     */
-    protected function eventSessionAverage(AcEvent $event)
-    {
-        $results = [];
-        foreach($event->sessions AS $session) {
-            if (\ACSession::hasPoints($session)) {
-                foreach ($this->sessionAverage($session) AS $result) {
+                foreach ($this->sessionCount($session, $func) AS $result) {
                     $carID = $result['car']->id;
 
                     if (!isset($results[$carID])) {
                         $results[$carID] = $this->initCar($result['car']);
                     }
 
-                    $results[$carID]['pointsList'][$session->id] = $result['points'];
+                    $results[$carID]['points'][$session->id] = $result['totalPoints'];
 
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$carID]['positions'][$session->id] = $result['position'];
@@ -106,15 +86,48 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        return $this->sumAndSort($results);
+        return $this->sumPoints($results);
     }
 
     /**
-     * Get the average car points for the given session
-     * @param AcSession $session
-     * @return array|mixed
+     * Get a summary of points from each session, parsed by $func
+     * @param AcEvent $event
+     * @param callable $func
+     * @return mixed
      */
-    protected function sessionAverage(AcSession $session)
+    protected function eventSessionSummary(AcEvent $event, callable $func)
+    {
+        $results = [];
+        foreach($event->sessions AS $session) {
+            if (\ACSession::hasPoints($session)) {
+                foreach ($this->sessionCount($session, $func) AS $result) {
+                    $carID = $result['car']->id;
+
+                    if (!isset($results[$carID])) {
+                        $results[$carID] = $this->initCar($result['car']);
+                    }
+
+                    if (\ACSession::canBeShown($session)) {
+                        $results[$carID]['points'][$session->id] = $result['totalPoints'];
+
+                        if ($session->type == AcSession::TYPE_RACE) {
+                            $results[$carID]['positions'][$session->id] = $result['position'];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this->sumPoints($results);
+    }
+
+    /**
+     * Get a count of session points, and call $func on the results
+     * @param AcSession $session
+     * @param $func
+     * @return mixed
+     */
+    protected function sessionCount(AcSession $session, callable $func)
     {
         $results = [];
 
@@ -125,22 +138,14 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                 $results[$carID] = $this->initCar($entrant->car);
             }
 
-            $results[$carID]['pointsList'][] = $entrant->points + $entrant->fastest_lap_points;
+            $results[$carID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
 
             if ($session->type == AcSession::TYPE_RACE) {
                 $results[$carID]['positions'][] = $entrant->position;
             }
         }
 
-        $results = $this->averageAndSort($results);
-
-        usort($results, [$this, 'pointsSort']);
-
-        if ($session->type == AcSession::TYPE_RACE) {
-            return \Positions::addToArray($results, [$this, 'arePointsEqual']);
-        } else {
-            return $results;
-        }
+        return $this->sortAndAddPositions(call_user_func($func, $results));
     }
 
     /**
@@ -161,11 +166,12 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                         $results[$carID] = $this->initCar($entrant->car);
                     }
 
-                    if (!isset($results[$carID]['pointsList'][$entrantID])) {
-                        $results[$carID]['pointsList'][$entrantID] = 0;
+                    if (!isset($results[$carID]['points'][$entrantID])) {
+                        $results[$carID]['points'][$entrantID] = 0;
                     }
 
-                    $results[$carID]['pointsList'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
+                    $results[$carID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
+
                     if ($session->type == AcSession::TYPE_RACE) {
                         $results[$carID]['positions'][] = $entrant->position;
                     }
@@ -173,41 +179,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        return $this->averageAndSort($results);
-    }
-
-    /**
-     * Calculate the average of the pointsList and sort parts of the results
-     * @param $results
-     * @return mixed
-     */
-    protected function averageAndSort($results)
-    {
-        foreach($results AS $id => $result) {
-            if (count($result['pointsList'])) {
-                $results[$id]['points'] = array_sum($result['pointsList']) / count($result['pointsList']);
-            } else {
-                $results[$id]['points'] = 0;
-            }
-            arsort($results[$id]['pointsList']);
-            asort($results[$id]['positions']);
-        }
-        return $results;
-    }
-
-    /**
-     * Sum the pointsList and sort parts of the results
-     * @param $results
-     * @return mixed
-     */
-    protected function sumAndSort($results)
-    {
-        foreach($results AS $id => $result) {
-            $results[$id]['points'] = array_sum($result['pointsList']);
-            arsort($results[$id]['pointsList']);
-            asort($results[$id]['positions']);
-        }
-        return $results;
+        return $this->averagePoints($results);
     }
 
     /**
@@ -219,9 +191,9 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
     {
         return [
             'car' => $car,
-            'points' => 0,
-            'pointsList' => [],
+            'points' => [],
             'positions' => [],
+            'totalPoints' => 0,
         ];
     }
 
@@ -235,12 +207,11 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         foreach(\ACChampionships::cars($championship) AS $car) {
             $results[$car->id] = [
                 'car' => $car,
-                'points' => 0,
-                'pointsList' => [],
-                'eventPoints' => [],
+                'points' => [],
                 'positions' => [],
-                'eventPositions' => [],
+                'positionsWithEquals' => [],
                 'dropped' => [],
+                'totalPoints' => 0,
             ];
         }
         foreach($championship->events AS $event) {
@@ -248,30 +219,20 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             $eventResultsWithEquals = \Positions::addEquals($eventResults);
             foreach ($eventResults AS $key => $result) {
                 $carID = $result['car']->id;
-                $results[$carID]['points'] += $result['points'];
-                $results[$carID]['pointsList'][] = $result['points'];
-                $results[$carID]['eventPoints'][$event->id] = $result['points'];
-                $results[$carID]['positions'][] = $result['position'];
-                $results[$carID]['eventPositions'][$event->id] = $eventResultsWithEquals[$key]['position'];
-                rsort($results[$carID]['pointsList']);
-                sort($results[$carID]['positions']);
+                $results[$carID]['points'][$event->id] = $result['totalPoints'];
+                $results[$carID]['positions'][$event->id] = $result['position'];
+                $results[$carID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
             }
         }
+
+        $results = $this->sumPoints($results);
 
         // When the championship is complete, hide any drivers that have no results
-        if ($championship->isComplete()) {
-            foreach ($results AS $key => $info) {
-                if (count($info['positions']) == 0) {
-                    unset($results[$key]);
-                }
-            }
-        }
+        $results = $this->removeEmpty($championship, $results);
 
         $results = $this->dropEvents($championship, $results);
-        usort($results, [$this, 'pointsSort']);
-        $results = \Positions::addToArray($results, [$this, 'arePointsEqual']);
 
-        return $results;
+        return $this->sortAndAddPositions($results);;
     }
 
 }

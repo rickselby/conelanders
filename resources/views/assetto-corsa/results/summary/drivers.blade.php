@@ -21,18 +21,18 @@
             </th>
             @foreach($event->sessions AS $session)
                 @if (\ACSession::hasPoints($session))
-                    @if (isset($detail['sessionPoints'][$session->id]))
-                        <td class="position {{ \Positions::colour($detail['sessionPositions'][$session->id], $detail['sessionPoints'][$session->id]) }}"
-                            data-points="{{ $detail['sessionPoints'][$session->id] }}"
-                            data-position="{{ $detail['sessionPositions'][$session->id] }}">
-                            {{ $detail['sessionPositions'][$session->id] }}
+                    @if (isset($detail['points'][$session->id]))
+                        <td class="position {{ \Positions::colour($detail['positions'][$session->id], $detail['points'][$session->id]) }}"
+                            data-points="{{ $detail['points'][$session->id] }}"
+                            data-position="{{ $detail['positions'][$session->id] }}">
+                            {{ $detail['positions'][$session->id] }}
                         </td>
                     @else
                         <td></td>
                     @endif
                 @endif
             @endforeach
-            <td class="points">{{ $detail['points'] }}</td>
+            <td class="points">{{ $detail['totalPoints'] }}</td>
         </tr>
     @endforeach
     </tbody>

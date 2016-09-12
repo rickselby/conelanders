@@ -37,17 +37,19 @@
                     @include('assetto-corsa.driver.name', ['entrant' => $detail['entrant']])
                 </th>
                 @foreach($events AS $event)
-                    @if (isset($detail['eventPoints'][$event->id]))
-                        <td class="position {{ \Positions::colour($detail['eventPositions'][$event->id], $detail['eventPoints'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}"
-                            data-points="{{ $detail['eventPoints'][$event->id] }}"
-                            data-position="{{ $detail['eventPositions'][$event->id] }}">
-                            {{ $detail['eventPositions'][$event->id] }}
+                    @if (isset($detail['points'][$event->id]))
+                        <td class="position {{ \Positions::colour($detail['positions'][$event->id], $detail['points'][$event->id]) }} {{ in_array($event->id, $detail['dropped']) ? 'dropped' : '' }}"
+                            data-points="{{ $detail['points'][$event->id] }}"
+                            data-position="{{ $detail['positionsWithEquals'][$event->id] }}">
+                            {{ $detail['positionsWithEquals'][$event->id] }}
                         </td>
                     @else
                         <td></td>
                     @endif
                 @endforeach
-                <td class="points">{{ $detail['points'] }}</td>
+                <td class="points">
+                    {{ $detail['totalPoints'] }}
+                </td>
             </tr>
         @endforeach
         </tbody>
