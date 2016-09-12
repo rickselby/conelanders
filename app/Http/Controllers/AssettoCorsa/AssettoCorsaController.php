@@ -18,9 +18,5 @@ class AssettoCorsaController extends Controller
 
     public function championshipCSS(AcChampionship $championship)
     {
-        $championship->load('entrants');
-        return response()
-            ->view('assetto-corsa.entrants.css', ['championship' => $championship])
-            ->header('Content-Type', 'text/css');
     }
 }

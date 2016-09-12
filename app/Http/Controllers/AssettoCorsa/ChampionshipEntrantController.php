@@ -12,7 +12,16 @@ class ChampionshipEntrantController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:assetto-corsa-admin');
+        $this->middleware('can:assetto-corsa-admin')
+        ->except(['css']);
+    }
+
+    public function css(AcChampionship $championship)
+    {
+        $championship->load('entrants');
+        return response()
+            ->view('assetto-corsa.championship.entrant.css', ['championship' => $championship])
+            ->header('Content-Type', 'text/css');
     }
 
     public function index(AcChampionship $championship)

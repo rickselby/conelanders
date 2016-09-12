@@ -1,5 +1,5 @@
 @push('stylesheets')
-<link href="{{ route('assetto-corsa.championship-css', $championship) }}" rel="stylesheet" />
+<link href="{{ route('assetto-corsa.championship.entrant.css', $championship) }}" rel="stylesheet" />
 @endpush
 
 <div class="btn-group" role="group">
