@@ -5,9 +5,6 @@ namespace App\Http\Controllers\AssettoCorsa;
 use App\Http\Controllers\Controller;
 use App\Models\AssettoCorsa\AcChampionship;
 
-use App\Http\Requests;
-use Illuminate\Cache\TaggableStore;
-
 class StandingsController extends Controller
 {
     public function __construct()
@@ -16,33 +13,23 @@ class StandingsController extends Controller
         $this->middleware('assetto-corsa.validateSession')->only(['lapChart']);
     }
 
-    public function championship(AcChampionship $championship)
+    public function drivers(AcChampionship $championship)
     {
         $championship->load('events.sessions.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
         $events = $championship->events()->get()->sortBy('time');
-        return view('assetto-corsa.standings.championship')
+        return view('assetto-corsa.standings.drivers')
             ->with('championship', $championship)
             ->with('events', $events)
-            ->with('points', \Positions::addEquals(\ACResults::championship($championship)));
+            ->with('points', \Positions::addEquals(\ACDriverStandings::championship($championship)));
     }
 
-    public function event($championshipStub, $eventStub)
+    public function constructors(AcChampionship $championship)
     {
-        $event = \Request::get('event');
-        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.event');
-        return view('assetto-corsa.standings.event')
-            ->with('event', $event)
-            ->with('points', \Positions::addEquals(\ACResults::eventSummary($event)));
+        $championship->load('events.sessions.entrants.championshipEntrant', 'events.sessions.entrants.car');
+        $events = $championship->events()->get()->sortBy('time');
+        return view('assetto-corsa.standings.constructors')
+            ->with('championship', $championship)
+            ->with('events', $events)
+            ->with('points', \Positions::addEquals(\ACConstructorStandings::championship($championship)));
     }
-
-    public function lapChart($championshipStub, $raceStub, $sessionStub)
-    {
-        $session = \Request::get('session');
-        $session->load('entrants.championshipEntrant.driver', 'entrants.laps');
-        $content = \ACResults::lapChart($session);
-        $response = \Response::make($content);
-        $response->header('Content-type',  'image/svg+xml');
-        return $response;
-    }
-
 }

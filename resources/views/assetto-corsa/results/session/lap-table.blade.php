@@ -3,7 +3,9 @@
     <tr>
         <th>Pos</th>
         <th>Driver</th>
-        <th>Car</th>
+        @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+            <th>Car</th>
+        @endif
         @if (\ACSession::hasBallast($session))
             <th>Ballast</th>
         @endif
@@ -30,7 +32,9 @@
             <th>
                 @include('assetto-corsa.driver.name', ['entrant' => $entrant->championshipEntrant])
             </th>
-            <td style="white-space: nowrap">{{ $entrant->car->name ?: '??' }}</td>
+            @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+                <td style="white-space: nowrap">{{ $entrant->car->name ?: '??' }}</td>
+            @endif
             @if (\ACSession::hasBallast($session))
                 <td>{{ $entrant->ballast }}kg</td>
             @endif

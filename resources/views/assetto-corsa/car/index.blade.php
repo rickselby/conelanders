@@ -12,7 +12,8 @@
         <thead>
         <tr>
             <th>AC Identifier</th>
-            <th>Name</th>
+            <th>Full Name</th>
+            <th>Short Name</th>
             <th></th>
         </tr>
         </thead>
@@ -20,6 +21,7 @@
         @foreach($cars as $car)
             <tr>
                 <td>{{ $car->ac_identifier }}</td>
+                <td>{{ $car->full_name }}</td>
                 <td>{{ $car->name }}</td>
                 <td>
                     <a class="btn btn-xs btn-warning"

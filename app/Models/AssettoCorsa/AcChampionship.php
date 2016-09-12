@@ -10,7 +10,7 @@ class AcChampionship extends \Eloquent
 {
     use Sluggable, SluggableScopeHelpers;
 
-    protected $fillable = ['name', 'drop_events'];
+    protected $fillable = ['name', 'drop_events', 'constructors_count'];
 
     public function events()
     {

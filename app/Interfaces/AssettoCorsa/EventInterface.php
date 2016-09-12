@@ -2,7 +2,6 @@
 
 namespace App\Interfaces\AssettoCorsa;
 
-
 use App\Models\AssettoCorsa\AcEvent;
 use Carbon\Carbon;
 

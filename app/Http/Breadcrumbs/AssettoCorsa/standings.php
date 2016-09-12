@@ -1,23 +1,15 @@
 <?php
 
-Breadcrumbs::register('assetto-corsa.standings.index', function($breadcrumbs) {
-    $breadcrumbs->parent('assetto-corsa.index');
-    $breadcrumbs->push('Driver Standings', route('assetto-corsa.standings.index'));
-});
-
-Breadcrumbs::register('assetto-corsa.standings.championship',
+Breadcrumbs::register('assetto-corsa.standings.drivers',
     function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
-        $breadcrumbs->parent('assetto-corsa.index');
-        $breadcrumbs->push($championship->name, route('assetto-corsa.standings.championship', $championship));
+        $breadcrumbs->parent('assetto-corsa.results.championship', $championship);
+        $breadcrumbs->push('Driver Standings', route('assetto-corsa.standings.drivers', $championship));
     }
 );
 
-Breadcrumbs::register('assetto-corsa.standings.event',
-    function($breadcrumbs, $champSlug, $raceSlug, $event = null) {
-        if (!$event) {
-            $event = \Request::get('event');
-        }
-        $breadcrumbs->parent('assetto-corsa.standings.championship', $event->championship);
-        $breadcrumbs->push($event->name, route('assetto-corsa.standings.event', [$event->championship, $event]));
+Breadcrumbs::register('assetto-corsa.standings.constructors',
+    function($breadcrumbs, \App\Models\AssettoCorsa\AcChampionship $championship) {
+        $breadcrumbs->parent('assetto-corsa.results.championship', $championship);
+        $breadcrumbs->push('Constructor Standings', route('assetto-corsa.standings.constructors', $championship));
     }
 );

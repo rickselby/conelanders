@@ -34,7 +34,7 @@ class Results implements ShouldQueue
         );
         $events->listen(
             ChampionshipUpdated::class,
-            'App\Listeners\AssettoCorsa\Results@clearChampionshipCache'
+            'App\Listeners\AssettoCorsa\Results@clearChampionshipSessionsCache'
         );
         $events->listen(
             ChampionshipEntrantsUpdated::class,

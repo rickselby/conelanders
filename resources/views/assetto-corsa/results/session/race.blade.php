@@ -5,7 +5,9 @@
     <tr>
         <th>Pos</th>
         <th>Driver</th>
-        <th>Car</th>
+        @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+            <th>Car</th>
+        @endif
         @if (\ACSession::hasBallast($session))
             <th>Ballast</th>
         @endif
@@ -30,7 +32,9 @@
             <th>
                 @include('assetto-corsa.driver.name', ['entrant' => $entrant->championshipEntrant])
             </th>
-            <td>{{ $entrant->car->name ?: '??' }}</td>
+            @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+                <td>{{ $entrant->car->name ?: '??' }}</td>
+            @endif
             @if (\ACSession::hasBallast($session))
                 <td>{{ $entrant->ballast }}kg</td>
             @endif
@@ -62,10 +66,10 @@
 
 <h3>Fastest Laps</h3>
 
-@include('assetto-corsa.standings.session.lap-table', ['lapTimes' => \ACResults::fastestLaps($session)])
+@include('assetto-corsa.results.session.lap-table', ['lapTimes' => \ACResults::fastestLaps($session)])
 
 <h3>Lap Chart</h3>
 
-<img src="{{ route('assetto-corsa.standings.event.session.lapchart', [$session->event->championship, $session->event, $session]) }}"
+<img src="{{ route('assetto-corsa.results.event.session.lapchart', [$session->event->championship, $session->event, $session]) }}"
      style="width: 100%"
 />
