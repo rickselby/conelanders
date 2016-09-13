@@ -3,11 +3,15 @@
 @endpush
 
 <div class="btn-group" role="group">
-    <a class="btn btn-primary"  role="button"
+    <a class="btn btn-primary" role="button"
        href="{{ route('assetto-corsa.standings.drivers', $championship) }}">Driver Standings</a>
     @if(count(\ACChampionships::cars($championship)) > 1)
-        <a class="btn btn-info"  role="button"
+        <a class="btn btn-info" role="button"
            href="{{ route('assetto-corsa.standings.constructors', $championship) }}">Constructors Standings</a>
+    @endif
+    @if(count($championship->teams))
+        <a class="btn btn-info" role="button"
+           href="{{ route('assetto-corsa.standings.teams', $championship) }}">Teams Standings</a>
     @endif
 </div>
 
@@ -47,6 +51,6 @@
         </div>
     </li>
     @empty
-    <li>No sessions</li>
+    <li class="list-group-item">No sessions</li>
     @endforelse
 </ul>

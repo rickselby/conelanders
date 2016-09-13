@@ -66,6 +66,24 @@
             <div style="background-color: #ffffff; border-color: #000000;" class="line-example"></div>
         </div>
     </div>
+    
+    <div class="form-group">
+        {!! Form::label('ac_team_id', 'Team', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::select('ac_team_id', $championship->teams->sortBy('name')->pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'No Team']) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('ac_car_id', 'Car', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::select('ac_car_id', \App\Models\AssettoCorsa\AcCar::pluck('full_name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'No Car']) !!}
+            <p class="help-block">
+                If you want to show a car by the drivers name on the championship summary,
+                select it here. If they're in a team, it won't be shown.
+            </p>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-sm-2"></div>

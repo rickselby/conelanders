@@ -41,6 +41,10 @@ class Results implements ShouldQueue
             'App\Listeners\AssettoCorsa\Results@clearChampionshipSessionsCache'
         );
         $events->listen(
+            ChampionshipTeamsUpdated::class,
+            'App\Listeners\AssettoCorsa\Results@clearChampionshipSessionsCache'
+        );
+        $events->listen(
             NationUpdated::class,
             'App\Listeners\AssettoCorsa\Results@clearNationSessions'
         );
@@ -82,7 +86,7 @@ class Results implements ShouldQueue
      * Clear AC results for a championship
      * @param ChampionshipUpdated $event
      */
-    public function clearChampionshipCache(ChampionshipUpdated $event)
+    public function clearChampionshipCache(Event $event)
     {
         \ACCacheHandler::clearChampionshipCache($event->championship);
     }

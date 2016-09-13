@@ -237,6 +237,7 @@ return [
         'ACImport' => App\Facades\AssettoCorsa\ImportFacade::class,
         'ACResults' => App\Facades\AssettoCorsa\ResultsFacade::class,
         'ACSession' => App\Facades\AssettoCorsa\SessionFacade::class,
+        'ACTeamStandings' => App\Facades\AssettoCorsa\TeamStandingsFacade::class,
 
         'DirtRallyCacheHandler' => App\Facades\Cached\DirtRally\HandlerFacade::class,
         'DirtRallyDriverPoints' => App\Facades\DirtRally\DriverPointsFacade::class,

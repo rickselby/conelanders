@@ -23,3 +23,14 @@
         @include('assetto-corsa.results.summary.constructors.event-average')
     @endif
 @endif
+
+@if (count($event->championship->teams))
+    <h2>Teams</h2>
+    @if ($event->championship->teams_count == \App\Services\AssettoCorsa\Standings::SUM)
+        @include('assetto-corsa.results.summary.teams.by-session')
+    @elseif ($event->championship->teams_count == \App\Services\AssettoCorsa\Standings::AVERAGE_SESSION)
+        @include('assetto-corsa.results.summary.teams.by-session')
+    @elseif ($event->championship->teams_count == \App\Services\AssettoCorsa\Standings::AVERAGE_EVENT)
+        @include('assetto-corsa.results.summary.teams.event-average')
+    @endif
+@endif
