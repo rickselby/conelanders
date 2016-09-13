@@ -32,8 +32,8 @@ class ResultsController extends Controller
         $event->load(
             'sessions.entrants.car',
             'sessions.entrants.championshipEntrant.driver.nation',
-            'sessions.entrants.championshipEntrant.team'
-            'sessions.event',
+            'sessions.entrants.championshipEntrant.team',
+            'sessions.event'
         );
         return view('assetto-corsa.results.event')
             ->with('event', $event);
