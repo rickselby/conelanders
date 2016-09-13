@@ -61,3 +61,4 @@ Route::get('{championship}/results/{event}', 'ResultsController@event')->name('a
 Route::get('{championship}/results/{event}/{session}/lapchart', 'ResultsController@lapChart')->name('assetto-corsa.results.event.session.lapchart');
 Route::get('{championship}/driver-standings', 'StandingsController@drivers')->name('assetto-corsa.standings.drivers');
 Route::get('{championship}/constructor-standings', 'StandingsController@constructors')->name('assetto-corsa.standings.constructors');
+Route::get('{championship}/team-standings', 'StandingsController@teams')->name('assetto-corsa.standings.teams');

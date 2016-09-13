@@ -31,4 +31,9 @@ class AcTeam extends \Eloquent
         $query->orderBy($table.'.name')
             ->select($this->getTable().'.*');
     }
+
+    public function getSortedEntrantsAttribute()
+    {
+        return $this->entrants()->with('driver.nation')->orderByName()->get();
+    }
 }

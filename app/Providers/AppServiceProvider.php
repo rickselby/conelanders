@@ -43,6 +43,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\AssettoCorsa\ResultsInterface::class,  function() {
             return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Results::class, \App\Services\AssettoCorsa\Results::class);
         });
+        $this->app->bind(\App\Interfaces\AssettoCorsa\TeamStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\TeamStandings::class, \App\Services\AssettoCorsa\TeamStandings::class);
+        });
+
         $this->app->bind(\App\Interfaces\DirtRally\ResultsInterface::class, function() {
             return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\Results::class, \App\Services\DirtRally\Results::class);
         });

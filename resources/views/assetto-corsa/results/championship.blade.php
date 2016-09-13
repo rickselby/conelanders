@@ -21,7 +21,7 @@
             @endif
 
             <ul class="list-group list-group-condensed">
-                @forelse($team->entrants()->orderByName()->get() AS $entrant)
+                @forelse($team->sortedEntrants AS $entrant)
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-4 col-lg-3">
@@ -38,7 +38,7 @@
         <h3>Independent drivers</h3>
 
         <ul class="list-group list-group-condensed">
-            @forelse($championship->entrants()->noTeam()->get() AS $entrant)
+            @forelse($championship->noTeamEntrantsSorted AS $entrant)
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-4 col-lg-3">

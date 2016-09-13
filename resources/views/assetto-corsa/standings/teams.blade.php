@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <h2>Constructor Standings</h2>
+    <h2>Team Standings</h2>
 
     @if (\ACChampionships::shownBeforeRelease($championship))
         @include('unreleased')
@@ -15,7 +15,7 @@
         <thead>
         <tr>
             <th>Pos.</th>
-            <th>Car</th>
+            <th>Team</th>
             @foreach($events AS $event)
                 <th>
                     <a href="{{ route('assetto-corsa.results.event', [$championship, $event]) }}" class="tablesorter-noSort">
@@ -33,7 +33,7 @@
                     {{ $detail['position'] }}
                 </th>
                 <th>
-                    {{ $detail['car']->full_name }}
+                    {{ $detail['team']->name }}
                 </th>
                 @foreach($events AS $event)
                     @if (isset($detail['points'][$event->id]))

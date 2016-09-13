@@ -16,7 +16,4 @@ class AssettoCorsaController extends Controller
                 'events.sessions.event')->get()->sortByDesc('ends'));
     }
 
-    public function championshipCSS(AcChampionship $championship)
-    {
-    }
 }

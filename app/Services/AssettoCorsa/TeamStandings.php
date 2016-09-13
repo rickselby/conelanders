@@ -8,8 +8,9 @@ use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcSession;
 use App\Models\AssettoCorsa\AcSessionEntrant;
+use App\Models\AssettoCorsa\AcTeam;
 
-class ConstructorStandings extends Standings implements DriverStandingsInterface
+class TeamStandings extends Standings implements DriverStandingsInterface
 {
     /**
      * {@inheritdoc}
@@ -18,7 +19,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
     {
         $results = [];
 
-        switch ($event->championship->constructors_count) {
+        switch ($event->championship->teams_count) {
             case self::SUM:
                 $results = $this->eventSessionSummary($event, [$this, 'sumPoints']);
                 break;
@@ -43,7 +44,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         $results = [];
 
         if (\ACEvent::canBeShown($event)) {
-            switch ($event->championship->constructors_count) {
+            switch ($event->championship->teams_count) {
                 case self::SUM:
                     $results = $this->eventSessionCount($event, [$this, 'sumPoints']);
                     break;
@@ -71,16 +72,16 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         foreach($event->sessions AS $session) {
             if (\ACSession::hasPoints($session)) {
                 foreach ($this->sessionCount($session, $func) AS $result) {
-                    $carID = $result['car']->id;
+                    $teamID = $result['team']->id;
 
-                    if (!isset($results[$carID])) {
-                        $results[$carID] = $this->initCar($result['car']);
+                    if (!isset($results[$teamID])) {
+                        $results[$teamID] = $this->initTeam($result['team']);
                     }
 
-                    $results[$carID]['points'][$session->id] = $result['totalPoints'];
+                    $results[$teamID]['points'][$session->id] = $result['totalPoints'];
 
                     if ($session->type == AcSession::TYPE_RACE) {
-                        $results[$carID]['positions'][$session->id] = $result['position'];
+                        $results[$teamID]['positions'][$session->id] = $result['position'];
                     }
                 }
             }
@@ -101,17 +102,17 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         foreach($event->sessions AS $session) {
             if (\ACSession::hasPoints($session)) {
                 foreach ($this->sessionCount($session, $func) AS $result) {
-                    $carID = $result['car']->id;
+                    $teamID = $result['team']->id;
 
-                    if (!isset($results[$carID])) {
-                        $results[$carID] = $this->initCar($result['car']);
+                    if (!isset($results[$teamID])) {
+                        $results[$teamID] = $this->initTeam($result['team']);
                     }
 
                     if (\ACSession::canBeShown($session)) {
-                        $results[$carID]['points'][$session->id] = $result['totalPoints'];
+                        $results[$teamID]['points'][$session->id] = $result['totalPoints'];
 
                         if ($session->type == AcSession::TYPE_RACE) {
-                            $results[$carID]['positions'][$session->id] = $result['position'];
+                            $results[$teamID]['positions'][$session->id] = $result['position'];
                         }
                     }
                 }
@@ -132,16 +133,18 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         $results = [];
 
         foreach($session->entrants AS $entrant) {
-            $carID = $entrant->car->id;
+            if ($entrant->championshipEntrant->team) {
+                $teamID = $entrant->championshipEntrant->team->id;
 
-            if (!isset($results[$carID])) {
-                $results[$carID] = $this->initCar($entrant->car);
-            }
+                if (!isset($results[$teamID])) {
+                    $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
+                }
 
-            $results[$carID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
+                $results[$teamID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
 
-            if ($session->type == AcSession::TYPE_RACE) {
-                $results[$carID]['positions'][] = $entrant->position;
+                if ($session->type == AcSession::TYPE_RACE) {
+                    $results[$teamID]['positions'][] = $entrant->position;
+                }
             }
         }
 
@@ -149,7 +152,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
     }
 
     /**
-     * Average the car points at the event level
+     * Average the team points at the event level
      * @param AcEvent $event
      * @return mixed
      */
@@ -159,21 +162,23 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         foreach($event->sessions AS $session) {
             if (\ACSession::hasPoints($session)) {
                 foreach ($session->entrants AS $entrant) {
-                    $carID = $entrant->car->id;
-                    $entrantID = $entrant->championshipEntrant->id;
+                    if ($entrant->championshipEntrant->team) {
+                        $teamID = $entrant->championshipEntrant->team->id;
+                        $entrantID = $entrant->championshipEntrant->id;
 
-                    if (!isset($results[$carID])) {
-                        $results[$carID] = $this->initCar($entrant->car);
-                    }
+                        if (!isset($results[$teamID])) {
+                            $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
+                        }
 
-                    if (!isset($results[$carID]['points'][$entrantID])) {
-                        $results[$carID]['points'][$entrantID] = 0;
-                    }
+                        if (!isset($results[$teamID]['points'][$entrantID])) {
+                            $results[$teamID]['points'][$entrantID] = 0;
+                        }
 
-                    $results[$carID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
+                        $results[$teamID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
 
-                    if ($session->type == AcSession::TYPE_RACE) {
-                        $results[$carID]['positions'][] = $entrant->position;
+                        if ($session->type == AcSession::TYPE_RACE) {
+                            $results[$teamID]['positions'][] = $entrant->position;
+                        }
                     }
                 }
             }
@@ -183,14 +188,14 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
     }
 
     /**
-     * Initialise a results entry for a car
-     * @param AcCar $car
+     * Initialise a results entry for a team
+     * @param AcTeam $team
      * @return array
      */
-    protected function initCar(AcCar $car)
+    protected function initTeam(AcTeam $team)
     {
         return [
-            'car' => $car,
+            'team' => $team,
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
@@ -204,9 +209,9 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
     {
         $results = [];
 
-        foreach(\ACChampionships::cars($championship) AS $car) {
-            $results[$car->id] = [
-                'car' => $car,
+        foreach($championship->teams AS $team) {
+            $results[$team->id] = [
+                'team' => $team,
                 'points' => [],
                 'positions' => [],
                 'positionsWithEquals' => [],
@@ -215,13 +220,13 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             ];
         }
         foreach($championship->events AS $event) {
-            $eventResults = \ACConstructorStandings::event($event);
+            $eventResults = \ACTeamStandings::event($event);
             $eventResultsWithEquals = \Positions::addEquals($eventResults);
             foreach ($eventResults AS $key => $result) {
-                $carID = $result['car']->id;
-                $results[$carID]['points'][$event->id] = $result['totalPoints'];
-                $results[$carID]['positions'][$event->id] = $result['position'];
-                $results[$carID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                $teamID = $result['team']->id;
+                $results[$teamID]['points'][$event->id] = $result['totalPoints'];
+                $results[$teamID]['positions'][$event->id] = $result['position'];
+                $results[$teamID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
             }
         }
 

@@ -10,7 +10,12 @@ class AcChampionship extends \Eloquent
 {
     use Sluggable, SluggableScopeHelpers;
 
-    protected $fillable = ['name', 'drop_events', 'constructors_count'];
+    protected $fillable = [
+        'name',
+        'drop_events',
+        'constructors_count',
+        'teams_count',
+    ];
 
     public function events()
     {
@@ -87,6 +92,11 @@ class AcChampionship extends \Eloquent
             }
         }
         return false;        
+    }
+
+    public function getNoTeamEntrantsSortedAttribute()
+    {
+        return $this->entrants()->with('driver.nation', 'car')->noTeam()->orderByName()->get();
     }
 
     /**

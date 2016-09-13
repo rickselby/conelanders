@@ -18,7 +18,8 @@ class ResultsController extends Controller
         $championship->load([
             'events.sessions.entrants.championshipEntrant.driver.nation',
             'events.sessions.playlist',
-            'events.sessions.event'
+            'events.sessions.event',
+            'teams.entrants.driver.nation',
         ]);
 
         return view('assetto-corsa.results.championship')
@@ -28,7 +29,12 @@ class ResultsController extends Controller
     public function event($championshipStub, $eventStub)
     {
         $event = \Request::get('event');
-        $event->load('sessions.entrants.championshipEntrant.driver.nation', 'sessions.event', 'sessions.entrants.car');
+        $event->load(
+            'sessions.entrants.car',
+            'sessions.entrants.championshipEntrant.driver.nation',
+            'sessions.entrants.championshipEntrant.team'
+            'sessions.event',
+        );
         return view('assetto-corsa.results.event')
             ->with('event', $event);
     }

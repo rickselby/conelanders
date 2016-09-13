@@ -37,6 +37,16 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('teams_count', 'Calculate Teams', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::select('teams_count', \ACConstructorStandings::getOptions(), null, ['class' => 'form-control']) !!}
+            <p class="help-block">
+                See above for average advice.
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             {!! Form::submit('Add Championship', ['class' => 'btn btn-primary']) !!}
