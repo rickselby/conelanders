@@ -47,6 +47,6 @@
         </div>
     </li>
     @empty
-    <li>No sessions</li>
+    <li class="list-group-item">No sessions</li>
     @endforelse
 </ul>

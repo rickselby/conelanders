@@ -9,7 +9,11 @@
 @section('content')
     @foreach($championships AS $championship)
 
-        <h2>{{ $championship->name }}</h2>
+        <h2>
+            <a href="{{ route('assetto-corsa.results.championship', $championship) }}">
+                {{ $championship->name }}
+            </a>
+        </h2>
         <h4>{{ \ACChampionships::cars($championship)->implode('full_name', ', ') }}</h4>
 
         @include('assetto-corsa.results.championship-summary')
