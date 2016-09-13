@@ -22,6 +22,11 @@ class AcChampionship extends \Eloquent
         return $this->hasMany(AcChampionshipEntrant::class);
     }
 
+    public function teams()
+    {
+        return $this->hasMany(AcTeam::class);
+    }
+
     public function getShortNameAttribute()
     {
         return trim(str_ireplace('championship', '', $this->name));

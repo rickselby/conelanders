@@ -9,6 +9,9 @@ abstract class Request extends FormRequest
     /** @var string[] List of request fields that are checkboxes (and might not exist) **/
     protected $checkboxFields = [];
 
+    /** @var string[] List of request fields that should be set to null if they are empty */
+    protected $emptyIsNullFields = [];
+
     // Authorisating is handled at controller level.
     public function authorize()
     {
@@ -22,6 +25,7 @@ abstract class Request extends FormRequest
     public function validate()
     {
         $this->setCheckboxes();
+        $this->setEmptyIsNull();
         parent::validate();
     }
 
@@ -32,6 +36,16 @@ abstract class Request extends FormRequest
     {
         $this->mergeRequest($this->checkboxFields, function($field) {
             return Request::input($field, 0);
+        });
+    }
+
+    /**
+     * Change empty string to null for the given fields
+     */
+    protected function setEmptyIsNull()
+    {
+        $this->mergeRequest($this->emptyIsNullFields, function($field) {
+            return Request::input($field) === '' ? null : Request::input($field);
         });
     }
 

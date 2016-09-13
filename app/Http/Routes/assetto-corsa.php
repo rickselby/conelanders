@@ -11,6 +11,8 @@ Route::resource('championship', 'ChampionshipController');
 Route::get('championship/{championship}/entrant/css', 'ChampionshipEntrantController@css')->name('assetto-corsa.championship.entrant.css');
 Route::resource('championship.entrant', 'ChampionshipEntrantController');
 
+Route::resource('championship.team', 'ChampionshipTeamController');
+
 Route::post('championship/{championship}/event/{event}/copy-sessions',
     'ChampionshipEventController@copySessions')->name('assetto-corsa.championship.event.copy-sessions');
 Route::post('championship/{championship}/event/{event}/sort-sessions',

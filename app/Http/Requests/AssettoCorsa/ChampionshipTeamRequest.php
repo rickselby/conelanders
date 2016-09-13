@@ -4,7 +4,7 @@ namespace App\Http\Requests\AssettoCorsa;
 
 use App\Http\Requests\Request;
 
-class ChampionshipEntrantRequest extends Request
+class ChampionshipTeamRequest extends Request
 {
     protected $checkboxFields = [
         'rookie',
@@ -12,7 +12,6 @@ class ChampionshipEntrantRequest extends Request
 
     protected $emptyIsNullFields = [
         'ac_car_id',
-        'ac_team_id',
     ];
 
     /**
@@ -23,14 +22,9 @@ class ChampionshipEntrantRequest extends Request
     public function rules()
     {
         return [
-            'driver_id' => 'required|exists:drivers,id',
-            'rookie' => 'required|boolean',
-            'number' => 'required|string',
-            'colour' => 'required|string',
-            'colour2' => 'required|string',
-            'css' => 'required|string',
             'ac_car_id' => 'exists:ac_cars,id',
-            'ac_team_id' => 'exists:ac_teams,id',
+            'name' => 'required|string',
+            'short_name' => 'required|string',
         ];
     }
 }

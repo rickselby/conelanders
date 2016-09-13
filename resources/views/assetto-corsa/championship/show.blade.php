@@ -9,10 +9,13 @@
     {!! Form::close() !!}
 
     <h2>Entrants</h2>
-    <p>
+
+    <div class="btn-group" role="group">
         <a class="btn btn-small btn-primary"
            href="{{ route('assetto-corsa.championship.entrant.index', $championship) }}">Manage Entrants</a>
-    </p>
+        <a class="btn btn-small btn-primary"
+           href="{{ route('assetto-corsa.championship.team.index', $championship) }}">Manage Teams</a>
+    </div>
 
     <h2>Events</h2>
     <p>
