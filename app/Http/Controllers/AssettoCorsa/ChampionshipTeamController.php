@@ -52,17 +52,16 @@ class ChampionshipTeamController extends Controller
         \Notification::add('success', 'Team updated');
         return \Redirect::route('assetto-corsa.championship.team.index', $championship);
     }
-/*
-    public function destroy(AcChampionship $championship, AcChampionshipEntrant $entrant)
+
+    public function destroy(AcChampionship $championship, AcTeam $team)
     {
-        if ($entrant->entries->count()) {
-            \Notification::add('error', 'Entrant cannot be deleted - they have entries in sessions');
+        if ($team->entrants->count()) {
+            \Notification::add('error', 'Team cannot be deleted - it has members');
         } else {
-            $entrant->delete();
-            \Notification::add('success', 'Entrant deleted');
+            $team->delete();
+            \Notification::add('success', 'Team deleted');
         }
-        return \Redirect::route('assetto-corsa.championship.entrant.index', $championship);
+        return \Redirect::route('assetto-corsa.championship.team.index', $championship);
     }
-*/
 
 }

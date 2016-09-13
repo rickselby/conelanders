@@ -50,4 +50,8 @@
 
     {!! Form::close() !!}
 
+    {!! Form::open(['route' => ['assetto-corsa.championship.team.destroy', $championship, $team], 'method' => 'delete', 'class' => 'pull-right']) !!}
+    {!! Form::submit('Delete Team', array('class' => 'btn btn-danger')) !!}
+    {!! Form::close() !!}
+
 @endsection
