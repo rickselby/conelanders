@@ -44,7 +44,7 @@
                     </td>
                 @endif
                 @if (count(\ACChampionships::cars($session->event->championship)) > 1)
-                    <td>{{ $entrant->car->name ?: '??' }}</td>
+                    <td>{{ $entrant->car->short_name ?: '??' }}</td>
                 @endif
                 @if (\ACSession::hasBallast($session))
                     <td>{{ $entrant->ballast }}kg</td>

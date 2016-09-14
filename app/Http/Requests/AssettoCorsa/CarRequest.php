@@ -16,6 +16,7 @@ class CarRequest extends Request
         return [
             'ac_identifier' => 'required|string',
             'name' => 'required|string',
+            'short_name' => 'required|string',
         ];
     }
 }

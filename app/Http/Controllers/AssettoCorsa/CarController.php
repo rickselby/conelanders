@@ -47,7 +47,7 @@ class CarController extends Controller
     public function store(CarRequest $request)
     {
         /** @var AcChampionship $championship */
-        $car = AcCar::create($request->only('ac_identifier', 'name', 'full_name'));
+        $car = AcCar::create($request->only('ac_identifier', 'name', 'short_name'));
         \Notification::add('success', 'Car "'.$car->name.'" added');
         return \Redirect::route('assetto-corsa.car.index');
     }
@@ -73,7 +73,7 @@ class CarController extends Controller
      */
     public function update(CarRequest $request, AcCar $car)
     {
-        $car->fill($request->only('ac_identifier', 'name', 'full_name'))->save();
+        $car->fill($request->only('ac_identifier', 'name', 'short_name'))->save();
         \Event::fire(new CarUpdated($car));
         \Notification::add('success', 'Car "'.$car->name.'" updated');
         return \Redirect::route('assetto-corsa.car.index');

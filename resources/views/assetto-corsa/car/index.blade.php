@@ -21,8 +21,8 @@
         @foreach($cars as $car)
             <tr>
                 <td>{{ $car->ac_identifier }}</td>
-                <td>{{ $car->full_name }}</td>
                 <td>{{ $car->name }}</td>
+                <td>{{ $car->short_name }}</td>
                 <td>
                     <a class="btn btn-xs btn-warning"
                        href="{{ route('assetto-corsa.car.edit', $car) }}">Edit</a>

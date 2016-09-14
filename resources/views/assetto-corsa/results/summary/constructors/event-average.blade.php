@@ -15,7 +15,7 @@
             <tr>
                 <th>{{ $detail['position'] }}</th>
                 <th>
-                    {{ $detail['car']->full_name }}
+                    {{ $detail['car']->name }}
                 </th>
                 <td class="points">
                     {{ array_sum($detail['points']) }}

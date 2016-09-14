@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <h4>{{ \ACChampionships::cars($championship)->implode('full_name', ', ') }}</h4>
+    <h4>{{ \ACChampionships::cars($championship)->implode('name', ', ') }}</h4>
     @include('assetto-corsa.results.championship-summary')
 
     @if (count($championship->teams))
@@ -17,7 +17,7 @@
         @foreach($championship->teams->sortBy('name') AS $team)
             <h3>{{ $team->name }}</h3>
             @if ($team->car)
-                <h4>{{ $team->car->full_name }}</h4>
+                <h4>{{ $team->car->name }}</h4>
             @endif
 
             <ul class="list-group list-group-condensed">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-8 col-lg-9">
                             @if ($entrant->car)
-                                {{ $entrant->car->full_name }}
+                                {{ $entrant->car->name }}
                             @endif
                         </div>
                     </div>
