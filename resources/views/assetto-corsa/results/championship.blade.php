@@ -14,7 +14,7 @@
     @if (count($championship->teams))
         <h2>Teams</h2>
 
-        @foreach($championship->teams AS $team)
+        @foreach($championship->teams->sortBy('name') AS $team)
             <h3>{{ $team->name }}</h3>
             @if ($team->car)
                 <h4>{{ $team->car->full_name }}</h4>
