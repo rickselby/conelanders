@@ -18,7 +18,7 @@ class Events
     public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
-        foreach(DirtEvent::with('stages', 'season.championship')->get() AS $event) {
+        foreach(DirtEvent::with('stages', 'season.championship', 'playlist')->get() AS $event) {
             if ($event->isComplete() && $event->completeAt->between($start, $end)) {
                 if (!isset($news[$event->completeAt->timestamp])) {
                     $news[$event->completeAt->timestamp] = [];

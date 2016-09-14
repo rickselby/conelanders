@@ -17,6 +17,8 @@ class ResultsController extends Controller
     {
         $championship->load([
             'events.sessions.entrants.championshipEntrant.driver.nation',
+            'events.sessions.entrants.championshipEntrant.team',
+            'events.sessions.entrants.championshipEntrant.car',
             'events.sessions.playlist',
             'events.sessions.event',
             'teams.entrants.driver.nation',
