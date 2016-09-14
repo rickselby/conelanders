@@ -17,6 +17,7 @@
         <tr>
             <th>{{ $detail['position'] }}</th>
             <th>
+                @include('assetto-corsa.championship.team.badge', ['team' => $detail['team']])
                 {{ $detail['team']->name }}
             </th>
             @foreach($event->sessions AS $session)

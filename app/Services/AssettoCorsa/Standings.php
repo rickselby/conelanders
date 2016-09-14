@@ -228,8 +228,11 @@ abstract class Standings
      * @param $results
      * @return mixed
      */
-    protected function sortAndAddPositions($results)
+    protected function sortAndAddPositions($results, AcEvent $event = null)
     {
+        if ($event) {
+            $results = $this->filterResultsPositions($results, $event);
+        }
         usort($results, [$this, 'pointsSort']);
         return \Positions::addToArray($results, [$this, 'arePointsEqual']);
     }
@@ -251,6 +254,26 @@ abstract class Standings
         }
 
         return $results;
+    }
+
+    protected function filterResultsPositions($results, AcEvent $event)
+    {
+        foreach($results AS $id => $result) {
+            $results[$id]['filteredPositions'] = $this->filterPositions($result['positions'], $event);
+        }
+        return $results;
+    }
+
+    protected function filterPositions($positions, AcEvent $event)
+    {
+        $sessionIDs = $event->sessions->where('type', AcSession::TYPE_RACE)->pluck('id');
+        $filteredPositions = [];
+        foreach($positions AS $id => $position) {
+            if ($sessionIDs->contains($id)) {
+                $filteredPositions[] = $position;
+            }
+        }
+        return $filteredPositions;
     }
 
 }

@@ -24,30 +24,34 @@
                     {{ $event->name }}
                 </a>
             </div>
-            <div class="col-xs-8 col-sm-4 col-md-6">
-                @if ($event->countReleasedSessions() == 0)
+            @if ($event->countReleasedSessions() == 0)
+                <div class="col-xs-8 col-sm-9 col-md-10">
                     @if ($event->getNextUpdate())
                         Results will be released on {{ \Times::userTimezone($event->getNextUpdate()) }}
                     @endif
-                @elseif ($event->countReleasedSessions() < count($event->sessions))
+                </div>
+            @elseif ($event->countReleasedSessions() < count($event->sessions))
+                <div class="col-xs-8 col-sm-9 col-md-10">
                     Some results released; next update will be on {{ \Times::userTimezone($event->getNextUpdate()) }}
-                @else
+                </div>
+            @else
+                <div class="col-xs-8 col-sm-4 col-lg-3">
                     @foreach(\ACResults::getWinner($event) AS $entrant)
                         @include('assetto-corsa.driver.name', ['entrant' => $entrant])
                         <br />
                     @endforeach
-                @endif
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-4 text-right">
-                @foreach($event->sessions AS $session)
-                    @if ($session->playlist)
-                        <a class="btn btn-social btn-xs btn-youtube" href="{{ $session->playlist->link }}">
-                            <span class="fa fa-youtube-play"></span>
-                            {{ $session->shortName }}
-                        </a>
-                    @endif
-                @endforeach
-            </div>
+                </div>
+                <div class="col-xs-12 col-md-6 col-lg-7 text-right">
+                    @foreach($event->sessions AS $session)
+                        @if ($session->playlist)
+                            <a class="btn btn-social btn-xs btn-youtube" href="{{ $session->playlist->link }}">
+                                <span class="fa fa-youtube-play"></span>
+                                {{ $session->shortName }}
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
         </div>
     </li>
     @empty

@@ -28,15 +28,15 @@ class DriverStandings extends Standings implements DriverStandingsInterface
 
                     if (\ACSession::canBeShown($session)) {
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
-                        if ($session->type == AcSession::TYPE_RACE) {
-                            $results[$entrantID]['positions'][$session->id] = $entrant->position;
-                        }
+                        $results[$entrantID]['positions'][$session->id] = $entrant->position;
                     }
                 }
             }
         }
 
-        return $this->sortAndAddPositions($this->sumPoints($results));
+        $this->filterPositions($results[$entrantID]['positions'], $event);
+
+        return $this->sortAndAddPositions($this->sumPoints($results), $event);
     }
 
     /**
@@ -72,15 +72,13 @@ class DriverStandings extends Standings implements DriverStandingsInterface
                         }
 
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
-                        if ($session->type == AcSession::TYPE_RACE) {
-                            $results[$entrantID]['positions'][] = $entrant->position;
-                        }
+                        $results[$entrantID]['positions'][$session->id] = $entrant->position;
                     }
                 }
             }
         }
 
-        return $this->sortAndAddPositions($this->sumPoints($results));
+        return $this->sortAndAddPositions($this->sumPoints($results), $event);
     }
 
     /**

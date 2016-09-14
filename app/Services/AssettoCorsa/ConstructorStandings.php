@@ -32,7 +32,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                 break;
         }
 
-        return $this->sortAndAddPositions($results);
+        return $this->sortAndAddPositions($results, $event);
     }
 
     /**
@@ -56,7 +56,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        return $this->sortAndAddPositions($results);
+        return $this->sortAndAddPositions($results, $event);
     }
 
     /**
@@ -78,10 +78,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                     }
 
                     $results[$carID]['points'][$session->id] = $result['totalPoints'];
-
-                    if ($session->type == AcSession::TYPE_RACE) {
-                        $results[$carID]['positions'][$session->id] = $result['position'];
-                    }
+                    $results[$carID]['positions'][$session->id] = $result['position'];
                 }
             }
         }
@@ -109,10 +106,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
 
                     if (\ACSession::canBeShown($session)) {
                         $results[$carID]['points'][$session->id] = $result['totalPoints'];
-
-                        if ($session->type == AcSession::TYPE_RACE) {
-                            $results[$carID]['positions'][$session->id] = $result['position'];
-                        }
+                        $results[$carID]['positions'][$session->id] = $result['position'];
                     }
                 }
             }
@@ -139,10 +133,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             }
 
             $results[$carID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
-
-            if ($session->type == AcSession::TYPE_RACE) {
-                $results[$carID]['positions'][] = $entrant->position;
-            }
+            $results[$carID]['positions'][] = $entrant->position;
         }
 
         return $this->sortAndAddPositions(call_user_func($func, $results));
@@ -171,10 +162,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                     }
 
                     $results[$carID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
-
-                    if ($session->type == AcSession::TYPE_RACE) {
-                        $results[$carID]['positions'][] = $entrant->position;
-                    }
+                    $results[$carID]['positions'][$entrantID] = $entrant->position;
                 }
             }
         }

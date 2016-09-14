@@ -33,7 +33,7 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                 break;
         }
 
-        return $this->sortAndAddPositions($results);
+        return $this->sortAndAddPositions($results, $event);
     }
 
     /**
@@ -57,7 +57,7 @@ class TeamStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        return $this->sortAndAddPositions($results);
+        return $this->sortAndAddPositions($results, $event);
     }
 
     /**
