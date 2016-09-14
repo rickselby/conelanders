@@ -1,3 +1,3 @@
-<span class="badge driver-number entrant-{{ $entrant->id }}">
+<span class="badge driver-number {{ $entrant->team ? 'team-'.$entrant->team->id : '' }} entrant-{{ $entrant->id }}">
     {{ $driver->number }}
 </span>

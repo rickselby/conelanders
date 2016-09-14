@@ -1,4 +1,4 @@
-@foreach($championship->teams AS $team)
+@foreach($championship->teams->sortBy('name') AS $team)
     <h3>{{ $team->name }}</h3>
 
     @if (count($team->entrants))

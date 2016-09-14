@@ -20,7 +20,7 @@ class ChampionshipEntrantController extends Controller
     {
         $championship->load('entrants');
         return response()
-            ->view('assetto-corsa.championship.entrant.css', ['championship' => $championship])
+            ->view('assetto-corsa.championship.css', ['championship' => $championship])
             ->header('Content-Type', 'text/css');
     }
 

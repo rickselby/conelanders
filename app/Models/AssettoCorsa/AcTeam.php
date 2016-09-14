@@ -4,7 +4,7 @@ namespace App\Models\AssettoCorsa;
 
 class AcTeam extends \Eloquent
 {
-    protected $fillable = ['name', 'short_name', 'ac_car_id'];
+    protected $fillable = ['name', 'short_name', 'ac_car_id', 'css'];
 
     public function championship()
     {

@@ -25,6 +25,7 @@
         @foreach($championship->teams->sortBy('name') as $team)
             <tr>
                 <td>
+                    <span class="badge driver-number team-{{ $team->id }}">##</span>
                     {{ $team->name }}
                 </td>
                 <td>
