@@ -54,7 +54,7 @@ class Event implements EventInterface
     public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
-        foreach(AcEvent::with('sessions', 'championship')->get() AS $event) {
+        foreach(AcEvent::with('sessions.playlist', 'championship')->get() AS $event) {
             foreach($event->sessions AS $session) {
                 if ($session->release && $session->release->between($start, $end)) {
                     if (!isset($news[$session->release->timestamp])) {

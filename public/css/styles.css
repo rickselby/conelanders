@@ -1,3 +1,11 @@
+/* tablesorter bootstrap tweak */
+
+.sorter-false .tablesorter-header-inner {
+    padding-right: 4px;
+}
+
+/* stuff for the main site */
+
 div.position {
     font-weight: bold;
 }

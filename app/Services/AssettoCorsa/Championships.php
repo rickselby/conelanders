@@ -30,7 +30,7 @@ class Championships implements ChampionshipInterface
     public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
-        foreach(AcChampionship::with('events.sessions')->get() AS $championship) {
+        foreach(AcChampionship::with('events.sessions.playlist')->get() AS $championship) {
             if ($championship->completeAt && $championship->completeAt->between($start, $end)) {
                 if (!isset($news[$championship->completeAt->timestamp])) {
                     $news[$championship->completeAt->timestamp] = [];

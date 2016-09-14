@@ -59,6 +59,10 @@ class Positions
     {
         $position = str_replace('=', '', $position);
         if (is_numeric($position)) {
+            if ($points === 0) {
+                return 'position-finished';
+            }
+
             switch ($position) {
                 case 1:
                     return 'position-first';
@@ -68,11 +72,7 @@ class Positions
                     return 'position-third';
             }
             if ($points !== NULL) {
-                if ($points > 0) {
-                    return 'position-points';
-                } else {
-                    return 'position-finished';
-                }
+                return 'position-points';
             }
         }
         return '';

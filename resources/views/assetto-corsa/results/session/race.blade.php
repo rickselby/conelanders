@@ -19,7 +19,7 @@
             <th data-sorter="false">Time</th>
             <th data-sorter="false">Gap to 1st</th>
             <th data-sorter="false" class="hidden-sm">Gap ahead</th>
-            <th colspan="2" data-sorter="false">Change</th>
+            <th data-sorter="false">Change</th>
             <th data-sorter="false">Points</th>
         </tr>
         </thead>
@@ -60,14 +60,16 @@
                         {{ '+'.Times::toString($entrant->timeBehindFirst) }}
                     @endif
                 </td>
-                <td class="time hidden-sm"">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
-                <td class="text-right">{{ abs($entrant->positionsGained) }}</td>
+                <td class="time hidden-sm">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
                 <td>
+                    <div style="padding-left: 25%">
+                    {{ abs($entrant->positionsGained) }}
                     @if ($entrant->positionsGained > 0)
                         <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
                     @elseif ($entrant->positionsGained < 0)
                         <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
                     @endif
+                    </div>
                 </td>
                 <td class="points">{{ $entrant->points }}</td>
             </tr>

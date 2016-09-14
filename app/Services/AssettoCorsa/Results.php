@@ -23,6 +23,7 @@ class Results implements ResultsInterface
             $raceEntrants = $session->entrants()->with(
                 'car',
                 'championshipEntrant.driver.nation',
+                'championshipEntrant.team',
                 'laps'
             )->orderBy('position')->get();
 
@@ -63,6 +64,7 @@ class Results implements ResultsInterface
         $fastestLaps = $session->entrants()->with(
             'car',
             'championshipEntrant.driver.nation',
+            'championshipEntrant.team',
             'fastestLap.sectors',
             'laps'
         )->orderBy('fastest_lap_position')->get();
