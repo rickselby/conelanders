@@ -17,7 +17,7 @@
         <tr>
             <th>{{ $detail['position'] }}</th>
             <th>
-                {{ $detail['car']->full_name }}
+                {{ $detail['car']->name }}
             </th>
             @foreach($event->sessions AS $session)
                 @if (\ACSession::hasPoints($session))

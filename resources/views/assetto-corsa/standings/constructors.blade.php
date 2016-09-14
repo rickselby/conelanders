@@ -33,7 +33,7 @@
                     {{ $detail['position'] }}
                 </th>
                 <th>
-                    {{ $detail['car']->full_name }}
+                    {{ $detail['car']->name }}
                 </th>
                 @foreach($events AS $event)
                     @if (isset($detail['points'][$event->id]))

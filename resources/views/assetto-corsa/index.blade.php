@@ -14,7 +14,7 @@
                 {{ $championship->name }}
             </a>
         </h2>
-        <h4>{{ \ACChampionships::cars($championship)->implode('full_name', ', ') }}</h4>
+        <h4>{{ \ACChampionships::cars($championship)->implode('name', ', ') }}</h4>
 
         @include('assetto-corsa.results.championship-summary')
 

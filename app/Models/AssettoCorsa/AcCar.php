@@ -8,7 +8,7 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
 class AcCar extends \Eloquent
 {
-    protected $fillable = ['ac_identifier', 'name', 'full_name'];
+    protected $fillable = ['ac_identifier', 'name', 'short_name'];
 
     public function entrants()
     {

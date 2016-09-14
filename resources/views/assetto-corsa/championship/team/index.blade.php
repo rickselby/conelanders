@@ -32,7 +32,7 @@
                     {{ $team->short_name }}
                 </td>
                 <td>
-                    {{ $team->car ? $team->car->full_name : '-' }}
+                    {{ $team->car ? $team->car->name : '-' }}
                 </td>
                 <td>
                     <a class="btn btn-xs btn-warning"

@@ -32,11 +32,6 @@
             <div role="tabpanel" class="tab-pane active" id="summary">
                 @include('assetto-corsa.results.summary.summary')
             </div>
-            @if (count(\ACChampionships::cars($event->championship)) > 1)
-                <div role="tabpanel" class="tab-pane" id="constructor-summary">
-                    @include('assetto-corsa.results.summary.constructors')
-                </div>
-            @endif
             @foreach($event->sessions as $session)
                 <div role="tabpanel" class="tab-pane" id="session-{{ $session->id }}">
                     @include('assetto-corsa.results.session.session')

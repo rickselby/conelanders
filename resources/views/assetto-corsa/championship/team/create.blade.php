@@ -30,7 +30,7 @@
     <div class="form-group">
         {!! Form::label('ac_car_id', 'Car', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-            {!! Form::select('ac_car_id', \App\Models\AssettoCorsa\AcCar::pluck('full_name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'No Car']) !!}
+            {!! Form::select('ac_car_id', \App\Models\AssettoCorsa\AcCar::pluck('name', 'id'), null, ['class' => 'form-control', 'placeholder' => 'No Car']) !!}
             <p class="help-block">
                 If the team is running a single car, pick it from the list
             </p>

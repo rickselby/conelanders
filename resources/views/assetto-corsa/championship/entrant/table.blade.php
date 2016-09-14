@@ -23,7 +23,7 @@
             </td>
             <td>
                 @if (!isset($car) || $car)
-                    {{ $entrant->car ? $entrant->car->full_name : '-' }}
+                    {{ $entrant->car ? $entrant->car->name : '-' }}
                 @endif
             </td>
             <td>
