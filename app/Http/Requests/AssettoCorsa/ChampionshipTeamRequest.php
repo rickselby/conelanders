@@ -25,6 +25,7 @@ class ChampionshipTeamRequest extends Request
             'ac_car_id' => 'exists:ac_cars,id',
             'name' => 'required|string',
             'short_name' => 'required|string',
+            'css' => 'string'
         ];
     }
 }

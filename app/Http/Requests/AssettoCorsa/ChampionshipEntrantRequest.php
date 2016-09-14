@@ -28,7 +28,7 @@ class ChampionshipEntrantRequest extends Request
             'number' => 'required|string',
             'colour' => 'required|string',
             'colour2' => 'required|string',
-            'css' => 'required|string',
+            'css' => 'string',
             'ac_car_id' => 'exists:ac_cars,id',
             'ac_team_id' => 'exists:ac_teams,id',
         ];
