@@ -42,9 +42,26 @@
     </div>
 
     <div class="form-group">
+        <div class="col-sm-2 col-md-offset-2">
+            <span class="badge driver-number team-{{ $team->id }}">##</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('css', 'Badge CSS', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::textarea('css', null, ['class' => 'form-control']) !!}
+            <p class="help-block">
+                Drivers CSS will override Team CSS
+            </p>
+        </div>
+    </div>
+
+
+    <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-            {!! Form::submit('Update Entrant', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Update Team', ['class' => 'btn btn-primary']) !!}
         </div>
     </div>
 
@@ -53,5 +70,15 @@
     {!! Form::open(['route' => ['assetto-corsa.championship.team.destroy', $championship, $team], 'method' => 'delete', 'class' => 'pull-right']) !!}
     {!! Form::submit('Delete Team', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#css').bind('input propertychange', function() {
+                $('#badge-css').html('.team-{{ $team->id }} { '+$(this).val()+' } ');
+                return false;
+            });
+        })
+    </script>
+    <style type="text/css" id="badge-css" rel="stylesheet"></style>
 
 @endsection
