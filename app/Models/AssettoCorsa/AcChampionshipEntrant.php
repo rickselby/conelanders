@@ -46,6 +46,11 @@ class AcChampionshipEntrant extends \Eloquent
         return $this->belongsTo(AcCar::class, 'ac_car_id');
     }
 
+    public function signups()
+    {
+        return $this->hasMany(AcEventSignup::class);
+    }
+
     public function scopeOrderByName($query)
     {
         $relation = $this->driver();

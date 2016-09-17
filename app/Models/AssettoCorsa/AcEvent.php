@@ -11,9 +11,9 @@ class AcEvent extends \Eloquent
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'time'];
+    protected $fillable = ['name', 'time', 'signup_open', 'signup_close'];
 
-    protected $dates = ['time'];
+    protected $dates = ['time', 'signup_open', 'signup_close'];
 
     public function championship()
     {
@@ -23,6 +23,11 @@ class AcEvent extends \Eloquent
     public function sessions()
     {
         return $this->hasMany(AcSession::class)->orderBy('order');
+    }
+
+    public function signups()
+    {
+        return $this->hasMany(AcEventSignup::class);
     }
 
     public function getFullNameAttribute()
@@ -106,6 +111,19 @@ class AcEvent extends \Eloquent
     }
 
     /**
+     * Scope events to those where signup is open
+     *
+     * @param Builder $query
+     * @param Model $model
+     * @return mixed
+     */
+    public function scopeSignupOpen(Builder $query)
+    {
+        return $query->whereDate('signup_open', '<', Carbon::now())
+            ->whereDate('signup_close', '>', Carbon::now());
+    }
+
+    /**
      * Sluggable configuration
      *
      * @return array
@@ -132,4 +150,6 @@ class AcEvent extends \Eloquent
     {
         return 'slug';
     }
+
+
 }

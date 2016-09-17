@@ -9,6 +9,11 @@ class ChampionshipEventRequest extends Request
 {
     protected $dateFormat = 'jS F Y, H:i';
 
+    protected $emptyIsNullFields = [
+        'signup_open',
+        'signup_close',
+    ];
+
     public function validate()
     {
         parent::validate();
@@ -16,6 +21,14 @@ class ChampionshipEventRequest extends Request
             'time' => Carbon::createFromFormat(
                 $this->dateFormat,
                 Request::get('time')
+            ),
+            'signup_open' => Carbon::createFromFormat(
+                $this->dateFormat,
+                Request::get('signup_open')
+            ),
+            'signup_close' => Carbon::createFromFormat(
+                $this->dateFormat,
+                Request::get('signup_close')
             ),
         ]);
     }
@@ -30,6 +43,8 @@ class ChampionshipEventRequest extends Request
         return [
             'name' => 'required|string',
             'time' => 'date_format:"'.$this->dateFormat.'"',
+            'signup_open' => 'date_format:"'.$this->dateFormat.'"',
+            'signup_close' => 'date_format:"'.$this->dateFormat.'"',
         ];
     }
 }

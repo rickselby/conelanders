@@ -10,6 +10,14 @@
         </h1>
     </div>
 
+@endsection
+
+@section('content')
+
+    @if(count($signups))
+        @include('assetto-corsa.signup')
+    @endif
+
     <div class="row">
         <div class="col-md-6 col-md-push-6">
             <h2>Current Events</h2>

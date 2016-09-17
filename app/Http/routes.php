@@ -2,17 +2,12 @@
 
 Route::group(['middleware' => ['web']], function () {
 
+    Route::get('/', 'ConelandersController@index')->name('home');
+
     Route::get('/login', 'Auth\AuthController@index')->name('login.index');
     Route::get('/login/google', 'Auth\AuthController@loginGoogle')->name('login.google');
     Route::get('/login/google/done', 'Auth\AuthController@loginGoogleDone');
     Route::get('/logout', 'Auth\AuthController@logout')->name('logout');
-
-    Route::get('/', function () {
-        return view('index')
-            ->with('pastNews', \News::getPast())
-            ->with('upcomingNews', \News::getUpcoming())
-            ->with('currentNews', \News::getCurrent());
-    })->name('home');
 
     Route::get('nation/image/{nation}', 'NationController@image')->name('nation.image');
     Route::resource('nation', 'NationController', [['except' => ['show']]]);

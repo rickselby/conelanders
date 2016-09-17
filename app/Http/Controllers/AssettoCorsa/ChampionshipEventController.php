@@ -9,13 +9,15 @@ use App\Http\Requests\AssettoCorsa\ChampionshipEventRequest;
 use App\Models\AssettoCorsa\AcChampionship;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcSession;
+use App\Services\AssettoCorsa\Signups;
 use Illuminate\Http\Request;
 
 class ChampionshipEventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:assetto-corsa-admin');
+        $this->middleware('can:assetto-corsa-admin', ['except' => 'signup']);
+        $this->middleware('auth', ['only' => 'signup']);
         $this->middleware('assetto-corsa.validateEvent', ['except' => ['create', 'store']]);
     }
 
@@ -144,5 +146,13 @@ class ChampionshipEventController extends Controller
             $session->order = $counter++;
             $session->save();
         }
+    }
+
+    public function signup(Request $request, $championshipSlug, $eventSlug, Signups $signups)
+    {
+        $event = \Request::get('event');
+        $signups->setStatus($event, $request->get('status'));
+        \Notification::add('success', 'Attendance updated');
+        return \Redirect::route('home');
     }
 }
