@@ -2,7 +2,10 @@
 
 namespace App\Services\AssettoCorsa;
 
+use App\Events\AssettoCorsa\EventSignupUpdated;
 use App\Models\AssettoCorsa\AcEvent;
+use App\Models\AssettoCorsa\AcEventSignup;
+use GuzzleHttp\Client;
 
 class Signups
 {
@@ -46,11 +49,12 @@ class Signups
                 $signup->status = $status;
                 $signup->save();
             } else {
-                $event->signups()->create([
+                $signup = $event->signups()->create([
                     'ac_championship_entrant_id' => $this->getEntry($event)->id,
                     'status' => $status,
                 ]);
             }
+            \Event::fire(new EventSignupUpdated($signup));
         }
     }
 
@@ -62,5 +66,20 @@ class Signups
     protected function getEntry(AcEvent $event)
     {
         return $event->championship->entrants()->where('driver_id', \Auth::user()->driver->id)->first();
+    }
+
+    public function updateSignup(AcEventSignup $signup)
+    {
+        // This cannot stay. It could be a url in the database against the championship,
+        // but what if the format of the request changes?
+        // Must convince Moose to poll the site for the entry list instead.
+
+        $client = new Client();
+        $client->request('GET', 'http://holymooses.com/gt3/uploadDriver.php',
+            ['query' => [
+                'f' => $signup->entrant->driver->ac_guid,
+                'att' => $signup->status ? 'y' : 'n',
+            ]]
+        );
     }
 }

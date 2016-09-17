@@ -10,6 +10,7 @@ class EventServiceProvider extends ServiceProvider
         \App\Listeners\AssettoCorsa\News::class,
         \App\Listeners\AssettoCorsa\Playlists::class,
         \App\Listeners\AssettoCorsa\Results::class,
+        \App\Listeners\AssettoCorsa\Signups::class,
         \App\Listeners\DirtRally\News::class,
         \App\Listeners\DirtRally\Playlists::class,
         \App\Listeners\DirtRally\Results::class,
