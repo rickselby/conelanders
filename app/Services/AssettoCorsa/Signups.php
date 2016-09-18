@@ -91,33 +91,37 @@ class Signups
             ->orderBy('signup_open', 'desc')
             ->get()->first();
 
-        // Get a list of guids for the championship
-        $guids = [];
-        foreach($event->championship->entrants AS $entrant) {
-            $guids[$entrant->driver->ac_guid] = $entrant->driver->ac_guid;
-        }
-
-        $status = [
-            'yes' => [],
-            'no' => [],
-            'unknown' => [],
-        ];
-
-        foreach($event->signups AS $signup) {
-            $guid = $signup->entrant->driver->ac_guid;
-            switch($signup->status) {
-                case 1:
-                    $status['yes'][] = $guid;
-                    break;
-                case 0:
-                    $status['no'][] = $guid;
-                    break;
+        if ($event !== NULL) {
+            // Get a list of guids for the championship
+            $guids = [];
+            foreach ($event->championship->entrants AS $entrant) {
+                $guids[$entrant->driver->ac_guid] = $entrant->driver->ac_guid;
             }
-            unset($guids[$guid]);
+
+            $status = [
+                'yes' => [],
+                'no' => [],
+                'unknown' => [],
+            ];
+
+            foreach ($event->signups AS $signup) {
+                $guid = $signup->entrant->driver->ac_guid;
+                switch ($signup->status) {
+                    case 1:
+                        $status['yes'][] = $guid;
+                        break;
+                    case 0:
+                        $status['no'][] = $guid;
+                        break;
+                }
+                unset($guids[$guid]);
+            }
+
+            $status['unknown'] = array_values($guids);
+
+            return $status;
+        } else {
+            return [];
         }
-
-        $status['unknown'] = array_values($guids);
-
-        return $status;
     }
 }
