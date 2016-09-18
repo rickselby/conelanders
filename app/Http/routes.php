@@ -30,6 +30,12 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/assetto-corsa.php');
     });
 
+    Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
+        Route::group(['prefix' => 'ac', 'namespace' => 'AssettoCorsa'], function() {
+            include('Routes/API/assetto-corsa.php');
+        });
+    });
+
     Route::get('about', function() {
         return view('about');
     })->name('about');

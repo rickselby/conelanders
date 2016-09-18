@@ -5,6 +5,7 @@ namespace App\Services\AssettoCorsa;
 use App\Events\AssettoCorsa\EventSignupUpdated;
 use App\Models\AssettoCorsa\AcEvent;
 use App\Models\AssettoCorsa\AcEventSignup;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 
 class Signups
@@ -81,5 +82,42 @@ class Signups
                 'att' => $signup->status ? 'y' : 'n',
             ]]
         );
+    }
+
+    public function getCurrent()
+    {
+        $event = AcEvent::whereNotNull('signup_open')
+            ->whereDate('signup_open', '<', Carbon::now())
+            ->orderBy('signup_open', 'desc')
+            ->get()->first();
+
+        // Get a list of guids for the championship
+        $guids = [];
+        foreach($event->championship->entrants AS $entrant) {
+            $guids[$entrant->driver->ac_guid] = $entrant->driver->ac_guid;
+        }
+
+        $status = [
+            'yes' => [],
+            'no' => [],
+            'unknown' => [],
+        ];
+
+        foreach($event->signups AS $signup) {
+            $guid = $signup->entrant->driver->ac_guid;
+            switch($signup->status) {
+                case 1:
+                    $status['yes'][] = $guid;
+                    break;
+                case 0:
+                    $status['no'][] = $guid;
+                    break;
+            }
+            unset($guids[$guid]);
+        }
+
+        $status['unknown'] = array_values($guids);
+
+        return $status;
     }
 }
