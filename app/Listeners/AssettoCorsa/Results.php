@@ -83,19 +83,10 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results for a championship
-     * @param ChampionshipUpdated $event
-     */
-    public function clearChampionshipCache(Event $event)
-    {
-        \ACCacheHandler::clearChampionshipCache($event->championship);
-    }
-
-    /**
      * Clear all AC results for a championship (down to each session)
      * @param ChampionshipEntrantsUpdated $event
      */
-    public function clearChampionshipSessionsCache(ChampionshipEntrantsUpdated $event)
+    public function clearChampionshipSessionsCache(Event $event)
     {
         foreach($event->championship->events AS $champEvent) {
             foreach($champEvent->sessions AS $session) {
