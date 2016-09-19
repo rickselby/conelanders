@@ -31,7 +31,7 @@
         <div class="col-sm-10">
             {!! Form::text('acronym', null, ['class' => 'form-control']) !!}
             <p class="help-block">
-                Two-letter country code, lowercase
+                Two-letter country code, lowercase. Will be used for the flag: <a href="http://flag-icon-css.lip.is/">http://flag-icon-css.lip.is/</a>
             </p>
         </div>
     </div>

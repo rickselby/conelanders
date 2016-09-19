@@ -12,12 +12,41 @@
             {!! Form::submit('Delete Event', array('class' => 'btn btn-danger')) !!}
         {!! Form::close() !!}
 
-        <h2>Event Results</h2>
+        <h2>Stages</h2>
 
         <p>
             <a class="btn btn-small btn-info"
                href="{{ route('dirt-rally.championship.season.event.stage.create', [$event->season->championship, $event->season, $event]) }}">Add a stage</a>
         </p>
+
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Long?</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($event->stages AS $stage)
+                <tr>
+                    <td>{{ $stage->ss }}</td>
+                    <td>
+                        <a href="{{ route('dirt-rally.championship.season.event.stage.show', [$event->season->championship, $event->season, $event, $stage]) }}" class="tablesorter-noSort">
+                            {{ $stage->name }}
+                        </a>
+                    </td>
+                    <td>{{ $event->long ? 'Yes' : 'No' }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3">No events</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+
+        <h2>Event Results</h2>
 
         @if(!$event->isComplete())
             @include('dirt-rally.event-not-complete-results')
@@ -33,11 +62,7 @@
                 <th>Pos.</th>
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
-                <th>
-                    <a href="{{ route('dirt-rally.championship.season.event.stage.show', [$event->season->championship, $event->season, $event, $stage]) }}" class="tablesorter-noSort">
-                        {{ $stage->ss }}
-                    </a>
-                </th>
+                <th>{{ $stage->ss }}</th>
                 @endforeach
                 <th>Total</th>
             </tr>

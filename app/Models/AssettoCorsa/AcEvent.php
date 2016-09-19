@@ -62,7 +62,7 @@ class AcEvent extends \Eloquent
                 $dates[] = $session->completeAt;
             }
         }
-        return max($dates);
+        return count($dates) ? max($dates) : null;
     }
 
     public function canBeReleased() 

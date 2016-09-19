@@ -144,3 +144,7 @@ H4 A.event-results {
     border: 0.2em solid;
     margin-top: 0.5em;
 }
+
+.sort-handle {
+    cursor: pointer;
+}

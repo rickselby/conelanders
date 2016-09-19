@@ -13,16 +13,32 @@
         <a class="btn btn-small btn-info"
            href="{{ route('dirt-rally.championship.season.create', $championship) }}">Add a new season</a>
     </p>
-    <ul>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Events</th>
+            <th>Complete?</th>
+        </tr>
+        </thead>
+        <tbody>
         @forelse($seasons AS $season)
-            <li>
-                <a href="{{ route('dirt-rally.championship.season.show', [$championship, $season]) }}">
-                    {{ $season->name }}
-                </a>
-            </li>
+            <tr class="{{ $season->isComplete() ? '' : 'info' }}">
+                <td>
+                    <a href="{{ route('dirt-rally.championship.season.show', [$championship, $season]) }}">
+                        {{ $season->name }}
+                    </a>
+                </td>
+                <td>{{ count($season->events) }}</td>
+                <td>{{ $season->isComplete() ? 'Yes' : 'No' }}</td>
+            </tr>
         @empty
-            <li>No events</li>
+            <tr>
+                <td colspan="3">No seasons</td>
+            </tr>
         @endforelse
-    </ul>
+        </tbody>
+    </table>
 
 @endsection

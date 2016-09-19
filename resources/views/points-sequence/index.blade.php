@@ -12,9 +12,9 @@
         <a class="btn btn-small btn-info" href="{{ route('points-sequence.create') }}">Add a new sequence</a>
     </p>
 
-    <ul>
+    <ul class="list-group">
         @foreach($sequences as $sequence)
-            <li>
+            <li class="list-group-item">
                 <a href="{{ route('points-sequence.show', $sequence) }}">
                     {{ $sequence->name }}
                 </a>

@@ -23,23 +23,41 @@
            href="{{ route('assetto-corsa.championship.event.create', $championship) }}">Add a new event</a>
     </p>
 
-    <ul class="list-group">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Sessions</th>
+            <th>Scheduled Time</th>
+            <th>Full Results Released?</th>
+        </tr>
+        </thead>
+        <tbody>
         @forelse($championship->events AS $event)
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-xs-6 col-md-3">
-                        <a href="{{ route('assetto-corsa.championship.event.show', [$championship, $event]) }}">
-                            {{ $event->name }}
-                        </a>
-                    </div>
-                    <div class="col-xs-6 col-md-9">
-                        {{ \Times::userTimezone($event->time) }}
-                    </div>
-                </div>
-            </li>
+            <tr class="{{ $event->canBeReleased() ? '' : 'info' }}">
+                <td>
+                    <a href="{{ route('assetto-corsa.championship.event.show', [$championship, $event]) }}">
+                        {{ $event->name }}
+                    </a>
+                </td>
+                <td>{{ count($event->sessions) }}</td>
+                <td>{{ \Times::userTimezone($event->time) }}</td>
+                <td>
+                    @if ($event->canBeReleased())
+                        Yes
+                    @elseif ($event->completeAt)
+                        {{ \Times::userTimezone($event->completeAt) }}
+                    @else
+                        No
+                    @endif
+                </td>
+            </tr>
         @empty
-            <li>No events</li>
+            <tr>
+                <td colspan="4">No events</td>
+            </tr>
         @endforelse
-    </ul>
+        </tbody>
+    </table>
 
 @endsection

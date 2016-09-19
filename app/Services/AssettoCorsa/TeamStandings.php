@@ -240,4 +240,23 @@ class TeamStandings extends Standings implements DriverStandingsInterface
         return $this->sortAndAddPositions($results);
     }
 
+    /**
+     * Extend the points sorting method. If two teams have equal points, split them by
+     * the team name. The arePointsEqual function will still return true for the two
+     * teams, so they will get the same position. But it looks prettier.
+     *
+     * @param mixed $a
+     * @param mixed $b
+     * @return int
+     */
+    public function pointsSort($a, $b)
+    {
+        $val = parent::pointsSort($a, $b);
+        if ($val == 0)
+        {
+            return strcmp($a['team']->name, $b['team']->name);
+        } else {
+            return $val;
+        }
+    }
 }

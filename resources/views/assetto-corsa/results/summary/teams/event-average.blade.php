@@ -40,7 +40,7 @@
             <h3 class="panel-title">Full results not released yet</h3>
         </div>
         <div class="panel-body">
-            Constructors results will be shown once the full event results are released.
+            Team results will be shown once the full event results are released.
         </div>
     </div>
 

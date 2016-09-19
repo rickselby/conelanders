@@ -223,4 +223,25 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
         return $this->sortAndAddPositions($results);
     }
 
+
+    /**
+     * Extend the points sorting method. If two cars have equal points, split them by
+     * the car name. The arePointsEqual function will still return true for the two
+     * cars, so they will get the same position. But it looks prettier.
+     *
+     * @param mixed $a
+     * @param mixed $b
+     * @return int
+     */
+    public function pointsSort($a, $b)
+    {
+        $val = parent::pointsSort($a, $b);
+        if ($val == 0)
+        {
+            return strcmp($a['car']->name, $b['car']->name);
+        } else {
+            return $val;
+        }
+    }
+
 }

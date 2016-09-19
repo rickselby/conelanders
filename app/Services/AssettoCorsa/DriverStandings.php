@@ -118,4 +118,24 @@ class DriverStandings extends Standings implements DriverStandingsInterface
         return $this->sortAndAddPositions($results);
     }
 
+    /**
+     * Extend the points sorting method. If two drivers have equal points, split them by
+     * their driver number. The arePointsEqual function will still return true for the two
+     * drivers, so they will get the same position. But it looks prettier.
+     *
+     * @param mixed $a
+     * @param mixed $b
+     * @return int
+     */
+    public function pointsSort($a, $b)
+    {
+        $val = parent::pointsSort($a, $b);
+        if ($val == 0)
+        {
+            return $a['entrant']->number - $b['entrant']->number;
+        } else {
+            return $val;
+        }
+    }
+
 }

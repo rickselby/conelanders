@@ -23,10 +23,7 @@ class AcTeam extends \Eloquent
 
     public function scopeOrderByName($query)
     {
-        $relation = $this->driver();
-        $related = $relation->getRelated();
-        $table = $related->getTable();
-        $foreignKey = $relation->getForeignKey();
+        $table = $this->driver()->getRelated()->getTable();
 
         $query->orderBy($table.'.name')
             ->select($this->getTable().'.*');
@@ -34,6 +31,9 @@ class AcTeam extends \Eloquent
 
     public function getSortedEntrantsAttribute()
     {
-        return $this->entrants()->with('driver.nation')->orderByName()->get();
+        return $this->entrants()
+            ->with('driver.nation')
+            ->orderByRaw('cast(number as unsigned)')
+            ->get();
     }
 }

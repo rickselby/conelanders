@@ -33,18 +33,34 @@
         {!! Form::close() !!}
     @endif
 
-    <ul class="list-group" id="sessions">
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Release Time</th>
+        </tr>
+        </thead>
+        <tbody id="sessions2">
         @forelse($event->sessions AS $session)
-            <li class="list-group-item" data-id="{{ $session->id }}">
-                <span class="glyphicon glyphicon-menu-hamburger my-handle" aria-hidden="true"></span>
-                <a href="{{ route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]) }}">
-                    {{ $session->name }}
-                </a>
-            </li>
+            <tr class="{{ $session->canBeReleased() ? '' : 'info' }}" data-id="{{ $session->id }}">
+                <td>
+                    <span class="glyphicon glyphicon-menu-hamburger sort-handle" aria-hidden="true"></span>
+                    <a href="{{ route('assetto-corsa.championship.event.session.show', [$event->championship, $event, $session]) }}">
+                        {{ $session->name }}
+                    </a>
+                </td>
+                <td>
+                    {{ $session->release ? \Times::userTimezone($session->release) : '-' }}
+                </td>
+            </tr>
         @empty
-            <li>No sessions</li>
+            <tr>
+                <td colspan="2">No sessions</td>
+            </tr>
         @endforelse
-    </ul>
+        </tbody>
+    </table>
 
     <script type="text/javascript">
         $("#sessions").sortable({
@@ -59,6 +75,26 @@
                         {
                             order: sortable.toArray()
                         }
+                    );
+                }
+            }
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $("#sessions2").sortable({
+            store: {
+                get: function(sortable) {
+                    return [];
+                },
+                set: function(sortable) {
+                    console.log(sortable.toArray());
+                    $.post(
+                            "{{ route('assetto-corsa.championship.event.sort-sessions', [$event->championship, $event]) }}",
+                            {
+                                order: sortable.toArray()
+                            }
                     );
                 }
             }

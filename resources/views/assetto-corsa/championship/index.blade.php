@@ -8,14 +8,33 @@
         <a class="btn btn-small btn-info" href="{{ route('assetto-corsa.championship.create') }}">Add a new championship</a>
     </p>
 
-    <ul>
-        @foreach($championships as $championship)
-            <li>
-                <a href="{{ route('assetto-corsa.championship.show', $championship) }}">
-                    {{ $championship->name }}
-                </a>
-            </li>
-        @endforeach
-    </ul>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Events</th>
+            <th>Entrants</th>
+            <th>Complete?</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse($championships AS $championship)
+            <tr class="{{ $championship->isComplete() ? '' : 'info' }}">
+                <td>
+                    <a href="{{ route('assetto-corsa.championship.show', $championship) }}">
+                        {{ $championship->name }}
+                    </a>
+                </td>
+                <td>{{ count($championship->events) }}</td>
+                <td>{{ count($championship->entrants) }}</td>
+                <td>{{ $championship->isComplete() ? 'Yes' : 'No' }}</td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="4">No championships</td>
+            </tr>
+        @endforelse
+        </tbody>
+    </table>
 
 @endsection
