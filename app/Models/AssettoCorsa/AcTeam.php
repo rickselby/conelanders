@@ -33,7 +33,7 @@ class AcTeam extends \Eloquent
     {
         return $this->entrants()
             ->with('driver.nation')
-            ->orderByRaw('cast(number as unsigned)')
+            ->orderByNumber()
             ->get();
     }
 }

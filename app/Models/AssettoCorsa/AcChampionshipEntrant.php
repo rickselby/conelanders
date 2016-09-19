@@ -67,4 +67,9 @@ class AcChampionshipEntrant extends \Eloquent
     {
         $query->whereNull('ac_team_id');
     }
+
+    public function scopeOrderByNumber($query)
+    {
+        $query->orderByRaw('cast(number as unsigned)');
+    }
 }

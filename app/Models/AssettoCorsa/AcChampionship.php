@@ -96,7 +96,7 @@ class AcChampionship extends \Eloquent
 
     public function getNoTeamEntrantsSortedAttribute()
     {
-        return $this->entrants()->with('driver.nation', 'car', 'team')->noTeam()->orderByName()->get();
+        return $this->entrants()->with('driver.nation', 'car', 'team')->noTeam()->orderByNumber()->get();
     }
 
     /**
