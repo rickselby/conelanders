@@ -34,8 +34,6 @@ class DriverStandings extends Standings implements DriverStandingsInterface
             }
         }
 
-        $this->filterPositions($results[$entrantID]['positions'], $event);
-
         return $this->sortAndAddPositions($this->sumPoints($results), $event);
     }
 
