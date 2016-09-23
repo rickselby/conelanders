@@ -34,6 +34,7 @@ class News
     {
         return $this->parseNews([
             $this->event->getUpcomingNews($start, $end),
+            $this->event->getUpcomingEvents($start, $end),
         ]);
     }
 

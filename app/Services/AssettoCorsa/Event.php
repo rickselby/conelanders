@@ -72,7 +72,7 @@ class Event implements EventInterface
         }
         $views = [];
         foreach($news AS $date => $events) {
-            $views[$date] = \View::make('assetto-corsa.event.news.past', ['events' => $events])->render();
+            $views[$date] = \View::make('assetto-corsa.event.news.results.past', ['events' => $events])->render();
         }
         return $views;
     }
@@ -98,7 +98,36 @@ class Event implements EventInterface
         }
         $views = [];
         foreach($news AS $date => $events) {
-            $views[$date] = \View::make('assetto-corsa.event.news.upcoming', ['events' => $events])->render();
+            $views[$date] = \View::make('assetto-corsa.event.news.results.upcoming', ['events' => $events])->render();
+        }
+        return $views;
+    }
+
+    /**
+     * Get upcoming events for the logged in user
+     *
+     * @param Carbon $start
+     * @param Carbon $end
+     * @return array
+     */
+    public function getUpcomingEvents(Carbon $start, Carbon $end)
+    {
+        $news = [];
+        if (\Auth::check()) {
+            foreach(\Auth::user()->driver->acEntries AS $entry) {
+                foreach($entry->championship->events AS $event) {
+                    if ($event->time && $event->time->between($start, $end)) {
+                        if (!isset($news[$event->time->timestamp])) {
+                            $news[$event->time->timestamp] = [];
+                        }
+                        $news[$event->time->timestamp][$event->id] = $event;
+                    }
+                }
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $events) {
+            $views[$date] = \View::make('assetto-corsa.event.news.dates', ['events' => $events])->render();
         }
         return $views;
     }
