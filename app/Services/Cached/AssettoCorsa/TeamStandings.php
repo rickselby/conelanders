@@ -22,7 +22,7 @@ class TeamStandings implements StandingsInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'ac.constructor-standings.';
+    protected $cacheKey = 'ac.team-standings.';
 
     public function __construct(Repository $cache, \App\Services\AssettoCorsa\TeamStandings $teamStandingsService)
     {
