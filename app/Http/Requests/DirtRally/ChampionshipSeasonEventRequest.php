@@ -34,8 +34,8 @@ class ChampionshipSeasonEventRequest extends Request
         return [
             'name' => 'required|string',
             'racenet_event_id' => 'integer',
-            'opens' => 'date_format:"'.$this->dateFormat.'"',
-            'closes' => 'date_format:"'.$this->dateFormat.'"',
+            'opens' => 'required|date_format:"'.$this->dateFormat.'"',
+            'closes' => 'required|date_format:"'.$this->dateFormat.'"',
         ];
     }
 }
