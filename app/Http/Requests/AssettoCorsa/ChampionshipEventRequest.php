@@ -22,14 +22,18 @@ class ChampionshipEventRequest extends Request
                 $this->dateFormat,
                 Request::get('time')
             ),
-            'signup_open' => Carbon::createFromFormat(
-                $this->dateFormat,
-                Request::get('signup_open')
-            ),
-            'signup_close' => Carbon::createFromFormat(
-                $this->dateFormat,
-                Request::get('signup_close')
-            ),
+            'signup_open' => Request::get('signup_open')
+                ? Carbon::createFromFormat(
+                    $this->dateFormat,
+                    Request::get('signup_open')
+                )
+                : null,
+            'signup_close' => Request::get('signup_close')
+                ? Carbon::createFromFormat(
+                    $this->dateFormat,
+                    Request::get('signup_close')
+                )
+                : null,
         ]);
     }
 
@@ -42,7 +46,7 @@ class ChampionshipEventRequest extends Request
     {
         return [
             'name' => 'required|string',
-            'time' => 'date_format:"'.$this->dateFormat.'"',
+            'time' => 'required|date_format:"'.$this->dateFormat.'"',
             'signup_open' => 'date_format:"'.$this->dateFormat.'"',
             'signup_close' => 'date_format:"'.$this->dateFormat.'"',
         ];
