@@ -13,7 +13,7 @@ class Signups
     public function getOpen()
     {
         $events = [];
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->driver) {
             foreach(\Auth::user()->driver->acEntries AS $entry) {
                 foreach($entry->championship->events()->signupOpen()->get() AS $event) {
                     $event->status = $this->getStatus($event);

@@ -113,7 +113,7 @@ class Event implements EventInterface
     public function getUpcomingEvents(Carbon $start, Carbon $end)
     {
         $news = [];
-        if (\Auth::check()) {
+        if (\Auth::check() && \Auth::user()->driver) {
             foreach(\Auth::user()->driver->acEntries AS $entry) {
                 foreach($entry->championship->events AS $event) {
                     if ($event->time && $event->time->between($start, $end)) {
