@@ -125,7 +125,7 @@ trait Points
     public function arePointsEqual($a, $b)
     {
         return $a['total'] == $b['total']
-        && $a['positions'] == $b['positions']
+        && $a['sortedPositions'] == $b['sortedPositions']
         && count($a['points']) == count($b['points']);
     }
 
