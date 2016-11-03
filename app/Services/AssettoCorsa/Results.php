@@ -65,8 +65,7 @@ class Results implements ResultsInterface
             'car',
             'championshipEntrant.driver.nation',
             'championshipEntrant.team',
-            'fastestLap.sectors',
-            'laps'
+            'fastestLap.sectors'
         )->orderBy('fastest_lap_position')->get();
 
         foreach($fastestLaps AS $entrant) {
