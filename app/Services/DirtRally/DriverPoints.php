@@ -64,6 +64,7 @@ class DriverPoints implements DriverPointsInterface
                 foreach ($point['stagePoints'] AS $stagePoint) {
                     $points[$driverID]['total']['points'] += $stagePoint;
                 }
+                unset($points[$driverID]['stageTimesByOrder']);
             }
 
             // Sort by points and position

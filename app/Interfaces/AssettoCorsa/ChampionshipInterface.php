@@ -32,4 +32,13 @@ interface ChampionshipInterface
      * @return Collection
      */
     public function cars(AcChampionship $championship);
+
+    /**
+     * Has the given championship got more than one car?
+     *
+     * @param AcChampionship $championship
+     *
+     * @return boolean
+     */
+    public function multipleCars(AcChampionship $championship);
 }

@@ -90,7 +90,7 @@ class NationPoints implements NationPointsInterface
     public function details(DirtEvent $event, Nation $nation)
     {
         return $this->cache->tags(\DirtRallyCacheHandler::eventTag($event))->rememberForever(
-            $this->cacheKey.'detail.'.$event->id,
+            $this->cacheKey.'detail.'.$event->id.'-'.$nation->id,
             function() use ($event, $nation) {
                 return $this->nationPointsService->details($event, $nation);
             }

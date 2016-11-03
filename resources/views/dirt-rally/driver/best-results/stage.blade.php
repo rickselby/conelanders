@@ -4,10 +4,8 @@
             <span class="position pull-right">{{ $dirtResults['best']['stage']['best'] }}</span>
             Stage
             <span class="text-muted">
-                @if (count($dirtResults['best']['stage']['things']) < 2)
-                    ({{ $dirtResults['best']['stage']['things']->reduce(function($a, $b) {
-                        return ($a ? $a.', ' : '').$b['stage']->fullName;
-                    }) }})
+                @if (count($dirtResults['best']['stage']['things']) == 1)
+                    ({{ $dirtResults['best']['stage']['things']->first()->fullName }})
                 @else
                     <a role="button" data-toggle="collapse" href="#best-stages">
                         ({{ count($dirtResults['best']['stage']['things']) }} times)
@@ -20,7 +18,7 @@
         <div id="best-stages" class="panel-collapse collapse" role="tabpanel">
             <ul class="list-group">
                 @foreach($dirtResults['best']['stage']['things'] AS $result)
-                    <li class="list-group-item">{{ $result['stage']->fullName }}</li>
+                    <li class="list-group-item">{{ $result->fullName }}</li>
                 @endforeach
             </ul>
         </div>

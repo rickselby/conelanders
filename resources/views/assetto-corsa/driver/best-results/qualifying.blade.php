@@ -4,10 +4,8 @@
             <span class="position pull-right">{{ $acResults['best']['qualifying']['best'] }}</span>
             Qualifying
             <span class="text-muted">
-                @if (count($acResults['best']['qualifying']['things']) < 2)
-                    ({{ $acResults['best']['qualifying']['things']->reduce(function($a, $b) {
-                        return ($a ? $a.', ' : '').$b['session']->fullName;
-                    }) }})
+                @if (count($acResults['best']['qualifying']['things']) == 1)
+                    ({{ $acResults['best']['qualifying']['things']->first()->fullName }})
                 @else
                     <a role="button" data-toggle="collapse" href="#ac-best-qualifyings">
                         ({{ count($acResults['best']['qualifying']['things']) }} times)
@@ -20,7 +18,7 @@
         <div id="ac-best-qualifyings" class="panel-collapse collapse" role="tabpanel">
             <ul class="list-group">
                 @foreach($acResults['best']['qualifying']['things'] AS $result)
-                    <li class="list-group-item">{{ $result['session']->fullName }}</li>
+                    <li class="list-group-item">{{ $result->fullName }}</li>
                 @endforeach
             </ul>
         </div>

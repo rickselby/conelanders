@@ -53,4 +53,12 @@ class Championships implements ChampionshipInterface
         return AcCar::forChampionship($championship)->get();
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function multipleCars(AcChampionship $championship)
+    {
+        return count($this->cars($championship)) > 1;
+    }
+
 }
