@@ -5,7 +5,7 @@
 <div class="btn-group" role="group">
     <a class="btn btn-primary" role="button"
        href="{{ route('assetto-corsa.standings.drivers', $championship) }}">Driver Standings</a>
-    @if(count(\ACChampionships::cars($championship)) > 1)
+    @if(\ACChampionships::multipleCars($championship))
         <a class="btn btn-info" role="button"
            href="{{ route('assetto-corsa.standings.constructors', $championship) }}">Constructors Standings</a>
     @endif

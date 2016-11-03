@@ -58,4 +58,17 @@ class Championships implements ChampionshipInterface
             }
         );
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function multipleCars(AcChampionship $championship)
+    {
+        return $this->cache->tags(\ACCacheHandler::championshipTag($championship))->rememberForever(
+            $this->cacheKey.'multiple-cars.'.$championship->id,
+            function() use ($championship) {
+                return $this->championshipsService->multipleCars($championship);
+            }
+        );
+    }
 }

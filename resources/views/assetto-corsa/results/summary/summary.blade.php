@@ -13,7 +13,7 @@
 <h2>Drivers</h2>
 @include('assetto-corsa.results.summary.drivers')
 
-@if (count(\ACChampionships::cars($event->championship)) > 1)
+@if (\ACChampionships::multipleCars($event->championship))
     <h2>Constructors</h2>
     @if ($event->championship->constructors_count == \App\Services\AssettoCorsa\Standings::SUM)
         @include('assetto-corsa.results.summary.constructors.by-session')

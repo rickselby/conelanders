@@ -9,7 +9,7 @@
             @if (count($session->event->championship->teams))
                 <th data-sorter="false">Team</th>
             @endif
-            @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+            @if (\ACChampionships::multipleCars($session->event->championship))
                 <th data-sorter="false">Car</th>
             @endif
             @if (\ACSession::hasBallast($session))
@@ -43,7 +43,7 @@
                         @endif
                     </td>
                 @endif
-                @if (count(\ACChampionships::cars($session->event->championship)) > 1)
+                @if (\ACChampionships::multipleCars($session->event->championship))
                     <td>{{ $entrant->car->short_name ?: '??' }}</td>
                 @endif
                 @if (\ACSession::hasBallast($session))
