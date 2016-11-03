@@ -84,7 +84,18 @@ class Results implements ResultsInterface
         // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
         // (any updates to the session will clear the cache)
         return $this->cache->tags(\ACCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'forRace.'.$session->id, function() use ($session) {
-            return $this->resultsService->forRace($session);
+
+            // Ooh, we're going to tidy this up before we cache it
+            $results = $this->resultsService->forRace($session);
+            // Clear the relations; we don't need the list of laps
+            foreach($results AS $entrant) {
+                $entrant->setRelations([])->load(
+                    'car',
+                    'championshipEntrant.driver.nation',
+                    'championshipEntrant.team'
+                );
+            }
+            return $results;
         });
     }
 

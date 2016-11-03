@@ -31,10 +31,12 @@ class Results implements ResultsInterface
                 if (!$firstEntrant) {
                     $firstEntrant = $entrant;
                 }
+                // Set total laps
+                $entrant->lapCount = count($entrant->laps);
                 // Get positions gained
                 $entrant->positionsGained = $entrant->started - $entrant->position;
                 // Get laps behind first
-                $entrant->lapsBehindFirst = count($firstEntrant->laps) - count($entrant->laps);
+                $entrant->lapsBehindFirst = $firstEntrant->lapCount - $entrant->lapCount;
                 // Set time behind first
                 $entrant->timeBehindFirst = $entrant->time - $firstEntrant->time;
 
@@ -48,6 +50,7 @@ class Results implements ResultsInterface
                 // Update last entrant
                 $lastEntrant = $entrant;
             }
+
             return $raceEntrants;
         }
     }

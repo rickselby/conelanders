@@ -49,7 +49,7 @@
                 @if (\ACSession::hasBallast($session))
                     <td>{{ $entrant->ballast }}kg</td>
                 @endif
-                <td class="text-center">{{ count($entrant->laps) }}</td>
+                <td class="text-center">{{ $entrant->lapCount }}</td>
                 <td class="time">{{ Times::toString($entrant->time) }}</td>
                 <td class="time">
                     @if ($entrant->dsq || $entrant->dnf)
