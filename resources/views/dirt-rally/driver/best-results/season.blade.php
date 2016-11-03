@@ -5,9 +5,7 @@
             Season
             <span class="text-muted">
                 @if (count($dirtResults['best']['season']['things']) < 2)
-                    ({{ $dirtResults['best']['season']['things']->reduce(function($a, $b) {
-                        return ($a ? $a.', ' : '').$b['season']->fullName;
-                    }) }})
+                    ({{ $dirtResults['best']['season']['things']->first()->fullName }})
                 @else
                     <a role="button" data-toggle="collapse" href="#best-seasons">
                         ({{ count($dirtResults['best']['season']['things']) }} times)
@@ -20,7 +18,7 @@
         <div id="best-seasons" class="panel-collapse collapse" role="tabpanel">
             <ul class="list-group">
                 @foreach($dirtResults['best']['season']['things'] AS $result)
-                    <li class="list-group-item">{{ $result['season']->fullName }}</li>
+                    <li class="list-group-item">{{ $result->fullName }}</li>
                 @endforeach
             </ul>
         </div>

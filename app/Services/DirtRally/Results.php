@@ -135,6 +135,11 @@ class Results implements ResultsInterface
                     'result' => $result,
                 ];
             }
+            $result->stage->event->season->championship->setRelations([]);
+            $result->stage->event->season->setRelations([]);
+            $result->stage->event->setRelations([]);
+            $result->stage->setRelations([]);
+            $result->setRelations([]);
         }
 
         return $championships;
@@ -153,19 +158,27 @@ class Results implements ResultsInterface
             foreach($championship['seasons'] AS $seasonID => $season) {
                 foreach($season['events'] AS $eventID => $event) {
                     foreach ($event['stages'] AS $stageID => $stage) {
-                        $this->getBest($bests['stage'], $stage);
+                        $this->getBest($bests['stage'], $stage, function($a) {
+                            return $a['stage'];
+                        });
                     }
-                    $this->getBest($bests['event'], $event);
+                    $this->getBest($bests['event'], $event, function($a) {
+                        return $a['event'];
+                    });
                 }
-                $this->getBest($bests['season'], $season);
+                $this->getBest($bests['season'], $season, function($a) {
+                    return $a['season'];
+                });
             }
-            $this->getBest($bests['championship'], $championship);
+            $this->getBest($bests['championship'], $championship, function($a) {
+                return $a['championship'];
+            });
         }
 
         return $bests;
     }
 
-    protected function getBest(&$current, $new)
+    protected function getBest(&$current, $new, $filter)
     {
         $newPosition = array_key_exists('result', $new)
             ? (isset($new['result']) ? $new['result']->position : NULL)
@@ -177,9 +190,9 @@ class Results implements ResultsInterface
 
         if (!isset($current['best']) || $current['best'] > $newPosition) {
             $current['best'] = $newPosition;
-            $current['things'] = collect([$new]);
+            $current['things'] = collect([$filter($new)]);
         } elseif ($current['best'] == $newPosition) {
-            $current['things']->push($new);
+            $current['things']->push($filter($new));
         }
     }
 
