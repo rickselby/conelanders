@@ -227,6 +227,7 @@ class Results implements ResultsInterface
                             : NULL,
                         'events' => [],
                     ];
+                    $result->session->event->championship->setRelations([]);
                 }
 
                 if (!isset($championships[$championshipID]['events'][$eventID])) {
@@ -254,6 +255,7 @@ class Results implements ResultsInterface
                         return $value->championshipEntrant->driver->id == $driver->id;
                     });
                     $fastLapResult = array_pop($fastLapResults);
+                    $fastLapResult->setRelations([]);
 
                     $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID] = [
                         'session' => $result->session,
@@ -268,6 +270,7 @@ class Results implements ResultsInterface
                             return $value->championshipEntrant->driver->id == $driver->id;
                         });
                         $raceResult = array_pop($raceResults);
+                        $raceResult->setRelations([]);
 
                         $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID] = [
                             'session' => $result->session,
@@ -275,8 +278,14 @@ class Results implements ResultsInterface
                             'result' => $raceResult,
                             'fastestLap' => $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID],
                         ];
+                        unset(
+                            $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID]['fastestLap']['session']
+                        );
                     }
                 }
+
+                $result->session->event->setRelations([]);
+                $result->session->setRelations([]);
             }
         }
 
@@ -301,19 +310,27 @@ class Results implements ResultsInterface
                         case AcSession::TYPE_PRACTICE:
                             $this->getBest($bests['practice'], $session, function($a) {
                                 return $a['result']->position;
+                            }, function($a) {
+                                return $a['session'];
                             });
                             break;
                         case AcSession::TYPE_QUALIFYING:
                             $this->getBest($bests['qualifying'], $session, function($a) {
                                 return $a['result']->position;
+                            }, function($a) {
+                                return $a['session'];
                             });
                             break;
                         case AcSession::TYPE_RACE:
                             $this->getBest($bests['race'], $session, function($a) {
                                 return $a['result']->position;
+                            }, function($a) {
+                                return $a['session'];
                             });
                             $this->getBest($bests['raceLap'], $session, function($a) {
                                 return $a['fastestLap']['position'];
+                            }, function($a) {
+                                return $a['session'];
                             });
                             break;
 
@@ -321,18 +338,22 @@ class Results implements ResultsInterface
                 }
                 $this->getBest($bests['event'], $event, function($a) {
                     return $a['position'];
+                }, function($a) {
+                    return $a['event'];
                 });
             }
 
             $this->getBest($bests['championship'], $championship, function($a) {
                 return $a['position'];
+            }, function($a) {
+                return $a['championship'];
             });
         }
 
         return $bests;
     }
 
-    protected function getBest(&$current, $new, $getPosition)
+    protected function getBest(&$current, $new, $getPosition, $filter)
     {
         $newPosition = $getPosition($new);
 
@@ -342,9 +363,9 @@ class Results implements ResultsInterface
 
         if (!isset($current['best']) || $current['best'] > $newPosition) {
             $current['best'] = $newPosition;
-            $current['things'] = collect([$new]);
+            $current['things'] = collect([$filter($new)]);
         } elseif ($current['best'] == $newPosition) {
-            $current['things']->push($new);
+            $current['things']->push($filter($new));
         }
     }
 
