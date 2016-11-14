@@ -28,23 +28,23 @@ class AppServiceProvider extends ServiceProvider
          * We can't check if the cache is taggable when register() is processed,
          * so we must defer till later and check when the interface is requested.
          */
-        $this->app->bind(\App\Interfaces\AssettoCorsa\ChampionshipInterface::class, function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Championships::Class, \App\Services\AssettoCorsa\Championships::class);
+        $this->app->bind(\App\Interfaces\Races\ChampionshipInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\Championships::Class, \App\Services\Races\Championships::class);
         });
-        $this->app->bind(\App\Interfaces\AssettoCorsa\ConstructorStandingsInterface::class, function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\ConstructorStandings::class, \App\Services\AssettoCorsa\ConstructorStandings::class);
+        $this->app->bind(\App\Interfaces\Races\ConstructorStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\ConstructorStandings::class, \App\Services\Races\ConstructorStandings::class);
         });
-        $this->app->bind(\App\Interfaces\AssettoCorsa\DriverStandingsInterface::class, function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\DriverStandings::class, \App\Services\AssettoCorsa\DriverStandings::class);
+        $this->app->bind(\App\Interfaces\Races\DriverStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\DriverStandings::class, \App\Services\Races\DriverStandings::class);
         });
-        $this->app->bind(\App\Interfaces\AssettoCorsa\EventInterface::class, function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Event::class, \App\Services\AssettoCorsa\Event::class);
+        $this->app->bind(\App\Interfaces\Races\EventInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\Event::class, \App\Services\Races\Event::class);
         });
-        $this->app->bind(\App\Interfaces\AssettoCorsa\ResultsInterface::class,  function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\Results::class, \App\Services\AssettoCorsa\Results::class);
+        $this->app->bind(\App\Interfaces\Races\ResultsInterface::class,  function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\Results::class, \App\Services\Races\Results::class);
         });
-        $this->app->bind(\App\Interfaces\AssettoCorsa\TeamStandingsInterface::class, function() {
-            return $this->checkCacheTaggable(\App\Services\Cached\AssettoCorsa\TeamStandings::class, \App\Services\AssettoCorsa\TeamStandings::class);
+        $this->app->bind(\App\Interfaces\Races\TeamStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(\App\Services\Cached\Races\TeamStandings::class, \App\Services\Races\TeamStandings::class);
         });
 
         $this->app->bind(\App\Interfaces\DirtRally\ResultsInterface::class, function() {

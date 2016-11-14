@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li role="presentation">
-                <a href="#assetto-corsa" aria-controls="profile" role="tab" data-toggle="tab">
+                <a href="#races" aria-controls="profile" role="tab" data-toggle="tab">
                     Assetto Corsa
                 </a>
             </li>
@@ -27,8 +27,8 @@
             <div role="tabpanel" class="tab-pane active" id="dirt-rally">
                 @include('dirt-rally.driver.show')
             </div>
-            <div role="tabpanel" class="tab-pane" id="assetto-corsa">
-                @include('assetto-corsa.driver.show')
+            <div role="tabpanel" class="tab-pane" id="races">
+                @include('races.driver.show')
             </div>
         </div>
 

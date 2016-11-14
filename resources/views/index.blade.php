@@ -15,7 +15,7 @@
 @section('content')
 
     @if(count($signups))
-        @include('assetto-corsa.signup')
+        @include('races.signup')
     @endif
 
     <div class="row">

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\AssettoCorsa\Signups;
+use App\Services\Races\Signups;
 use App\Services\News;
 
 class ConelandersController extends Controller

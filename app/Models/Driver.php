@@ -23,7 +23,7 @@ class Driver extends \Eloquent
 
     public function acEntries()
     {
-        return $this->hasMany(AssettoCorsa\AcChampionshipEntrant::class);
+        return $this->hasMany(Races\RacesChampionshipEntrant::class);
     }
     
     public function user()
