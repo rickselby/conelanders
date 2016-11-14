@@ -1,8 +1,8 @@
 <?php
 
 Breadcrumbs::register('races.category.index', function($breadcrumbs) {
-    $breadcrumbs->parent('races.index');
-    $breadcrumbs->push('Categories', route('races.category.index'));
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Race Categories', route('races.category.index'));
 });
 
 Breadcrumbs::register('races.category.create', function($breadcrumbs) {

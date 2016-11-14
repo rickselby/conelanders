@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-xs-4">
                     <a class="event-results"
-                       href="{{ route('races.results.event', [$championship['championship'], $event['event']]) }}">
+                       href="{{ route('races.results.event', [$championship['championship']->category, $championship['championship'], $event['event']]) }}">
                         View event results
                     </a>
                </div>

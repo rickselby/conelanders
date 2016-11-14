@@ -17,9 +17,13 @@
                 <li>
                     <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
-                <li>
-                    <a href="{{ route('races.index') }}">Assetto Corsa</a>
-                </li>
+                @foreach(\App\Models\Races\RacesCategory::all() AS $navCat)
+                    <li>
+                        <a href="{{ route('races.index', $navCat) }}">
+                            {{ $navCat->name }}
+                        </a>
+                    </li>
+                @endforeach
             @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

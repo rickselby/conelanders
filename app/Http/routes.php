@@ -26,9 +26,7 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/dirt-rally.php');
     });
 
-    Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
-        include('Routes/races.php');
-    });
+    include('Routes/races.php');
 
     Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
         Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {

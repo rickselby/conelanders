@@ -4,14 +4,14 @@
 
 <div class="btn-group" role="group">
     <a class="btn btn-primary" role="button"
-       href="{{ route('races.standings.drivers', $championship) }}">Driver Standings</a>
+       href="{{ route('races.standings.drivers', [$category, $championship]) }}">Driver Standings</a>
     @if(\RacesChampionships::multipleCars($championship))
         <a class="btn btn-info" role="button"
-           href="{{ route('races.standings.constructors', $championship) }}">Constructors Standings</a>
+           href="{{ route('races.standings.constructors', [$category, $championship]) }}">Constructors Standings</a>
     @endif
     @if(count($championship->teams))
         <a class="btn btn-info" role="button"
-           href="{{ route('races.standings.teams', $championship) }}">Teams Standings</a>
+           href="{{ route('races.standings.teams', [$category, $championship]) }}">Teams Standings</a>
     @endif
 </div>
 
@@ -20,7 +20,7 @@
     <li class="list-group-item {{ $event->countReleasedSessions() > 0 ? 'list-group-item-info' : '' }}">
         <div class="row">
             <div class="col-xs-4 col-sm-3 col-md-2">
-                <a href="{{ route('races.results.event', [$championship, $event]) }}">
+                <a href="{{ route('races.results.event', [$category, $championship, $event]) }}">
                     {{ $event->name }}
                 </a>
             </div>

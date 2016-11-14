@@ -2,7 +2,7 @@
 
 @section('header')
     <div class="page-header">
-        <h1>Assetto Corsa</h1>
+        <h1>{{ $category->name }}</h1>
     </div>
 @endsection
 
@@ -10,7 +10,7 @@
     @foreach($championships AS $championship)
 
         <h2>
-            <a href="{{ route('races.results.championship', $championship) }}">
+            <a href="{{ route('races.results.championship', [$category, $championship]) }}">
                 {{ $championship->name }}
             </a>
         </h2>

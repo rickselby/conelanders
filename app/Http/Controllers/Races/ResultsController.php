@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Races;
 
 use App\Http\Controllers\Controller;
+use App\Models\Races\RacesCategory;
 use App\Models\Races\RacesChampionship;
 
 class ResultsController extends Controller
@@ -13,7 +14,17 @@ class ResultsController extends Controller
         $this->middleware('races.validateSession')->only(['lapChart']);
     }
 
-    public function championship(RacesChampionship $championship)
+    public function index(RacesCategory $category)
+    {
+        return view('races.index')
+            ->with('category', $category)
+            ->with('championships', $category->championships()->with(
+                'events.sessions.entrants.championshipEntrant.driver.nation',
+                'events.sessions.playlist',
+                'events.sessions.event')->get()->sortByDesc('ends'));
+    }
+
+    public function championship(RacesCategory $category, RacesChampionship $championship)
     {
         $championship->load([
             'events.sessions.entrants.championshipEntrant.driver.nation',
@@ -25,6 +36,7 @@ class ResultsController extends Controller
         ]);
 
         return view('races.results.championship')
+            ->with('category', $category)
             ->with('championship', $championship);
     }
 

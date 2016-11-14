@@ -84,6 +84,6 @@
 
 <h3>Lap Chart</h3>
 
-<img src="{{ route('races.results.event.session.lapchart', [$session->event->championship, $session->event, $session]) }}"
+<img src="{{ route('races.results.event.session.lapchart', [$session->event->championship->category, $session->event->championship, $session->event, $session]) }}"
      style="width: 100%"
 />
