@@ -61,26 +61,17 @@
                         </li>
                         @endcan
 
-                        @if (Gate::check('ac-server-admin') || Gate::check('races-admin'))
+                        @if (Gate::check('races-admin'))
 
                             @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin'))
-                            <li role="separator" class="divider"></li>
+                                <li role="separator" class="divider"></li>
                             @endif
-                            <li class="dropdown-header">Assetto Corsa</li>
-                            @can('races-admin')
+                            <li class="dropdown-header">Race Results</li>
                             <li>
-                                <a href="{{ route('races.championship.index') }}">Championship/Race Management</a>
+                                <a href="{{ route('races.category.index') }}">Category Management</a>
                             </li>
-                            <li>
-                                <a href="{{ route('races.car.index') }}">Cars</a>
-                            </li>
-                            @endcan
-                            @can('ac-server-admin')
-                                <li>
-                                    <a href="{{ route('races.server.index') }}">Server Management</a>
-                                </li>
-                            @endcan
                         @endif
+
                     </ul>
                 </li>
             @endif

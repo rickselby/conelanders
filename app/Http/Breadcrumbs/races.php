@@ -5,6 +5,7 @@ Breadcrumbs::register('races.index', function($breadcrumbs) {
     $breadcrumbs->push('Races', route('races.index'));
 });
 
+include('Races/category.php');
 include('Races/championship.php');
 include('Races/championship-entrants.php');
 include('Races/championship-event.php');

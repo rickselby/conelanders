@@ -5,7 +5,7 @@ Breadcrumbs::register('races.championship.event.show',
         if (!$event) {
             $event = \Request::get('event');
         }
-        $breadcrumbs->parent('races.championship.show', $event->championship);
+        $breadcrumbs->parent('races.category.championship.show', $event->championship->category, $event->championship);
         $breadcrumbs->push($event->name, route('races.championship.event.show', [$event->championship, $event]));
     }
 );

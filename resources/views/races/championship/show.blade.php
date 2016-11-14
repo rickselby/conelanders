@@ -2,9 +2,9 @@
 
 @section('content')
 
-    {!! Form::open(['route' => ['races.championship.destroy', $championship], 'method' => 'delete', 'class' => 'form-inline']) !!}
+    {!! Form::open(['route' => ['races.category.championship.destroy', $championship->category, $championship], 'method' => 'delete', 'class' => 'form-inline']) !!}
         <a class="btn btn-small btn-warning"
-           href="{{ route('races.championship.edit', $championship) }}">Edit championship</a>
+           href="{{ route('races.category.championship.edit', [$championship->category, $championship]) }}">Edit championship</a>
         {!! Form::submit('Delete championship', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
 

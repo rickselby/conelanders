@@ -6,7 +6,9 @@ Route::get('/', 'AssettoCorsaController@index')->name('races.index');
 
 Route::resource('car', 'CarController', ['except' => 'show']);
 
-Route::resource('championship', 'ChampionshipController');
+Route::resource('category', 'CategoryController');
+
+Route::resource('category.championship', 'ChampionshipController');
 
 Route::get('championship/{championship}/entrant/css', 'ChampionshipEntrantController@css')->name('races.championship.entrant.css');
 Route::resource('championship.entrant', 'ChampionshipEntrantController');
@@ -46,7 +48,6 @@ Route::post('championship/{championship}/event/{event}/session/{session}/entrant
     'ChampionshipEventSessionEntrantController@setStartedFromSession')->name('races.championship.event.session.entrants.started-session');
 Route::get('championship/{championship}/event/{event}/session/{session}/entrants/{entrant}/delete',
     'ChampionshipEventSessionEntrantController@destroy')->name('races.championship.event.session.entrants.destroy');
-
 
 Route::get('server', 'ServerController@index')->name('races.server.index');
 Route::get('server/status', 'ServerController@status')->name('races.server.status');

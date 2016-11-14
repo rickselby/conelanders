@@ -1,7 +1,7 @@
 <?php
 
 Breadcrumbs::register('races.championship.entrant.index', function($breadcrumbs, \App\Models\Races\RacesChampionship $championship) {
-    $breadcrumbs->parent('races.championship.show', $championship);
+    $breadcrumbs->parent('races.category.championship.show', $championship->category, $championship);
     $breadcrumbs->push('Entrants', route('races.championship.entrant.index', $championship));
 });
 

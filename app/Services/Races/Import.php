@@ -131,14 +131,14 @@ class Import
     public function getDriver($name, $guid)
     {
         // Try by guid
-        $driver = Driver::where('ac_guid', $guid)->first();
+        $driver = Driver::where('steam_id', $guid)->first();
         if (!$driver || !$driver->exists) {
             // Try by name?
             $driver = Driver::where('name', $name)->first();
             if (!$driver || !$driver->exists) {
-                $driver = Driver::create(['name' => $name, 'ac_guid' => $guid]);
+                $driver = Driver::create(['name' => $name, 'steam_id' => $guid]);
             } else {
-                $driver->ac_guid = $guid;
+                $driver->steam_id = $guid;
                 $driver->save();
             }
         }
@@ -174,7 +174,7 @@ class Import
     {
         $entrants = [];
         foreach($session->entrants AS $entrant) {
-            $entrants[$entrant->championshipEntrant->driver->ac_guid] = $entrant;
+            $entrants[$entrant->championshipEntrant->driver->steam_id] = $entrant;
         }
         return $entrants;
     }

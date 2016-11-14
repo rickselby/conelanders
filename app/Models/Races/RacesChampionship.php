@@ -17,6 +17,11 @@ class RacesChampionship extends \Eloquent
         'teams_count',
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(RacesCategory::class, 'races_category_id');
+    }
+
     public function events()
     {
         return $this->hasMany(RacesEvent::class)->orderBy('time');

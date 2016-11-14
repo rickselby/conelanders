@@ -78,7 +78,7 @@ class Signups
         $client = new Client();
         $client->request('GET', 'http://holymooses.com/gt3/uploadDriver.php',
             ['query' => [
-                'f' => $signup->entrant->driver->ac_guid,
+                'f' => $signup->entrant->driver->steam_id,
                 'att' => $signup->status ? 'y' : 'n',
             ]]
         );
@@ -95,7 +95,7 @@ class Signups
             // Get a list of guids for the championship
             $guids = [];
             foreach ($event->championship->entrants AS $entrant) {
-                $guids[$entrant->driver->ac_guid] = $entrant->driver->ac_guid;
+                $guids[$entrant->driver->steam_id] = $entrant->driver->steam_id;
             }
 
             $status = [
@@ -105,7 +105,7 @@ class Signups
             ];
 
             foreach ($event->signups AS $signup) {
-                $guid = $signup->entrant->driver->ac_guid;
+                $guid = $signup->entrant->driver->steam_id;
                 switch ($signup->status) {
                     case 1:
                         $status['yes'][] = $guid;

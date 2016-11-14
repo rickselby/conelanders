@@ -9,7 +9,7 @@ class Driver extends \Eloquent
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'nation_id', 'dirt_racenet_driver_id', 'ac_guid', 'locked'];
+    protected $fillable = ['name', 'nation_id', 'dirt_racenet_driver_id', 'steam_id', 'locked'];
 
     public function nation()
     {

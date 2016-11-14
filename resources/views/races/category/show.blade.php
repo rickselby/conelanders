@@ -2,6 +2,12 @@
 
 @section('content')
 
+    {!! Form::open(['route' => ['races.category.destroy', $category], 'method' => 'delete', 'class' => 'form-inline']) !!}
+    <a class="btn btn-small btn-warning"
+       href="{{ route('races.category.edit', $category) }}">Edit category</a>
+    {!! Form::submit('Delete category', array('class' => 'btn btn-danger')) !!}
+    {!! Form::close() !!}
+
     <h2>Championships</h2>
 
     <p>

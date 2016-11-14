@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Races;
 use App\Events\Races\ChampionshipUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Races\ChampionshipRequest;
+use App\Models\Races\RacesCategory;
 use App\Models\Races\RacesChampionship;
 
 class ChampionshipController extends Controller
@@ -15,24 +16,14 @@ class ChampionshipController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('races.championship.index')
-            ->with('championships', RacesChampionship::with('events')->get()->sortBy('ends'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(RacesCategory $category)
     {
-        return view('races.championship.create');
+        return view('races.championship.create')
+            ->with('category', $category);
     }
 
     /**
@@ -41,12 +32,12 @@ class ChampionshipController extends Controller
      * @param ChampionshipRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ChampionshipRequest $request)
+    public function store(ChampionshipRequest $request, RacesCategory $category)
     {
         /** @var RacesChampionship $championship */
-        $championship = RacesChampionship::create($request->all());
+        $championship = $category->championships()->create($request->all());
         \Notification::add('success', 'Championship "'.$championship->name.'" created');
-        return \Redirect::route('races.championship.show', $championship);
+        return \Redirect::route('races.category.championship.show', [$category, $championship]);
     }
 
     /**
@@ -55,7 +46,7 @@ class ChampionshipController extends Controller
      * @param  RacesChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function show(RacesChampionship $championship)
+    public function show(RacesCategory $category, RacesChampionship $championship)
     {
         return view('races.championship.show')
             ->with('championship', $championship);
@@ -67,7 +58,7 @@ class ChampionshipController extends Controller
      * @param  RacesChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function edit(RacesChampionship $championship)
+    public function edit(RacesCategory $category, RacesChampionship $championship)
     {
         return view('races.championship.edit')
             ->with('championship', $championship);         
@@ -80,13 +71,13 @@ class ChampionshipController extends Controller
      * @param  RacesChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function update(ChampionshipRequest $request, RacesChampionship $championship)
+    public function update(ChampionshipRequest $request, RacesCategory $category, RacesChampionship $championship)
     {
         $championship->fill($request->all());
         $championship->save();
         \Event::fire(new ChampionshipUpdated($championship));
         \Notification::add('success', 'Championship "'.$championship->name.'" updated');
-        return \Redirect::route('races.championship.show', $championship);
+        return \Redirect::route('races.category.championship.show', [$category, $championship]);
     }
 
     /**
@@ -95,16 +86,16 @@ class ChampionshipController extends Controller
      * @param  RacesChampionship $championship
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RacesChampionship $championship)
+    public function destroy(RacesCategory $category, RacesChampionship $championship)
     {
         if ($championship->events->count()) {
             \Notification::add('error', 'Championship "'.$championship->name.'" cannot be deleted - there are races assigned to it');
-            return \Redirect::route('races.championship.show', $championship);
+            return \Redirect::route('races.category.championship.show', [$category, $championship]);
         } else {
             $championship->delete();
             \Event::fire(new ChampionshipUpdated($championship));
             \Notification::add('success', 'Championship "'.$championship->name.'" deleted');
-            return \Redirect::route('races.championship.index');
+            return \Redirect::route('races.category.show', $category);
         }
     }
 }
