@@ -76,6 +76,18 @@
                             </li>
                         @endif
 
+                        @can('rallycross-admin')
+                            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('ac-server-admin') || Gate::check('assetto-corsa-admin'))
+                                <li role="separator" class="divider"></li>
+                            @endif
+                            <li class="dropdown-header">Rallycross</li>
+                            <li>
+                                <a href="{{ route('rallycross.car.index') }}">Cars</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('rallycross.championship.index') }}">Championship Management</a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
             @endif

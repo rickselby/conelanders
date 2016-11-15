@@ -26,6 +26,10 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/dirt-rally.php');
     });
 
+    Route::group(['prefix' => 'rallycross', 'namespace' => 'RallyCross'], function() {
+        include('Routes/rallycross.php');
+    });
+
     Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
         Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
             include('Routes/API/races.php');

@@ -8,6 +8,6 @@ class RxCar extends \Eloquent
 
     public function entrants()
     {
-        return $this->hasMany(RxSessionEntrant::class);
+        return $this->hasMany(RxEventEntrant::class);
     }
 }

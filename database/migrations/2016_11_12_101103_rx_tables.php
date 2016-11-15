@@ -53,13 +53,27 @@ class RxTables extends Migration
                 ->onDelete('CASCADE');
         });
 
+        Schema::create('rx_event_entrants', function(Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('rx_event_id')->index();
+            $table->unsignedInteger('driver_id')->index();
+            $table->unsignedInteger('rx_car_id')->index();
+            $table->timestamps();
+
+            $table->foreign('rx_event_id')->references('id')->on('rx_events')
+                ->onDelete('CASCADE');
+            $table->foreign('driver_id')->references('id')->on('drivers')
+                ->onDelete('RESTRICT');
+            $table->foreign('rx_car_id')->references('id')->on('rx_cars')
+                ->onDelete('RESTRICT');
+        });
+
         Schema::create('rx_sessions', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('rx_event_id')->index();
             $table->unsignedTinyInteger('order');
             $table->string('name');
             $table->string('slug')->nullable();
-            $table->unsignedInteger('position');
             $table->boolean('heat');
             $table->boolean('show');
             $table->timestamps();
@@ -71,11 +85,12 @@ class RxTables extends Migration
         Schema::create('rx_session_entrants', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('rx_session_id')->index();
-            $table->unsignedInteger('driver_id')->index();
-            $table->unsignedInteger('rx_car_id')->index();
-            $table->string('race');
-            $table->string('slug')->nullable();
+            $table->unsignedInteger('rx_event_entrant_id')->index();
+            $table->string('race')->nullable();
             $table->integer('time');
+            $table->integer('lap');
+            $table->boolean('dsq');
+            $table->boolean('dnf');
             $table->integer('penalty');
             $table->integer('points');
             $table->integer('position');
@@ -83,23 +98,21 @@ class RxTables extends Migration
 
             $table->foreign('rx_session_id')->references('id')->on('rx_sessions')
                 ->onDelete('CASCADE');
-            $table->foreign('driver_id')->references('id')->on('drivers')
-                ->onDelete('RESTRICT');
-            $table->foreign('rx_car_id')->references('id')->on('rx_cars')
+            $table->foreign('rx_event_entrant_id')->references('id')->on('rx_event_entrants')
                 ->onDelete('RESTRICT');
         });
 
         Schema::create('rx_heat_results', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('rx_event_id')->index();
-            $table->unsignedInteger('driver_id')->index();
-            $table->unsignedInteger('position');
+            $table->unsignedInteger('rx_event_entrant_id')->index();
+            $table->integer('position');
             $table->integer('points');
             $table->timestamps();
 
             $table->foreign('rx_event_id')->references('id')->on('rx_events')
                 ->onDelete('CASCADE');
-            $table->foreign('driver_id')->references('id')->on('drivers')
+            $table->foreign('rx_event_entrant_id')->references('id')->on('rx_event_entrants')
                 ->onDelete('RESTRICT');
         });
 
@@ -115,7 +128,9 @@ class RxTables extends Migration
         Schema::drop('rx_heat_results');
         Schema::drop('rx_session_entrants');
         Schema::drop('rx_sessions');
+        Schema::drop('rx_event_entrants');
         Schema::drop('rx_events');
+        Schema::drop('rx_championship_admins');
         Schema::drop('rx_championships');
         Schema::drop('rx_cars');
     }

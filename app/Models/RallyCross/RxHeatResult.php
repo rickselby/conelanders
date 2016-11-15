@@ -6,7 +6,7 @@ use App\Models\Driver;
 
 class RxHeatResult extends \Eloquent
 {
-    protected $fillable = ['position', 'points'];
+    protected $fillable = ['rx_event_entrant_id', 'position', 'points'];
 
     protected $casts = [
         'position' => 'integer',
@@ -18,8 +18,8 @@ class RxHeatResult extends \Eloquent
         return $this->belongsTo(RxEvent::class, 'rx_event_id');
     }
 
-    public function driver()
+    public function entrant()
     {
-        return $this->belongsTo(Driver::class);
+        return $this->belongsTo(RxEventEntrant::class, 'rx_event_entrant_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models\RallyCross;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
@@ -19,6 +20,11 @@ class RxChampionship extends \Eloquent
     public function events()
     {
         return $this->hasMany(RxEvent::class)->orderBy('time');
+    }
+
+    public function admins()
+    {
+        return $this->belongsToMany(User::class, 'rx_championship_admins');
     }
 
     public function getShortNameAttribute()
@@ -81,6 +87,17 @@ class RxChampionship extends \Eloquent
             }
         }
         return false;        
+    }
+
+    /**
+     * Check if the given user is an admin of this championship
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function isAdmin(User $user)
+    {
+        return $this->admins->contains($user);
     }
 
     /**

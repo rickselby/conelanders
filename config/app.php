@@ -249,6 +249,12 @@ return [
         'DirtRallyResults' => App\Facades\DirtRally\ResultsFacade::class,
         'DirtRallyPositions' => App\Facades\DirtRally\PositionsFacade::class,
         'DirtRallyTimes' => App\Facades\DirtRally\TimesFacade::class,
+
+        'RXConstructorStandings' => \App\Facades\RallyCross\ConstructorStandingsFacade::class,
+        'RXDriverStandings' => \App\Facades\RallyCross\DriverStandingsFacade::class,
+        'RXEntrants' => \App\Facades\RallyCross\EntrantsFacade::class,
+        'RXSession' => \App\Facades\RallyCross\SessionFacade::class,
+        'RXEvent' => \App\Facades\RallyCross\EventFacade::class,
     ],
 
 ];

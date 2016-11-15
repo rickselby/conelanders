@@ -6,7 +6,7 @@ use App\Models\Driver;
 
 class RxSessionEntrant extends \Eloquent
 {
-    protected $fillable = ['race', 'time', 'position', 'penalty', 'points'];
+    protected $fillable = ['race', 'time', 'penalty', 'dnf', 'dsq'];
 
     protected $casts = [
         'time' => 'integer',
@@ -20,13 +20,13 @@ class RxSessionEntrant extends \Eloquent
         return $this->belongsTo(RxSession::class, 'rx_session_id');
     }
 
-    public function driver()
+    public function eventEntrant()
     {
-        return $this->belongsTo(Driver::class);
+        return $this->belongsTo(RxEventEntrant::class, 'rx_event_entrant_id');
     }
 
-    public function car()
+    public function getTotalTimeAttribute()
     {
-        return $this->belongsTo(RxCar::class, 'rx_car_id');
+        return $this->time + $this->penalty;
     }
 }

@@ -26,12 +26,7 @@ class RxSession extends \Eloquent
 
     public function entrants()
     {
-        return $this->hasMany(RxSessionEntrant::class);
-    }
-
-    public function playlist()
-    {
-        return $this->morphOne(Playlist::class, 'playlistable');
+        return $this->hasMany(RxSessionEntrant::class)->orderBy('position');
     }
 
     public function getFullNameAttribute()
