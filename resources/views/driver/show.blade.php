@@ -15,11 +15,13 @@
                     Dirt Rally
                 </a>
             </li>
-            <li role="presentation">
-                <a href="#assetto-corsa" aria-controls="profile" role="tab" data-toggle="tab">
-                    Assetto Corsa
-                </a>
-            </li>
+            @foreach(\RacesCategories::getList() AS $navCat)
+                <li role="presentation">
+                    <a href="#races-{{ $navCat->id }}" aria-controls="profile" role="tab" data-toggle="tab">
+                        {{ $navCat->name }}
+                    </a>
+                </li>
+            @endforeach
         </ul>
 
         <!-- Tab panes -->
@@ -27,9 +29,12 @@
             <div role="tabpanel" class="tab-pane active" id="dirt-rally">
                 @include('dirt-rally.driver.show')
             </div>
-            <div role="tabpanel" class="tab-pane" id="assetto-corsa">
-                @include('assetto-corsa.driver.show')
-            </div>
+
+            @foreach(\RacesCategories::getList() AS $navCat)
+                <div role="tabpanel" class="tab-pane" id="races-{{ $navCat->id }}">
+                    @include('races.driver.show', ['category' => $navCat])
+                </div>
+            @endforeach
         </div>
 
     </div>

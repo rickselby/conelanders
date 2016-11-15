@@ -32,9 +32,9 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('ac_guid', 'Steam ID', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('steam_id', 'Steam ID', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-            {!! Form::number('ac_guid', null, ['class' => 'form-control']) !!}
+            {!! Form::number('steam_id', null, ['class' => 'form-control']) !!}
         </div>
     </div>
 

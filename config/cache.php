@@ -76,6 +76,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', 'conelanders-'),
+    'prefix' => env('CACHE_PREFIX', 'conelanders-dev-'),
 
 ];

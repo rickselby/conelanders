@@ -29,7 +29,7 @@ class PermissionsCommand extends Command {
         'nation-admin',
         'points-admin',
         'dirt-rally-admin',
-        'assetto-corsa-admin',
+        'races-admin',
         'driver-admin',
         'user-admin',
         'playlist-admin',

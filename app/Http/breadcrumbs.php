@@ -4,7 +4,7 @@ Breadcrumbs::register('home', function($breadcrumbs) {
     $breadcrumbs->push('Home', route('home'));
 });
 
-include('Breadcrumbs/assetto-corsa.php');
+include('Breadcrumbs/races.php');
 include('Breadcrumbs/dirt-rally.php');
 include('Breadcrumbs/drivers.php');
 include('Breadcrumbs/nations.php');

@@ -17,10 +17,14 @@
                 <li>
                     <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
-                <li>
-                    <a href="{{ route('assetto-corsa.index') }}">Assetto Corsa</a>
-                </li>
-            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('assetto-corsa-admin') || Gate::check('ac-server-admin') )
+                @foreach(\RacesCategories::getList() AS $navCat)
+                    <li>
+                        <a href="{{ route('races.index', $navCat) }}">
+                            {{ $navCat->name }}
+                        </a>
+                    </li>
+                @endforeach
+            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
@@ -61,26 +65,17 @@
                         </li>
                         @endcan
 
-                        @if (Gate::check('ac-server-admin') || Gate::check('assetto-corsa-admin'))
+                        @if (Gate::check('races-admin'))
 
                             @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin'))
-                            <li role="separator" class="divider"></li>
+                                <li role="separator" class="divider"></li>
                             @endif
-                            <li class="dropdown-header">Assetto Corsa</li>
-                            @can('assetto-corsa-admin')
+                            <li class="dropdown-header">Race Results</li>
                             <li>
-                                <a href="{{ route('assetto-corsa.championship.index') }}">Championship/Race Management</a>
+                                <a href="{{ route('races.category.index') }}">Category Management</a>
                             </li>
-                            <li>
-                                <a href="{{ route('assetto-corsa.car.index') }}">Cars</a>
-                            </li>
-                            @endcan
-                            @can('ac-server-admin')
-                                <li>
-                                    <a href="{{ route('assetto-corsa.server.index') }}">Server Management</a>
-                                </li>
-                            @endcan
                         @endif
+
                     </ul>
                 </li>
             @endif

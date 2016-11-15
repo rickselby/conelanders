@@ -9,7 +9,7 @@ class Driver extends \Eloquent
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'nation_id', 'dirt_racenet_driver_id', 'ac_guid', 'locked'];
+    protected $fillable = ['name', 'nation_id', 'dirt_racenet_driver_id', 'steam_id', 'locked'];
 
     public function nation()
     {
@@ -21,9 +21,9 @@ class Driver extends \Eloquent
         return $this->hasMany(DirtRally\DirtResult::class);
     }
 
-    public function acEntries()
+    public function raceEntries()
     {
-        return $this->hasMany(AssettoCorsa\AcChampionshipEntrant::class);
+        return $this->hasMany(Races\RacesChampionshipEntrant::class);
     }
     
     public function user()
