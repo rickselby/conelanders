@@ -54,25 +54,36 @@ class Event implements EventInterface
     public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
+        $categories = [];
+
         foreach(RacesEvent::with('sessions.playlist', 'championship')->get() AS $event) {
             foreach($event->sessions AS $session) {
                 if ($session->release && $session->release->between($start, $end)) {
-                    if (!isset($news[$session->release->timestamp])) {
-                        $news[$session->release->timestamp] = [];
+                    if (!isset($news[$event->championship->category->id])) {
+                        $news[$event->championship->category->id] = [];
+                        $categories[$event->championship->category->id] = $event->championship->category;
                     }
-                    if (!isset($news[$session->release->timestamp][$event->id])) {
-                        $news[$session->release->timestamp][$event->id] = [
+                    if (!isset($news[$event->championship->category->id][$session->release->timestamp])) {
+                        $news[$event->championship->category->id][$session->release->timestamp] = [];
+                    }
+                    if (!isset($news[$event->championship->category->id][$session->release->timestamp][$event->id])) {
+                        $news[$event->championship->category->id][$session->release->timestamp][$event->id] = [
                             'event' => $event,
                             'sessions' => [],
                         ];
                     }
-                    $news[$session->release->timestamp][$event->id]['sessions'][] = $session;
+                    $news[$event->championship->category->id][$session->release->timestamp][$event->id]['sessions'][] = $session;
                 }
             }
         }
         $views = [];
-        foreach($news AS $date => $events) {
-            $views[$date] = \View::make('races.event.news.results.past', ['events' => $events])->render();
+        foreach($news AS $categoryID => $list) {
+            foreach($list AS $date => $events) {
+                $views[$date] = [
+                    'view' => \View::make('races.event.news.results.past', ['events' => $events])->render(),
+                    'category' => $categories[$categoryID],
+                ];
+            }
         }
         return $views;
     }
@@ -80,25 +91,37 @@ class Event implements EventInterface
     public function getUpcomingNews(Carbon $start, Carbon $end)
     {
         $news = [];
+        $categories = [];
+
         foreach(RacesEvent::with('sessions', 'championship')->get() AS $event) {
             foreach($event->sessions AS $session) {
                 if ($session->release && $session->release->between($start, $end)) {
+                    if (!isset($news[$event->championship->category->id])) {
+                        $news[$event->championship->category->id] = [];
+                        $categories[$event->championship->category->id] = $event->championship->category;
+                    }
+
                     if (!isset($news[$session->release->timestamp])) {
-                        $news[$session->release->timestamp] = [];
+                        $news[$event->championship->category->id][$session->release->timestamp] = [];
                     }
                     if (!isset($news[$session->release->timestamp][$event->id])) {
-                        $news[$session->release->timestamp][$event->id] = [
+                        $news[$event->championship->category->id][$session->release->timestamp][$event->id] = [
                             'event' => $event,
                             'sessions' => [],
                         ];
                     }
-                    $news[$session->release->timestamp][$event->id]['sessions'][] = $session;
+                    $news[$event->championship->category->id][$session->release->timestamp][$event->id]['sessions'][] = $session;
                 }
             }            
         }
         $views = [];
-        foreach($news AS $date => $events) {
-            $views[$date] = \View::make('races.event.news.results.upcoming', ['events' => $events])->render();
+        foreach($news AS $categoryID => $list) {
+            foreach($list AS $date => $events) {
+                $views[$date] = [
+                    'view' => \View::make('races.event.news.results.upcoming', ['events' => $events])->render(),
+                    'category' => $categories[$categoryID],
+                ];
+            }
         }
         return $views;
     }
@@ -113,21 +136,32 @@ class Event implements EventInterface
     public function getUpcomingEvents(Carbon $start, Carbon $end)
     {
         $news = [];
+        $categories = [];
+
         if (\Auth::check() && \Auth::user()->driver) {
-            foreach(\Auth::user()->driver->acEntries AS $entry) {
+            foreach(\Auth::user()->driver->raceEntries AS $entry) {
                 foreach($entry->championship->events AS $event) {
                     if ($event->time && $event->time->between($start, $end)) {
-                        if (!isset($news[$event->time->timestamp])) {
-                            $news[$event->time->timestamp] = [];
+                        if (!isset($news[$event->championship->category->id])) {
+                            $news[$event->championship->category->id] = [];
+                            $categories[$event->championship->category->id] = $event->championship->category;
                         }
-                        $news[$event->time->timestamp][$event->id] = $event;
+                        if (!isset($news[$event->championship->category->id][$event->time->timestamp])) {
+                            $news[$event->championship->category->id][$event->time->timestamp] = [];
+                        }
+                        $news[$event->championship->category->id][$event->time->timestamp][$event->id] = $event;
                     }
                 }
             }
         }
         $views = [];
-        foreach($news AS $date => $events) {
-            $views[$date] = \View::make('races.event.news.dates', ['events' => $events])->render();
+        foreach($news AS $categoryID => $list) {
+            foreach($list AS $date => $events) {
+                $views[$date] = [
+                    'view' => \View::make('races.event.news.dates', ['events' => $events])->render(),
+                    'category' => $categories[$categoryID],
+                ];
+            }
         }
         return $views;
     }

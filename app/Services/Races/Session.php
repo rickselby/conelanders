@@ -28,7 +28,7 @@ class Session
      */
     public function getResultsFileDirectory()
     {
-        return storage_path('uploads/ac-results/');
+        return storage_path('uploads/race-results/');
     }
 
     /**

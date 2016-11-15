@@ -3,7 +3,7 @@
         <div class="panel-heading" role="tab">
             <h4 class="panel-title">
                 @if ($session['session']->type == \App\Models\Races\RacesSession::TYPE_RACE)
-                    <a role="button" data-toggle="collapse" href="#ac-session-{{ $session['session']->id }}">
+                    <a role="button" data-toggle="collapse" href="#races-session-{{ $session['session']->id }}">
                         {{ $session['session']->name }}
                     </a> <span class="caret"></span>
                 @else
@@ -26,7 +26,7 @@
             </h4>
         </div>
         @if ($session['session']->type == \App\Models\Races\RacesSession::TYPE_RACE)
-            <div id="ac-session-{{ $session['session']->id }}" class="panel-collapse collapse" role="tabpanel">
+            <div id="races-session-{{ $session['session']->id }}" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
 
                     <div class="panel panel-default">

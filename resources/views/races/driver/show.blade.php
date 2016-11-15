@@ -1,4 +1,4 @@
-@if (count($acResults['all']))
+@if (count($racesResults[$category->id]['all']))
     <h2>Best Results</h2>
 
     <div class="panel panel-default">

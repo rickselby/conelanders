@@ -55,17 +55,17 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results when a driver is updated
+     * Clear results when a driver is updated
      * @param DriverUpdated $event
      */
     public function clearDrivers(DriverUpdated $event)
     {
-        $event->driver->load('acEntries.entries.session');
+        $event->driver->load('raceEntries.entries.session');
         $this->clearDriverSessions($event->driver);
     }
 
     /**
-     * Clear AC results for a session
+     * Clear results for a session
      * @param SessionUpdated $event
      */
     public function clearSessionCache(SessionUpdated $event)
@@ -74,7 +74,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results for an event
+     * Clear results for an event
      * @param EventUpdated $event
      */
     public function clearEventCache(EventUpdated $event)
@@ -83,7 +83,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear all AC results for a championship (down to each session)
+     * Clear all results for a championship (down to each session)
      * @param ChampionshipEntrantsUpdated $event
      */
     public function clearChampionshipSessionsCache(Event $event)
@@ -96,12 +96,12 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear all AC results that contain a given nation
+     * Clear all results that contain a given nation
      * @param NationUpdated $event
      */
     public function clearNationSessions(NationUpdated $event)
     {
-        $event->nation->load('drivers.acEntries.entries.session');
+        $event->nation->load('drivers.raceEntries.entries.session');
         foreach($event->nation->drivers AS $driver) {
             $this->clearDriverSessions($driver);
         }
@@ -113,7 +113,7 @@ class Results implements ShouldQueue
      */
     private function clearDriverSessions(Driver $driver)
     {
-        foreach($driver->acEntries AS $champEntry) {
+        foreach($driver->raceEntries AS $champEntry) {
             foreach($champEntry->entries AS $sessionEntry) {
                 \RacesCacheHandler::clearSessionCache($sessionEntry->session);
             }
@@ -121,7 +121,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear all AC results that have a certain car
+     * Clear all results that have a certain car
      * @param CarUpdated $event
      */
     public function clearCarEntrants(CarUpdated $event)

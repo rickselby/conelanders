@@ -63,6 +63,18 @@ class RacesChampionshipEntrant extends \Eloquent
             ->select($this->getTable().'.*');
     }
 
+    public function scopeForCategory($query, RacesCategory $category)
+    {
+        $relation = $this->championship();
+        $related = $relation->getRelated();
+        $table = $related->getTable();
+        $foreignKey = $relation->getForeignKey();
+
+        $query->join($table, $related->getQualifiedKeyName(), '=', $foreignKey)
+            ->where($table.'.races_category_id', '=', $category->id)
+            ->select($this->getTable().'.*');
+    }
+
     public function scopeNoTeam($query)
     {
         $query->whereNull('races_team_id');

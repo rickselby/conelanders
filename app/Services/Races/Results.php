@@ -2,6 +2,7 @@
 
 namespace App\Services\Races;
 
+use App\Models\Races\RacesCategory;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesEvent;
 use App\Models\Races\RacesSession;
@@ -186,8 +187,10 @@ class Results implements ResultsInterface
      */
     public function forDriver(Driver $driver)
     {
-        $results['all'] = $this->getAllForDriver($driver);
-        $results['best'] = $this->getBestForDriver($results['all']);
+        foreach(RacesCategory::all() AS $category) {
+            $results[$category->id]['all'] = $this->getAllForDriver($category, $driver);
+            $results[$category->id]['best'] = $this->getBestFromAll($results[$category->id]['all']);
+        }
 
         return $results;
     }
@@ -196,13 +199,13 @@ class Results implements ResultsInterface
      * @param Driver $driver
      * @return array
      */
-    protected function getAllForDriver(Driver $driver)
+    protected function getAllForDriver(RacesCategory $category, Driver $driver)
     {
-        $driver->load('acEntries.entries.session.event.championship');
+        $driver->load('raceEntries.entries.session.event.championship');
 
         $championships = [];
 
-        foreach($driver->acEntries AS $entry) {
+        foreach($driver->raceEntries()->forCategory($category)->get() AS $entry) {
             foreach($entry->entries->sortBy(function($entry) {
                 return $entry->session->event->time.'-'.$entry->session->order;
             }) AS $result) {
@@ -292,7 +295,7 @@ class Results implements ResultsInterface
         return $championships;
     }
 
-    protected function getBestForDriver($results)
+    protected function getBestFromAll($results)
     {
         $bests = [
             'championship' => [],

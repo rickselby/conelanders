@@ -30,17 +30,28 @@ class Championships implements ChampionshipInterface
     public function getPastNews(Carbon $start, Carbon $end)
     {
         $news = [];
+        $categories = [];
+
         foreach(RacesChampionship::with('events.sessions.playlist')->get() AS $championship) {
             if ($championship->completeAt && $championship->completeAt->between($start, $end)) {
-                if (!isset($news[$championship->completeAt->timestamp])) {
-                    $news[$championship->completeAt->timestamp] = [];
+                if (!isset($news[$championship->category->id])) {
+                    $news[$championship->category->id] = [];
+                    $categories[$championship->category->id] = $championship->category;
                 }
-                $news[$championship->completeAt->timestamp][] = $championship;
+                if (!isset($news[$championship->category->id][$championship->completeAt->timestamp])) {
+                    $news[$championship->category->id][$championship->completeAt->timestamp] = [];
+                }
+                $news[$championship->category->id][$championship->completeAt->timestamp][] = $championship;
             }
         }
         $views = [];
-        foreach($news AS $date => $championships) {
-            $views[$date] = \View::make('races.championship.news', ['championships' => $championships])->render();
+        foreach($news AS $categoryID => $list) {
+            foreach($list AS $date => $championships) {
+                $views[$date] = [
+                    'view' => \View::make('races.championship.news', ['championships' => $championships])->render(),
+                    'category' => $categories[$categoryID],
+                ];
+            }
         }
         return $views;
     }

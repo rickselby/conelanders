@@ -44,12 +44,13 @@ class News
         foreach($news AS $source) {
             foreach($source AS $time => $item) {
                 if (!isset($newsList[$time])) {
+
                     $newsList[$time] = [
-                        'type' => 'Races',
+                        'type' => $item['category']->name,
                         'content' => [],
                     ];
                 }
-                $newsList[$time]['content'][] = $item;
+                $newsList[$time]['content'][] = $item['view'];
             }
         }
         return $newsList;

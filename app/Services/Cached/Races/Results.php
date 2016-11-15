@@ -24,7 +24,7 @@ class Results implements ResultsInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'ac.results.';
+    protected $cacheKey = 'races.results.';
 
     public function __construct(Repository $cache, \App\Services\Races\Results $resultsService)
     {
@@ -51,7 +51,7 @@ class Results implements ResultsInterface
     {
         // Find out the next time one of the drivers' championships will be updated
         $nextUpdate = false;
-        foreach($driver->acEntries AS $entry) {
+        foreach($driver->raceEntries AS $entry) {
             $champUpdate = $entry->championship->getNextUpdate();
             if ($champUpdate) {
                 if ($nextUpdate) {

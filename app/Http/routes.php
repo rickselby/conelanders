@@ -26,8 +26,6 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/dirt-rally.php');
     });
 
-    include('Routes/races.php');
-
     Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
         Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
             include('Routes/API/races.php');
@@ -45,4 +43,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('user/assign/{user}', 'UserController@assign')->name('user.assign');
 
     Route::get('playlists', 'PlaylistController@index')->name('playlists.index');
+
+    # This needs to be last, there's the catchall for {category}
+    include('Routes/races.php');
+
 });

@@ -43,17 +43,17 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results when a driver is updated
+     * Clear results when a driver is updated
      * @param DriverUpdated $event
      */
     public function clearDrivers(DriverUpdated $event)
     {
-        $event->driver->load('acEntries.entries.session');
+        $event->driver->load('raceEntries.entries.session');
         $this->clearDriverStages($event->driver);
     }
 
     /**
-     * Clear AC results for a session
+     * Clear results for a session
      * @param StageUpdated $event
      */
     public function clearStageCache(StageUpdated $event)
@@ -62,7 +62,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results for an event
+     * Clear results for an event
      * @param EventUpdated $event
      */
     public function clearEventCache(EventUpdated $event)
@@ -71,7 +71,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results for a season
+     * Clear results for a season
      * @param SeasonUpdated $event
      */
     public function clearSeasonCache(SeasonUpdated $event)
@@ -80,7 +80,7 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear AC results for a championship
+     * Clear results for a championship
      * @param ChampionshipUpdated $event
      */
     public function clearChampionshipCache(ChampionshipUpdated $event)
@@ -89,12 +89,12 @@ class Results implements ShouldQueue
     }
 
     /**
-     * Clear all AC results that contain a given nation
+     * Clear all results that contain a given nation
      * @param NationUpdated $event
      */
     public function clearNationStages(NationUpdated $event)
     {
-        $event->nation->load('drivers.acEntries.entries.session');
+        $event->nation->load('drivers.raceEntries.entries.session');
         foreach($event->nation->drivers AS $driver) {
             $this->clearDriverStages($driver);
         }

@@ -21,7 +21,7 @@ class Driver extends \Eloquent
         return $this->hasMany(DirtRally\DirtResult::class);
     }
 
-    public function acEntries()
+    public function raceEntries()
     {
         return $this->hasMany(Races\RacesChampionshipEntrant::class);
     }

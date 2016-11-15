@@ -22,7 +22,7 @@ class DriverStandings implements StandingsInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'ac.driver-standings.';
+    protected $cacheKey = 'races.driver-standings.';
 
     public function __construct(Repository $cache, \App\Services\Races\DriverStandings $driverStandingsService)
     {

@@ -53,7 +53,12 @@ class RacesChampionship extends \Eloquent
                 $dates[] = $event->completeAt;
             }
         }
-        return max($dates);
+
+        if (count($dates)) {
+            return max($dates);
+        } else {
+            return null;
+        }
     }
 
     public function getEndsAttribute()

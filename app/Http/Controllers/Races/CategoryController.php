@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Races;
 
+use App\Events\Races\CategoriesUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Races\CategoryRequest;
 use App\Models\Races\RacesCategory;
-use App\Models\Races\RacesChampionship;
 
 class CategoryController extends Controller
 {
@@ -44,6 +44,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $category = RacesCategory::create($request->only('name'));
+        \Event::fire(new CategoriesUpdated());
         \Notification::add('success', 'Category "'.$category->name.'" created');
         return \Redirect::route('races.category.show', $category);
     }
@@ -84,7 +85,7 @@ class CategoryController extends Controller
     {
         $category->fill($request->only('name'));
         $category->save();
-#        \Event::fire(new CategoryUpdated($category));
+        \Event::fire(new CategoriesUpdated());
         \Notification::add('success', 'Category "'.$category->name.'" updated');
         return \Redirect::route('races.category.show', $category);
     }
@@ -102,7 +103,7 @@ class CategoryController extends Controller
             return \Redirect::route('races.category.show', $category);
         } else {
             $category->delete();
-#            \Event::fire(new ChampionshipUpdated($championship));
+            \Event::fire(new CategoriesUpdated());
             \Notification::add('success', 'Category "'.$category->name.'" deleted');
             return \Redirect::route('races.category.index');
         }

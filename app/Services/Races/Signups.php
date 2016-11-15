@@ -14,7 +14,7 @@ class Signups
     {
         $events = [];
         if (\Auth::check() && \Auth::user()->driver) {
-            foreach(\Auth::user()->driver->acEntries AS $entry) {
+            foreach(\Auth::user()->driver->raceEntries AS $entry) {
                 foreach($entry->championship->events()->signupOpen()->get() AS $event) {
                     $event->status = $this->getStatus($event);
                     $event->selected = ($event->status !== null);

@@ -19,7 +19,7 @@
             <th>Driver</th>
             @foreach($events AS $event)
                 <th>
-                    <a href="{{ route('races.results.event', [$championship, $event]) }}" class="tablesorter-noSort">
+                    <a href="{{ route('races.results.event', [$championship->category, $championship, $event]) }}" class="tablesorter-noSort">
                         {{ $event->shortName }}
                     </a>
                 </th>

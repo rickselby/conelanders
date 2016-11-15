@@ -22,7 +22,7 @@ class ConstructorStandings implements StandingsInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'ac.constructor-standings.';
+    protected $cacheKey = 'races.constructor-standings.';
 
     public function __construct(Repository $cache, \App\Services\Races\ConstructorStandings $constructorStandingsService)
     {

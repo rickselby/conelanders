@@ -6,6 +6,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class LocalEnvironmentServiceProvider extends ServiceProvider
@@ -34,19 +35,12 @@ class LocalEnvironmentServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
         /** @noinspection PhpUndefinedMethodInspection */
         if ($this->app->isLocal()) {
             $this->registerServiceProviders();
             $this->registerFacadeAliases();
-
-            \Route::group(['middleware' => ['web']], function () {
-                \Route::get('/login/dev', function () {
-                    \Auth::loginUsingID(1);
-                    return \Redirect::to('/');
-                });
-            });
         }
     }
 

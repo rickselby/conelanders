@@ -16,7 +16,7 @@ class Handler
      */
     protected $cache;
 
-    protected $cacheKey = 'ac.tag.';
+    protected $cacheKey = 'races.tag.';
 
     public function __construct(Repository $cache)
     {

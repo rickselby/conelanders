@@ -5,7 +5,7 @@
                 <div class="col-xs-4">
                     @if ($event['event']->canBeReleased())
                         <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" href="#ac-event-{{ $event['event']->id }}">
+                            <a role="button" data-toggle="collapse" href="#races-event-{{ $event['event']->id }}">
                                 {{ $event['event']->name }}
                             </a> <span class="caret"></span>
                         </h4>
@@ -25,7 +25,7 @@
             </div>
         </div>
         @if ($event['event']->canBeReleased())
-            <div id="ac-event-{{ $event['event']->id }}" class="panel-collapse collapse" role="tabpanel">
+            <div id="races-event-{{ $event['event']->id }}" class="panel-collapse collapse" role="tabpanel">
                 <div class="panel-body">
 
                     @include('races.driver.all-results.sessions')

@@ -17,7 +17,7 @@
                 <li>
                     <a href="{{ route('dirt-rally.index') }}">Dirt Rally</a>
                 </li>
-                @foreach(\App\Models\Races\RacesCategory::all() AS $navCat)
+                @foreach(\RacesCategories::getList() AS $navCat)
                     <li>
                         <a href="{{ route('races.index', $navCat) }}">
                             {{ $navCat->name }}

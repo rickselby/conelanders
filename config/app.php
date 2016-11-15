@@ -229,6 +229,7 @@ return [
         'Positions' => App\Facades\PositionsFacade::class,
 
         'RacesCacheHandler' => App\Facades\Cached\Races\HandlerFacade::class,
+        'RacesCategories' => App\Facades\Races\CategoriesFacade::class,
         'RacesChampionships' => App\Facades\Races\ChampionshipsFacade::class,
         'RacesConstructorStandings' => \App\Facades\Races\ConstructorStandingsFacade::class,
         'RacesDriverStandings' => \App\Facades\Races\DriverStandingsFacade::class,

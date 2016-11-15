@@ -28,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
          * We can't check if the cache is taggable when register() is processed,
          * so we must defer till later and check when the interface is requested.
          */
+        $this->app->bind(\App\Interfaces\Races\CategoriesInterface::class, function() {
+            # Hey, this one doesn't use tags!
+            return app(\App\Services\Cached\Races\Categories::Class);
+        });
         $this->app->bind(\App\Interfaces\Races\ChampionshipInterface::class, function() {
             return $this->checkCacheTaggable(\App\Services\Cached\Races\Championships::Class, \App\Services\Races\Championships::class);
         });
