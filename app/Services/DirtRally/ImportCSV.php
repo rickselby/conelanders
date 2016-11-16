@@ -45,7 +45,7 @@ class ImportCSV extends ImportAbstract
                 $this->clearStageResults($stage);
                 foreach ($times AS $driver => $time) {
                     if ($time == 'DNF') {
-                        $time = \Times::toString($stage->long ? self::LONG_DNF : self::SHORT_DNF);
+                        $time = \Times::toString($stage->stageInfo->dnf_time);
                     }
                     if ($time !== '') {
                         $this->saveResult($stage, $this->getDriver($driver),

@@ -22,9 +22,6 @@ use Carbon\Carbon;
 
 abstract class ImportAbstract
 {
-    const SHORT_DNF = 900000; # (15*60*1000)
-    const LONG_DNF = 1800000; # (30*60*1000)
-
     /** @var DirtStage[] Stages keyed by stage order */
     protected $stages;
 
@@ -135,7 +132,7 @@ abstract class ImportAbstract
         );
 
         // Check if it's a DNF
-        if (($stage->long && $timeInt == self::LONG_DNF) || (!$stage->long && $timeInt == self::SHORT_DNF)) {
+        if ($timeInt == $stage->stageInfo->dnf_time) {
             $this->results[$stage->id][$driver->id]->dnf = true;
             $this->results[$stage->id][$driver->id]->time = 0;
         } else {

@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\DirtRally\CSV::class,
         Commands\DirtRally\Import::class,
         Commands\DirtRally\StagePositions::class,
+        Commands\DirtRally\UpdateStages::class,
         Commands\PermissionsCommand::class,
     ];
 

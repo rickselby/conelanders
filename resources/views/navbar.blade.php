@@ -61,6 +61,9 @@
                         @endif
                         <li class="dropdown-header">Dirt Rally</li>
                         <li>
+                            <a href="{{ route('dirt-rally.stage-info.index') }}">Stage Management</a>
+                        </li>
+                        <li>
                             <a href="{{ route('dirt-rally.championship.index') }}">Championship Management</a>
                         </li>
                         @endcan

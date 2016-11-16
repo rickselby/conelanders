@@ -18,7 +18,7 @@
         <div id="best-championships" class="panel-collapse collapse" role="tabpanel">
             <ul class="list-group">
                 @foreach($dirtResults['best']['championship']['things'] AS $result)
-                    <li class="list-group-item">{{ $result->fullName }}</li>
+                    <li class="list-group-item">{{ $result->name }}</li>
                 @endforeach
             </ul>
         </div>

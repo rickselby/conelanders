@@ -16,6 +16,7 @@ namespace App\Services\DirtRally;
 use App\Jobs\DirtRally\ImportEventJob;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtStage;
+use App\Models\DirtRally\DirtStageInfo;
 use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -183,7 +184,18 @@ class ImportDirt extends ImportAbstract
      */
     protected function getShortEventPath(DirtEvent $event, $stage = 0)
     {
-        return 'https://www.dirtgame.com/uk/api/event?eventId='.$event->racenet_event_id.'&stageId='.$stage;
+        return $this->getShortEventPathFromID($event->racenet_event_id, $stage);
+    }
+
+    /**
+     * Get the URL for getting info about an event
+     * @param int $eventID
+     * @param int $stage
+     * @return string
+     */
+    protected function getShortEventPathFromID($eventID, $stage)
+    {
+        return 'https://www.dirtgame.com/uk/api/event?eventId='.$eventID.'&stageId='.$stage;
     }
 
     /**
@@ -220,6 +232,110 @@ class ImportDirt extends ImportAbstract
     protected function getRacenetID($url)
     {
         return basename($url);
+    }
+
+    /**
+     * Import stage names from events that use all the stages...
+     */
+    public function getStageNames()
+    {
+        /*
+         * These events have been set up to cover all current DiRT stages and tracks.
+         * If for some reason they don't work, set up some new ones and replace the
+         * IDs. There's no results; just a list of stages to be parsed and read.
+         */
+        $eventIDs = [
+            165504, # greece
+            165505, # germany
+            165506, # finland
+            165507, # monaco
+            165508, # wales
+            165509, # sweden
+
+            165513, # vvv rallycross vvv
+            165514,
+            165515,
+            165516,
+            165517,
+            165518,
+            165519,
+            165520, # ^^^ rallycross ^^^
+
+            165522, # Hillclimb (Pikes Peak)
+        ];
+
+        foreach($eventIDs AS $eventID) {
+            $page = $this->getPage($this->getShortEventPathFromID($eventID, 0));
+            $totalStages = $page->TotalStages;
+            for ($stageID = 1; $stageID <= $totalStages; $stageID++) {
+                $page = $this->getPage($this->getShortEventPathFromID($eventID, $stageID));
+
+                DirtStageInfo::create([
+                    'location_name' => $page->LocationName,
+                    'stage_name' => $page->StageName,
+
+                ]);
+            }
+        }
+    }
+
+    public function importEventDetails(DirtEvent $event)
+    {
+        if ($event->stages->count()) {
+            \Log::info('Not importing event details for '.$event->id.' : stages already exist');
+            return false;
+        }
+
+        $page = $this->getPage($this->getShortEventPath($event));
+        for ($stage = 1; $stage <= $page->TotalStages; $stage++) {
+            $this->importStageDetails($event, $stage);
+        }
+    }
+
+    protected function importStageDetails(DirtEvent $event, $stageNumber)
+    {
+        $page = $this->getPage($this->getShortEventPath($event, $stageNumber));
+
+        // match the stageInfo
+        $stageInfo = DirtStageInfo::where('location_name', $page->LocationName)
+            ->where('stage_name', $page->StageName)
+            ->first();
+
+        if ($stageInfo) {
+            $stage = new DirtStage([
+                'order' => $stageNumber,
+                'time_of_day' => $page->TimeOfDay,
+                'weather' => $page->WeatherText,
+            ]);
+
+            $stage->stageInfo()->associate($stageInfo);
+            $event->stages()->save($stage);
+        } else {
+            \Log::info('Not importing stage details for '.$event->id.':'.$stageNumber.' : could not match the stage information');
+        }
+    }
+
+    /**
+     * Check all stages through the Dirt Rally website and update them
+     */
+    public function updateAllStages()
+    {
+        foreach(DirtStage::all() AS $stage) {
+            $this->updateStageDetails($stage);
+        }
+    }
+
+    /**
+     * Update the given stage with details from the Dirt Rally website
+     * @param DirtStage $stage
+     */
+    protected function updateStageDetails(DirtStage $stage)
+    {
+        $page = $this->getPage($this->getShortEventPath($stage->event, $stage->order));
+        $stage->fill([
+            'time_of_day' => $page->TimeOfDay,
+            'weather' => $page->WeatherText,
+        ])->save();
     }
 
 }
