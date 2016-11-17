@@ -124,7 +124,14 @@ class ImportDirt extends ImportAbstract
     {
         \Log::info('Processing page', ['stage' => $stage->id, 'entries' => count($page->Entries)]);
         foreach($page->Entries as $entry) {
-            $this->processResult($stage, $entry->Name, $this->getRacenetID($entry->ProfileUrl), $entry->Time, $entry->NationalityImage);
+            $this->processResult(
+                $stage,
+                $entry->Name,
+                $this->getRacenetID($entry->ProfileUrl),
+                $entry->Time,
+                $entry->NationalityImage,
+                $entry->VehicleName
+            );
         }
     }
 
@@ -135,8 +142,9 @@ class ImportDirt extends ImportAbstract
      * @param string $racenetID
      * @param string $timeString
      * @param string $nationalityImage
+     * @param string $car
      */
-    protected function processResult(DirtStage $stage, $driverName, $racenetID, $timeString, $nationalityImage)
+    protected function processResult(DirtStage $stage, $driverName, $racenetID, $timeString, $nationalityImage, $car)
     {
         // Get the driver model
         $driver = $this->getDriverByRacenetID($racenetID, $driverName);
@@ -156,7 +164,7 @@ class ImportDirt extends ImportAbstract
             $timeInt -= $sub;
         }
 
-        $this->saveResult($stage, $driver, $timeInt);
+        $this->saveResult($stage, $driver, $timeInt, $car);
     }
 
     /**

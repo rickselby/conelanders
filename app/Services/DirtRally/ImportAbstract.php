@@ -13,6 +13,7 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services\DirtRally;
 
+use App\Models\DirtRally\DirtCar;
 use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtResult;
@@ -122,7 +123,7 @@ abstract class ImportAbstract
      * @param Driver $driver
      * @param integer $timeInt
      */
-    protected function saveResult(DirtStage $stage, Driver $driver, $timeInt)
+    protected function saveResult(DirtStage $stage, Driver $driver, $timeInt, $car = null)
     {
         // Update the flag to show the import has imported something
         $this->imported = true;
@@ -138,6 +139,12 @@ abstract class ImportAbstract
         } else {
             $this->results[$stage->id][$driver->id]->time = $timeInt;
             $this->results[$stage->id][$driver->id]->dnf = false;
+        }
+
+        // Do we have a car?
+        if ($car) {
+            $this->results[$stage->id][$driver->id]->car()
+                ->associate(DirtCar::firstOrCreate(['name' => $car]));
         }
         $this->results[$stage->id][$driver->id]->save();
     }
