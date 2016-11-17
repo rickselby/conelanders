@@ -12,6 +12,12 @@ abstract class Request extends FormRequest
     /** @var string[] List of request fields that should be set to null if they are empty */
     protected $emptyIsNullFields = [];
 
+    /** @var string Regex for matching times */
+    protected $timeRegex = '/\d?\d:\d\d.\d\d\d/';
+
+    /** @var string[] List of request fields that should be converted to time  */
+    protected $timeFields = [];
+
     // Authorisating is handled at controller level.
     public function authorize()
     {
@@ -27,6 +33,7 @@ abstract class Request extends FormRequest
         $this->setCheckboxes();
         $this->setEmptyIsNull();
         parent::validate();
+        $this->timeString();
     }
 
     /**
@@ -62,5 +69,15 @@ abstract class Request extends FormRequest
             $mergeArray[$field] = $callback($field);
         }
         Request::merge($mergeArray);
+    }
+
+    /**
+     * Run hoursToMinutes on the given input fields
+     */
+    protected function timeString()
+    {
+        $this->mergeRequest($this->timeFields, function($field) {
+            return \Times::fromString(Request::get($field));
+        });
     }
 }

@@ -34,11 +34,7 @@
             @foreach($results AS $result)
                 <tr>
                     <th>{{ $result['position'] }}</th>
-                    <th>
-                        <a href="{{ route('driver.show', $result['driver']) }}">
-                            {{ $result['driver']['name'] }}
-                        </a>
-                    </th>
+                    <th>{{ $result['driver']['name'] }}</th>
                     <td class="time">{{ $result['dnf'] ? 'DNF' : Times::toString($result['time']) }}</td>
                 </tr>
             @endforeach

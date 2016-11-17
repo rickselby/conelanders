@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\DirtRally\CSV::class,
         Commands\DirtRally\Import::class,
         Commands\DirtRally\StagePositions::class,
+        Commands\DirtRally\UpdateStages::class,
         Commands\PermissionsCommand::class,
     ];
 
@@ -29,7 +30,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Import results every 3 hours
-        $schedule->command('results:import')->cron('0 */3 * * *');
+        $schedule->command('dirt:results-import')->cron('0 */3 * * *');
         
         // Check for a last pull every minute (ouch)
         $schedule->call(function() {

@@ -13,6 +13,7 @@ foreach($eventIDs AS $eventID) {
 
 namespace App\Services\DirtRally;
 
+use App\Models\DirtRally\DirtCar;
 use App\Models\Driver;
 use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtResult;
@@ -22,9 +23,6 @@ use Carbon\Carbon;
 
 abstract class ImportAbstract
 {
-    const SHORT_DNF = 900000; # (15*60*1000)
-    const LONG_DNF = 1800000; # (30*60*1000)
-
     /** @var DirtStage[] Stages keyed by stage order */
     protected $stages;
 
@@ -125,7 +123,7 @@ abstract class ImportAbstract
      * @param Driver $driver
      * @param integer $timeInt
      */
-    protected function saveResult(DirtStage $stage, Driver $driver, $timeInt)
+    protected function saveResult(DirtStage $stage, Driver $driver, $timeInt, $car = null)
     {
         // Update the flag to show the import has imported something
         $this->imported = true;
@@ -135,12 +133,18 @@ abstract class ImportAbstract
         );
 
         // Check if it's a DNF
-        if (($stage->long && $timeInt == self::LONG_DNF) || (!$stage->long && $timeInt == self::SHORT_DNF)) {
+        if ($timeInt == $stage->stageInfo->dnf_time) {
             $this->results[$stage->id][$driver->id]->dnf = true;
             $this->results[$stage->id][$driver->id]->time = 0;
         } else {
             $this->results[$stage->id][$driver->id]->time = $timeInt;
             $this->results[$stage->id][$driver->id]->dnf = false;
+        }
+
+        // Do we have a car?
+        if ($car) {
+            $this->results[$stage->id][$driver->id]->car()
+                ->associate(DirtCar::firstOrCreate(['name' => $car]));
         }
         $this->results[$stage->id][$driver->id]->save();
     }

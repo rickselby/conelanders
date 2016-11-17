@@ -24,7 +24,6 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Long?</th>
             </tr>
             </thead>
             <tbody>
@@ -33,14 +32,13 @@
                     <td>{{ $stage->ss }}</td>
                     <td>
                         <a href="{{ route('dirt-rally.championship.season.event.stage.show', [$event->season->championship, $event->season, $event, $stage]) }}" class="tablesorter-noSort">
-                            {{ $stage->name }}
+                            {{ $stage->stageInfo->stage_name }}
                         </a>
                     </td>
-                    <td>{{ $event->long ? 'Yes' : 'No' }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">No events</td>
+                    <td colspan="2">No stages</td>
                 </tr>
             @endforelse
             </tbody>
@@ -71,11 +69,7 @@
             @foreach($results AS $result)
             <tr>
                 <th>{{ $result['position'] }}</th>
-                <th>
-                    <a href="{{ route('driver.show', $result['driver']) }}">
-                        {{ $result['driver']->name }}
-                    </a>
-                </th>
+                <th>{{ $result['driver']->name }}</th>
                 @foreach($event->stages AS $stage)
                 <td class="time  {{ \Positions::colour(isset($result['stagePositions'][$stage->id]) ? $result['stagePositions'][$stage->id] : null) }}">
                     {{ Times::toString($result['stage'][$stage->order]) }}

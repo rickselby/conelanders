@@ -10,11 +10,10 @@ class DirtStage extends \Eloquent
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'order', 'long'];
+    protected $fillable = ['order', 'time_of_day', 'weather'];
 
     protected $casts = [
         'order' => 'integer',
-        'long' => 'boolean',
     ];
 
     public function event()
@@ -27,9 +26,19 @@ class DirtStage extends \Eloquent
         return $this->hasMany(DirtResult::class)->orderBy('position');
     }
 
+    public function stageInfo()
+    {
+        return $this->belongsTo(DirtStageInfo::class, 'dirt_stage_info_id');
+    }
+
     public function getFullNameAttribute()
     {
         return $this->event->fullName.' - '.$this->name;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->ss.': '.$this->stageInfo->name;
     }
     
     public function getSSAttribute()
@@ -46,7 +55,7 @@ class DirtStage extends \Eloquent
     {
         return [
             'slug' => [
-                'source' => 'name',
+                'source' => 'ss',
             ]
         ];
     }

@@ -28,4 +28,9 @@ class DirtResult extends \Eloquent
     {
         return $this->belongsTo(Driver::class);
     }
+
+    public function car()
+    {
+        return $this->belongsTo(DirtCar::class, 'dirt_car_id');
+    }
 }

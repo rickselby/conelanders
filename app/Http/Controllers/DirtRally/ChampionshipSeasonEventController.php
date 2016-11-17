@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DirtRally;
 
+use App\Events\DirtRally\EventImport;
 use App\Events\DirtRally\EventUpdated;
 use App\Events\DirtRally\SeasonUpdated;
 use App\Http\Controllers\Controller;
@@ -47,6 +48,10 @@ class ChampionshipSeasonEventController extends Controller
         }
         \Event::fire(new SeasonUpdated($season));
         \Notification::add('success', 'Event "'.$event->name.'" added to "'.$season->name.'"');
+        if ($request->get('racenet_event_id')) {
+            \Event::fire(new EventImport($event));
+            \Notification::add('success', 'Stage import queued - pulling stage information from the dirt website in the background. Refresh the page to see if it\'s done yet...');
+        }
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }
 
@@ -106,6 +111,12 @@ class ChampionshipSeasonEventController extends Controller
         }
         $event->save();
         \Event::fire(new EventUpdated($event));
+        # Has the event ID changed? Try to import if it has
+        if ($request->get('racenet_event_id') != $event->getOriginal('racenet_event_id')) {
+            \Event::fire(new EventImport($event));
+        }
+
+
         \Notification::add('success', $event->name . ' updated');
         return \Redirect::route('dirt-rally.championship.season.event.show', [$championship, $season, $event]);
     }

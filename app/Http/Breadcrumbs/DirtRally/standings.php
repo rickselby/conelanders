@@ -40,6 +40,6 @@ Breadcrumbs::register('dirt-rally.standings.stage',
             $stage = \Request::get('stage');
         }
         $breadcrumbs->parent('dirt-rally.standings.event', '', '', '', $stage->event);
-        $breadcrumbs->push($stage->ss.': '.$stage->name, route('dirt-rally.standings.stage', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]));
+        $breadcrumbs->push($stage->name, route('dirt-rally.standings.stage', [$stage->event->season->championship, $stage->event->season, $stage->event, $stage]));
     }
 );

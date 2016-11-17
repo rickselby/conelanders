@@ -21,5 +21,6 @@ include('DirtRally/championship-season.php');
 include('DirtRally/championship-season-event.php');
 include('DirtRally/championship-season-event-stage.php');
 include('DirtRally/nationstandings.php');
+include('DirtRally/stage-info.php');
 include('DirtRally/standings.php');
 include('DirtRally/times.php');
