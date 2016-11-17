@@ -169,6 +169,7 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Camroncade\Timezone\TimezoneServiceProvider::class,
+        Tightenco\Quicksand\QuicksandServiceProvider::class,
     ],
 
     /*

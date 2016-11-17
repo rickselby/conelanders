@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "685a49b79b1778dd6e8406c8e3b5ea6d",
-    "content-hash": "e37e73c98fd7354e9a644f0e1a473355",
+    "hash": "f8bf202e8c436c3c477db3420a6b3bac",
+    "content-hash": "2c30951fc0e28c5dc7996f4a64078b4e",
     "packages": [
         {
             "name": "adamwathan/eloquent-oauth",
@@ -2845,6 +2845,55 @@
             "time": "2016-07-26 08:03:56"
         },
         {
+            "name": "tightenco/quicksand",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tightenco/quicksand.git",
+                "reference": "756d8785df788467163718d5fec11b9757b6a275"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tightenco/quicksand/zipball/756d8785df788467163718d5fec11b9757b6a275",
+                "reference": "756d8785df788467163718d5fec11b9757b6a275",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.0.*|5.1.*|5.2.*|5.3.*"
+            },
+            "require-dev": {
+                "illuminate/database": "5.*",
+                "mockery/mockery": "^0.9.5",
+                "nesbot/carbon": "^1.21",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tightenco\\Quicksand\\": "src"
+                },
+                "classmap": [
+                    "tests"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benson Lee",
+                    "email": "benson@tighten.co"
+                },
+                {
+                    "name": "Matt Stauffer",
+                    "email": "matt@tighten.co"
+                }
+            ],
+            "description": "Easily schedule regular cleanup of old soft-deleted Eloquent data.",
+            "time": "2016-08-24 19:46:18"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.4.0",
             "source": {
@@ -2960,7 +3009,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/22612733a2c3beddce6f801587926bfceb4440d8",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/105f14a50d0959a0e80004a15b3350fdf78f9623",
                 "reference": "22612733a2c3beddce6f801587926bfceb4440d8",
                 "shasum": ""
             },
