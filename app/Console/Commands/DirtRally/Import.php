@@ -11,7 +11,7 @@ class Import extends Command
      *
      * @var string
      */
-    protected $signature = 'results:import';
+    protected $signature = 'dirt:results-import';
 
     /**
      * The console command description.

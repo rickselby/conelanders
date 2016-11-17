@@ -11,7 +11,7 @@ class CSV extends Command
      *
      * @var string
      */
-    protected $signature = 'results:csv {event_id} {file}';
+    protected $signature = 'dirt:results-csv {event_id} {file}';
 
     /**
      * The console command description.

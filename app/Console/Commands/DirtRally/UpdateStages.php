@@ -13,7 +13,7 @@ class UpdateStages extends Command
      *
      * @var string
      */
-    protected $signature = 'stages:update';
+    protected $signature = 'dirt:stages';
 
     /**
      * The console command description.

@@ -13,7 +13,7 @@ class StagePositions extends Command
      *
      * @var string
      */
-    protected $signature = 'positions:stages';
+    protected $signature = 'dirt:positions';
 
     /**
      * The console command description.
