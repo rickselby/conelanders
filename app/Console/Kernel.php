@@ -36,5 +36,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function() {
             \DirtRallyImportDirt::queueImports();
         });
+
+        // Clear out the soft deleted records
+        $schedule->command('quicksand:run')->daily();
     }
 }
