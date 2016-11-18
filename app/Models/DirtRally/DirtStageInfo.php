@@ -30,6 +30,11 @@ class DirtStageInfo extends \Eloquent
         return $this->stageNameShort;
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->location_name.' - '.$this->stageNameShort;
+    }
+
     /**
      * Sluggable configuration
      *
