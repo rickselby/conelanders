@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('dirt-rally.event.summary')
+
     @if ($event->importing)
         @include('dirt-rally.import-in-progress')
     @elseif(!$event->isComplete())
@@ -21,9 +23,7 @@
                 <th>Driver</th>
                 @foreach($event->stages AS $stage)
                     <th colspan="2">
-                        <a href="{{ route('dirt-rally.standings.stage', [$event->season->championship, $event->season, $event, $stage]) }}" class="tablesorter-noSort">
-                            {{ $stage->ss }}
-                        </a>
+                        {{ $stage->ss }}
                     </th>
                 @endforeach
                 <th colspan="2">Overall</th>
