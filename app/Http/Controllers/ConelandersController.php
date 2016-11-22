@@ -15,4 +15,9 @@ class ConelandersController extends Controller
             ->with('currentNews', $news->getCurrent())
             ->with('signups', $signups->getOpen());
     }
+
+    public function calendar()
+    {
+        return view('calendar');
+    }
 }
