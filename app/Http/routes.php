@@ -3,6 +3,7 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', 'ConelandersController@index')->name('home');
+    Route::get('/calendar/', 'ConelandersController@calendar')->name('calendar');
 
     Route::get('/login', 'Auth\AuthController@index')->name('login.index');
     Route::get('/login/google', 'Auth\AuthController@loginGoogle')->name('login.google');
