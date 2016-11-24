@@ -2,32 +2,74 @@
 
 namespace App\Services\RallyCross;
 
-use App\Interfaces\AssettoCorsa\DriverStandingsInterface;
-use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcChampionshipEntrant;
-use App\Models\AssettoCorsa\AcEvent;
-use App\Models\AssettoCorsa\AcSession;
+use App\Interfaces\RallyCross\DriverStandingsInterface;
+use App\Models\Driver;
+use App\Models\RallyCross\RxChampionship;
+use App\Models\RallyCross\RxChampionshipEntrant;
+use App\Models\RallyCross\RxEvent;
+use App\Models\RallyCross\RxEventEntrant;
 
-class DriverStandings extends Standings
+class DriverStandings extends Standings implements DriverStandingsInterface
 {
-    /**
-     * {@inheritdoc}
-     *
-    public function eventSummary(AcEvent $event)
+    public function heatsSummary(RxEvent $event)
     {
         $results = [];
 
-        foreach($event->sessions AS $session) {
-            if (\ACSession::hasPoints($session)) {
+        foreach($event->heats AS $session) {
+            if ($session->show && \RXSession::hasPoints($session, true)) {
                 foreach ($session->entrants AS $entrant) {
-                    $entrantID = $entrant->championshipEntrant->id;
+                    $entrantID = $entrant->eventEntrant->id;
 
                     if (!isset($results[$entrantID])) {
-                        $results[$entrantID] = $this->initEntrant($entrant->championshipEntrant);
+                        $results[$entrantID] = $this->initEntrant($entrant->eventEntrant);
                     }
 
-                    if (\ACSession::canBeShown($session)) {
-                        $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
+                    if (\RXSession::canBeShown($session)) {
+                        $results[$entrantID]['points'][$session->id] = $entrant->points;
+                        $results[$entrantID]['positions'][$session->id] = $entrant->position;
+                    }
+                }
+            }
+        }
+
+        foreach($event->heatResult AS $heatResult) {
+            $results[$heatResult->entrant->id]['champPoints'] = $heatResult->points;
+        }
+
+        return $this->sortAndAddPositions($this->sumPoints($results), $event);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eventSummary(RxEvent $event)
+    {
+        $results = [];
+
+        foreach(\RXDriverStandings::heatsSummary($event) AS $heatSummary) {
+            $entrantID = $heatSummary['entrant']->id;
+
+            if (!isset($results[$entrantID])) {
+                $results[$entrantID] = $this->initEntrant($heatSummary['entrant']);
+            }
+
+            if (\RXEvent::areHeatsComplete($event) && \RXEvent::canBeShown($event)) {
+                $results[$entrantID]['points']['heats'] = $heatSummary['champPoints'];
+                $results[$entrantID]['positions']['heats'] = $heatSummary['position'];
+            }
+        }
+
+        foreach($event->notHeats AS $session) {
+            if ($session->show && \RXSession::hasPoints($session)) {
+                foreach ($session->entrants AS $entrant) {
+                    $entrantID = $entrant->eventEntrant->id;
+
+                    if (!isset($results[$entrantID])) {
+                        $results[$entrantID] = $this->initEntrant($entrant->eventEntrant);
+                    }
+
+                    if (\RXEvent::canBeShown($event)) {
+                        $results[$entrantID]['points'][$session->id] = $entrant->points;
                         $results[$entrantID]['positions'][$session->id] = $entrant->position;
                     }
                 }
@@ -39,34 +81,49 @@ class DriverStandings extends Standings
 
     /**
      * Initialise a results entry for the championship entrant
-     * @param AcChampionshipEntrant $entrant
+     * @param RxEventEntrant $entrant
      * @return array
-     *
-    protected function initEntrant(AcChampionshipEntrant $entrant)
+     */
+    protected function initEntrant(RxEventEntrant $entrant)
     {
         return [
             'entrant' => $entrant,
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
+            'champPoints' => '',
         ];
     }
 
     /**
      * {@inheritdoc}
-     *
-    public function event(AcEvent $event)
+     */
+    public function event(RxEvent $event)
     {
         $results = [];
 
-        if (\ACEvent::canBeShown($event)) {
-            foreach($event->sessions AS $session) {
-                if (\ACSession::hasPoints($session)) {
+        if (\RXEvent::canBeShown($event)) {
+
+            foreach(\RXDriverStandings::heatsSummary($event) AS $heatSummary) {
+                $entrantID = $heatSummary['entrant']->id;
+
+                if (!isset($results[$entrantID])) {
+                    $results[$entrantID] = $this->initEntrant($heatSummary['entrant']);
+                }
+
+                if (\RXEvent::areHeatsComplete($event)) {
+                    $results[$entrantID]['points']['heats'] = $heatSummary['champPoints'];
+                    $results[$entrantID]['positions']['heats'] = $heatSummary['position'];
+                }
+            }
+
+            foreach($event->notHeats AS $session) {
+                if (\RXSession::hasPoints($session)) {
                     foreach ($session->entrants AS $entrant) {
-                        $entrantID = $entrant->championshipEntrant->id;
+                        $entrantID = $entrant->eventEntrant->id;
 
                         if (!isset($results[$entrantID])) {
-                            $results[$entrantID] = $this->initEntrant($entrant->championshipEntrant);
+                            $results[$entrantID] = $this->initEntrant($entrant->eventEntrant);
                         }
 
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
@@ -81,29 +138,31 @@ class DriverStandings extends Standings
 
     /**
      * {@inheritdoc}
-     *
-    public function championship(AcChampionship $championship)
+     */
+    public function championship(RxChampionship $championship)
     {
         $results = [];
 
-        foreach($championship->entrants AS $entrant) {
-            $results[$entrant->id] = [
-                'entrant' => $entrant,
-                'points' => [],
-                'positions' => [],
-                'positionsWithEquals' => [],
-                'dropped' => [],
-                'totalPoints' => 0,
-            ];
+        foreach($championship->events AS $event) {
+            foreach($event->entrants AS $entrant) {
+                $results[$entrant->driver->id] = [
+                    'entrant' => $entrant->driver,
+                    'points' => [],
+                    'positions' => [],
+                    'positionsWithEquals' => [],
+                    'dropped' => [],
+                    'totalPoints' => 0,
+                ];
+            }
         }
 
         foreach($championship->events AS $event) {
-            $eventResults = \ACDriverStandings::event($event);
+            $eventResults = \RXDriverStandings::event($event);
             $eventResultsWithEquals = \Positions::addEquals($eventResults);
             foreach ($eventResults AS $key => $result) {
-                $results[$result['entrant']->id]['points'][$event->id] = $result['totalPoints'];
-                $results[$result['entrant']->id]['positions'][$event->id] = $result['position'];
-                $results[$result['entrant']->id]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                $results[$result['entrant']->driver->id]['points'][$event->id] = $result['totalPoints'];
+                $results[$result['entrant']->driver->id]['positions'][$event->id] = $result['position'];
+                $results[$result['entrant']->driver->id]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
             }
         }
 
@@ -126,17 +185,15 @@ class DriverStandings extends Standings
      * @param mixed $a
      * @param mixed $b
      * @return int
-     *
+     */
     public function pointsSort($a, $b)
     {
         $val = parent::pointsSort($a, $b);
         if ($val == 0)
         {
-            return $a['entrant']->number - $b['entrant']->number;
+            return strcasecmp($a['entrant']->name, $b['entrant']->name);
         } else {
             return $val;
         }
     }
-     */
-
 }

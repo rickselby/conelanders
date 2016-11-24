@@ -63,6 +63,37 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\DirtRally\TimesInterface::class, function() {
             return $this->checkCacheTaggable(\App\Services\Cached\DirtRally\Times::class, \App\Services\DirtRally\Times::class);
         });
+
+        $this->app->bind(\App\Interfaces\RallyCross\ChampionshipInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\RallyCross\Championships::class,
+                \App\Services\RallyCross\Championships::class
+            );
+        });
+        $this->app->bind(\App\Interfaces\RallyCross\ConstructorStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\RallyCross\ConstructorStandings::class,
+                \App\Services\RallyCross\ConstructorStandings::class
+            );
+        });
+        $this->app->bind(\App\Interfaces\RallyCross\DriverStandingsInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\RallyCross\DriverStandings::class,
+                \App\Services\RallyCross\DriverStandings::class
+            );
+        });
+        $this->app->bind(\App\Interfaces\RallyCross\EventInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\RallyCross\Event::class,
+                \App\Services\RallyCross\Event::class
+            );
+        });
+        $this->app->bind(\App\Interfaces\RallyCross\ResultsInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\RallyCross\Results::class,
+                \App\Services\RallyCross\Results::class
+            );
+        });
     }
 
     /**

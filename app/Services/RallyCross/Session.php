@@ -11,6 +11,19 @@ use App\Models\RallyCross\RxSessionEntrant;
 class Session
 {
     /**
+     * Can we show the given session's results to the user?
+     *
+     * @param RxSession $session
+     *
+     * @return bool
+     */
+    public function canBeShown(RxSession $session)
+    {
+        return $session->canBeReleased()
+        || \RXEvent::currentUserInEvent($session->event);
+    }
+
+    /**
      * Check if the entrants for the given session have points
      * @param RxSession $session
      * @return bool
@@ -18,6 +31,16 @@ class Session
     public function hasPoints(RxSession $session)
     {
         return $this->checkEntrantsForValue($session, 'points');
+    }
+
+    public function hasPenalties(RxSession $session)
+    {
+        return $this->checkEntrantsForValue($session, 'penalty');
+    }
+
+    public function hasRaces(RxSession $session)
+    {
+        return $this->checkEntrantsForValue($session, 'race');
     }
 
     /**

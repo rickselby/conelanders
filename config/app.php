@@ -250,11 +250,13 @@ return [
         'DirtRallyPositions' => App\Facades\DirtRally\PositionsFacade::class,
         'DirtRallyTimes' => App\Facades\DirtRally\TimesFacade::class,
 
-        'RXConstructorStandings' => \App\Facades\RallyCross\ConstructorStandingsFacade::class,
-        'RXDriverStandings' => \App\Facades\RallyCross\DriverStandingsFacade::class,
-        'RXEntrants' => \App\Facades\RallyCross\EntrantsFacade::class,
-        'RXSession' => \App\Facades\RallyCross\SessionFacade::class,
-        'RXEvent' => \App\Facades\RallyCross\EventFacade::class,
+        'RXCacheHandler' => App\Facades\Cached\RallyCross\HandlerFacade::class,
+        'RXChampionships' => App\Facades\RallyCross\ChampionshipsFacade::class,
+        'RXConstructorStandings' => App\Facades\RallyCross\ConstructorStandingsFacade::class,
+        'RXDriverStandings' => App\Facades\RallyCross\DriverStandingsFacade::class,
+        'RXResults' => App\Facades\RallyCross\ResultsFacade::class,
+        'RXSession' => App\Facades\RallyCross\SessionFacade::class,
+        'RXEvent' => App\Facades\RallyCross\EventFacade::class,
     ],
 
 ];

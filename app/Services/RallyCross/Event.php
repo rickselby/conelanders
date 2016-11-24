@@ -2,16 +2,54 @@
 
 namespace App\Services\RallyCross;
 
+use App\Interfaces\RallyCross\EventInterface;
 use App\Models\PointsSequence;
 use App\Models\RallyCross\RxEvent;
+use Carbon\Carbon;
 
-class Event
+class Event implements EventInterface
 {
+    protected $driverIDs = [];
+
     /**
-     * Check if we have heat results yet
-     *
-     * @param RxEvent $event
-     * @return int
+     * {@inheritdoc}
+     */
+    public function canBeShown(RxEvent $event)
+    {
+        return $event->canBeReleased() || \RXEvent::currentUserInEvent($event);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function currentUserInEvent(RxEvent $event)
+    {
+        if (\Auth::check() && \Auth::user()->driver) {
+            return in_array(\Auth::user()->driver->id, \RXEvent::getDriverIDs($event));
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDriverIDs(RxEvent $event)
+    {
+        if (!isset($this->driverIDs[$event->id])) {
+            $this->driverIDs[$event->id] = \DB::table('rx_session_entrants')
+                ->join('rx_sessions', 'rx_session_entrants.rx_session_id', '=', 'rx_sessions.id')
+                ->join('rx_event_entrants', 'rx_event_entrants.id', '=', 'rx_session_entrants.rx_event_entrant_id')
+                ->select('rx_event_entrants.driver_id')
+                ->where('rx_sessions.rx_event_id', '=', $event->id)
+                ->distinct()->pluck('driver_id');
+        }
+
+        return $this->driverIDs[$event->id];
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function hasHeatResults(RxEvent $event)
     {
@@ -19,9 +57,7 @@ class Event
     }
 
     /**
-     * Check if all heats are marked as complete
-     * @param RxEvent $event
-     * @return bool
+     * {@inheritdoc}
      */
     public function areHeatsComplete(RxEvent $event)
     {
@@ -37,9 +73,15 @@ class Event
     }
 
     /**
-     * Get heat results for the current event
-     * @param RxEvent $event
-     * @return mixed
+     * {@inheritdoc}
+     */
+    public function hasHeatPoints(RxEvent $event)
+    {
+        return $event->heatResult->count();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getHeatResults(RxEvent $event)
     {
@@ -124,10 +166,7 @@ class Event
     }
 
     /**
-     * Apply the given points sequence to the session results
-     *
-     * @param RxEvent $event
-     * @param PointsSequence $sequence
+     * {@inheritdoc}
      */
     public function applyHeatsPointsSequence(RxEvent $event, PointsSequence $sequence)
     {
@@ -138,10 +177,7 @@ class Event
     }
 
     /**
-     * Set points for entrants to the given points
-     *
-     * @param RxEvent $event
-     * @param [] $points Keyed array, entrantID => points
+     * {@inheritdoc}
      */
     public function setHeatsPoints(RxEvent $event, $points)
     {
@@ -168,5 +204,48 @@ class Event
         ])->save();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getPastNews(Carbon $start, Carbon $end)
+    {
+        $news = [];
+        foreach(RxEvent::with('sessions', 'championship')->get() AS $event) {
+            if ($event->release && $event->release->between($start, $end)) {
+                if (!isset($news[$event->release->timestamp])) {
+                    $news[$event->release->timestamp] = [];
+                }
+
+                $news[$event->release->timestamp][] = $event;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $events) {
+            $views[$date] = \View::make('rallycross.event.news.results.past', ['events' => $events])->render();
+        }
+        return $views;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUpcomingNews(Carbon $start, Carbon $end)
+    {
+        $news = [];
+        foreach(RxEvent::with('sessions', 'championship')->get() AS $event) {
+            if ($event->release && $event->release->between($start, $end)) {
+                if (!isset($news[$event->release->timestamp])) {
+                    $news[$event->release->timestamp] = [];
+                }
+
+                $news[$event->release->timestamp][] = $event;
+            }
+        }
+        $views = [];
+        foreach($news AS $date => $events) {
+            $views[$date] = \View::make('rallycross.event.news.results.upcoming', ['events' => $events])->render();
+        }
+        return $views;
+    }
 
 }

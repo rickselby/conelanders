@@ -1,37 +1,31 @@
 <?php
 
-namespace App\Interfaces\Races;
+namespace App\Interfaces\RallyCross;
 
-use App\Models\Races\RacesChampionship;
-use App\Models\Races\RacesEvent;
+use App\Models\RallyCross\RxChampionship;
+use App\Models\RallyCross\RxEvent;
 
 interface StandingsInterface
 {
     /**
      * Get results summary for an event
-     * @param RacesEvent $event
+     * @param RxEvent $event
      * @return mixed
      */
-    public function eventSummary(RacesEvent $event);
+    public function eventSummary(RxEvent $event);
 
     /**
      * Get results for an event
-     * @param RacesEvent $event
+     * @param RxEvent $event
      * @return mixed
      */
-    public function event(RacesEvent $event);
+    public function event(RxEvent $event);
 
     /**
      * Get results for a championship
-     * @param RacesChampionship $championship
+     * @param RxChampionship $championship
      * @return mixed
      */
-    public function championship(RacesChampionship $championship);
-
-    /**
-     * Get the list of possible options for scoring this championship
-     * @return mixed
-     */
-    public function getOptions();
+    public function championship(RxChampionship $championship);
 
 }

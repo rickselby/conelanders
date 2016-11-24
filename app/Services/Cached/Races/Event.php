@@ -22,7 +22,7 @@ class Event implements EventInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'event.';
+    protected $cacheKey = 'races.event.';
 
     public function __construct(Repository $cache, \App\Services\Races\Event $eventService)
     {

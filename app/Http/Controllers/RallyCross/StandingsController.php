@@ -1,49 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\Races;
+namespace App\Http\Controllers\RallyCross;
 
 use App\Http\Controllers\Controller;
-use App\Models\Races\RacesCategory;
-use App\Models\Races\RacesChampionship;
+use App\Models\RallyCross\RxChampionship;
 
 class StandingsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('races.validateEvent')->only(['event']);
-        $this->middleware('races.validateSession')->only(['lapChart']);
     }
 
-    public function drivers(RacesCategory $category, RacesChampionship $championship)
+    public function drivers(RxChampionship $championship)
     {
-        $championship->load('events.sessions.entrants.championshipEntrant.driver.nation', 'entrants.driver.nation');
-        $events = $championship->events()->get()->sortBy('time');
-        return view('races.standings.drivers')
-            ->with('category', $category)
+        $championship->load('events.sessions.entrants', 'events.entrants.driver.nation');
+        return view('rallycross.standings.drivers')
             ->with('championship', $championship)
-            ->with('events', $events)
-            ->with('points', \Positions::addEquals(\RacesDriverStandings::championship($championship)));
+            ->with('points', \Positions::addEquals(\RXDriverStandings::championship($championship)));
     }
 
-    public function constructors(RacesCategory $category, RacesChampionship $championship)
+    public function constructors(RxChampionship $championship)
     {
-        $championship->load('events.sessions.entrants.championshipEntrant', 'events.championship', 'events.sessions.entrants.car');
-        $events = $championship->events()->get()->sortBy('time');
-        return view('races.standings.constructors')
-            ->with('category', $category)
+        $championship->load(
+            'events.sessions.entrants',
+            'events.championship',
+            'events.entrants.car'
+        );
+        $events = $championship->events;
+        return view('rallycross.standings.constructors')
             ->with('championship', $championship)
-            ->with('events', $events)
-            ->with('points', \Positions::addEquals(\RacesConstructorStandings::championship($championship)));
+            ->with('points', \Positions::addEquals(\RXConstructorStandings::championship($championship)));
     }
 
-    public function teams(RacesCategory $category, RacesChampionship $championship)
-    {
-        $championship->load('events.sessions.entrants.championshipEntrant.team', 'events.championship');
-        $events = $championship->events()->get()->sortBy('time');
-        return view('races.standings.teams')
-            ->with('category', $category)
-            ->with('championship', $championship)
-            ->with('events', $events)
-            ->with('points', \Positions::addEquals(\RacesTeamStandings::championship($championship)));
-    }
 }

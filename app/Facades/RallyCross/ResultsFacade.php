@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Facades\Races;
+namespace App\Facades\RallyCross;
 
-use App\Interfaces\Races\ResultsInterface;
+use App\Interfaces\RallyCross\ResultsInterface;
 use \Illuminate\Support\Facades\Facade;
 
 class ResultsFacade extends Facade {

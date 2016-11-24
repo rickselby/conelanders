@@ -1,42 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Races;
+namespace App\Http\Controllers\RallyCross;
 
 use App\Http\Controllers\Controller;
-use App\Models\Races\RacesCategory;
-use App\Models\Races\RacesChampionship;
+use App\Models\RallyCross\RxChampionship;
 
 class ResultsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('races.validateEvent')->only(['event']);
-        $this->middleware('races.validateSession')->only(['lapChart']);
+        $this->middleware('rallycross.validateEvent')->only(['event']);
     }
 
-    public function index(RacesCategory $category)
+    public function index()
     {
-        return view('races.index')
-            ->with('category', $category)
-            ->with('championships', $category->championships()->with(
-                'events.sessions.entrants.championshipEntrant.driver.nation',
-                'events.sessions.playlist',
+        return view('rallycross.index')
+            ->with('championships', RxChampionship::with(
+                'events.sessions.entrants.eventEntrant.driver.nation',
                 'events.sessions.event')->get()->sortByDesc('ends'));
     }
 
-    public function championship(RacesCategory $category, RacesChampionship $championship)
+    public function championship(RxChampionship $championship)
     {
         $championship->load([
-            'events.sessions.entrants.championshipEntrant.driver.nation',
-            'events.sessions.entrants.championshipEntrant.team',
-            'events.sessions.entrants.championshipEntrant.car',
-            'events.sessions.playlist',
+            'events.sessions.entrants.eventEntrant.driver.nation',
             'events.sessions.event',
-            'teams.entrants.driver.nation',
         ]);
 
-        return view('races.results.championship')
-            ->with('category', $category)
+        return view('rallycross.results.championship')
             ->with('championship', $championship);
     }
 
@@ -44,23 +35,12 @@ class ResultsController extends Controller
     {
         $event = \Request::get('event');
         $event->load(
-            'sessions.entrants.car',
-            'sessions.entrants.championshipEntrant.driver.nation',
-            'sessions.entrants.championshipEntrant.team',
+            'sessions.entrants.eventEntrant.car',
+            'sessions.entrants.eventEntrant.driver.nation',
             'sessions.event'
         );
-        return view('races.results.event')
+        return view('rallycross.results.event')
             ->with('event', $event);
-    }
-
-    public function lapChart($championshipStub, $raceStub, $sessionStub)
-    {
-        $session = \Request::get('session');
-        $session->load('entrants.championshipEntrant.driver', 'entrants.laps');
-        $content = \RacesResults::lapChart($session);
-        $response = \Response::make($content);
-        $response->header('Content-type',  'image/svg+xml');
-        return $response;
     }
 
 }

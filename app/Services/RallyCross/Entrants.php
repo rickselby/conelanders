@@ -26,7 +26,7 @@ class Entrants
     {
         $entry = new RxSessionEntrant([
             'race' => $race,
-            'time' => $time,
+            'time' => $time - $penalty,
             'penalty' => $penalty,
             'lap' => $lap,
             'dnf' => $dnf,

@@ -15,5 +15,7 @@ class EventServiceProvider extends ServiceProvider
         \App\Listeners\DirtRally\News::class,
         \App\Listeners\DirtRally\Playlists::class,
         \App\Listeners\DirtRally\Results::class,
+        \App\Listeners\RallyCross\News::class,
+        \App\Listeners\RallyCross\Results::class,
     ];
 }

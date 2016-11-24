@@ -2,24 +2,22 @@
 
 namespace App\Services\RallyCross;
 
-use App\Interfaces\AssettoCorsa\DriverStandingsInterface;
-use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcEvent;
-use App\Models\AssettoCorsa\AcSession;
+use App\Models\RallyCross\RxChampionship;
+use App\Models\RallyCross\RxEvent;
+use App\Models\RallyCross\RxSession;
 
 abstract class Standings
 {
     const SUM = 0;
-    const AVERAGE_SESSION = 1;
-    const AVERAGE_EVENT = 2;
+    const AVERAGE = 1;
 
     /**
      * See if any events need dropping from the total points
-     * @param AcChampionship $championship
+     * @param RxChampionship $championship
      * @param $results
      * @return []
-     *
-    protected function dropEvents(AcChampionship $championship, $results)
+     */
+    protected function dropEvents(RxChampionship $championship, $results)
     {
         $dropEvents = $shownEvents = 0;
 
@@ -30,7 +28,7 @@ abstract class Standings
             $totalEvents = $shownEvents = 0;
             foreach($championship->events AS $event) {
                 $totalEvents++;
-                if (\ACEvent::canBeShown($event)) {
+                if (\RXEvent::canBeShown($event)) {
                     $shownEvents++;
                 }
             }
@@ -77,7 +75,7 @@ abstract class Standings
      * Sort championship results by points (descending) and position (ascending) and return the event IDs in that order
      * @param [] $result
      * @return int[]
-     *
+     */
     protected function getDropEventIDsSorted($result)
     {
         // Build an array of points and positions
@@ -105,7 +103,7 @@ abstract class Standings
      * @param $a
      * @param $b
      * @return bool
-     *
+     */
     public function arePointsEqual($a, $b)
     {
         return ($a['totalPoints'] == $b['totalPoints'])
@@ -118,7 +116,7 @@ abstract class Standings
      * @param mixed $a
      * @param mixed $b
      * @return int
-     *
+     */
     protected function pointsSort($a, $b)
     {
         if ($a['totalPoints'] != $b['totalPoints']) {
@@ -188,8 +186,7 @@ abstract class Standings
     {
         return [
             self::SUM => 'Sum',
-            self::AVERAGE_SESSION => 'Mean Average: Sessions',
-            self::AVERAGE_EVENT => 'Mean Average: Events',
+            self::AVERAGE => 'Mean Average',
         ];
     }
 
@@ -197,7 +194,7 @@ abstract class Standings
      * Calculate the average of the pointsList and sort parts of the results
      * @param $results
      * @return mixed
-     *
+     */
     protected function averagePoints($results)
     {
         foreach($results AS $id => $result) {
@@ -214,7 +211,7 @@ abstract class Standings
      * Sum the pointsList and sort parts of the results
      * @param $results
      * @return mixed
-     *
+     */
     protected function sumPoints($results)
     {
         foreach($results AS $id => $result) {
@@ -227,8 +224,8 @@ abstract class Standings
      * Sort the results, and add positions based on the sort
      * @param $results
      * @return mixed
-     *
-    protected function sortAndAddPositions($results, AcEvent $event = null)
+     */
+    protected function sortAndAddPositions($results, RxEvent $event = null)
     {
         if ($event) {
             $results = $this->filterResultsPositions($results, $event);
@@ -242,8 +239,8 @@ abstract class Standings
      * @param $championship
      * @param $results
      * @return mixed
-     *
-    protected function removeEmpty(AcChampionship $championship, $results)
+     */
+    protected function removeEmpty(RxChampionship $championship, $results)
     {
         if ($championship->isComplete()) {
             foreach ($results AS $key => $info) {
@@ -256,7 +253,7 @@ abstract class Standings
         return $results;
     }
 
-    protected function filterResultsPositions($results, AcEvent $event)
+    protected function filterResultsPositions($results, RxEvent $event)
     {
         foreach($results AS $id => $result) {
             $results[$id]['filteredPositions'] = $this->filterPositions($result['positions'], $event);
@@ -264,9 +261,9 @@ abstract class Standings
         return $results;
     }
 
-    protected function filterPositions($positions, AcEvent $event)
+    protected function filterPositions($positions, RxEvent $event)
     {
-        $sessionIDs = $event->sessions->where('type', AcSession::TYPE_RACE)->pluck('id');
+        $sessionIDs = $event->sessions->pluck('id');
         $filteredPositions = [];
         foreach($positions AS $id => $position) {
             if ($sessionIDs->contains($id)) {
@@ -276,5 +273,4 @@ abstract class Standings
         return $filteredPositions;
     }
 
-     */
 }

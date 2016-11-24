@@ -28,11 +28,6 @@
         {!! Form::label('constructors_count', 'Calculate Constructors', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {!! Form::select('constructors_count', \RXConstructorStandings::getOptions(), null, ['class' => 'form-control']) !!}
-            <p class="help-block">
-                If you want averages, use <em>session average</em> where possible.
-                However, this will give wildly different results if entrants don't enter every session in an event (e.g. season 3).
-                In those cases, use <em>event average</em>.
-            </p>
         </div>
     </div>
 

@@ -88,6 +88,18 @@ class RxEvent extends \Eloquent
 
     public function canBeReleased() 
     {
+        // If there are no sessions, or one session cannot be shown,
+        // then the event cannot be released either
+        if (count($this->sessions)) {
+            foreach($this->sessions AS $session) {
+                if (!$session->show) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+
         return $this->release ? $this->release->lt(Carbon::now()) : false;
     }
 

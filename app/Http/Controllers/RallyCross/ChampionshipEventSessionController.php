@@ -79,7 +79,7 @@ class ChampionshipEventSessionController extends Controller
             ->with('session', $session)
             ->with('sequences', \PointSequences::forSelect())
             # Get entrants without an entry to this session
-            ->with('entrants', $session->event->entrants()->whereNotIn('id', $session->entrants->pluck('eventEntrant.id'))->orderBy('name')->get())
+            ->with('entrants', $session->event->entrants()->whereNotIn('id', $session->entrants->pluck('eventEntrant.id'))->get()->sortBy('driver.name'))
             ;
     }
 

@@ -1,33 +1,26 @@
 <?php
 
-namespace App\Interfaces\Races;
+namespace App\Interfaces\RallyCross;
 
-use App\Models\Races\RacesEvent;
-use App\Models\Races\RacesSession;
 use App\Models\Driver;
+use App\Models\RallyCross\RxEvent;
+use App\Models\RallyCross\RxSession;
 
 interface ResultsInterface
 {
     /**
      * Get results for a race session
-     * @param RacesSession $session
+     * @param RxSession $session
      * @return mixed
      */
-    public function forRace(RacesSession $session);
+    public function forRace(RxSession $session);
 
     /**
      * Get fastest lap detail for a race session
-     * @param RacesSession $session
+     * @param RxSession $session
      * @return mixed
      */
-    public function fastestLaps(RacesSession $session);
-
-    /**
-     * Get a lap chart for a race session
-     * @param RacesSession $session
-     * @return mixed
-     */
-    public function lapChart(RacesSession $session);
+    public function fastestLaps(RxSession $session);
 
     /**
      * Get all results for a driver
@@ -38,8 +31,8 @@ interface ResultsInterface
 
     /**
      * Get the winner of an event
-     * @param RacesEvent $event
+     * @param RxEvent $event
      * @return mixed
      */
-    public function getWinner(RacesEvent $event);
+    public function getWinner(RxEvent $event);
 }

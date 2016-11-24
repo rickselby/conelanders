@@ -1,4 +1,4 @@
-<div class="panel {{ \RXSession::hasPoints($session) ? 'panel-success' : 'panel-warning' }}">
+<div class="panel {{ \RXSession::hasPoints($session, true) ? 'panel-success' : 'panel-warning' }}">
     <div class="panel-heading">
         <h3 class="panel-title">
             <a role="button" data-toggle="collapse" href="#points">

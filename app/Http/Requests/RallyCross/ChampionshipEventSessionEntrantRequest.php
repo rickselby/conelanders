@@ -45,7 +45,7 @@ class ChampionshipEventSessionEntrantRequest extends Request
 
     protected function timeToInt()
     {
-        $this->mergeRequest(['time', 'penalty'], function($field) {
+        $this->mergeRequest(['time', 'penalty', 'lap'], function($field) {
             return \Times::fromString(Request::input($field));
         });
     }

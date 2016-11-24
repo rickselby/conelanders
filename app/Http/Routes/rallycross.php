@@ -29,3 +29,12 @@ Route::get('championship/{championship}/event/{event}/session/{session}/complete
 
 Route::resource('championship.event.session', 'ChampionshipEventSessionController');
 Route::resource('championship.event.session.entrant', 'ChampionshipEventSessionEntrantController');
+
+Route::get('/', 'ResultsController@index')->name('rallycross.index');
+
+Route::get('{championship}', 'ResultsController@championship')->name('rallycross.results.championship');
+
+Route::get('{championship}/results/{event}', 'ResultsController@event')->name('rallycross.results.event');
+Route::get('{championship}/driver-standings', 'StandingsController@drivers')->name('rallycross.standings.drivers');
+Route::get('{championship}/constructor-standings', 'StandingsController@constructors')->name('rallycross.standings.constructors');
+Route::get('{championship}/team-standings', 'StandingsController@teams')->name('rallycross.standings.teams');

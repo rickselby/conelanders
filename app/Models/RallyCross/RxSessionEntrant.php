@@ -6,7 +6,7 @@ use App\Models\Driver;
 
 class RxSessionEntrant extends \Eloquent
 {
-    protected $fillable = ['race', 'time', 'penalty', 'dnf', 'dsq'];
+    protected $fillable = ['race', 'time', 'penalty', 'dnf', 'dsq', 'lap'];
 
     protected $casts = [
         'time' => 'integer',

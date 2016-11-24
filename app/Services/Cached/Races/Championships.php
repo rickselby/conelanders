@@ -22,7 +22,7 @@ class Championships implements ChampionshipInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'championship.';
+    protected $cacheKey = 'races.championship.';
 
     public function __construct(Repository $cache, \App\Services\Races\Championships $championshipsService)
     {

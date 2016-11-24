@@ -2,19 +2,18 @@
 
 namespace App\Services\RallyCross;
 
-use App\Interfaces\AssettoCorsa\DriverStandingsInterface;
-use App\Models\AssettoCorsa\AcCar;
-use App\Models\AssettoCorsa\AcChampionship;
-use App\Models\AssettoCorsa\AcEvent;
-use App\Models\AssettoCorsa\AcSession;
-use App\Models\AssettoCorsa\AcSessionEntrant;
+use App\Interfaces\RallyCross\ConstructorStandingsInterface;
+use App\Models\RallyCross\RxCar;
+use App\Models\RallyCross\RxChampionship;
+use App\Models\RallyCross\RxEvent;
+use App\Models\RallyCross\RxSession;
 
-class ConstructorStandings extends Standings
+class ConstructorStandings extends Standings implements ConstructorStandingsInterface
 {
     /**
      * {@inheritdoc}
-     *
-    public function eventSummary(AcEvent $event)
+     */
+    public function eventSummary(RxEvent $event)
     {
         $results = [];
 
@@ -22,11 +21,8 @@ class ConstructorStandings extends Standings
             case self::SUM:
                 $results = $this->eventSessionSummary($event, [$this, 'sumPoints']);
                 break;
-            case self::AVERAGE_SESSION:
-                $results = $this->eventSessionSummary($event, [$this, 'averagePoints']);
-                break;
-            case self::AVERAGE_EVENT:
-                if (\ACEvent::canBeShown($event)) {
+            case self::AVERAGE:
+                if (\RXEvent::canBeShown($event)) {
                     $results = $this->eventAverage($event);
                 }
                 break;
@@ -37,20 +33,17 @@ class ConstructorStandings extends Standings
 
     /**
      * {@inheritdoc}
-     *
-    public function event(AcEvent $event)
+     */
+    public function event(RxEvent $event)
     {
         $results = [];
 
-        if (\ACEvent::canBeShown($event)) {
+        if (\RXEvent::canBeShown($event)) {
             switch ($event->championship->constructors_count) {
                 case self::SUM:
                     $results = $this->eventSessionCount($event, [$this, 'sumPoints']);
                     break;
-                case self::AVERAGE_SESSION:
-                    $results = $this->eventSessionCount($event, [$this, 'averagePoints']);
-                    break;
-                case self::AVERAGE_EVENT:
+                case self::AVERAGE:
                     $results = $this->eventAverage($event);
                     break;
             }
@@ -61,15 +54,29 @@ class ConstructorStandings extends Standings
 
     /**
      * Get a count of points from each session, parsed by $func
-     * @param AcEvent $event
+     * @param RxEvent $event
      * @param callable $func
      * @return mixed
-     *
-    protected function eventSessionCount(AcEvent $event, callable $func)
+     */
+    protected function eventSessionCount(RxEvent $event, callable $func)
     {
         $results = [];
-        foreach($event->sessions AS $session) {
-            if (\ACSession::hasPoints($session)) {
+
+        if (\RXEvent::hasHeatPoints($event)) {
+            foreach($event->heatResult AS $heatResult) {
+                $carID = $heatResult->entrant->car->id;
+
+                if (!isset($results[$carID])) {
+                    $results[$carID] = $this->initCar($heatResult->entrant->car);
+                }
+
+                $results[$carID]['points']['heats'] = $heatResult->points;
+                $results[$carID]['positions']['heats'] = $heatResult->position;
+            }
+        }
+
+        foreach($event->notHeats AS $session) {
+            if ($session->show && \RXSession::hasPoints($session)) {
                 foreach ($this->sessionCount($session, $func) AS $result) {
                     $carID = $result['car']->id;
 
@@ -88,15 +95,29 @@ class ConstructorStandings extends Standings
 
     /**
      * Get a summary of points from each session, parsed by $func
-     * @param AcEvent $event
+     * @param RxEvent $event
      * @param callable $func
      * @return mixed
-     *
-    protected function eventSessionSummary(AcEvent $event, callable $func)
+     */
+    protected function eventSessionSummary(RxEvent $event, callable $func)
     {
         $results = [];
-        foreach($event->sessions AS $session) {
-            if (\ACSession::hasPoints($session)) {
+
+        if (\RXEvent::hasHeatPoints($event)) {
+            foreach($event->heatResult AS $heatResult) {
+                $carID = $heatResult->entrant->car->id;
+
+                if (!isset($results[$carID])) {
+                    $results[$carID] = $this->initCar($heatResult->entrant->car);
+                }
+
+                $results[$carID]['points']['heats'] = $heatResult->points;
+                $results[$carID]['positions']['heats'] = $heatResult->position;
+            }
+        }
+
+        foreach($event->notHeats AS $session) {
+            if ($session->show && \RXSession::hasPoints($session)) {
                 foreach ($this->sessionCount($session, $func) AS $result) {
                     $carID = $result['car']->id;
 
@@ -104,7 +125,7 @@ class ConstructorStandings extends Standings
                         $results[$carID] = $this->initCar($result['car']);
                     }
 
-                    if (\ACSession::canBeShown($session)) {
+                    if (\RXSession::canBeShown($session)) {
                         $results[$carID]['points'][$session->id] = $result['totalPoints'];
                         $results[$carID]['positions'][$session->id] = $result['position'];
                     }
@@ -117,11 +138,11 @@ class ConstructorStandings extends Standings
 
     /**
      * Get a count of session points, and call $func on the results
-     * @param AcSession $session
+     * @param RxSession $session
      * @param $func
      * @return mixed
-     *
-    protected function sessionCount(AcSession $session, callable $func)
+     */
+    protected function sessionCount(RxSession $session, callable $func)
     {
         $results = [];
 
@@ -141,30 +162,26 @@ class ConstructorStandings extends Standings
 
     /**
      * Average the car points at the event level
-     * @param AcEvent $event
+     * @param RxEvent $event
      * @return mixed
-     *
-    protected function eventAverage(AcEvent $event)
+     */
+    protected function eventAverage(RxEvent $event)
     {
         $results = [];
-        foreach($event->sessions AS $session) {
-            if (\ACSession::hasPoints($session)) {
-                foreach ($session->entrants AS $entrant) {
-                    $carID = $entrant->car->id;
-                    $entrantID = $entrant->championshipEntrant->id;
 
-                    if (!isset($results[$carID])) {
-                        $results[$carID] = $this->initCar($entrant->car);
-                    }
+        foreach(\RXDriverStandings::eventSummary($event) AS $result) {
+            $carID = $result['entrant']->car->id;
 
-                    if (!isset($results[$carID]['points'][$entrantID])) {
-                        $results[$carID]['points'][$entrantID] = 0;
-                    }
-
-                    $results[$carID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
-                    $results[$carID]['positions'][$entrantID] = $entrant->position;
-                }
+            if (!isset($results[$carID])) {
+                $results[$carID] = $this->initCar($result['entrant']->car);
             }
+
+            if (!isset($results[$carID]['points'])) {
+                $results[$carID]['points'] = [];
+            }
+
+            $results[$carID]['points'][] = $result['totalPoints'];
+            $results[$carID]['positions'][] = $result['position'];
         }
 
         return $this->averagePoints($results);
@@ -172,10 +189,10 @@ class ConstructorStandings extends Standings
 
     /**
      * Initialise a results entry for a car
-     * @param AcCar $car
+     * @param RxCar $car
      * @return array
-     *
-    protected function initCar(AcCar $car)
+     */
+    protected function initCar(RxCar $car)
     {
         return [
             'car' => $car,
@@ -187,12 +204,12 @@ class ConstructorStandings extends Standings
 
     /**
      * {@inheritdoc}
-     *
-    public function championship(AcChampionship $championship)
+     */
+    public function championship(RxChampionship $championship)
     {
         $results = [];
 
-        foreach(\ACChampionships::cars($championship) AS $car) {
+        foreach(\RXChampionships::cars($championship) AS $car) {
             $results[$car->id] = [
                 'car' => $car,
                 'points' => [],
@@ -203,7 +220,7 @@ class ConstructorStandings extends Standings
             ];
         }
         foreach($championship->events AS $event) {
-            $eventResults = \ACConstructorStandings::event($event);
+            $eventResults = \RXConstructorStandings::event($event);
             $eventResultsWithEquals = \Positions::addEquals($eventResults);
             foreach ($eventResults AS $key => $result) {
                 $carID = $result['car']->id;
@@ -232,7 +249,7 @@ class ConstructorStandings extends Standings
      * @param mixed $a
      * @param mixed $b
      * @return int
-     *
+     */
     public function pointsSort($a, $b)
     {
         $val = parent::pointsSort($a, $b);
@@ -243,6 +260,5 @@ class ConstructorStandings extends Standings
             return $val;
         }
     }
-     */
 
 }
