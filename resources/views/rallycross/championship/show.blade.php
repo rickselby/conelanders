@@ -8,14 +8,15 @@
 
 @section('content')
 
-
+    @can('update', $championship)
     {!! Form::open(['route' => ['rallycross.championship.destroy', $championship], 'method' => 'delete', 'class' => 'form-inline']) !!}
         <a class="btn btn-small btn-warning"
            href="{{ route('rallycross.championship.edit', $championship) }}">Edit championship</a>
         {!! Form::submit('Delete championship', array('class' => 'btn btn-danger')) !!}
     {!! Form::close() !!}
+    @endcan
 
-    @can('rallycross-admin')
+    @can('manage-admins', $championship)
         <h3>Championship Admins</h3>
 
         <div class="container-fluid">

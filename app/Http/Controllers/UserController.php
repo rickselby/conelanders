@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserChampionships;
 use App\Http\Requests;
 use App\Models\Driver;
 use App\Models\User;
@@ -61,5 +62,11 @@ class UserController extends Controller
         \Auth::user()->save();
         \Notification::add('success', 'Timezone updated.');
         return \Redirect::route('user.show');
+    }
+
+    public function championships()
+    {
+        return view('user.championships')
+            ->with('championships', \Event::fire(new UserChampionships()));
     }
 }

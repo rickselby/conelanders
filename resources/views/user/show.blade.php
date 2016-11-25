@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     @if (!$user->driver || !$user->driver_confirmed)
         <h2>Link your account to your Driver</h2>
 

@@ -119,4 +119,12 @@ class RxChampionship extends \Eloquent
         return 'slug';
     }
 
+    public function scopeForUser($query, User $user)
+    {
+        return $query->leftJoin('rx_championship_admins', 'rx_championship_admins.rx_championship_id', '=', 'rx_championships.id')
+            ->where('rx_championship_admins.user_id', '=', $user->id)
+            ->select('rx_championships.*')
+            ->distinct();
+    }
+
 }

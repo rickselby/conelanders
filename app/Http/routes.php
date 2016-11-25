@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('user/update-profile', 'UserController@updateProfile')->name('user.update-profile');
     Route::get('user/assignments', 'UserController@assignments')->name('user.assignments');
     Route::get('user/assign/{user}', 'UserController@assign')->name('user.assign');
+    Route::get('user/championships', 'UserController@championships')->name('user.championships');
 
     Route::get('playlists', 'PlaylistController@index')->name('playlists.index');
 

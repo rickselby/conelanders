@@ -61,4 +61,12 @@ class Championships implements ChampionshipInterface
         return count($this->cars($championship)) > 1;
     }
 
+    public function getUserChampionships()
+    {
+        return \View::make(
+            'rallycross.championship.user',
+            ['championships' => RxChampionship::forUser(\Auth::user())->get()]
+        )->render();
+    }
+
 }
