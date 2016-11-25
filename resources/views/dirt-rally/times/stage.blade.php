@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('dirt-rally.stage.summary')
+
     @if ($stage->event->importing)
         @include('dirt-rally.import-in-progress')
     @elseif(!$stage->event->isComplete())

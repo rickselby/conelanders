@@ -6,21 +6,21 @@ use App\Models\DirtRally\DirtEvent;
 use App\Models\DirtRally\DirtStage;
 use Illuminate\Console\Command;
 
-class StagePositions extends Command
+class UpdateStages extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'dirt:positions';
+    protected $signature = 'dirt:stages';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Regenerate positions for stages and events';
+    protected $description = 'Update stage information from the dirt website';
 
     /**
      * Execute the console command.
@@ -29,12 +29,6 @@ class StagePositions extends Command
      */
     public function handle()
     {
-        foreach(DirtStage::all() AS $stage) {
-            \DirtRallyPositions::updateStagePositions($stage);
-        }
-        foreach(DirtEvent::all() AS $event) {
-            \DirtRallyPositions::updateEventPositions($event);
-        }
-
+        \DirtRallyImportDirt::updateAllStages();
     }
 }

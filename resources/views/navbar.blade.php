@@ -25,6 +25,9 @@
                     </li>
                 @endforeach
                 <li>
+                    <a href="{{ route('calendar') }}">Calendar</a>
+                </li>
+                <li>
                     <a href="{{ route('rallycross.index') }}">Rallycross</a>
                 </li>
             @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') )
@@ -63,6 +66,9 @@
                         <li role="separator" class="divider"></li>
                         @endif
                         <li class="dropdown-header">Dirt Rally</li>
+                        <li>
+                            <a href="{{ route('dirt-rally.stage-info.index') }}">Stage Management</a>
+                        </li>
                         <li>
                             <a href="{{ route('dirt-rally.championship.index') }}">Championship Management</a>
                         </li>

@@ -7,6 +7,8 @@ Route::resource('championship.season', 'ChampionshipSeasonController', [['except
 Route::resource('championship.season.event', 'ChampionshipSeasonEventController', [['except' => ['index']]]);
 Route::resource('championship.season.event.stage', 'ChampionshipSeasonEventStageController', [['except' => ['index']]]);
 
+Route::resource('stage-info', 'StageInfoController', ['except' => ['show']]);
+
 Route::get('{championship}', 'DirtRallyController@championship')->name('dirt-rally.championship');
 
 Route::get('{championship}/driver', 'StandingsController@championship')->name('dirt-rally.standings.championship');

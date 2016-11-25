@@ -3,10 +3,12 @@
 namespace App\Services\Races;
 
 use App\Events\Races\EventSignupUpdated;
+use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesEvent;
 use App\Models\Races\RacesEventSignup;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Database\Eloquent\Builder;
 
 class Signups
 {
@@ -86,11 +88,34 @@ class Signups
 
     public function getCurrent()
     {
-        $event = RacesEvent::whereNotNull('signup_open')
+        return $this->getSignupsForEvent(
+            $this->getFirstSignupEvent(
+                RacesEvent::query()
+            )
+        );
+    }
+
+    public function getForChampionship(RacesChampionship $championship)
+    {
+        return $this->getSignupsForEvent(
+            $this->getFirstSignupEvent(
+                $championship->events()->getQuery()
+            )
+        );
+    }
+
+    protected function getFirstSignupEvent(Builder $eventQuery)
+    {
+        $eventQuery->getQuery()->orders = null;
+
+        return $eventQuery->whereNotNull('signup_open')
             ->whereDate('signup_open', '<', Carbon::now())
             ->orderBy('signup_open', 'desc')
-            ->get()->first();
+            ->first();
+    }
 
+    protected function getSignupsForEvent(RacesEvent $event = null)
+    {
         if ($event !== NULL) {
             // Get a list of guids for the championship
             $guids = [];
