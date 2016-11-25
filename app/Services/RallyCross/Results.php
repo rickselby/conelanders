@@ -49,14 +49,10 @@ class Results implements ResultsInterface
      */
     public function forDriver(Driver $driver)
     {
-        /*
-        foreach(RacesCategory::all() AS $category) {
-            $results[$category->id]['all'] = $this->getAllForDriver($category, $driver);
-            $results[$category->id]['best'] = $this->getBestFromAll($results[$category->id]['all']);
-        }
+        $results['all'] = $this->getAllForDriver($driver);
+        $results['best'] = $this->getBestFromAll($results['all']);
 
         return $results;
-        */
     }
 
     /**
@@ -65,12 +61,11 @@ class Results implements ResultsInterface
      */
     protected function getAllForDriver(Driver $driver)
     {
-        /*
-        $driver->load('raceEntries.entries.session.event.championship');
+        $driver->load('rallyCrossResults.event.sessions.event.championship');
 
         $championships = [];
 
-        foreach($driver->raceEntries()->forCategory($category)->get() AS $entry) {
+        foreach($driver->rallyCrossResults AS $entry) {
             foreach($entry->entries->sortBy(function($entry) {
                 return $entry->session->event->time.'-'.$entry->session->order;
             }) AS $result) {
@@ -81,10 +76,10 @@ class Results implements ResultsInterface
 
                 if (!isset($championships[$championshipID])) {
                     // Load back down the chain
-                    $result->session->event->championship->load('entrants.driver', 'events.sessions.entrants.championshipEntrant.driver');
+                    $result->session->event->championship->load('events.sessions.entrants.eventEntrant.driver');
                     $points = \RXDriverStandings::championship($result->session->event->championship);
                     $points = array_where($points, function($key, $value) use ($driver) {
-                        return $value['entrant']->driver->id == $driver->id;
+                        return $value['entrant']->id == $driver->id;
                     });
                     $driverPoints = array_pop($points);
 
@@ -99,7 +94,7 @@ class Results implements ResultsInterface
                 }
 
                 if (!isset($championships[$championshipID]['events'][$eventID])) {
-                    $result->session->event->load('sessions.entrants.championshipEntrant.driver');
+                    $result->session->event->load('sessions.entrants.eventEntrant.driver');
                     $points = \RXDriverStandings::event($result->session->event);
                     $points = array_where($points, function($key, $value) use ($driver) {
                         return $value['entrant']->driver->id == $driver->id;
@@ -117,39 +112,19 @@ class Results implements ResultsInterface
 
                 if ($result->session->event->canBeReleased()) {
 
-                    $fastLapResults = \RXResults::fastestLaps($result->session);
+                    $raceResults = \RXResults::forRace($result->session);
 
-                    $fastLapResults = array_where($fastLapResults, function($key, $value) use ($driver) {
-                        return $value->championshipEntrant->driver->id == $driver->id;
+                    $raceResults = array_where($raceResults, function($key, $value) use ($driver) {
+                        return $value->eventEntrant->driver->id == $driver->id;
                     });
-                    $fastLapResult = array_pop($fastLapResults);
-                    $fastLapResult->setRelations([]);
+                    $raceResult = array_pop($raceResults);
+                    $raceResult->setRelations([]);
 
                     $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID] = [
                         'session' => $result->session,
                         'position' => $result->position,
-                        'result' => $fastLapResult
+                        'result' => $raceResult,
                     ];
-
-                    if ($result->session->type == RxSession::TYPE_RACE) {
-                        $raceResults = \RacesResults::forRace($result->session);
-
-                        $raceResults = array_where($raceResults, function($key, $value) use ($driver) {
-                            return $value->championshipEntrant->driver->id == $driver->id;
-                        });
-                        $raceResult = array_pop($raceResults);
-                        $raceResult->setRelations([]);
-
-                        $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID] = [
-                            'session' => $result->session,
-                            'position' => $result->position,
-                            'result' => $raceResult,
-                            'fastestLap' => $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID],
-                        ];
-                        unset(
-                            $championships[$championshipID]['events'][$eventID]['sessions'][$sessionID]['fastestLap']['session']
-                        );
-                    }
                 }
 
                 $result->session->event->setRelations([]);
@@ -158,53 +133,24 @@ class Results implements ResultsInterface
         }
 
         return $championships;
-        */
     }
 
     protected function getBestFromAll($results)
     {
-        /*
         $bests = [
             'championship' => [],
             'event' => [],
-            'practice' => [],
-            'qualifying' => [],
             'race' => [],
-            'raceLap' => [],
         ];
 
         foreach($results AS $champID => $championship) {
             foreach($championship['events'] AS $eventID => $event) {
                 foreach($event['sessions'] AS $sessionID => $session) {
-                    switch($session['session']->type) {
-                        case RacesSession::TYPE_PRACTICE:
-                            $this->getBest($bests['practice'], $session, function($a) {
-                                return $a['result']->position;
-                            }, function($a) {
-                                return $a['session'];
-                            });
-                            break;
-                        case RacesSession::TYPE_QUALIFYING:
-                            $this->getBest($bests['qualifying'], $session, function($a) {
-                                return $a['result']->position;
-                            }, function($a) {
-                                return $a['session'];
-                            });
-                            break;
-                        case RacesSession::TYPE_RACE:
-                            $this->getBest($bests['race'], $session, function($a) {
-                                return $a['result']->position;
-                            }, function($a) {
-                                return $a['session'];
-                            });
-                            $this->getBest($bests['raceLap'], $session, function($a) {
-                                return $a['fastestLap']['position'];
-                            }, function($a) {
-                                return $a['session'];
-                            });
-                            break;
-
-                    }
+                    $this->getBest($bests['race'], $session, function($a) {
+                        return $a['result']->position;
+                    }, function($a) {
+                        return $a['session'];
+                    });
                 }
                 $this->getBest($bests['event'], $event, function($a) {
                     return $a['position'];
@@ -221,12 +167,10 @@ class Results implements ResultsInterface
         }
 
         return $bests;
-        */
     }
 
     protected function getBest(&$current, $new, $getPosition, $filter)
     {
-        /*
         $newPosition = $getPosition($new);
 
         if ($newPosition === NULL) {
@@ -239,7 +183,6 @@ class Results implements ResultsInterface
         } elseif ($current['best'] == $newPosition) {
             $current['things']->push($filter($new));
         }
-        */
     }
 
     /**

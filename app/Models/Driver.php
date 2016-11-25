@@ -28,7 +28,7 @@ class Driver extends \Eloquent
 
     public function rallyCrossResults()
     {
-        return $this->hasMany(RallyCross\RxSessionEntrant::class);
+        return $this->hasMany(RallyCross\RxEventEntrant::class);
     }
     
     public function user()
