@@ -33,7 +33,13 @@ class DriverStandings extends Standings implements DriverStandingsInterface
         }
 
         foreach($event->heatResult AS $heatResult) {
-            $results[$heatResult->entrant->id]['champPoints'] = $heatResult->points;
+
+            $entrantID = $heatResult->entrant->id;
+            if (!isset($results[$entrantID])) {
+                $results[$entrantID] = $this->initEntrant($heatResult->entrant);
+            }
+
+            $results[$entrantID]['champPoints'] = $heatResult->points;
         }
 
         return $this->sortAndAddPositions($this->sumPoints($results), $event);

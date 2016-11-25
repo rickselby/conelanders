@@ -19,21 +19,14 @@ class Results implements ResultsInterface
         $firstEntrant = null;
         $lastEntrant = null;
 
-        $raceEntrants = $session->entrants()->with(
-            'eventEntrant.car',
-            'eventEntrant.driver.nation'
-        )->orderBy('position')->get();
+        $raceEntrants = $session->entrants->sortBy('position');
 
         foreach($raceEntrants AS $entrant) {
+
             if (!$firstEntrant) {
                 $firstEntrant = $entrant;
             }
-            // Set total laps
-            $entrant->lapCount = count($entrant->laps);
-            // Get positions gained
-            $entrant->positionsGained = $entrant->started - $entrant->position;
-            // Get laps behind first
-            $entrant->lapsBehindFirst = $firstEntrant->lapCount - $entrant->lapCount;
+
             // Set time behind first
             $entrant->timeBehindFirst = $entrant->totalTime - $firstEntrant->totalTime;
 
@@ -49,76 +42,6 @@ class Results implements ResultsInterface
         }
 
         return $raceEntrants;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fastestLaps(RxSession $session)
-    {
-        $firstEntrant = null;
-        $lastEntrant = null;
-        $sectors = [];
-        
-        $fastestLaps = $session->entrants()->with(
-            'car',
-            'championshipEntrant.driver.nation',
-            'championshipEntrant.team',
-            'fastestLap.sectors'
-        )->orderBy('fastest_lap_position')->get();
-
-        foreach($fastestLaps AS $entrant) {
-            if (!$firstEntrant) {
-                $firstEntrant = $entrant;
-            }
-
-            if ($entrant->fastestLap) {
-                $entrant->timeBehindFirst = $entrant->fastestLap->laptime - $firstEntrant->fastestLap->laptime;
-
-                // Set time behind car in front
-                if ($lastEntrant && $lastEntrant->fastestLap) {
-                    $entrant->timeBehindAhead = $entrant->fastestLap->laptime - $lastEntrant->fastestLap->laptime;
-                } else {
-                    $entrant->timeBehindAhead = null;
-                }
-
-                // save sector times...
-                foreach($entrant->fastestLap->sectors AS $sector) {
-                    $sectors[$sector->sector][$entrant->id]['time'] = $sector->time;
-                }
-                $entrant->sectorPosition = [];
-            } else {
-                $entrant->timeBehindFirst = null;
-                $entrant->timeBehindAhead = null;
-            }
-
-            // Update last entrant
-            $lastEntrant = $entrant;
-        }
-
-        $sectorPositions = [];
-        // Sort out sector positions
-        foreach($sectors AS $sector => $times) {
-            asort($times);
-
-            $times = \Positions::addToArray($times, function($a, $b) {
-                return $a['time'] == $b['time'];
-            });
-
-            foreach($times AS $entrantID => $detail) {
-                $sectorPositions[$entrantID][$sector] = $detail['position'];
-            }
-        }
-
-        foreach($fastestLaps AS $entrant) {
-            if (isset($sectorPositions[$entrant->id])) {
-                $entrant->sectorPosition = $sectorPositions[$entrant->id];
-            } else {
-                $entrant->sectorPosition = [];
-            }
-        }
-
-        return $fastestLaps;
     }
 
     /**
@@ -142,7 +65,7 @@ class Results implements ResultsInterface
      */
     protected function getAllForDriver(Driver $driver)
     {
-
+        /*
         $driver->load('raceEntries.entries.session.event.championship');
 
         $championships = [];
@@ -235,10 +158,12 @@ class Results implements ResultsInterface
         }
 
         return $championships;
+        */
     }
 
     protected function getBestFromAll($results)
     {
+        /*
         $bests = [
             'championship' => [],
             'event' => [],
@@ -296,10 +221,12 @@ class Results implements ResultsInterface
         }
 
         return $bests;
+        */
     }
 
     protected function getBest(&$current, $new, $getPosition, $filter)
     {
+        /*
         $newPosition = $getPosition($new);
 
         if ($newPosition === NULL) {
@@ -312,6 +239,7 @@ class Results implements ResultsInterface
         } elseif ($current['best'] == $newPosition) {
             $current['things']->push($filter($new));
         }
+        */
     }
 
     /**

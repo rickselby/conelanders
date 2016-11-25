@@ -14,7 +14,11 @@ class StandingsController extends Controller
 
     public function drivers(RxChampionship $championship)
     {
-        $championship->load('events.sessions.entrants', 'events.entrants.driver.nation');
+        $championship->load(
+            'events.sessions.entrants.eventEntrant.driver',
+            'events.entrants.driver.nation',
+            'events.heatResult.entrant'
+        );
         return view('rallycross.standings.drivers')
             ->with('championship', $championship)
             ->with('points', \Positions::addEquals(\RXDriverStandings::championship($championship)));
@@ -23,11 +27,13 @@ class StandingsController extends Controller
     public function constructors(RxChampionship $championship)
     {
         $championship->load(
-            'events.sessions.entrants',
+            'events.sessions.entrants.eventEntrant.car',
+            'events.entrants.driver.nation',
+            'events.heatResult.entrant.car',
             'events.championship',
             'events.entrants.car'
         );
-        $events = $championship->events;
+
         return view('rallycross.standings.constructors')
             ->with('championship', $championship)
             ->with('points', \Positions::addEquals(\RXConstructorStandings::championship($championship)));

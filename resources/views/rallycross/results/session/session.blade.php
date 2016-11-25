@@ -41,38 +41,40 @@
             <tbody>
             @foreach(\RXResults::forRace($session) AS $entrant)
                 <tr>
-                    @if ($entrant->dsq)
-                        <th class="position-dsq">DSQ</th>
-                    @elseif ($entrant->dnf)
-                        <th class="position-dnf">Ret</th>
-                    @else
-                        <th>{{ $entrant->position }}</th>
-                    @endif
-                    <th>
-                        @include('rallycross.driver.name', ['driver' => $entrant->eventEntrant->driver])
-                    </th>
-                    @if (\RXChampionships::multipleCars($session->event->championship))
-                        <td>{{ $entrant->eventEntrant->car->short_name ?: '??' }}</td>
-                    @endif
-                    @if (\RXSession::hasRaces($session))
-                        <td>{{ $entrant->race }}</th>
-                    @endif
-                    <td class="time">{{ Times::toString($entrant->time) }}</td>
-                    @if (\RXSession::hasPenalties($session))
-                        <td class="time">{{ Times::toString($entrant->penalty) }}</td>
-                    @endif
-                    <td class="time">
-                        @if ($entrant->dsq || $entrant->dnf)
-                            -
-                        @elseif ($entrant->timeBehindFirst > 0)
-                            {{ '+'.Times::toString($entrant->timeBehindFirst) }}
+                {{--
+                        @if ($entrant->dsq)
+                            <th class="position-dsq">DSQ</th>
+                        @elseif ($entrant->dnf)
+                            <th class="position-dnf">Ret</th>
+                        @else
+                            <th>{{ $entrant->position }}</th>
                         @endif
-                    </td>
-                    <td class="time hidden-sm">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
-                    <td class="time">{{ Times::toString($entrant->lap) }}</td>
-                    <td class="points">{{ $entrant->points }}</td>
-                </tr>
-            @endforeach
+                        <th>
+                            @include('rallycross.driver.name', ['driver' => $entrant->eventEntrant->driver])
+                        </th>
+                        @if (\RXChampionships::multipleCars($session->event->championship))
+                            <td>{{ $entrant->eventEntrant->car->short_name ?: '??' }}</td>
+                        @endif
+                        @if (\RXSession::hasRaces($session))
+                            <td>{{ $entrant->race }}</th>
+                        @endif
+                        <td class="time">{{ Times::toString($entrant->time) }}</td>
+                        @if (\RXSession::hasPenalties($session))
+                            <td class="time">{{ Times::toString($entrant->penalty) }}</td>
+                        @endif
+                        <td class="time">
+                            @if ($entrant->dsq || $entrant->dnf)
+                                -
+                            @elseif ($entrant->timeBehindFirst > 0)
+                                {{ '+'.Times::toString($entrant->timeBehindFirst) }}
+                            @endif
+                        </td>
+                        <td class="time hidden-sm">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
+                        <td class="time">{{ Times::toString($entrant->lap) }}</td>
+                        <td class="points">{{ $entrant->points }}</td>
+                --}}
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

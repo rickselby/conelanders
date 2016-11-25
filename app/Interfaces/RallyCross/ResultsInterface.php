@@ -16,13 +16,6 @@ interface ResultsInterface
     public function forRace(RxSession $session);
 
     /**
-     * Get fastest lap detail for a race session
-     * @param RxSession $session
-     * @return mixed
-     */
-    public function fastestLaps(RxSession $session);
-
-    /**
      * Get all results for a driver
      * @param Driver $driver
      * @return mixed

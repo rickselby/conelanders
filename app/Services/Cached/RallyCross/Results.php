@@ -34,18 +34,6 @@ class Results implements ResultsInterface
     /**
      * {@inheritdoc}
      */
-    public function fastestLaps(RxSession $session)
-    {
-        // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
-        // (any updates to the session will clear the cache)
-        return $this->cache->tags(\RXCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'fastestLaps.'.$session->id, function() use ($session) {
-            return $this->resultsService->fastestLaps($session);
-        });
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function forDriver(Driver $driver)
     {
         // Find out the next time one of the drivers' championships will be updated
@@ -83,17 +71,7 @@ class Results implements ResultsInterface
         // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
         // (any updates to the session will clear the cache)
         return $this->cache->tags(\RXCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'forRace.'.$session->id, function() use ($session) {
-
-            // Ooh, we're going to tidy this up before we cache it
-            $results = $this->resultsService->forRace($session);
-            // Clear the relations; we don't need the list of laps
-            foreach($results AS $entrant) {
-                $entrant->setRelations([])->load(
-                    'eventEntrant.car',
-                    'eventEntrant.driver.nation'
-                );
-            }
-            return $results;
+            return $this->resultsService->forRace($session);
         });
     }
 

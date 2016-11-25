@@ -37,7 +37,10 @@ class ResultsController extends Controller
         $event->load(
             'sessions.entrants.eventEntrant.car',
             'sessions.entrants.eventEntrant.driver.nation',
-            'sessions.event'
+            'sessions.event.championship.events.entrants.car',
+            'heatResult.entrant.driver.nation',
+            'heatResult.entrant.car',
+            'entrants.driver.nation'
         );
         return view('rallycross.results.event')
             ->with('event', $event);
