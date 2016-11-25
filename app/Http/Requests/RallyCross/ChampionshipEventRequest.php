@@ -3,11 +3,10 @@
 namespace App\Http\Requests\RallyCross;
 
 use App\Http\Requests\Request;
-use Carbon\Carbon;
 
 class ChampionshipEventRequest extends Request
 {
-    protected $timeFields = [
+    protected $dateFields = [
         'time',
     ];
 

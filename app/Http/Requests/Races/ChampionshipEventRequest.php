@@ -7,7 +7,9 @@ use Carbon\Carbon;
 
 class ChampionshipEventRequest extends Request
 {
-    protected $dateFormat = 'jS F Y, H:i';
+    protected $dateFields = [
+        'time',
+    ];
 
     protected $emptyIsNullFields = [
         'signup_open',
@@ -18,10 +20,6 @@ class ChampionshipEventRequest extends Request
     {
         parent::validate();
         Request::merge([
-            'time' => Carbon::createFromFormat(
-                $this->dateFormat,
-                Request::get('time')
-            ),
             'signup_open' => Request::get('signup_open')
                 ? Carbon::createFromFormat(
                     $this->dateFormat,

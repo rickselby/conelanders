@@ -22,6 +22,9 @@ abstract class Request extends FormRequest
     /** @var string Date format used on the site */
     protected $dateFormat = 'jS F Y, H:i';
 
+    /** @var string[] List of request fields that should be converted to time  */
+    protected $dateFields = [];
+
     // Authorisating is handled at controller level.
     public function authorize()
     {
@@ -37,7 +40,7 @@ abstract class Request extends FormRequest
         $this->setCheckboxes();
         $this->setEmptyIsNull();
         parent::validate();
-        $this->timeToCarbon();
+        $this->dateToCarbon();
         $this->timeString();
     }
 
@@ -61,9 +64,9 @@ abstract class Request extends FormRequest
         });
     }
 
-    protected function timeToCarbon()
+    protected function dateToCarbon()
     {
-        $this->mergeRequest($this->timeFields, function($field) {
+        $this->mergeRequest($this->dateFields, function($field) {
             return Carbon::createFromFormat(
                 $this->dateFormat,
                 Request::input($field)
