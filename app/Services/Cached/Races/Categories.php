@@ -20,7 +20,7 @@ class Categories implements CategoriesInterface
     /**
      * @var string
      */
-    protected $cacheKey = 'categories.';
+    protected $cacheKey = 'races.categories.';
 
     public function __construct(Repository $cache, \App\Services\Races\Categories $categories)
     {

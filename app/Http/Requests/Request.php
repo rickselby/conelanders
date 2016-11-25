@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 abstract class Request extends FormRequest
@@ -18,6 +19,9 @@ abstract class Request extends FormRequest
     /** @var string[] List of request fields that should be converted to time  */
     protected $timeFields = [];
 
+    /** @var string Date format used on the site */
+    protected $dateFormat = 'jS F Y, H:i';
+
     // Authorisating is handled at controller level.
     public function authorize()
     {
@@ -33,6 +37,7 @@ abstract class Request extends FormRequest
         $this->setCheckboxes();
         $this->setEmptyIsNull();
         parent::validate();
+        $this->timeToCarbon();
         $this->timeString();
     }
 
@@ -53,6 +58,16 @@ abstract class Request extends FormRequest
     {
         $this->mergeRequest($this->emptyIsNullFields, function($field) {
             return Request::input($field) === '' ? null : Request::input($field);
+        });
+    }
+
+    protected function timeToCarbon()
+    {
+        $this->mergeRequest($this->timeFields, function($field) {
+            return Carbon::createFromFormat(
+                $this->dateFormat,
+                Request::input($field)
+            );
         });
     }
 

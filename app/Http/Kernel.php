@@ -56,5 +56,8 @@ class Kernel extends HttpKernel
 
         'races.validateEvent' => \App\Http\Middleware\Races\ValidateEvent::class,
         'races.validateSession' => \App\Http\Middleware\Races\ValidateSession::class,
+
+        'rallycross.validateEvent' => \App\Http\Middleware\RallyCross\ValidateEvent::class,
+        'rallycross.validateSession' => \App\Http\Middleware\RallyCross\ValidateSession::class,
     ];
 }

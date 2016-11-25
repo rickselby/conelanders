@@ -22,6 +22,11 @@
                     </a>
                 </li>
             @endforeach
+            <li role="presentation">
+                <a href="#rallycross" aria-controls="home" role="tab" data-toggle="tab">
+                    Rallycross
+                </a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -35,6 +40,10 @@
                     @include('races.driver.show', ['category' => $navCat])
                 </div>
             @endforeach
+
+            <div role="tabpanel" class="tab-pane" id="rallycross">
+                @include('rallycross.driver.show')
+            </div>
         </div>
 
     </div>

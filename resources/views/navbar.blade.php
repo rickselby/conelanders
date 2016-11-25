@@ -27,6 +27,9 @@
                 <li>
                     <a href="{{ route('calendar') }}">Calendar</a>
                 </li>
+                <li>
+                    <a href="{{ route('rallycross.index') }}">Rallycross</a>
+                </li>
             @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -82,6 +85,18 @@
                             </li>
                         @endif
 
+                        @can('rallycross-admin')
+                            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('ac-server-admin') || Gate::check('assetto-corsa-admin'))
+                                <li role="separator" class="divider"></li>
+                            @endif
+                            <li class="dropdown-header">Rallycross</li>
+                            <li>
+                                <a href="{{ route('rallycross.car.index') }}">Cars</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('rallycross.championship.index') }}">Championship Management</a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
             @endif
@@ -91,11 +106,21 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
             @if (Auth::check())
-                <li>
-                    <a href="{{route('user.show')}}">My Profile</a>
-                </li>
-                <li>
-                    <a href="{{route('logout')}}">Logout</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ \Auth::user()->name }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{route('user.show')}}">My Profile</a>
+                        </li>
+                        <li>
+                            <a href="{{route('user.championships')}}">My Championships</a>
+                        </li>
+                        <li>
+                            <a href="{{route('logout')}}">Logout</a>
+                        </li>
+                    </ul>
                 </li>
             @else
                 <li>

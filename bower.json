@@ -1,5 +1,5 @@
 {
-  "name": "Conelanders Results",
+  "name": "conelanders-results",
   "dependencies": {
     "bootstrap": "~3.3.6",
     "jquery": "~2.2.0",
@@ -7,6 +7,8 @@
     "bootstrap-social": "~4.12.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
     "flag-icon-css": "^2.2.0",
-    "Sortable": "^1.4.2"
+    "Sortable": "^1.4.2",
+    "typeahead.js": "^0.11.1",
+    "typeahead.js-bootstrap3.less": "typeahead.js-bootstrap-css#^1.2.1"
   }
 }

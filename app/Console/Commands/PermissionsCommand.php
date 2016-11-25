@@ -34,6 +34,7 @@ class PermissionsCommand extends Command {
         'user-admin',
         'playlist-admin',
         'ac-server-admin',
+        'rallycross-admin',
     ];
 
     /**

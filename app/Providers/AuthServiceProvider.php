@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Policies\UserPolicy;
+use App\Models\RallyCross\RxChampionship;
+use App\Models\RallyCross\RxEvent;
+use App\Models\RallyCross\RxSession;
+use App\Policies;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,7 +17,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserPolicy::class,
+        RxChampionship::class => Policies\RallyCross\ChampionshipPolicy::class,
+        RxEvent::class => Policies\RallyCross\EventPolicy::class,
+        RxSession::class => Policies\RallyCross\SessionPolicy::class,
     ];
 
     /**

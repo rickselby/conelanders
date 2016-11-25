@@ -39,8 +39,13 @@ class DriverController extends Controller
     {
         return view('driver.show')
             ->with('driver', $driver)
+            /*
+             * TODO: change this to an event call, so we don't edit this each time...
+             */
             ->with('dirtResults', \DirtRallyResults::forDriver($driver))
-            ->with('racesResults', \RacesResults::forDriver($driver));
+            ->with('racesResults', \RacesResults::forDriver($driver))
+            ->with('rallyCrossResults', \RXResults::forDriver($driver))
+        ;
     }
 
     /**

@@ -25,6 +25,11 @@ class Driver extends \Eloquent
     {
         return $this->hasMany(Races\RacesChampionshipEntrant::class);
     }
+
+    public function rallyCrossResults()
+    {
+        return $this->hasMany(RallyCross\RxEventEntrant::class);
+    }
     
     public function user()
     {

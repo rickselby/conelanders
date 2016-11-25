@@ -27,6 +27,10 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/dirt-rally.php');
     });
 
+    Route::group(['prefix' => 'rallycross', 'namespace' => 'RallyCross'], function() {
+        include('Routes/rallycross.php');
+    });
+
     Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
         Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
             include('Routes/API/races.php');
@@ -42,6 +46,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('user/update-profile', 'UserController@updateProfile')->name('user.update-profile');
     Route::get('user/assignments', 'UserController@assignments')->name('user.assignments');
     Route::get('user/assign/{user}', 'UserController@assign')->name('user.assign');
+    Route::get('user/championships', 'UserController@championships')->name('user.championships');
 
     Route::get('playlists', 'PlaylistController@index')->name('playlists.index');
 
