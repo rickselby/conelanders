@@ -3,8 +3,6 @@
 namespace App\Http\Requests\RallyCross;
 
 use App\Http\Requests\Request;
-use App\Services\Times;
-use Carbon\Carbon;
 
 class ChampionshipEventEntrantRequest extends Request
 {

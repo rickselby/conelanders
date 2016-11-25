@@ -3,12 +3,14 @@
 namespace App\Http\Requests\RallyCross;
 
 use App\Http\Requests\Request;
-use App\Services\Times;
-use Carbon\Carbon;
 
 class ChampionshipEventSessionEntrantRequest extends Request
 {
-    protected $timeRegex = '/\d?\d:\d\d\.\d\d\d/';
+    protected $timeFields = [
+        'time',
+        'penalty',
+        'lap',
+    ];
 
     protected $checkboxFields = [
         'dnf',
@@ -35,18 +37,5 @@ class ChampionshipEventSessionEntrantRequest extends Request
             'dnf' => 'boolean',
             'dsq' => 'boolean',
         ];
-    }
-
-    public function validate()
-    {
-        parent::validate();
-        $this->timeToInt();
-    }
-
-    protected function timeToInt()
-    {
-        $this->mergeRequest(['time', 'penalty', 'lap'], function($field) {
-            return \Times::fromString(Request::input($field));
-        });
     }
 }
