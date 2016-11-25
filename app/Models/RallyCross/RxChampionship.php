@@ -43,7 +43,7 @@ class RxChampionship extends \Eloquent
                 $dates[] = $event->completeAt;
             }
         }
-        return max($dates);
+        return count($dates) ? max($dates) : null;
     }
 
     public function getEndsAttribute()
