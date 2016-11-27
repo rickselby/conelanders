@@ -11,9 +11,9 @@
     {!! Form::open(['route' => ['races.championship.entrant.store', $championship], 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
-        {!! Form::label('driver_id', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('driver', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
-            {!! Form::select('driver_id', \App\Models\Driver::orderBy('name')->pluck('name', 'id'), null, ['class' => 'form-control']) !!}
+            {{ Form::text('driver', null, ['class' => 'form-control', 'autofocus']) }}
         </div>
     </div>
 
@@ -124,5 +124,34 @@
         })
     </script>
     <style type="text/css" id="badge-css" rel="stylesheet"></style>
+
+    <script type="text/javascript">
+        var drivers = new Bloodhound({
+            datumTokenizer: function(d) {
+                var test = Bloodhound.tokenizers.whitespace(d);
+                $.each(test,function(k,v){
+                    i = 0;
+                    while( (i+1) < v.length ){
+                        test.push(v.substr(i,v.length));
+                        i++;
+                    }
+                })
+                return test;
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            // `states` is an array of state names defined in "The Basics"
+            local: {!! \App\Models\Driver::pluck('name')->toJson() !!}
+        });
+
+        $('input[name="driver"]').typeahead({
+                    hint: false,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'drivers',
+                    source: drivers
+                });
+    </script>
 
 @endsection

@@ -23,7 +23,7 @@ class ChampionshipEntrantRequest extends Request
     public function rules()
     {
         return [
-            'driver_id' => 'required|exists:drivers,id',
+            'driver' => 'required|string|exists:drivers,name',
             'rookie' => 'required|boolean',
             'number' => 'required|string',
             'colour' => 'required|string',
