@@ -1,5 +1,11 @@
 @extends('page')
 
+@section('header')
+    <div class="page-header">
+        <h1>{{ $session->fullName }}</h1>
+    </div>
+@endsection
+
 @section('content')
 
     <h2>{{ $session->name }} :: {{ \App\Models\Races\RacesSession::getTypes()[$session->type] }}</h2>

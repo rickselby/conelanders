@@ -8,6 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     protected $subscribe = [
+        \App\Listeners\Races\Championships::class,
         \App\Listeners\Races\Categories::class,
         \App\Listeners\Races\News::class,
         \App\Listeners\Races\Playlists::class,

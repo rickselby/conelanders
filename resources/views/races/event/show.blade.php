@@ -1,5 +1,11 @@
 @extends('page')
 
+@section('header')
+    <div class="page-header">
+        <h1>{{ $event->fullName }}</h1>
+    </div>
+@endsection
+
 @section('content')
 
     {!! Form::open(['route' => ['races.championship.event.destroy', $event->championship, $event], 'method' => 'delete', 'class' => 'form-inline']) !!}

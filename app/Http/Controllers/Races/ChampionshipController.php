@@ -7,12 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Races\ChampionshipRequest;
 use App\Models\Races\RacesCategory;
 use App\Models\Races\RacesChampionship;
+use App\Models\User;
 
 class ChampionshipController extends Controller
 {
+
+    protected $resourceAbilityMap = [
+        'index' => 'index',
+    ];
+
     public function __construct()
     {
-        $this->middleware('can:races-admin');
+        $this->authorizeResource(RacesChampionship::class, 'championship');
     }
 
     /**
@@ -49,6 +55,7 @@ class ChampionshipController extends Controller
     public function show(RacesCategory $category, RacesChampionship $championship)
     {
         return view('races.championship.show')
+            ->with('users', User::with('driver')->whereNotIn('id', $championship->admins->pluck('id'))->get()->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE))
             ->with('championship', $championship);
     }
 

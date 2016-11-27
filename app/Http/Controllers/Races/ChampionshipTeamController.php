@@ -15,7 +15,8 @@ class ChampionshipTeamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:races-admin');
+        $this->middleware('races.validateTeam')->only(['edit', 'update', 'destroy']);
+        $this->middleware('can:manage-teams,championship');
     }
 
     public function index(RacesChampionship $championship)

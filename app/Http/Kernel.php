@@ -54,8 +54,10 @@ class Kernel extends HttpKernel
         'dirt-rally.validateEvent' => \App\Http\Middleware\DirtRally\ValidateEvent::class,
         'dirt-rally.validateStage' => \App\Http\Middleware\DirtRally\ValidateStage::class,
 
+        'races.validateEntrant' => \App\Http\Middleware\Races\ValidateEntrant::class,
         'races.validateEvent' => \App\Http\Middleware\Races\ValidateEvent::class,
         'races.validateSession' => \App\Http\Middleware\Races\ValidateSession::class,
+        'races.validateTeam' => \App\Http\Middleware\Races\ValidateTeam::class,
 
         'rallycross.validateEvent' => \App\Http\Middleware\RallyCross\ValidateEvent::class,
         'rallycross.validateSession' => \App\Http\Middleware\RallyCross\ValidateSession::class,

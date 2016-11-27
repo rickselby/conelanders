@@ -12,8 +12,8 @@ class ChampionshipEntrantController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:races-admin')
-        ->except(['css']);
+        $this->middleware('races.validateEntrant')->only(['edit', 'update', 'destroy']);
+        $this->middleware('can:manage-entrants,championship')->except(['css']);
     }
 
     public function css(RacesChampionship $championship)

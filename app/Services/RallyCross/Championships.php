@@ -65,7 +65,7 @@ class Championships implements ChampionshipInterface
     {
         return \View::make(
             'rallycross.championship.user',
-            ['championships' => RxChampionship::forUser(\Auth::user())->get()]
+            ['championships' => \Auth::user()->admin(RxChampionship::class)]
         )->render();
     }
 
