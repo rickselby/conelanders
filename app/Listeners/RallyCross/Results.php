@@ -70,9 +70,9 @@ class Results implements ShouldQueue
 
     /**
      * Clear results for an event
-     * @param EventUpdated $event
+     * @param Event $event
      */
-    public function clearEventCache(EventUpdated $event)
+    public function clearEventCache(Event $event)
     {
         \RXCacheHandler::clearEventCache($event->event);
     }
