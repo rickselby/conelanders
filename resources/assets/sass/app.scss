@@ -1,3 +1,7 @@
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/bootstrap-social/bootstrap-social.scss";
-@import "node_modules/font-awesome/css"
+$fa-font-path: "../../vendor/fonts";
+$flag-icon-css-path: "../../vendor/flags";
+$icon-font-path: "../../vendor/fonts/";
+
+@import "../bower/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "../bower/font-awesome/scss/font-awesome";
+@import "../bower/flag-icon-css/sass/_flag-icon";

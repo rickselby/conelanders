@@ -1,7 +1,12 @@
 /vendor
 /node_modules
-/public/bower
-/public/storage
+/public/build
+/public/css
+/public/fonts
+/public/js
+/public/vendor
+/resources/assets/bower
+/resources/assets/generated
 Homestead.yaml
 Homestead.json
 .env

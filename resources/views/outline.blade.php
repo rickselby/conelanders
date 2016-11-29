@@ -8,15 +8,8 @@
         <title>Conelanders Racing League</title>
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
-        <!-- Bootstrap -->
-        <link href="{{ asset('bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bower/bootstrap-social/bootstrap-social.css') }}" rel="stylesheet">
-        <link href="{{ asset('bower/tablesorter/dist/css/theme.bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('bower/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('bower/typeahead.js-bootstrap3.less/typeaheadjs.css') }}" rel="stylesheet" />
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+
+        <link rel="stylesheet" href="{{ url(elixir('css/all.css')) }}">
         @stack('stylesheets')
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,15 +18,9 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script src="{{ asset('bower/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bower/tablesorter/dist/js/jquery.tablesorter.min.js') }}"></script>
-        <script src="{{ asset('bower/tablesorter/dist/js/jquery.tablesorter.widgets.min.js') }}"></script>
-        <script src="{{ asset('bower/moment/min/moment.min.js') }}"></script>
-        <script src="{{ asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
-        <script src="{{ asset('bower/Sortable/jquery.fn.sortable.min.js') }}"></script>
-        <script src="{{ asset('bower/typeahead.js/dist/typeahead.jquery.min.js') }}"></script>
-        <script src="{{ asset('bower/typeahead.js/dist/bloodhound.min.js') }}"></script>
+
+        <script src="{{ url(elixir('js/all.js')) }}"></script>
+
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
