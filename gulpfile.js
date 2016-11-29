@@ -24,11 +24,11 @@ elixir(function(mix) {
             'app.scss',
         ], 'resources/assets/generated/sass.css')
         .styles([
+            '../generated/sass.css',
             '../bower/bootstrap-social/bootstrap-social.css',
             '../bower/tablesorter/dist/css/theme.bootstrap.min.css',
             '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
             '../bower/typeahead.js-bootstrap3.less/typeaheadjs.css',
-            '../generated/sass.css',
             'styles.css'
         ])
         .scripts([
