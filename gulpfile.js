@@ -28,8 +28,8 @@ elixir(function(mix) {
             '../bower/tablesorter/dist/css/theme.bootstrap.min.css',
             '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
             '../bower/typeahead.js-bootstrap3.less/typeaheadjs.css',
-            'styles.css',
-            '../generated/sass.css'
+            '../generated/sass.css',
+            'styles.css'
         ])
         .scripts([
             '../bower/jquery/dist/jquery.js',
