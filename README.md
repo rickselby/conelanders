@@ -13,7 +13,7 @@ Tag-based cache that's NOT apc. APC can't be altered from the command line, so t
     bower install
     chmod -R 777 storage bootstrap/cache
 
-    cd public/bower/Sortable
+    cd resources/assets/bower/Sortable
     npm install
     node_modules/grunt/bin/grunt jquery:min
     rm -rf node_modules
