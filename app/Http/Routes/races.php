@@ -10,6 +10,7 @@ Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
     Route::resource('category', 'CategoryController');
 
     Route::resource('category.championship', 'ChampionshipController');
+    Route::resource('category.championship.admin', 'ChampionshipAdminController', ['only' => ['store', 'destroy']]);
 
     Route::get('championship/{championship}/entrant/css', 'ChampionshipEntrantController@css')->name('races.championship.entrant.css');
     Route::resource('championship.entrant', 'ChampionshipEntrantController');

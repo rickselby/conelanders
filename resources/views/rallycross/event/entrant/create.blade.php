@@ -11,7 +11,7 @@
     {!! Form::open(['route' => ['rallycross.championship.event.entrant.store', $event->championship, $event], 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
-        {!! Form::label('driver_id', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::label('driver', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             {{ Form::text('driver', null, ['class' => 'form-control', 'autofocus']) }}
         </div>

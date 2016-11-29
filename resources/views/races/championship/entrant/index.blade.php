@@ -4,10 +4,13 @@
 <link href="{{ route('races.championship.entrant.css', $championship) }}" rel="stylesheet" />
 @endpush
 
+@section('header')
+    <div class="page-header">
+        <h1>{{ $championship->name }}: Entrants</h1>
+    </div>
+@endsection
+
 @section('content')
-
-    <h2>Entrants</h2>
-
     <p>
         <a class="btn btn-small btn-info" href="{{ route('races.championship.entrant.create', $championship) }}">Add another entrant</a>
     </p>

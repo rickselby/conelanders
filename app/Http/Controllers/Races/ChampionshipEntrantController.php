@@ -5,15 +5,18 @@ namespace App\Http\Controllers\Races;
 use App\Events\Races\ChampionshipEntrantsUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Races\ChampionshipEntrantRequest;
+use App\Models\Driver;
+use App\Models\Races\RacesCar;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesChampionshipEntrant;
+use App\Models\Races\RacesTeam;
 
 class ChampionshipEntrantController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:races-admin')
-        ->except(['css']);
+        $this->middleware('races.validateEntrant')->only(['edit', 'update', 'destroy']);
+        $this->middleware('can:manage-entrants,championship')->except(['css']);
     }
 
     public function css(RacesChampionship $championship)
@@ -38,7 +41,17 @@ class ChampionshipEntrantController extends Controller
 
     public function store(ChampionshipEntrantRequest $request, RacesChampionship $championship)
     {
-        $championship->entrants()->create($request->all());
+        $entrant = new RacesChampionshipEntrant([
+            $request->only(['rookie', 'number', 'colour', 'colour2', 'css'])
+        ]);
+        $entrant->driver()->associate(Driver::where('name', $request->input('driver'))->first());
+        if ($request->input('races_car_id')) {
+            $entrant->car()->associate(RacesCar::find($request->input('races_car_id')));
+        }
+        if ($request->input('races_team_id')) {
+            $entrant->car()->associate(RacesTeam::find($request->input('races_team_id')));
+        }
+        $championship->entrants()->save($entrant);
         \Event::fire(new ChampionshipEntrantsUpdated($championship));
         \Notification::add('success', 'Entrant added');
         return \Redirect::route('races.championship.entrant.index', $championship);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -43,6 +44,11 @@ class User extends Authenticatable
         } else {
             return $this->getAttributeValue('email');
         }
+    }
+
+    public function admin($modelName)
+    {
+        return $this->morphedByMany($modelName, 'adminable')->get();
     }
 
 }

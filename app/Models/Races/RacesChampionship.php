@@ -2,6 +2,7 @@
 
 namespace App\Models\Races;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
@@ -20,6 +21,11 @@ class RacesChampionship extends \Eloquent
     public function category()
     {
         return $this->belongsTo(RacesCategory::class, 'races_category_id');
+    }
+
+    public function admins()
+    {
+        return $this->morphToMany(User::class, 'adminable');
     }
 
     public function events()
@@ -107,6 +113,17 @@ class RacesChampionship extends \Eloquent
     public function getNoTeamEntrantsSortedAttribute()
     {
         return $this->entrants()->with('driver.nation', 'car', 'team')->noTeam()->orderByNumber()->get();
+    }
+
+    /**
+     * Check if the given user is an admin of this championship
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function isAdmin(User $user)
+    {
+        return $this->admins->contains($user);
     }
 
     /**

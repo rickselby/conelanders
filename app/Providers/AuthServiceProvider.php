@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Races\RacesChampionship;
+use App\Models\Races\RacesEvent;
+use App\Models\Races\RacesSession;
 use App\Models\RallyCross\RxChampionship;
 use App\Models\RallyCross\RxEvent;
 use App\Models\RallyCross\RxSession;
@@ -17,6 +20,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        RacesChampionship::class => Policies\Races\ChampionshipPolicy::class,
+        RacesEvent::class => Policies\Races\EventPolicy::class,
+        RacesSession::class => Policies\Races\SessionPolicy::class,
         RxChampionship::class => Policies\RallyCross\ChampionshipPolicy::class,
         RxEvent::class => Policies\RallyCross\EventPolicy::class,
         RxSession::class => Policies\RallyCross\SessionPolicy::class,

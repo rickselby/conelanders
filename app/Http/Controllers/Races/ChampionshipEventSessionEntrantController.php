@@ -16,7 +16,6 @@ class ChampionshipEventSessionEntrantController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:races-admin');
         $this->middleware('races.validateSession');
     }
 
@@ -33,6 +32,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function update(Request $request, $championshipStub, $eventStub, $sessionStub, Entrants $entrants)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $entrants->updateSessionEntrants($request, $session);
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Entrants updated');
@@ -52,6 +52,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function destroy(Request $request, $championshipStub, $eventStub, $sessionStub, RacesSessionEntrant $entrant)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         if ($entrant->session->id == $session->id) {
             if ($entrant->canBeDeleted()) {
                 $entrant->delete();
@@ -79,6 +80,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function applyPointsSequence(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $sequence = PointsSequence::findOrFail($request->get('sequence'));
         $sessionService->applyPointsSequence($session, $sequence);
         \Event::fire(new SessionUpdated($session));
@@ -99,6 +101,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function applyFastestLapPointsSequence(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $sequence = PointsSequence::findOrFail($request->get('sequence'));
         $sessionService->applyFastestLapPointsSequence($session, $sequence);
         \Event::fire(new SessionUpdated($session));
@@ -119,6 +122,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function setPoints(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $sessionService->setPoints($session, $request->get('points'));
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points updated');
@@ -138,6 +142,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function setFastestLapPoints(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $sessionService->setFastestLapPoints($session, $request->get('points'));
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Points updated');
@@ -156,6 +161,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function setStartedFromSession(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $thisSession = $request->get('session');
+        $this->authorize('update', $thisSession);
         $fromSession = RacesSession::findOrFail($request->get('from-session'));
         $sessionService->setStartedFromSession($thisSession, $fromSession);
         \Event::fire(new SessionUpdated($thisSession));
@@ -176,6 +182,7 @@ class ChampionshipEventSessionEntrantController extends Controller
     public function setStarted(Request $request, $championshipStub, $eventStub, $sessionStub, Session $sessionService)
     {
         $session = $request->get('session');
+        $this->authorize('update', $session);
         $sessionService->setStarted($session, $request->get('started'));
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Starting positions updated');

@@ -72,4 +72,21 @@ class Championships implements ChampionshipInterface
         return count($this->cars($championship)) > 1;
     }
 
+    public function getUserChampionships()
+    {
+        $categories = [];
+        foreach(\Auth::user()->admin(RacesChampionship::class) AS $championship) {
+            if (!isset($categories[$championship->category->id])) {
+                $categories[$championship->category->id] = [
+                    'category' => $championship->category,
+                    'championships' => [],
+                ];
+            }
+            $categories[$championship->category->id]['championships'][] = $championship;
+        }
+        return \View::make(
+            'races.championship.user',
+            ['categories' => $categories]
+        )->render();
+    }
 }

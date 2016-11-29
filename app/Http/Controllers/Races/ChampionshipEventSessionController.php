@@ -22,7 +22,6 @@ class ChampionshipEventSessionController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:races-admin');
         $this->middleware('races.validateEvent', ['only' => ['create', 'store']]);
         $this->middleware('races.validateSession', ['except' => ['create', 'store']]);
     }
@@ -37,6 +36,7 @@ class ChampionshipEventSessionController extends Controller
     public function create($championshipStub, $eventStub)
     {
         $event = \Request::get('event');
+        $this->authorize('create-session', $event);
         return view('races.session.create')
             ->with('event', $event)
             ->with('types', RacesSession::getTypes());
@@ -53,6 +53,7 @@ class ChampionshipEventSessionController extends Controller
     public function store(ChampionshipEventSessionRequest $request, $championshipStub, $eventStub)
     {
         $event = \Request::get('event');
+        $this->authorize('create-session', $event);
         // Could we do this as an event listener? Or something?
         $order = count($event->sessions) + 1;
         $session = $event->sessions()->create(array_merge(
@@ -78,6 +79,7 @@ class ChampionshipEventSessionController extends Controller
     public function show($championshipSlug, $eventSlug, $sessionSlug)
     {
         $session = \Request::get('session');
+        $this->authorize('view', $session);
         return view('races.session.show')
             ->with('session', $session)
             ->with('sequences', \PointSequences::forSelect())
@@ -94,8 +96,10 @@ class ChampionshipEventSessionController extends Controller
      */
     public function edit($championshipSlug, $eventSlug, $sessionSlug)
     {
+        $session = \Request::get('session');
+        $this->authorize('update', $session);
         return view('races.session.edit')
-            ->with('session', \Request::get('session'))
+            ->with('session', $session)
             ->with('types', RacesSession::getTypes());
     }
 
@@ -111,6 +115,7 @@ class ChampionshipEventSessionController extends Controller
     public function update(ChampionshipEventSessionRequest $request, $championshipSlug, $eventSlug, $sessionSlug)
     {
         $session = \Request::get('session');
+        $this->authorize('update', $session);
         $session->fill($request->all());
         if ($session->playlist) {
             if ($request->get('playlistLink')) {
@@ -139,6 +144,7 @@ class ChampionshipEventSessionController extends Controller
     public function destroy($championshipSlug, $eventSlug, $sessionSlug)
     {
         $session = \Request::get('session');
+        $this->authorize('delete', $session);
         if ($session->entrants()->count()) {
             \Notification::add('error', 'Session "'.$session->name.'" cannot be deleted - there are results entered');
             return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
@@ -163,6 +169,7 @@ class ChampionshipEventSessionController extends Controller
     public function resultsUpload(Request $request, $championshipSlug, $eventSlug, $sessionSlug, Import $import)
     {
         $session = \Request::get('session');
+        $this->authorize('update', $session);
         $import->saveUpload($request, $session);
         return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
@@ -178,6 +185,7 @@ class ChampionshipEventSessionController extends Controller
     public function resultsScan($championshipSlug, $eventSlug, $sessionSlug, Import $import)
     {
         $session = \Request::get('session');
+        $this->authorize('update', $session);
         if (\RacesSession::hasResultsFile($session)) {
             $this->dispatch(new ImportResultsJob($session));
             \Notification::add('success', 'Results import job queued. Results will be imported shortly.');
@@ -199,6 +207,7 @@ class ChampionshipEventSessionController extends Controller
     public function releaseDate(Request $request, $championshipSlug, $eventSlug, $sessionSlug)
     {
         $session = \Request::get('session');
+        $this->authorize('update', $session);
         $session->release = Carbon::createFromFormat('jS F Y, H:i', $request->release);
         $session->save();
         \Event::fire(new SessionUpdated($session));

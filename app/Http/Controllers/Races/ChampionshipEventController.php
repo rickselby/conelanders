@@ -16,7 +16,6 @@ class ChampionshipEventController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:races-admin', ['except' => 'signup']);
         $this->middleware('auth', ['only' => 'signup']);
         $this->middleware('races.validateEvent', ['except' => ['create', 'store']]);
     }
@@ -29,6 +28,7 @@ class ChampionshipEventController extends Controller
      */
     public function create(RacesChampionship $championship)
     {
+        $this->authorize('create-event', $championship);
         return view('races.event.create')
             ->with('championship', $championship);
     }
@@ -41,6 +41,7 @@ class ChampionshipEventController extends Controller
      */
     public function store(ChampionshipEventRequest $request, RacesChampionship $championship)
     {
+        $this->authorize('create-event', $championship);
         /** @var RacesEvent $event */
         $event = $championship->events()->create($request->all());
         \Event::fire(new ChampionshipUpdated($championship));
@@ -58,6 +59,7 @@ class ChampionshipEventController extends Controller
     public function show($championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
+        $this->authorize('view', $event);
         return view('races.event.show')
             ->with('event', $event)
             ->with('otherEvents', $event->championship->events()->where('id', '!=', $event->id)->pluck('name', 'id'));
@@ -72,8 +74,10 @@ class ChampionshipEventController extends Controller
      */
     public function edit($championshipSlug, $eventSlug)
     {
+        $event = \Request::get('event');
+        $this->authorize('update', $event);
         return view('races.event.edit')
-            ->with('event', \Request::get('event'));
+            ->with('event', $event);
     }
 
     /**
@@ -87,6 +91,7 @@ class ChampionshipEventController extends Controller
     public function update(ChampionshipEventRequest $request, $championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
+        $this->authorize('update', $event);
         $event->fill($request->all());
         $event->save();
         \Event::fire(new EventUpdated($event));
@@ -104,6 +109,8 @@ class ChampionshipEventController extends Controller
     public function destroy($championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
+        $this->authorize('delete', $event);
+
         if ($event->sessions()->count()) {
             \Notification::add('error', 'Event "'.$event->name.'" cannot be deleted - there are sessions added');
             return \Redirect::route('races.championship.event.show', [$event->championship, $event]);
@@ -125,6 +132,8 @@ class ChampionshipEventController extends Controller
     public function copySessions(Request $request, $championshipSlug, $eventSlug)
     {
         $event = \Request::get('event');
+        $this->authorize('update', $event);
+
         $fromEvent = RacesEvent::findOrFail($request->get('from-event'));
         foreach($fromEvent->sessions AS $session) {
             $event->sessions()->create($session->toArray());
@@ -140,6 +149,9 @@ class ChampionshipEventController extends Controller
      */
     public function sortSessions(Request $request, $championshipSlug, $eventSlug)
     {
+        $event = \Request::get('event');
+        $this->authorize('update', $event);
+
         $counter = 1;
         foreach($request->get('order') AS $sessionID) {
             $session = RacesSession::findOrFail($sessionID);
