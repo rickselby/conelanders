@@ -1,5 +1,11 @@
 <?php
 
+Route::group(['middleware' => ['api'], 'prefix' => 'api', 'namespace' => 'API'], function() {
+    Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
+        include('Routes/API/races.php');
+    });
+});
+
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', 'ConelandersController@index')->name('home');
@@ -29,12 +35,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'rallycross', 'namespace' => 'RallyCross'], function() {
         include('Routes/rallycross.php');
-    });
-
-    Route::group(['prefix' => 'api', 'namespace' => 'API'], function() {
-        Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
-            include('Routes/API/races.php');
-        });
     });
 
     Route::get('about', function() {
