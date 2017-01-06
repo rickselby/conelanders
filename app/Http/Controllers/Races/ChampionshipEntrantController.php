@@ -49,7 +49,7 @@ class ChampionshipEntrantController extends Controller
             $entrant->car()->associate(RacesCar::find($request->input('races_car_id')));
         }
         if ($request->input('races_team_id')) {
-            $entrant->car()->associate(RacesTeam::find($request->input('races_team_id')));
+            $entrant->team()->associate(RacesTeam::find($request->input('races_team_id')));
         }
         $championship->entrants()->save($entrant);
         \Event::fire(new ChampionshipEntrantsUpdated($championship));

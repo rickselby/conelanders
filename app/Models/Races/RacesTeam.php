@@ -8,7 +8,7 @@ class RacesTeam extends \Eloquent
 
     public function championship()
     {
-        return $this->hasOne(RacesChampionship::class);
+        return $this->belongsTo(RacesChampionship::class, 'races_championship_id');
     }
 
     public function car()
