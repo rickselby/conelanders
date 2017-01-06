@@ -41,9 +41,9 @@ class ChampionshipEntrantController extends Controller
 
     public function store(ChampionshipEntrantRequest $request, RacesChampionship $championship)
     {
-        $entrant = new RacesChampionshipEntrant([
+        $entrant = new RacesChampionshipEntrant(
             $request->only(['rookie', 'number', 'colour', 'colour2', 'css'])
-        ]);
+        );
         $entrant->driver()->associate(Driver::where('name', $request->input('driver'))->first());
         if ($request->input('races_car_id')) {
             $entrant->car()->associate(RacesCar::find($request->input('races_car_id')));
