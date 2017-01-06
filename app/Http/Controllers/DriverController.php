@@ -26,7 +26,7 @@ class DriverController extends Controller
     public function index()
     {
         return view('driver.index')
-            ->with('drivers', Driver::orderBy('name')->get());
+            ->with('drivers', Driver::with('nation')->orderBy('name')->get());
     }
 
     /**
@@ -73,6 +73,21 @@ class DriverController extends Controller
         $driver->fill($request->all());
         $driver->save();
         \Event::fire(new DriverUpdated($driver));
+        return \Redirect::route('driver.index');
+    }
+
+    /**
+     * Delete a driver
+     *
+     * @param Driver $driver
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Driver $driver)
+    {
+        // foreign keys should stop us from deleting someone that has done something...
+        $driver->delete();
+        \Notification::add('success', 'Driver deleted!');
         return \Redirect::route('driver.index');
     }
 }
