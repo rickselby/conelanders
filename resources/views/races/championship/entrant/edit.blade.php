@@ -15,8 +15,8 @@
     {!! Form::model($entrant, ['route' => ['races.championship.entrant.update', $championship, $entrant], 'method' => 'put', 'class' => 'form-horizontal']) !!}
 
     <div class="form-group">
-        {!! Form::label('driver_id', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
-        {!! Form::hidden('driver_id') !!}
+        {!! Form::label('driver', 'Driver', ['class' => 'col-sm-2 control-label']) !!}
+        {!! Form::hidden('driver', $entrant->driver->name) !!}
         <div class="col-sm-3">
             @include('races.driver.name', ['entrant' => $entrant])
         </div>
