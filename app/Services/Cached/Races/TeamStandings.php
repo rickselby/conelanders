@@ -33,12 +33,12 @@ class TeamStandings implements StandingsInterface
     /**
      * {@inheritdoc}
      */
-    public function championship(RacesChampionship $championship)
+    public function championship(RacesChampionship $championship, $teamSize = 0)
     {
         $tagStore = $this->cache->tags(\RacesCacheHandler::championshipTag($championship));
-        $key = $this->cacheKey . 'championship.' . $championship->id;
-        $function = function () use ($championship) {
-            return $this->standingsService->championship($championship);
+        $key = $this->cacheKey . 'championship.' . $championship->id . '.' . $teamSize;
+        $function = function () use ($championship, $teamSize) {
+            return $this->standingsService->championship($championship, $teamSize);
         };
 
         // We don't cache for logged in users, unless the championship is complete
@@ -61,13 +61,13 @@ class TeamStandings implements StandingsInterface
     /**
      * {@inheritdoc}
      */
-    public function event(RacesEvent $event)
+    public function event(RacesEvent $event, $teamSize = 0)
     {
         return $this->eventCache(
             $event,
-            $this->cacheKey . 'event.' . $event->id,
-            function () use ($event) {
-                return $this->standingsService->event($event);
+            $this->cacheKey . 'event.' . $event->id . '.' . $teamSize,
+            function () use ($event, $teamSize) {
+                return $this->standingsService->event($event, $teamSize);
             }
         );
     }
@@ -75,13 +75,13 @@ class TeamStandings implements StandingsInterface
     /**
      * {@inheritdoc}
      */
-    public function eventSummary(RacesEvent $event)
+    public function eventSummary(RacesEvent $event, $teamSize = 0)
     {
         return $this->eventCache(
             $event,
-            $this->cacheKey . 'eventSummary.' . $event->id,
-            function () use ($event) {
-                return $this->standingsService->eventSummary($event);
+            $this->cacheKey . 'eventSummary.' . $event->id . '.' . $teamSize,
+            function () use ($event, $teamSize) {
+                return $this->standingsService->eventSummary($event, $teamSize);
             }
         );
     }

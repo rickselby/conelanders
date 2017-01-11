@@ -16,6 +16,11 @@ class RacesChampionship extends \Eloquent
         'drop_events',
         'constructors_count',
         'teams_count',
+        'teams_group_by_size',
+    ];
+
+    protected $casts = [
+        'teams_group_by_size' => 'boolean',
     ];
 
     public function category()

@@ -2,57 +2,66 @@
 
 namespace App\Services\Races;
 
-use App\Interfaces\Races\DriverStandingsInterface;
-use App\Models\Races\RacesCar;
+use App\Interfaces\Races\TeamStandingsInterface;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesEvent;
 use App\Models\Races\RacesSession;
-use App\Models\Races\RacesSessionEntrant;
 use App\Models\Races\RacesTeam;
 
-class TeamStandings extends Standings implements DriverStandingsInterface
+class TeamStandings extends Standings implements TeamStandingsInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function eventSummary(RacesEvent $event)
+    public function eventSummary(RacesEvent $event, $teamSize = 0)
     {
-        $results = [];
+        if ($event->championship->teams_group_by_size && $teamSize == 0) {
 
-        switch ($event->championship->teams_count) {
-            case self::SUM:
-                $results = $this->eventSessionSummary($event, [$this, 'sumPoints']);
-                break;
-            case self::AVERAGE_SESSION:
-                $results = $this->eventSessionSummary($event, [$this, 'averagePoints']);
-                break;
-            case self::AVERAGE_EVENT:
-                if (\RacesEvent::canBeShown($event)) {
-                    $results = $this->eventAverage($event);
-                }
-                break;
+            $groups = [];
+            foreach ($this->getTeamSizes($event->championship) AS $size) {
+                $groups[$size] = $this->eventSummary($event, $size);
+            }
+
+            return $groups;
+
+        } else {
+            $results = [];
+
+            switch ($event->championship->teams_count) {
+                case self::SUM:
+                    $results = $this->eventSessionSummary($event, [$this, 'sumPoints'], $teamSize);
+                    break;
+                case self::AVERAGE_SESSION:
+                    $results = $this->eventSessionSummary($event, [$this, 'averagePoints'], $teamSize);
+                    break;
+                case self::AVERAGE_EVENT:
+                    if (\RacesEvent::canBeShown($event)) {
+                        $results = $this->eventAverage($event, $teamSize);
+                    }
+                    break;
+            }
+
+            return $this->sortAndAddPositions($results, $event);
         }
-
-        return $this->sortAndAddPositions($results, $event);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function event(RacesEvent $event)
+    public function event(RacesEvent $event, $teamSize = 0)
     {
         $results = [];
 
         if (\RacesEvent::canBeShown($event)) {
             switch ($event->championship->teams_count) {
                 case self::SUM:
-                    $results = $this->eventSessionCount($event, [$this, 'sumPoints']);
+                    $results = $this->eventSessionCount($event, [$this, 'sumPoints'], $teamSize);
                     break;
                 case self::AVERAGE_SESSION:
-                    $results = $this->eventSessionCount($event, [$this, 'averagePoints']);
+                    $results = $this->eventSessionCount($event, [$this, 'averagePoints'], $teamSize);
                     break;
                 case self::AVERAGE_EVENT:
-                    $results = $this->eventAverage($event);
+                    $results = $this->eventAverage($event, $teamSize);
                     break;
             }
         }
@@ -66,12 +75,12 @@ class TeamStandings extends Standings implements DriverStandingsInterface
      * @param callable $func
      * @return mixed
      */
-    protected function eventSessionCount(RacesEvent $event, callable $func)
+    protected function eventSessionCount(RacesEvent $event, callable $func, $teamSize)
     {
         $results = [];
         foreach($event->sessions AS $session) {
             if (\RacesSession::hasPoints($session)) {
-                foreach ($this->sessionCount($session, $func) AS $result) {
+                foreach ($this->sessionCount($session, $func, $teamSize) AS $result) {
                     $teamID = $result['team']->id;
 
                     if (!isset($results[$teamID])) {
@@ -96,12 +105,12 @@ class TeamStandings extends Standings implements DriverStandingsInterface
      * @param callable $func
      * @return mixed
      */
-    protected function eventSessionSummary(RacesEvent $event, callable $func)
+    protected function eventSessionSummary(RacesEvent $event, callable $func, $teamSize)
     {
         $results = [];
         foreach($event->sessions AS $session) {
             if (\RacesSession::hasPoints($session)) {
-                foreach ($this->sessionCount($session, $func) AS $result) {
+                foreach ($this->sessionCount($session, $func, $teamSize) AS $result) {
                     $teamID = $result['team']->id;
 
                     if (!isset($results[$teamID])) {
@@ -128,22 +137,24 @@ class TeamStandings extends Standings implements DriverStandingsInterface
      * @param $func
      * @return mixed
      */
-    protected function sessionCount(RacesSession $session, callable $func)
+    protected function sessionCount(RacesSession $session, callable $func, $teamSize)
     {
         $results = [];
 
         foreach($session->entrants AS $entrant) {
             if ($entrant->championshipEntrant->team) {
-                $teamID = $entrant->championshipEntrant->team->id;
+                if (!$teamSize || $entrant->championshipEntrant->team->entrants->count() == $teamSize) {
+                    $teamID = $entrant->championshipEntrant->team->id;
 
-                if (!isset($results[$teamID])) {
-                    $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
-                }
+                    if (!isset($results[$teamID])) {
+                        $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
+                    }
 
-                $results[$teamID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
+                    $results[$teamID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
 
-                if ($session->type == RacesSession::TYPE_RACE) {
-                    $results[$teamID]['positions'][] = $entrant->position;
+                    if ($session->type == RacesSession::TYPE_RACE) {
+                        $results[$teamID]['positions'][] = $entrant->position;
+                    }
                 }
             }
         }
@@ -156,28 +167,30 @@ class TeamStandings extends Standings implements DriverStandingsInterface
      * @param RacesEvent $event
      * @return mixed
      */
-    protected function eventAverage(RacesEvent $event)
+    protected function eventAverage(RacesEvent $event, $teamSize)
     {
         $results = [];
         foreach($event->sessions AS $session) {
             if (\RacesSession::hasPoints($session)) {
                 foreach ($session->entrants AS $entrant) {
                     if ($entrant->championshipEntrant->team) {
-                        $teamID = $entrant->championshipEntrant->team->id;
-                        $entrantID = $entrant->championshipEntrant->id;
+                        if (!$teamSize || $entrant->championshipEntrant->team->entrants->count() == $teamSize) {
+                            $teamID = $entrant->championshipEntrant->team->id;
+                            $entrantID = $entrant->championshipEntrant->id;
 
-                        if (!isset($results[$teamID])) {
-                            $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
-                        }
+                            if (!isset($results[$teamID])) {
+                                $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
+                            }
 
-                        if (!isset($results[$teamID]['points'][$entrantID])) {
-                            $results[$teamID]['points'][$entrantID] = 0;
-                        }
+                            if (!isset($results[$teamID]['points'][$entrantID])) {
+                                $results[$teamID]['points'][$entrantID] = 0;
+                            }
 
-                        $results[$teamID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
+                            $results[$teamID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
 
-                        if ($session->type == RacesSession::TYPE_RACE) {
-                            $results[$teamID]['positions'][] = $entrant->position;
+                            if ($session->type == RacesSession::TYPE_RACE) {
+                                $results[$teamID]['positions'][] = $entrant->position;
+                            }
                         }
                     }
                 }
@@ -205,39 +218,55 @@ class TeamStandings extends Standings implements DriverStandingsInterface
     /**
      * {@inheritdoc}
      */
-    public function championship(RacesChampionship $championship)
+    public function championship(RacesChampionship $championship, $teamSize = 0)
     {
-        $results = [];
+        if ($championship->teams_group_by_size && $teamSize == 0) {
 
-        foreach($championship->teams AS $team) {
-            $results[$team->id] = [
-                'team' => $team,
-                'points' => [],
-                'positions' => [],
-                'positionsWithEquals' => [],
-                'dropped' => [],
-                'totalPoints' => 0,
-            ];
-        }
-        foreach($championship->events AS $event) {
-            $eventResults = \RacesTeamStandings::event($event);
-            $eventResultsWithEquals = \Positions::addEquals($eventResults);
-            foreach ($eventResults AS $key => $result) {
-                $teamID = $result['team']->id;
-                $results[$teamID]['points'][$event->id] = $result['totalPoints'];
-                $results[$teamID]['positions'][$event->id] = $result['position'];
-                $results[$teamID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+            $groups = [];
+            foreach($this->getTeamSizes($championship) AS $size) {
+                $groups[$size] = $this->championship($championship, $size);
             }
+
+            return $groups;
+
+        } else {
+
+            $results = [];
+
+            foreach ($championship->teams AS $team) {
+                if (!$teamSize || $team->entrants->count() == $teamSize) {
+                    $results[$team->id] = [
+                        'team' => $team,
+                        'points' => [],
+                        'positions' => [],
+                        'positionsWithEquals' => [],
+                        'dropped' => [],
+                        'totalPoints' => 0,
+                    ];
+                }
+            }
+
+
+            foreach ($championship->events AS $event) {
+                $eventResults = \RacesTeamStandings::event($event, $teamSize);
+                $eventResultsWithEquals = \Positions::addEquals($eventResults);
+                foreach ($eventResults AS $key => $result) {
+                    $teamID = $result['team']->id;
+                    $results[$teamID]['points'][$event->id] = $result['totalPoints'];
+                    $results[$teamID]['positions'][$event->id] = $result['position'];
+                    $results[$teamID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                }
+            }
+
+            $results = $this->sumPoints($results);
+
+            // When the championship is complete, hide any drivers that have no results
+            $results = $this->removeEmpty($championship, $results);
+
+            $results = $this->dropEvents($championship, $results);
+
+            return $this->sortAndAddPositions($results);
         }
-
-        $results = $this->sumPoints($results);
-
-        // When the championship is complete, hide any drivers that have no results
-        $results = $this->removeEmpty($championship, $results);
-
-        $results = $this->dropEvents($championship, $results);
-
-        return $this->sortAndAddPositions($results);
     }
 
     /**
@@ -259,4 +288,22 @@ class TeamStandings extends Standings implements DriverStandingsInterface
             return $val;
         }
     }
+
+    /**
+     * Get a list of team sizes, largest to smallest, for this championship#
+     *
+     * @param RacesChampionship $championship
+     *
+     * @return array
+     */
+    protected function getTeamSizes(RacesChampionship $championship)
+    {
+        $sizes = [];
+        foreach($championship->teams AS $team) {
+            $sizes[] = $team->entrants->count();
+        }
+        rsort($sizes);
+        return array_unique($sizes);
+    }
+
 }

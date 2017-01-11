@@ -6,6 +6,10 @@ use App\Http\Requests\Request;
 
 class ChampionshipRequest extends Request
 {
+    protected $checkboxFields = [
+        'teams_group_by_size',
+    ];
+
     /**
      * Get the validation rules that apply to the request.
      *
