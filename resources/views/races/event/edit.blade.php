@@ -18,6 +18,14 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('table_name', 'Shortened Name', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::text('table_name', null, ['class' => 'form-control']) !!}
+            <p class="help-block">Abbreviated name used on the standings tables (e.g. <a href="{{ route('races.standings.drivers', [$event->championship->category, $event->championship]) }}">Drivers Standings</a> page)</p>
+        </div>
+    </div>
+
+    <div class="form-group">
         {!! Form::label('time', 'Event Starts', ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-10">
             <div class='input-group date' id='datetimepicker1'>
