@@ -13,17 +13,6 @@
 <h2>Drivers</h2>
 @include('races.results.summary.drivers')
 
-@if (\RacesChampionships::multipleCars($event->championship))
-    <h2>Constructors</h2>
-    @if ($event->championship->constructors_count == \App\Services\Races\Standings::SUM)
-        @include('races.results.summary.constructors.by-session')
-    @elseif ($event->championship->constructors_count == \App\Services\Races\Standings::AVERAGE_SESSION)
-        @include('races.results.summary.constructors.by-session')
-    @elseif ($event->championship->constructors_count == \App\Services\Races\Standings::AVERAGE_EVENT)
-        @include('races.results.summary.constructors.event-average')
-    @endif
-@endif
-
 @if (count($event->championship->teams))
     <h2>Teams</h2>
     @if ($event->championship->teams_count == \App\Services\Races\Standings::SUM)
@@ -32,5 +21,16 @@
         @include('races.results.summary.teams.by-session')
     @elseif ($event->championship->teams_count == \App\Services\Races\Standings::AVERAGE_EVENT)
         @include('races.results.summary.teams.event-average')
+    @endif
+@endif
+
+@if (\RacesChampionships::multipleCars($event->championship))
+    <h2>Constructors</h2>
+    @if ($event->championship->constructors_count == \App\Services\Races\Standings::SUM)
+        @include('races.results.summary.constructors.by-session')
+    @elseif ($event->championship->constructors_count == \App\Services\Races\Standings::AVERAGE_SESSION)
+        @include('races.results.summary.constructors.by-session')
+    @elseif ($event->championship->constructors_count == \App\Services\Races\Standings::AVERAGE_EVENT)
+        @include('races.results.summary.constructors.event-average')
     @endif
 @endif
