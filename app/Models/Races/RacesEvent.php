@@ -11,7 +11,7 @@ class RacesEvent extends \Eloquent
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'time', 'signup_open', 'signup_close'];
+    protected $fillable = ['name', 'table_name', 'time', 'signup_open', 'signup_close'];
 
     protected $dates = ['time', 'signup_open', 'signup_close'];
 
@@ -37,14 +37,18 @@ class RacesEvent extends \Eloquent
 
     public function getShortNameAttribute()
     {
-        $words = explode(' ', $this->name);
+        if ($this->table_name) {
+            $shortName = $this->table_name;
+        } else {
+            $words = explode(' ', $this->name);
 
-        // Grab first three letters of the first name
-        $shortName = mb_substr($words[0], 0, 3);
+            // Grab first three letters of the first name
+            $shortName = mb_substr($words[0], 0, 3);
 
-        if (count($words) > 1) {
-            for ($i = 1; $i < count($words); $i++) {
-                $shortName .= ' '.substr($words[$i], 0, 1);
+            if (count($words) > 1) {
+                for ($i = 1; $i < count($words); $i++) {
+                    $shortName .= ' '.substr($words[$i], 0, 1);
+                }
             }
         }
 

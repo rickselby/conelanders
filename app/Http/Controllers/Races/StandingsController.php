@@ -40,10 +40,16 @@ class StandingsController extends Controller
     {
         $championship->load('events.sessions.entrants.championshipEntrant.team', 'events.championship');
         $events = $championship->events()->get()->sortBy('time');
-        return view('races.standings.teams')
+
+        if ($championship->teams_group_by_size) {
+            $view = view('races.standings.teams-split');
+        } else {
+            $view = view('races.standings.teams');
+        }
+        return $view
+            ->with('points', \RacesTeamStandings::championship($championship))
             ->with('category', $category)
             ->with('championship', $championship)
-            ->with('events', $events)
-            ->with('points', \Positions::addEquals(\RacesTeamStandings::championship($championship)));
+            ->with('events', $events);
     }
 }

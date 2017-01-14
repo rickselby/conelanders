@@ -47,6 +47,13 @@
     </div>
 
     <div class="form-group">
+        {!! Form::label('teams_group_by_size', 'Group Teams championship by team size', ['class' => 'col-sm-2 control-label']) !!}
+        <div class="col-sm-10">
+            {!! Form::checkbox('teams_group_by_size', 1) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
             {!! Form::submit('Update Championship', ['class' => 'btn btn-primary']) !!}
