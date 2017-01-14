@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Races;
 
 use App\Events\Races\SessionUpdated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Races\PenaltyRequest;
+use App\Models\Races\RacesPenalty;
 use App\Models\Races\RacesSession;
 use App\Models\Races\RacesSessionEntrant;
 use App\Models\PointsSequence;
 use App\Services\Races\Entrants;
 use App\Services\Races\Import;
+use App\Services\Races\Penalties;
 use App\Services\Races\Session;
 use Illuminate\Http\Request;
 
@@ -186,6 +189,26 @@ class ChampionshipEventSessionEntrantController extends Controller
         $sessionService->setStarted($session, $request->get('started'));
         \Event::fire(new SessionUpdated($session));
         \Notification::add('success', 'Starting positions updated');
+        return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
+    }
+
+    public function addPenalty(PenaltyRequest $request, $championshipStub, $eventStub, $sessionStub, Penalties $penaltiesService)
+    {
+        $session = $request->get('session');
+        $this->authorize('update', $session);
+        $penaltiesService->add($request, $session);
+        \Event::fire(new SessionUpdated($session));
+        \Notification::add('success', 'Penalty Added');
+        return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
+    }
+
+    public function deletePenalty(Request $request, $championshipStub, $eventStub, $sessionStub, RacesPenalty $penalty, Penalties $penaltiesService)
+    {
+        $session = $request->get('session');
+        $this->authorize('update', $session);
+        $penalty->delete();
+        \Event::fire(new SessionUpdated($session));
+        \Notification::add('success', 'Penalty Removed');
         return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
 

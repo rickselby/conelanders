@@ -10,6 +10,7 @@ use App\Jobs\Races\ImportQualifyingJob;
 use App\Jobs\Races\ImportEventJob;
 use App\Jobs\Races\ImportResultsJob;
 use App\Models\Races\RacesEventEntrant;
+use App\Models\Races\RacesPenalty;
 use App\Models\Races\RacesSession;
 use App\Services\Races\Import;
 use Carbon\Carbon;
@@ -83,7 +84,8 @@ class ChampionshipEventSessionController extends Controller
         return view('races.session.show')
             ->with('session', $session)
             ->with('sequences', \PointSequences::forSelect())
-            ->with('sessions', $session->event->sessions()->where('order', '<', $session->order)->pluck('name', 'id'));
+            ->with('sessions', $session->event->sessions()->where('order', '<', $session->order)->pluck('name', 'id'))
+            ->with('penalties', RacesPenalty::forSession($session)->get());
     }
 
     /**
