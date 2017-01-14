@@ -18,4 +18,14 @@ class RacesPenalty extends \Eloquent
             ->select('races_penalties.*');
     }
 
+    public function getEventSummaryAttribute()
+    {
+        return $this->entrant->session->name.': '.$this->points.' points: '.$this->reason;
+    }
+
+    public function getChampionshipSummaryAttribute()
+    {
+        return $this->entrant->session->event->name.' '.$this->eventSummary;
+    }
+
 }
