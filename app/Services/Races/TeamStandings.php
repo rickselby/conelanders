@@ -3,11 +3,9 @@
 namespace App\Services\Races;
 
 use App\Interfaces\Races\DriverStandingsInterface;
-use App\Models\Races\RacesCar;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesEvent;
 use App\Models\Races\RacesSession;
-use App\Models\Races\RacesSessionEntrant;
 use App\Models\Races\RacesTeam;
 
 class TeamStandings extends Standings implements DriverStandingsInterface
@@ -83,6 +81,8 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                     if ($session->type == RacesSession::TYPE_RACE) {
                         $results[$teamID]['positions'][$session->id] = $result['position'];
                     }
+
+                    $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
                 }
             }
         }
@@ -114,6 +114,8 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                         if ($session->type == RacesSession::TYPE_RACE) {
                             $results[$teamID]['positions'][$session->id] = $result['position'];
                         }
+
+                        $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
                     }
                 }
             }
@@ -140,10 +142,15 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                     $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
                 }
 
-                $results[$teamID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
+                $results[$teamID]['points'][$entrant->id] = $entrant->points + $entrant->fastest_lap_points;
 
                 if ($session->type == RacesSession::TYPE_RACE) {
                     $results[$teamID]['positions'][] = $entrant->position;
+                }
+
+                foreach($entrant->penalties AS $penalty) {
+                    $results[$teamID]['points'][$entrant->id] -= $penalty->points;
+                    $results[$teamID]['penalties'][] = $penalty;
                 }
             }
         }
@@ -179,6 +186,11 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                         if ($session->type == RacesSession::TYPE_RACE) {
                             $results[$teamID]['positions'][] = $entrant->position;
                         }
+
+                        foreach($entrant->penalties AS $penalty) {
+                            $results[$teamID]['points'][$entrantID] -= $penalty->points;
+                            $results[$teamID]['penalties'][] = $penalty;
+                        }
                     }
                 }
             }
@@ -199,6 +211,7 @@ class TeamStandings extends Standings implements DriverStandingsInterface
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
+            'penalties' => [],
         ];
     }
 
@@ -217,6 +230,7 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                 'positionsWithEquals' => [],
                 'dropped' => [],
                 'totalPoints' => 0,
+                'penalties' => [],
             ];
         }
         foreach($championship->events AS $event) {
@@ -227,6 +241,7 @@ class TeamStandings extends Standings implements DriverStandingsInterface
                 $results[$teamID]['points'][$event->id] = $result['totalPoints'];
                 $results[$teamID]['positions'][$event->id] = $result['position'];
                 $results[$teamID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
             }
         }
 

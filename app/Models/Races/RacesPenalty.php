@@ -23,9 +23,19 @@ class RacesPenalty extends \Eloquent
         return $this->entrant->session->name.': '.$this->points.' points: '.$this->reason;
     }
 
+    public function getTeamEventSummaryAttribute()
+    {
+        return $this->entrant->session->name.': '.$this->entrant->championshipEntrant->driver->name.': '.$this->points.' points: '.$this->reason;
+    }
+
     public function getChampionshipSummaryAttribute()
     {
         return $this->entrant->session->event->name.' '.$this->eventSummary;
+    }
+
+    public function getTeamChampionshipSummaryAttribute()
+    {
+        return $this->entrant->session->event->name.' '.$this->teamEventSummary;
     }
 
 }
