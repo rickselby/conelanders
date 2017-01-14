@@ -6,6 +6,7 @@ use App\Interfaces\Races\DriverStandingsInterface;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesChampionshipEntrant;
 use App\Models\Races\RacesEvent;
+use App\Models\Races\RacesPenalty;
 use App\Models\Races\RacesSession;
 
 class DriverStandings extends Standings implements DriverStandingsInterface
@@ -30,6 +31,11 @@ class DriverStandings extends Standings implements DriverStandingsInterface
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
                         $results[$entrantID]['positions'][$session->id] = $entrant->position;
                     }
+
+                    foreach($entrant->penalties AS $penalty) {
+                        $results[$entrantID]['points'][$session->id] -= $penalty->points;
+                        $results[$entrantID]['penalties'][] = $penalty;
+                    }
                 }
             }
         }
@@ -49,6 +55,7 @@ class DriverStandings extends Standings implements DriverStandingsInterface
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
+            'penalties' => [],
         ];
     }
 
@@ -71,6 +78,11 @@ class DriverStandings extends Standings implements DriverStandingsInterface
 
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
                         $results[$entrantID]['positions'][$session->id] = $entrant->position;
+
+                        foreach($entrant->penalties AS $penalty) {
+                            $results[$penalty->entrant->championshipEntrant->id]['points'][$session->id] -= $penalty->points;
+                            $results[$penalty->entrant->championshipEntrant->id]['penalties'][] = $penalty;
+                        }
                     }
                 }
             }
@@ -94,6 +106,7 @@ class DriverStandings extends Standings implements DriverStandingsInterface
                 'positionsWithEquals' => [],
                 'dropped' => [],
                 'totalPoints' => 0,
+                'penalties' => [],
             ];
         }
 
@@ -104,6 +117,7 @@ class DriverStandings extends Standings implements DriverStandingsInterface
                 $results[$result['entrant']->id]['points'][$event->id] = $result['totalPoints'];
                 $results[$result['entrant']->id]['positions'][$event->id] = $result['position'];
                 $results[$result['entrant']->id]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                $results[$result['entrant']->id]['penalties'] = array_merge($results[$result['entrant']->id]['penalties'], $result['penalties']);
             }
         }
 

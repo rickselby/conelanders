@@ -43,6 +43,11 @@ class RacesSessionEntrant extends \Eloquent
         return $this->belongsTo(RacesCar::class, 'races_car_id');
     }
 
+    public function penalties()
+    {
+        return $this->hasMany(RacesPenalty::class);
+    }
+
     public function canBeDeleted()
     {
         return (count($this->laps) == 0);

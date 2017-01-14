@@ -7,7 +7,6 @@ use App\Models\Races\RacesCar;
 use App\Models\Races\RacesChampionship;
 use App\Models\Races\RacesEvent;
 use App\Models\Races\RacesSession;
-use App\Models\Races\RacesSessionEntrant;
 
 class ConstructorStandings extends Standings implements DriverStandingsInterface
 {
@@ -79,6 +78,8 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
 
                     $results[$carID]['points'][$session->id] = $result['totalPoints'];
                     $results[$carID]['positions'][$session->id] = $result['position'];
+
+                    $results[$carID]['penalties'] = array_merge($results[$carID]['penalties'], $result['penalties']);
                 }
             }
         }
@@ -106,7 +107,12 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
 
                     if (\RacesSession::canBeShown($session)) {
                         $results[$carID]['points'][$session->id] = $result['totalPoints'];
-                        $results[$carID]['positions'][$session->id] = $result['position'];
+
+                        if ($session->type == RacesSession::TYPE_RACE) {
+                            $results[$carID]['positions'][$session->id] = $result['position'];
+                        }
+
+                        $results[$carID]['penalties'] = array_merge($results[$carID]['penalties'], $result['penalties']);
                     }
                 }
             }
@@ -132,8 +138,15 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                 $results[$carID] = $this->initCar($entrant->car);
             }
 
-            $results[$carID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
-            $results[$carID]['positions'][] = $entrant->position;
+            $results[$carID]['points'][$entrant->id] = $entrant->points + $entrant->fastest_lap_points;
+            if ($session->type == RacesSession::TYPE_RACE) {
+                $results[$carID]['positions'][] = $entrant->position;
+            }
+
+            foreach($entrant->penalties AS $penalty) {
+                $results[$carID]['points'][$entrant->id] -= $penalty->points;
+                $results[$carID]['penalties'][] = $penalty;
+            }
         }
 
         return $this->sortAndAddPositions(call_user_func($func, $results));
@@ -162,7 +175,15 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                     }
 
                     $results[$carID]['points'][$entrantID] += $entrant->points + $entrant->fastest_lap_points;
-                    $results[$carID]['positions'][$entrantID] = $entrant->position;
+
+                    if ($session->type == RacesSession::TYPE_RACE) {
+                        $results[$carID]['positions'][$entrantID] = $entrant->position;
+                    }
+
+                    foreach($entrant->penalties AS $penalty) {
+                        $results[$carID]['points'][$entrantID] -= $penalty->points;
+                        $results[$carID]['penalties'][] = $penalty;
+                    }
                 }
             }
         }
@@ -182,6 +203,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
+            'penalties' => [],
         ];
     }
 
@@ -200,6 +222,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                 'positionsWithEquals' => [],
                 'dropped' => [],
                 'totalPoints' => 0,
+                'penalties' => [],
             ];
         }
         foreach($championship->events AS $event) {
@@ -210,6 +233,7 @@ class ConstructorStandings extends Standings implements DriverStandingsInterface
                 $results[$carID]['points'][$event->id] = $result['totalPoints'];
                 $results[$carID]['positions'][$event->id] = $result['position'];
                 $results[$carID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                $results[$carID]['penalties'] = array_merge($results[$carID]['penalties'], $result['penalties']);
             }
         }
 

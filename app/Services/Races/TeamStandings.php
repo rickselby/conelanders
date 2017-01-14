@@ -92,6 +92,8 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                     if ($session->type == RacesSession::TYPE_RACE) {
                         $results[$teamID]['positions'][$session->id] = $result['position'];
                     }
+
+                    $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
                 }
             }
         }
@@ -123,6 +125,8 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                         if ($session->type == RacesSession::TYPE_RACE) {
                             $results[$teamID]['positions'][$session->id] = $result['position'];
                         }
+
+                        $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
                     }
                 }
             }
@@ -150,12 +154,18 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                         $results[$teamID] = $this->initTeam($entrant->championshipEntrant->team);
                     }
 
-                    $results[$teamID]['points'][] = $entrant->points + $entrant->fastest_lap_points;
+                    $results[$teamID]['points'][$entrant->id] = $entrant->points + $entrant->fastest_lap_points;
 
                     if ($session->type == RacesSession::TYPE_RACE) {
                         $results[$teamID]['positions'][] = $entrant->position;
                     }
+
+                    foreach($entrant->penalties AS $penalty) {
+                        $results[$teamID]['points'][$entrant->id] -= $penalty->points;
+                        $results[$teamID]['penalties'][] = $penalty;
+                    }
                 }
+
             }
         }
 
@@ -191,7 +201,13 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                             if ($session->type == RacesSession::TYPE_RACE) {
                                 $results[$teamID]['positions'][] = $entrant->position;
                             }
+
+                            foreach($entrant->penalties AS $penalty) {
+                                $results[$teamID]['points'][$entrantID] -= $penalty->points;
+                                $results[$teamID]['penalties'][] = $penalty;
+                            }
                         }
+
                     }
                 }
             }
@@ -212,6 +228,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
             'points' => [],
             'positions' => [],
             'totalPoints' => 0,
+            'penalties' => [],
         ];
     }
 
@@ -242,6 +259,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                         'positionsWithEquals' => [],
                         'dropped' => [],
                         'totalPoints' => 0,
+                        'penalties' => [],
                     ];
                 }
             }
@@ -255,6 +273,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                     $results[$teamID]['points'][$event->id] = $result['totalPoints'];
                     $results[$teamID]['positions'][$event->id] = $result['position'];
                     $results[$teamID]['positionsWithEquals'][$event->id] = $eventResultsWithEquals[$key]['position'];
+                    $results[$teamID]['penalties'] = array_merge($results[$teamID]['penalties'], $result['penalties']);
                 }
             }
 

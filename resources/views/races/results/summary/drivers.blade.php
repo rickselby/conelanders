@@ -32,7 +32,12 @@
                     @endif
                 @endif
             @endforeach
-            <td class="points">{{ $detail['totalPoints'] }}</td>
+            <td class="points">
+                {{ $detail['totalPoints'] }}
+                @if($detail['penalties'])
+                    <span class="penalties" title="{{ implode("\n", array_map(function($a) { return $a->eventSummary; }, $detail['penalties'])) }}">&dagger;</span>
+                @endif
+            </td>
         </tr>
     @endforeach
     </tbody>
