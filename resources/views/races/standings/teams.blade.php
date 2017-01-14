@@ -50,7 +50,7 @@
                 <td class="points">
                     {{ round($detail['totalPoints'], 2) }}
                     @if($detail['penalties'])
-                        <span title="{{ implode("\n", array_map(function($a) { return $a->championshipSummary; }, $detail['penalties'])) }}">&dagger;</span>
+                        <span class="penalties" title="{{ implode("\n", array_map(function($a) { return $a->championshipSummary; }, $detail['penalties'])) }}">&dagger;</span>
                     @endif
                 </td>
             </tr>
