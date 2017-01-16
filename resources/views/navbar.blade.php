@@ -61,6 +61,11 @@
                                 <a href="{{ route('playlists.index') }}">YouTube Playlists</a>
                             </li>
                         @endcan
+                        @can('log-access')
+                            <li>
+                                <a href="{{ route('log-viewer') }}">Logs</a>
+                            </li>
+                        @endcan
                         @can('dirt-rally-admin')
                         @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin'))
                         <li role="separator" class="divider"></li>

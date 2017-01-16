@@ -50,6 +50,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('playlists', 'PlaylistController@index')->name('playlists.index');
 
+    Route::group(['middleware' => ['role:log-access']], function() {
+        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('log-viewer');
+    });
+
     # This needs to be last, there's the catchall for {category}
     include('Routes/races.php');
 

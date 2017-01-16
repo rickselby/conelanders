@@ -44,6 +44,8 @@ $app->singleton(
 $app->configureMonologUsing(function (Monolog\Logger $monolog) {
     $filename = storage_path('logs/laravel-'.php_sapi_name().'.log');
     $handler = new Monolog\Handler\RotatingFileHandler($filename);
+    // this is the same as the default line formatter for Laravel
+    $handler->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true));
     $monolog->pushHandler($handler);
 });
 

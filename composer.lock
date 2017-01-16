@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f8bf202e8c436c3c477db3420a6b3bac",
-    "content-hash": "2c30951fc0e28c5dc7996f4a64078b4e",
+    "hash": "a53c01fdaecd1d9bfb2752e0ed86e522",
+    "content-hash": "8e1502bce87151e6de588d447a51d444",
     "packages": [
         {
             "name": "adamwathan/eloquent-oauth",
@@ -1625,6 +1625,54 @@
             "time": "2016-03-09 05:03:14"
         },
         {
+            "name": "rap2hpoutre/laravel-log-viewer",
+            "version": "v0.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
+                "reference": "8e5eb2dde587db33e0f9302d3426655391d0c418"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/8e5eb2dde587db33e0f9302d3426655391d0c418",
+                "reference": "8e5eb2dde587db33e0f9302d3426655391d0c418",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.2.*|5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/controllers"
+                ],
+                "psr-0": {
+                    "Rap2hpoutre\\LaravelLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rap2hpoutre",
+                    "email": "raphaelht@gmail.com"
+                }
+            ],
+            "description": "A Laravel log reader",
+            "keywords": [
+                "laravel",
+                "log",
+                "log-reader",
+                "log-viewer",
+                "logging",
+                "lumen"
+            ],
+            "time": "2016-12-15 16:14:38"
+        },
+        {
             "name": "rickselby/svglapchart",
             "version": "v0.3",
             "source": {
@@ -3009,7 +3057,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/105f14a50d0959a0e80004a15b3350fdf78f9623",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/a7fc2ec489aada6062d3a63ddc915004a21e38af",
                 "reference": "22612733a2c3beddce6f801587926bfceb4440d8",
                 "shasum": ""
             },
