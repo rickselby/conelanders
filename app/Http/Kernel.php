@@ -50,6 +50,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+
         'dirt-rally.validateSeason' => \App\Http\Middleware\DirtRally\ValidateSeason::class,
         'dirt-rally.validateEvent' => \App\Http\Middleware\DirtRally\ValidateEvent::class,
         'dirt-rally.validateStage' => \App\Http\Middleware\DirtRally\ValidateStage::class,

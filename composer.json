@@ -17,7 +17,8 @@
         "spatie/laravel-permission": "^1.4",
         "predis/predis": "^1.1",
         "camroncade/timezone": "^0.1.0",
-        "tightenco/quicksand": "^0.2.1"
+        "tightenco/quicksand": "^0.2.1",
+        "rap2hpoutre/laravel-log-viewer": "^0.8.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
