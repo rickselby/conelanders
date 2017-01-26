@@ -46,6 +46,13 @@
 
         <h2>Event Results</h2>
 
+        <p>
+            <a class="btn btn-small btn-info"
+                href="{{ route('dirt-rally.championship.season.event.cars', [$event->season->championship, $event->season, $event]) }}">
+                Update Cars
+            </a>
+        </p>
+
         @if(!$event->isComplete())
             @include('dirt-rally.event-not-complete-results')
         @endif

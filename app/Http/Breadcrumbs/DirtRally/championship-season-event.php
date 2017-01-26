@@ -29,3 +29,13 @@ Breadcrumbs::register('dirt-rally.championship.season.event.stage.create',
         $breadcrumbs->push('Create Stage', route('dirt-rally.championship.season.event.stage.create', [$event->season->championship, $event->season, $event]));
     }
 );
+
+Breadcrumbs::register('dirt-rally.championship.season.event.cars',
+    function($breadcrumbs, $champSlug, $seasonSlug, $eventSlug, $event = null) {
+        if (!$event) {
+            $event = \Request::get('event');
+        }
+        $breadcrumbs->parent('dirt-rally.championship.season.event.show', '', '', '', $event);
+        $breadcrumbs->push('Cars', route('dirt-rally.championship.season.event.cars', [$event->season->championship, $event->season, $event]));
+    }
+);

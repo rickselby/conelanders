@@ -2,6 +2,9 @@
 
 Route::get('/', 'DirtRallyController@index')->name('dirt-rally.index');
 
+Route::get('championship/{championship}/season/{season}/event/{event}/cars', 'ChampionshipSeasonEventController@cars')->name('dirt-rally.championship.season.event.cars');
+Route::post('championship/{championship}/season/{season}/event/{event}/cars', 'ChampionshipSeasonEventController@updateCars')->name('dirt-rally.championship.season.event.update-cars');
+
 Route::resource('championship', 'ChampionshipController');
 Route::resource('championship.season', 'ChampionshipSeasonController', [['except' => ['index']]]);
 Route::resource('championship.season.event', 'ChampionshipSeasonEventController', [['except' => ['index']]]);

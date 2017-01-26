@@ -7,7 +7,12 @@ use App\Events\DirtRally\EventUpdated;
 use App\Events\DirtRally\SeasonUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DirtRally\ChampionshipSeasonEventRequest;
+use App\Models\DirtRally\DirtCar;
 use App\Models\DirtRally\DirtEvent;
+use App\Models\DirtRally\DirtResult;
+use App\Models\Driver;
+use App\Services\DirtRally\Cars;
+use Illuminate\Http\Request;
 
 class ChampionshipSeasonEventController extends Controller
 {
@@ -15,7 +20,7 @@ class ChampionshipSeasonEventController extends Controller
     {
         $this->middleware('can:dirt-rally-admin');
         $this->middleware('dirt-rally.validateSeason', ['only' => ['create', 'store']]);
-        $this->middleware('dirt-rally.validateEvent', ['only' => ['show', 'edit', 'update', 'destroy']]);
+        $this->middleware('dirt-rally.validateEvent', ['only' => ['show', 'edit', 'update', 'destroy', 'cars', 'updateCars']]);
     }
 
     /**
@@ -143,5 +148,27 @@ class ChampionshipSeasonEventController extends Controller
             \Notification::add('success', $event->name . ' deleted');
             return \Redirect::route('dirt-rally.championship.season.show', [$championship, $season]);
         }
+    }
+
+    public function cars($championship, $season, $event)
+    {
+        $event = \Request::get('event');
+        return view('dirt-rally.event.cars')
+            ->with('event', $event)
+            ->with('cars', DirtCar::all());
+    }
+
+    public function updateCars(Request $request, $championship, $season, $event, Cars $cars)
+    {
+        $event = \Request::get('event');
+
+        foreach($request->get('car') AS $driverID => $carID) {
+            $car = DirtCar::find($carID);
+            if ($car) {
+                $cars->updateForEvent($event, Driver::findOrFail($driverID), $car);
+            }
+        }
+
+        return \Redirect::route('dirt-rally.championship.season.event.cars', [$championship, $season, $event]);
     }
 }
