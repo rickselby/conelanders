@@ -25,10 +25,10 @@
             @foreach($event->stages->first()->results AS $result)
             <tr>
                 <th>{{ $result->driver->name }}</th>
-                <td>
+                <td class="{{ !$result->car ? 'danger' : '' }}">
                     {!! Form::select(
                             'car['.$result->driver->id.']',
-                             $cars->pluck('name', 'id'),
+                             $cars->sortBy('name')->pluck('name', 'id'),
                               $result->car ? $result->car->id : null,
                                ['placeholder' => 'Pick a car...', 'class' => 'form-control']
                        ) !!}
