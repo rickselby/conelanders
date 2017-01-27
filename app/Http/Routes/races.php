@@ -42,6 +42,8 @@ Route::group(['prefix' => 'races', 'namespace' => 'Races'], function() {
         'ChampionshipEventSessionEntrantController@addPenalty')->name('races.championship.event.session.entrants.add-penalty');
     Route::delete('championship/{championship}/event/{event}/session/{session}/penalty/{penalty}',
         'ChampionshipEventSessionEntrantController@deletePenalty')->name('races.championship.event.session.entrants.remove-penalty');
+    Route::post('championship/{championship}/event/{event}/session/{session}/time-penalties',
+        'ChampionshipEventSessionEntrantController@timePenalties')->name('races.championship.event.session.entrants.time-penalties');
     Route::post('championship/{championship}/event/{event}/session/{session}/entrants/fastest-lap-points',
         'ChampionshipEventSessionEntrantController@setFastestLapPoints')->name('races.championship.event.session.entrants.fastest-lap-points');
     Route::post('championship/{championship}/event/{event}/session/{session}/entrants/points-sequence',

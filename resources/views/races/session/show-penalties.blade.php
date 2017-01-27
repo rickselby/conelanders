@@ -1,12 +1,12 @@
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">
-            <a role="button" data-toggle="collapse" href="#penalties">
-                Penalties
+            <a role="button" data-toggle="collapse" href="#point-penalties">
+                Point Penalties
             </a> <span class="caret"></span>
         </h3>
     </div>
-    <div class="panel-collapse collapse" id="penalties" role="tabpanel">
+    <div class="panel-collapse collapse" id="point-penalties" role="tabpanel">
         <div class="panel-body">
             @if (count($session->entrants))
 

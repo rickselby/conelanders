@@ -30,6 +30,8 @@
 
     @include('races.session.show-penalties')
 
+    @include('races.session.show-time-penalties')
+
     @if ($session->type == \App\Models\Races\RacesSession::TYPE_RACE)
         @include('races.session.show-fastest-lap-points')
     @endif
