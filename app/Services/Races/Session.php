@@ -259,4 +259,43 @@ class Session
             $entrant->save();
         }
     }
+
+    /**
+     * Resort results (if it's a race)
+     *
+     * @param RacesSession $session
+     */
+    public function resortResults(RacesSession $session)
+    {
+        if ($session->type == RacesSession::TYPE_RACE) {
+            $entrants = $session->entrants->sort(function($a, $b) {
+                return $this->sortRaceEntrants($a, $b);
+            })->all();
+
+            // Positions CANNOT be the same
+            \Positions::addToArray($entrants, function($a, $b) { return false; });
+
+            foreach($entrants AS $entrant) {
+                $entrant->save();
+            }
+        }
+    }
+
+    /**
+     * Sort the entrants into their finishing order
+     * @param RacesSessionEntrant $a
+     * @param RacesSessionEntrant $b
+     */
+    private function sortRaceEntrants($a, $b)
+    {
+        if ($a->laps->count() != $b->laps->count()) {
+            return $b->laps->count() - $a->laps->count();
+        } elseif ($a->totalTime != $b->totalTime) {
+            return $a->totalTime - $b->totalTime;
+        } elseif ($a->time != $b->time) {
+            return $a->time - $b->time;
+        } else {
+            return $a->position - $b->position;
+        }
+    }
 }

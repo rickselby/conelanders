@@ -16,6 +16,7 @@ class RacesSessionEntrant extends \Eloquent
         'fastest_lap_position' => 'integer',
         'points' => 'integer',
         'fastest_lap_points' => 'integer',
+        'time_penalty' => 'integer',
     ];
 
     public function session()
@@ -51,5 +52,10 @@ class RacesSessionEntrant extends \Eloquent
     public function canBeDeleted()
     {
         return (count($this->laps) == 0);
+    }
+
+    public function getTotalTimeAttribute()
+    {
+        return $this->time + $this->time_penalty;
     }
 }

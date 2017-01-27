@@ -13,8 +13,8 @@ class AcTimePenalties extends Migration
     public function up()
     {
         Schema::table('races_session_entrants', function(Blueprint $table) {
-            $table->integer('time_penalty');
-            $table->text('time_penalty_reason');
+            $table->integer('time_penalty')->nullable();
+            $table->text('time_penalty_reason')->nullable();
         });
     }
 

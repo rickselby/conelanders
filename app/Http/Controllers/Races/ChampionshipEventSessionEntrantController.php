@@ -227,6 +227,8 @@ class ChampionshipEventSessionEntrantController extends Controller
                 }
             }
         }
+        \RacesSession::resortResults($session);
+        \Event::fire(new SessionUpdated($session));
 
         return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
