@@ -118,6 +118,17 @@ class Session
     }
 
     /**
+     * Check if the given session has points entered
+     *
+     * @param RacesSession $session
+     * @return bool
+     */
+    public function hasPenalties(RacesSession $session)
+    {
+        return $this->checkEntrantsForValue($session, 'time_penalty');
+    }
+
+    /**
      * Check the entrants for a given key
      *
      * @param RacesSession $session

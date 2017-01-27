@@ -39,11 +39,11 @@ class Results implements ResultsInterface
                 // Get laps behind first
                 $entrant->lapsBehindFirst = $firstEntrant->lapCount - $entrant->lapCount;
                 // Set time behind first
-                $entrant->timeBehindFirst = $entrant->time - $firstEntrant->time;
+                $entrant->timeBehindFirst = $entrant->totalTime - $firstEntrant->totalTime;
 
                 // Set time behind car in front
                 if ($lastEntrant) {
-                    $entrant->timeBehindAhead = $entrant->time - $lastEntrant->time;
+                    $entrant->timeBehindAhead = $entrant->totalTime - $lastEntrant->totalTime;
                 } else {
                     $entrant->timeBehindAhead = null;
                 }

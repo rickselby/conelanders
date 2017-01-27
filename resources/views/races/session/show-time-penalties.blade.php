@@ -6,7 +6,7 @@
             </a> <span class="caret"></span>
         </h3>
     </div>
-    <div class="panel-collapse collapse in" id="time-penalties" role="tabpanel">
+    <div class="panel-collapse collapse" id="time-penalties" role="tabpanel">
         <div class="panel-body">
             @if (count($session->entrants))
                 {!! Form::open(['route' => ['races.championship.event.session.entrants.time-penalties', $session->event->championship, $session->event, $session], 'class' => 'form-horizontal']) !!}
