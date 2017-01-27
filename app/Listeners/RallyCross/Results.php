@@ -55,7 +55,7 @@ class Results implements ShouldQueue
      */
     public function clearDrivers(DriverUpdated $event)
     {
-        $event->driver->load('rallyCrossResults.session');
+#        $event->driver->load('rallyCrossResults.event.session');
         $this->clearDriverSessions($event->driver);
     }
 
@@ -96,7 +96,7 @@ class Results implements ShouldQueue
      */
     public function clearNationSessions(NationUpdated $event)
     {
-        $event->nation->load('drivers.rallyCrossResults.session');
+#        $event->nation->load('drivers.rallyCrossResults');
         foreach($event->nation->drivers AS $driver) {
             $this->clearDriverSessions($driver);
         }
@@ -108,8 +108,10 @@ class Results implements ShouldQueue
      */
     private function clearDriverSessions(Driver $driver)
     {
-        foreach($driver->rallyCrossResults AS $sessionEntry) {
-            \RXCacheHandler::clearSessionCache($sessionEntry->session);
+        foreach($driver->rallyCrossResults AS $eventEntry) {
+            foreach($eventEntry->entries AS $sessionEntry) {
+                \RXCacheHandler::clearSessionCache($sessionEntry->session);
+            }
         }
     }
 
