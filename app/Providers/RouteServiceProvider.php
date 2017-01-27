@@ -40,8 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         /** @noinspection PhpUndefinedMethodInspection */
         if ($this->app->isLocal()) {
             \Route::group(['middleware' => ['web']], function () {
-                \Route::get('/login/dev', function () {
-                    \Auth::loginUsingID(1);
+                \Route::get('/login/dev/{id?}', function ($id = 1) {
+                    \Auth::loginUsingID($id);
                     return \Redirect::to('/');
                 });
             });
