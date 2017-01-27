@@ -86,6 +86,9 @@
                             @endif
                             <li class="dropdown-header">Race Results</li>
                             <li>
+                                <a href="{{ route('races.car.index') }}">Car Management</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('races.category.index') }}">Category Management</a>
                             </li>
                         @endif
