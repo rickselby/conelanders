@@ -1,6 +1,6 @@
 @if ($session->show && \RXEvent::canBeShown($event))
 
-    @if (Gate::check('rallycross-admin') && !$session->canBeReleased())
+    @if (Gate::check('edit', $event) && !$session->canBeReleased())
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">Admin Only View</h3>

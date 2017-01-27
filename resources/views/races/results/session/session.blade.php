@@ -1,6 +1,6 @@
-@if (count($session->entrants) && (\RacesSession::canBeShown($session) || Gate::check('races-admin')))
+@if (count($session->entrants) && (\RacesSession::canBeShown($session) || Gate::check('edit', $session->event)))
 
-    @if (Gate::check('races-admin') && !$session->canBeReleased())
+    @if (Gate::check('edit', $session->event) && !$session->canBeReleased())
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">Admin Only View</h3>
