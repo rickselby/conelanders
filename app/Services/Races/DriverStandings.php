@@ -27,7 +27,7 @@ class DriverStandings extends Standings implements DriverStandingsInterface
                         $results[$entrantID] = $this->initEntrant($entrant->championshipEntrant);
                     }
 
-                    if (\RacesSession::canBeShown($session)) {
+                    if (\RacesSession::canBeShown($session) || \Gate::check('edit', $event)) {
                         $results[$entrantID]['points'][$session->id] = $entrant->points + $entrant->fastest_lap_points;
                         $results[$entrantID]['positions'][$session->id] = $entrant->position;
                     }
@@ -66,7 +66,7 @@ class DriverStandings extends Standings implements DriverStandingsInterface
     {
         $results = [];
 
-        if (\RacesEvent::canBeShown($event)) {
+        if (\RacesEvent::canBeShown($event) || \Gate::check('edit', $event)) {
             foreach($event->sessions AS $session) {
                 if (\RacesSession::hasPoints($session)) {
                     foreach ($session->entrants AS $entrant) {

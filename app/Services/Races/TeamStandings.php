@@ -35,7 +35,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                     $results = $this->eventSessionSummary($event, [$this, 'averagePoints'], $teamSize);
                     break;
                 case self::AVERAGE_EVENT:
-                    if (\RacesEvent::canBeShown($event)) {
+                    if (\RacesEvent::canBeShown($event) || \Gate::check('edit', $event)) {
                         $results = $this->eventAverage($event, $teamSize);
                     }
                     break;
@@ -52,7 +52,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
     {
         $results = [];
 
-        if (\RacesEvent::canBeShown($event)) {
+        if (\RacesEvent::canBeShown($event) || \Gate::check('edit', $event)) {
             switch ($event->championship->teams_count) {
                 case self::SUM:
                     $results = $this->eventSessionCount($event, [$this, 'sumPoints'], $teamSize);
@@ -119,7 +119,7 @@ class TeamStandings extends Standings implements TeamStandingsInterface
                         $results[$teamID] = $this->initTeam($result['team']);
                     }
 
-                    if (\RacesSession::canBeShown($session)) {
+                    if (\RacesSession::canBeShown($session) || \Gate::check('edit', $event)) {
                         $results[$teamID]['points'][$session->id] = $result['totalPoints'];
 
                         if ($session->type == RacesSession::TYPE_RACE) {
