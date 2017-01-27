@@ -30,7 +30,7 @@
                 <li>
                     <a href="{{ route('calendar') }}">Calendar</a>
                 </li>
-            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') )
+            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('dirt-rally-admin') || Gate::check('races-admin') || Gate::check('ac-server-admin') || Gate::check('rallycross-admin') )
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         Admin <span class="caret"></span>
@@ -100,6 +100,16 @@
                             </li>
                             <li>
                                 <a href="{{ route('rallycross.championship.index') }}">Championship Management</a>
+                            </li>
+                        @endcan
+
+                        @can('ac-hotlap-admin')
+                            @if (Gate::check('role-admin') || Gate::check('user-admin') || Gate::check('nation-admin') || Gate::check('points-admin') || Gate::check('playlist-admin') || Gate::check('ac-server-admin') || Gate::check('assetto-corsa-admin') || Gate::check('rallycross-admin'))
+                                <li role="separator" class="divider"></li>
+                            @endif
+                            <li class="dropdown-header">Assetto Corsa Hotlaps</li>
+                            <li>
+                                <a href="{{ route('assetto-corsa.hotlaps.session.index') }}">Sessions</a>
                             </li>
                         @endcan
                     </ul>

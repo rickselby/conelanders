@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Listeners\DirtRally\Events;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
     protected $subscribe = [
+        \App\Listeners\AcHotlap\Results::class,
         \App\Listeners\Races\Championships::class,
         \App\Listeners\Races\Categories::class,
         \App\Listeners\Races\News::class,
