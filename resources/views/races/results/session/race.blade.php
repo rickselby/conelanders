@@ -50,7 +50,12 @@
                     <td>{{ $entrant->ballast }}kg</td>
                 @endif
                 <td class="text-center">{{ $entrant->lapCount }}</td>
-                <td class="time">{{ Times::toString($entrant->time) }}</td>
+                <td class="time">
+                    {{ Times::toString($entrant->totalTime) }}
+                    @if ($entrant->time_penalty)
+                        <span class="penalties" title="{{ 'Penalty: +'.Times::toString($entrant->time_penalty).': '.$entrant->time_penalty_reason }}">&dagger;</span>
+                    @endif
+                </td>
                 <td class="time">
                     @if ($entrant->dsq || $entrant->dnf)
                         -
@@ -60,7 +65,7 @@
                         {{ '+'.Times::toString($entrant->timeBehindFirst) }}
                     @endif
                 </td>
-                <td class="time hidden-sm">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
+                <td class="time hidden-sm hidden-xs">{{ ($entrant->timeBehindAhead > 0) ? '+'.Times::toString($entrant->timeBehindAhead) : '-' }}</td>
                 <td>
                     <div style="padding-left: 25%">
                     {{ abs($entrant->positionsGained) }}

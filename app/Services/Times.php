@@ -22,7 +22,8 @@ class Times
             }
             $otherParts = explode('.', $secondsPart);
             $seconds = $otherParts[0];
-            $milliseconds = $otherParts[1];
+            // Milliseconds may not be provided...
+            $milliseconds = $otherParts[1] ?? 0;
 
             $time = $milliseconds + ($seconds * 1000) + ($minutes * 1000 * 60) + ($hours * 1000 * 60 * 60);
 

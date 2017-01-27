@@ -212,4 +212,25 @@ class ChampionshipEventSessionEntrantController extends Controller
         return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
     }
 
+    public function timePenalties(Request $request, $championshipStub, $eventStub, $sessionStub)
+    {
+        $session = $request->get('session');
+
+        foreach($request->get('penalty') AS $entrantID => $penalty) {
+            if ($penalty) {
+                $entrant = RacesSessionEntrant::findOrFail($entrantID);
+                if ($entrant->session == $session) {
+                    $entrant->time_penalty = \Times::fromString($penalty);
+                    $entrant->time_penalty_reason = $request->input('penalty_reason.' . $entrantID);
+                    $entrant->save();
+                    \Notification::add('success', 'Penalty Updated for '.$entrant->championshipEntrant->driver->name);
+                }
+            }
+        }
+        \RacesSession::resortResults($session);
+        \Event::fire(new SessionUpdated($session));
+
+        return \Redirect::route('races.championship.event.session.show', [$session->event->championship, $session->event, $session]);
+    }
+
 }

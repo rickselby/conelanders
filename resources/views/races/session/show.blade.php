@@ -26,6 +26,10 @@
         @include('races.session.show-started')
     @endif
 
+    @if ($session->type == \App\Models\Races\RacesSession::TYPE_RACE)
+        @include('races.session.show-time-penalties')
+    @endif
+
     @include('races.session.show-points')
 
     @include('races.session.show-penalties')
