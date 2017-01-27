@@ -169,4 +169,6 @@ H4 A.event-results {
 
 .penalties {
     cursor: help;
+    vertical-align: super;
+    font-size: 0.73em;
 }
