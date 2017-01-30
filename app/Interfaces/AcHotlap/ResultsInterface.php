@@ -3,6 +3,7 @@
 namespace App\Interfaces\AcHotlap;
 
 use App\Models\AcHotlap\AcHotlapSession;
+use Illuminate\Support\Collection;
 
 interface ResultsInterface
 {
@@ -11,12 +12,18 @@ interface ResultsInterface
      * @param AcHotlapSession $session
      * @return mixed
      */
-    public function forRace(AcHotlapSession $session);
+    public function forSession(AcHotlapSession $session);
 
     /**
      * Get the winner of an event
      * @param AcHotlapSession $event
      * @return mixed
      */
-    public function getWinner(AcHotlapSession $session);
+    public function getWinners(AcHotlapSession $session);
+
+    /**
+     * Get a full list of sessions with winners
+     * @return Collection
+     */
+    public function withWinners();
 }

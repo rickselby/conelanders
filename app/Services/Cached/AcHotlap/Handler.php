@@ -42,6 +42,16 @@ class Handler
         }
     }
 
+    public function summaryName()
+    {
+        return $this->cacheKey.'full-summary';
+    }
+
+    public function clearSummaryCache()
+    {
+        $this->cache->forget($this->summaryName());
+    }
+
     private function checkCacheStoreSupportsTags()
     {
         return $this->cache->getStore() instanceof TaggableStore;

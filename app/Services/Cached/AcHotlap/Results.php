@@ -35,22 +35,32 @@ class Results implements ResultsInterface
     /**
      * {@inheritdoc}
      */
-    public function forRace(AcHotlapSession $session)
+    public function forSession(AcHotlapSession $session)
     {
         // This doesn't rely on "is user in this session" or "is session released yet" so it can be cached permanently
         // (any updates to the session will clear the cache)
         return $this->cache->tags(\AcHotlapCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'forRace.'.$session->id, function() use ($session) {
-            return $this->resultsService->forRace($session);
+            return $this->resultsService->forSession($session);
         });
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getWinner(AcHotlapSession $session)
+    public function getWinners(AcHotlapSession $session)
     {
         return $this->cache->tags(\AcHotlapCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'winner.'.$session->id, function() use ($session) {
             return $this->resultsService->getWinner($session);
+        });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function withWinners()
+    {
+        return $this->cache->rememberForever(\AcHotlapCacheHandler::summaryName(), function() {
+            return $this->resultsService->withWinners();
         });
     }
 
