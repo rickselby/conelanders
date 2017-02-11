@@ -26,4 +26,10 @@ interface ResultsInterface
      * @return Collection
      */
     public function withWinners();
+
+    /**
+     * Get the sector count for the session
+     * @return integer
+     */
+    public function getSectors(AcHotlapSession $session);
 }
