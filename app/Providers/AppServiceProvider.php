@@ -94,6 +94,13 @@ class AppServiceProvider extends ServiceProvider
                 \App\Services\RallyCross\Results::class
             );
         });
+
+        $this->app->bind(\App\Interfaces\AcHotlap\ResultsInterface::class, function() {
+            return $this->checkCacheTaggable(
+                \App\Services\Cached\AcHotlap\Results::class,
+                \App\Services\AcHotlap\Results::class
+            );
+        });
     }
 
     /**

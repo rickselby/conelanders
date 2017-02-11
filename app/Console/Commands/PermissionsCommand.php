@@ -36,6 +36,7 @@ class PermissionsCommand extends Command {
         'ac-server-admin',
         'rallycross-admin',
         'log-access',
+        'ac-hotlap-admin',
     ];
 
     /**

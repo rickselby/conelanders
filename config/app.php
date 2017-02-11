@@ -259,6 +259,8 @@ return [
         'RXResults' => App\Facades\RallyCross\ResultsFacade::class,
         'RXSession' => App\Facades\RallyCross\SessionFacade::class,
         'RXEvent' => App\Facades\RallyCross\EventFacade::class,
+
+        'AcHotlapCacheHandler' => App\Facades\Cached\AcHotlap\HandlerFacade::class,
     ],
 
 ];

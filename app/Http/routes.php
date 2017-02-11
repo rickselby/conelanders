@@ -37,6 +37,10 @@ Route::group(['middleware' => ['web']], function () {
         include('Routes/rallycross.php');
     });
 
+    Route::group(['prefix' => 'assetto-corsa/hotlaps', 'namespace' => 'AcHotlap'], function() {
+        include('Routes/ac-hotlap.php');
+    });
+
     Route::get('about', function() {
         return view('about');
     })->name('about');
