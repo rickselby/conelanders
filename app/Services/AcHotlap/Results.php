@@ -17,10 +17,11 @@ class Results implements ResultsInterface
 
         $firstEntrant = null;
         $lastEntrant = null;
+        $sectors = [];
 
-        $raceEntrants = $session->entrants->sortBy('position');
+        $entrants = $session->entrants->sortBy('position');
 
-        foreach($raceEntrants AS $entrant) {
+        foreach($entrants AS $entrant) {
 
             if (!$firstEntrant) {
                 $firstEntrant = $entrant;
@@ -36,11 +37,33 @@ class Results implements ResultsInterface
                 $entrant->timeBehindAhead = null;
             }
 
+            foreach($entrant->sectors AS $k => $sector) {
+                $sectors[$k][$entrant->id]['time'] = $sector;
+            }
+
             // Update last entrant
             $lastEntrant = $entrant;
         }
 
-        return $raceEntrants;
+        $sectorPositions = [];
+        // Sort out sector positions
+        foreach($sectors AS $sector => $times) {
+            asort($times);
+
+            $times = \Positions::addToArray($times, function($a, $b) {
+                return $a['time'] == $b['time'];
+            });
+
+            foreach($times AS $entrantID => $detail) {
+                $sectorPositions[$entrantID][$sector] = $detail['position'];
+            }
+        }
+
+        foreach($entrants AS $entrant) {
+            $entrant->sectorPosition = $sectorPositions[$entrant->id];
+        }
+        
+        return $entrants;
     }
 
     /**
@@ -74,6 +97,9 @@ class Results implements ResultsInterface
         return $sessions;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSectors(AcHotlapSession $session)
     {
         return $session->entrants->map(function ($item) {

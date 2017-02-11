@@ -64,4 +64,13 @@ class Results implements ResultsInterface
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getSectors(AcHotlapSession $session)
+    {
+        return $this->cache->tags(\AcHotlapCacheHandler::sessionTag($session))->rememberForever($this->cacheKey.'sectors.'.$session->id, function() use ($session) {
+            return $this->resultsService->getSectors($session);
+        });
+    }
 }

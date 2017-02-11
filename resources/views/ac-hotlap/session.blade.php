@@ -35,7 +35,9 @@
                     @endif
                     @if ($sectors > 1)
                         @for($i = 0; $i < $sectors; $i++)
-                            <td>{{ isset($entrant->sectors[$i]) ? Times::toString($entrant->sectors[$i]) : '' }}</td>
+                            <td class="time {{ \Positions::colour($entrant->sectorPosition[$i]) }}">
+                                {{ isset($entrant->sectors[$i]) ? Times::toString($entrant->sectors[$i]) : '' }}
+                            </td>
                         @endfor
                     @endif
                     <td class="time">

@@ -40,6 +40,8 @@ class Handler
             \Log::info('Clearing Assetto Corsa Hotlap Session Cache', ['session' => $session->id]);
             $this->cache->tags($this->sessionTag($session))->flush();
         }
+
+        $this->clearSummaryCache();
     }
 
     public function summaryName()
