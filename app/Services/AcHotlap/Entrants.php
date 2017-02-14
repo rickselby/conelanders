@@ -13,7 +13,7 @@ class Entrants
     {
         $entrant = new AcHotlapSessionEntrant([
             'time' => \Times::fromString($time),
-            'sectors' => array_map('Times::fromString', explode(',', $sectors)),
+            'sectors' => array_map('Times::fromString', preg_split('/(,|\t)/', $sectors)),
         ]);
         $entrant->driver()->associate($driver);
         $entrant->car()->associate($car);

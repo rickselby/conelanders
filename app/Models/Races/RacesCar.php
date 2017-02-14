@@ -4,7 +4,7 @@ namespace App\Models\Races;
 
 class RacesCar extends \Eloquent
 {
-    protected $fillable = ['races_identifier', 'name', 'short_name'];
+    protected $fillable = ['ac_identifier', 'name', 'short_name'];
 
     public function entrants()
     {

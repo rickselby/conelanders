@@ -18,7 +18,9 @@ class SessionEntrantRequest extends Request
             'car' => 'required|exists:races_cars,id',
             'time' => 'required|regex:'.$this->timeRegex,
             # this should be the time regex, multiple times, comma separated
-            'sectors' => 'string',
+            'sectors' => [
+                'regex:/((^$)|(^(\d?\d:\d\d.\d\d\d)((,|\t)(\d?\d:\d\d.\d\d\d))*$))/'
+            ],
         ];
     }
 }
