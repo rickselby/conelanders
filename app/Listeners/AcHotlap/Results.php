@@ -75,7 +75,7 @@ class Results implements ShouldQueue
      * Clear all results that have a certain car
      * @param CarUpdated $event
      */
-    private function clearCarEntrants(CarUpdated $event)
+    public function clearCarEntrants(CarUpdated $event)
     {
         $this->getEntrantsAndClear(AcHotlapSessionEntrant::where('car_id', $event->car->id));
     }
