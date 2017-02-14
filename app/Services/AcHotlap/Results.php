@@ -60,7 +60,9 @@ class Results implements ResultsInterface
         }
 
         foreach($entrants AS $entrant) {
-            $entrant->sectorPosition = $sectorPositions[$entrant->id];
+            if (isset($sectorPositions[$entrant->id])) {
+                $entrant->sectorPosition = $sectorPositions[$entrant->id];
+            }
         }
         
         return $entrants;

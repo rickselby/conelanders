@@ -11,9 +11,13 @@ class Entrants
 {
     public function add(AcHotlapSession $session, Driver $driver, RacesCar $car, $time, $sectors)
     {
+        $sectors = array_map('Times::fromString', preg_split('/(,|\t)/', $sectors));
+        if (count($sectors) == 1 && $sectors[0] == 0) {
+            $sectors = [];
+        }
         $entrant = new AcHotlapSessionEntrant([
             'time' => \Times::fromString($time),
-            'sectors' => array_map('Times::fromString', preg_split('/(,|\t)/', $sectors)),
+            'sectors' => $sectors,
         ]);
         $entrant->driver()->associate($driver);
         $entrant->car()->associate($car);
