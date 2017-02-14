@@ -77,7 +77,7 @@ class Results implements ShouldQueue
      */
     public function clearCarEntrants(CarUpdated $event)
     {
-        $this->getEntrantsAndClear(AcHotlapSessionEntrant::where('car_id', $event->car->id));
+        $this->getEntrantsAndClear(AcHotlapSessionEntrant::where('races_car_id', $event->car->id));
     }
 
     /**
