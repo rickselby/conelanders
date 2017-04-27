@@ -20,42 +20,49 @@
 
     <div class="row">
         <div class="col-md-6 col-md-push-6">
-            <h2>Current Events</h2>
-            @foreach($currentNews AS $items)
-                @foreach($items AS $type)
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                {{ $type['type'] }}
-                            </h4>
+            @if (count($currentNews))
+                <h2>Current Events</h2>
+                @foreach($currentNews AS $items)
+                    @foreach($items AS $type)
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {{ $type['type'] }}
+                                </h4>
+                            </div>
+                            <ul class="list-group">
+                                @foreach($type['content'] AS $item)
+                                    {!! $item !!}
+                                @endforeach
+                            </ul>
                         </div>
-                        <ul class="list-group">
-                            @foreach($type['content'] AS $item)
-                                {!! $item !!}
-                            @endforeach
-                        </ul>
-                    </div>
+                    @endforeach
                 @endforeach
-            @endforeach
-            <h2>Upcoming Events</h2>
-            @foreach($upcomingNews AS $time => $items)
+            @endif
 
-                <h3>{{ \Times::userTimezone(\Carbon\Carbon::createFromTimestamp($time)) }}</h3>
-                @foreach($items AS $type)
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                {{ $type['type'] }}
-                            </h4>
+            @if (count($upcomingNews))
+                <h2>Upcoming Events</h2>
+                @foreach($upcomingNews AS $time => $items)
+
+                    <h3>{{ \Times::userTimezone(\Carbon\Carbon::createFromTimestamp($time)) }}</h3>
+                    @foreach($items AS $type)
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    {{ $type['type'] }}
+                                </h4>
+                            </div>
+                            <ul class="list-group">
+                                @foreach($type['content'] AS $item)
+                                    {!! $item !!}
+                                @endforeach
+                            </ul>
                         </div>
-                        <ul class="list-group">
-                            @foreach($type['content'] AS $item)
-                                {!! $item !!}
-                            @endforeach
-                        </ul>
-                    </div>
+                    @endforeach
                 @endforeach
-            @endforeach
+            @endif
+
+            <script src="https://donate.childsplaycharity.org/js/widget.min.js" data-event="ed2ce48779d35d9ab0c0432fbccad5b5"></script>
         </div>
         <div class="col-md-6 col-md-pull-6">
             <h2>Past Events</h2>
