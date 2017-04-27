@@ -55,14 +55,18 @@ class News
     {
         $newsList = [];
         foreach($news AS $source) {
-            foreach($source AS $time => $item) {
-                if (!isset($newsList[$time])) {
-                    $newsList[$time] = [
-                        'type' => 'Dirt Rally',
-                        'content' => [],
-                    ];
+            if (count($source)) {
+                foreach ($source AS $time => $item) {
+                    if ($item) {
+                        if (!isset($newsList[$time])) {
+                            $newsList[$time] = [
+                                'type' => 'Dirt Rally',
+                                'content' => [],
+                            ];
+                        }
+                        $newsList[$time]['content'][] = $item;
+                    }
                 }
-                $newsList[$time]['content'][] = $item;
             }
         }
         return $newsList;
