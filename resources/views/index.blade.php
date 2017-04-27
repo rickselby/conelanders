@@ -40,8 +40,6 @@
                 @endforeach
             @endif
 
-            <script src="https://donate.childsplaycharity.org/js/widget.min.js" data-event="ed2ce48779d35d9ab0c0432fbccad5b5"></script>
-
             @if (count($upcomingNews))
                 <h2>Upcoming Events</h2>
                 @foreach($upcomingNews AS $time => $items)
@@ -63,6 +61,8 @@
                     @endforeach
                 @endforeach
             @endif
+
+            <script src="https://donate.childsplaycharity.org/js/widget.min.js" data-event="ed2ce48779d35d9ab0c0432fbccad5b5"></script>
         </div>
         <div class="col-md-6 col-md-pull-6">
             <h2>Past Events</h2>
