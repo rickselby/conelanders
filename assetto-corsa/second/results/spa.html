@@ -1,0 +1,3996 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Conelanders Racing League</title>
+
+        <link rel="icon" type="image/png" href="https://www.conelanders.com/favicon.png" />
+
+        <link rel="stylesheet" href="https://www.conelanders.com/build/css/all-1e6907a2f7.css">
+        <link href="https://www.conelanders.com/races/championship/second/entrant/css" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="https://www.conelanders.com/build/js/all-09c5df2e22.js"></script>
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': 'ncO2A11jZKPvUFkiDKqaM74ujQxE8eVc2bRmI8vJ'
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.conelanders.com">
+                <img src="https://www.conelanders.com/img/conelanders.png" alt="Conelanders" />
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Dirt Rally<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="https://www.conelanders.com/dirt-rally">League Events</a>
+                        </li>
+                        <li>
+                            <a href="https://www.conelanders.com/rallycross">Rallycross</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Assetto Corsa<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- there's only one, this is fine... -->
+                                                    <li>
+                                <a href="https://www.conelanders.com/assetto-corsa">
+                                    Championships
+                                </a>
+                            </li>
+                                                <li>
+                            <a href="https://www.conelanders.com/assetto-corsa/hotlaps">Hotlaps</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://www.conelanders.com/calendar">Calendar</a>
+                </li>
+                            <li>
+                    <a href="https://www.conelanders.com/about">About</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                            <li>
+                    <form method="get" action="https://www.conelanders.com/login/google">
+                        <button class="btn btn-social btn-google navbar-btn btn-sm">
+                            <span class="fa fa-google"></span> Sign in with Google
+                        </button>
+                    </form>
+                </li>
+                        </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>	      <ol class="breadcrumb">
+									<li><a href="https://www.conelanders.com">Home</a></li>
+												<li><a href="https://www.conelanders.com/assetto-corsa">Assetto Corsa</a></li>
+												<li><a href="https://www.conelanders.com/assetto-corsa/second">Second Championship</a></li>
+												<li class="active">Spa</li>
+						</ol>
+
+    
+    
+    
+    <div>
+                <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">
+                    Summary
+                </a>
+            </li>
+                            <li role="presentation">
+                    <a href="#session-36" aria-controls="Heat 1 Qualifying" role="tab" data-toggle="tab">
+                        Heat 1 Qualifying
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-37" aria-controls="Heat 1 Race" role="tab" data-toggle="tab">
+                        Heat 1 Race
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-38" aria-controls="Heat 2 Qualifying" role="tab" data-toggle="tab">
+                        Heat 2 Qualifying
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-39" aria-controls="Heat 2 Race" role="tab" data-toggle="tab">
+                        Heat 2 Race
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-40" aria-controls="Feature Race" role="tab" data-toggle="tab">
+                        Feature Race
+                    </a>
+                </li>
+                    </ul>
+
+                <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="summary">
+                <h2>Drivers</h2>
+<table class="table sortable table-condensed">
+    <thead>
+    <tr>
+        <th>Pos.</th>
+        <th>Driver</th>
+                                                        <th>Heat 1 Race</th>
+                                                                    <th>Heat 2 Race</th>
+                                                <th>Feature Race</th>
+                            <th>Total Points</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+            <th>1</th>
+            <th>
+                <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-first"
+                            data-points="15"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                                            <td class="position position-first"
+                            data-points="19"
+                            data-position="1">
+                            1
+                        </td>
+                                                            <td class="points">
+                34
+                            </td>
+        </tr>
+            <tr>
+            <th>2</th>
+            <th>
+                <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+            </th>
+                                                                                                    <td class="position position-second"
+                            data-points="14"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-second"
+                            data-points="17"
+                            data-position="2">
+                            2
+                        </td>
+                                                            <td class="points">
+                31
+                            </td>
+        </tr>
+            <tr>
+            <th>3</th>
+            <th>
+                <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+            </th>
+                                                                                                    <td class="position position-first"
+                            data-points="15"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="15"
+                            data-position="4">
+                            4
+                        </td>
+                                                            <td class="points">
+                30
+                            </td>
+        </tr>
+            <tr>
+            <th>4</th>
+            <th>
+                <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+            </th>
+                                                                                                    <td class="position position-third"
+                            data-points="13"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-third"
+                            data-points="16"
+                            data-position="3">
+                            3
+                        </td>
+                                                            <td class="points">
+                29
+                            </td>
+        </tr>
+            <tr>
+            <th>5</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-second"
+                            data-points="14"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="14"
+                            data-position="5">
+                            5
+                        </td>
+                                                            <td class="points">
+                28
+                            </td>
+        </tr>
+            <tr>
+            <th>6</th>
+            <th>
+                <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="12"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="13"
+                            data-position="6">
+                            6
+                        </td>
+                                                            <td class="points">
+                25
+                            </td>
+        </tr>
+            <tr>
+            <th>7</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-third"
+                            data-points="13"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="11"
+                            data-position="8">
+                            8
+                        </td>
+                                                            <td class="points">
+                24
+                            </td>
+        </tr>
+            <tr>
+            <th>8</th>
+            <th>
+                <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="11"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="12"
+                            data-position="7">
+                            7
+                        </td>
+                                                            <td class="points">
+                23
+                            </td>
+        </tr>
+            <tr>
+            <th>9</th>
+            <th>
+                <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="12"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="8"
+                            data-position="11">
+                            11
+                        </td>
+                                                            <td class="points">
+                20
+                            </td>
+        </tr>
+            <tr>
+            <th>10</th>
+            <th>
+                <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="10"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="9"
+                            data-position="10">
+                            10
+                        </td>
+                                                            <td class="points">
+                19
+                            </td>
+        </tr>
+            <tr>
+            <th>11</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="7"
+                            data-position="9">
+                            9
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="10"
+                            data-position="9">
+                            9
+                        </td>
+                                                            <td class="points">
+                17
+                            </td>
+        </tr>
+            <tr>
+            <th>12</th>
+            <th>
+                <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="10"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="6"
+                            data-position="13">
+                            13
+                        </td>
+                                                            <td class="points">
+                16
+                            </td>
+        </tr>
+            <tr>
+            <th>13</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="9"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="7"
+                            data-position="12">
+                            12
+                        </td>
+                                                            <td class="points">
+                16
+                            </td>
+        </tr>
+            <tr>
+            <th>14</th>
+            <th>
+                <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="11"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="3"
+                            data-position="16">
+                            16
+                        </td>
+                                                            <td class="points">
+                14
+                            </td>
+        </tr>
+            <tr>
+            <th>15</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="9"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="4"
+                            data-position="15">
+                            15
+                        </td>
+                                                            <td class="points">
+                13
+                            </td>
+        </tr>
+            <tr>
+            <th>16</th>
+            <th>
+                <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="8"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="5"
+                            data-position="14">
+                            14
+                        </td>
+                                                            <td class="points">
+                13
+                            </td>
+        </tr>
+            <tr>
+            <th>17</th>
+            <th>
+                <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="8"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="1"
+                            data-position="18">
+                            18
+                        </td>
+                                                            <td class="points">
+                9
+                            </td>
+        </tr>
+            <tr>
+            <th>18</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="7"
+                            data-position="9">
+                            9
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td class="position position-points"
+                            data-points="2"
+                            data-position="17">
+                            17
+                        </td>
+                                                            <td class="points">
+                9
+                            </td>
+        </tr>
+            <tr>
+            <th>19</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-43">
+    12
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/nihontiger">
+    NihonTiger
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="6"
+                            data-position="10">
+                            10
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                6
+                            </td>
+        </tr>
+            <tr>
+            <th>20</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-48">
+    99
+</span>
+<a href="https://www.conelanders.com/driver/powers2440">
+    powers2440
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="6"
+                            data-position="10">
+                            10
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                6
+                            </td>
+        </tr>
+            <tr>
+            <th>21</th>
+            <th>
+                <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-37">
+    6
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="5"
+                            data-position="11">
+                            11
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                5
+                            </td>
+        </tr>
+            <tr>
+            <th>22</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-54">
+    71
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/rebelcowboysnb">
+    RebelCowboySnB
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="5"
+                            data-position="11">
+                            11
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                5
+                            </td>
+        </tr>
+            <tr>
+            <th>23</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-40">
+    62
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/caedus">
+    Caedus
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="4"
+                            data-position="12">
+                            12
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                4
+                            </td>
+        </tr>
+            <tr>
+            <th>24</th>
+            <th>
+                <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-38">
+    98
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+            </th>
+                                                                                                    <td></td>
+                                                                                                                                        <td class="position position-points"
+                            data-points="4"
+                            data-position="12">
+                            12
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                4
+                            </td>
+        </tr>
+            <tr>
+            <th>25</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-49">
+    0
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/shadowwulf">
+    Shadowwulf
+</a>
+            </th>
+                                                                                                    <td class="position position-points"
+                            data-points="3"
+                            data-position="13">
+                            13
+                        </td>
+                                                                                                                                        <td></td>
+                                                                                                            <td></td>
+                                                            <td class="points">
+                3
+                            </td>
+        </tr>
+        </tbody>
+
+</table>
+
+            </div>
+                            <div role="tabpanel" class="tab-pane" id="session-36">
+                    <h3>Results</h3>
+<div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                                                                        <th>Sector 1</th>
+                                    <th>Sector 2</th>
+                                    <th>Sector 3</th>
+                                        <th data-sorter="false">Laptime</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false">Gap ahead</th>
+                    </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-first">
+                            0:53.353
+                        </td>
+                                            <td class="time position-first">
+                            1:14.646
+                        </td>
+                                            <td class="time position-second">
+                            0:48.091
+                        </td>
+                                                    <td class="time"><strong>2:56.090</strong></td>
+                <td class="time">-</td>
+                <td class="time">-</td>
+                            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-second">
+                            0:53.500
+                        </td>
+                                            <td class="time position-second">
+                            1:15.011
+                        </td>
+                                            <td class="time ">
+                            0:48.375
+                        </td>
+                                                    <td class="time"><strong>2:56.886</strong></td>
+                <td class="time">+0:00.796</td>
+                <td class="time">+0:00.796</td>
+                            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.649
+                        </td>
+                                            <td class="time position-third">
+                            1:15.356
+                        </td>
+                                            <td class="time ">
+                            0:48.371
+                        </td>
+                                                    <td class="time"><strong>2:57.376</strong></td>
+                <td class="time">+0:01.286</td>
+                <td class="time">+0:00.490</td>
+                            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:53.851
+                        </td>
+                                            <td class="time ">
+                            1:15.929
+                        </td>
+                                            <td class="time position-first">
+                            0:48.046
+                        </td>
+                                                    <td class="time"><strong>2:57.826</strong></td>
+                <td class="time">+0:01.736</td>
+                <td class="time">+0:00.450</td>
+                            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.822
+                        </td>
+                                            <td class="time ">
+                            1:16.226
+                        </td>
+                                            <td class="time position-third">
+                            0:48.281
+                        </td>
+                                                    <td class="time"><strong>2:58.329</strong></td>
+                <td class="time">+0:02.239</td>
+                <td class="time">+0:00.503</td>
+                            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.820
+                        </td>
+                                            <td class="time ">
+                            1:15.960
+                        </td>
+                                            <td class="time ">
+                            0:48.604
+                        </td>
+                                                    <td class="time"><strong>2:58.384</strong></td>
+                <td class="time">+0:02.294</td>
+                <td class="time">+0:00.055</td>
+                            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-48">
+    99
+</span>
+<a href="https://www.conelanders.com/driver/powers2440">
+    powers2440
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time position-third">
+                            0:53.536
+                        </td>
+                                            <td class="time ">
+                            1:15.992
+                        </td>
+                                            <td class="time ">
+                            0:48.942
+                        </td>
+                                                    <td class="time"><strong>2:58.470</strong></td>
+                <td class="time">+0:02.380</td>
+                <td class="time">+0:00.086</td>
+                            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.117
+                        </td>
+                                            <td class="time ">
+                            1:15.950
+                        </td>
+                                            <td class="time ">
+                            0:49.500
+                        </td>
+                                                    <td class="time"><strong>2:59.567</strong></td>
+                <td class="time">+0:03.477</td>
+                <td class="time">+0:01.097</td>
+                            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.106
+                        </td>
+                                            <td class="time ">
+                            1:17.342
+                        </td>
+                                            <td class="time ">
+                            0:48.343
+                        </td>
+                                                    <td class="time"><strong>2:59.791</strong></td>
+                <td class="time">+0:03.701</td>
+                <td class="time">+0:00.224</td>
+                            </tr>
+                    <tr>
+                <th>10</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-37">
+    6
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:53.897
+                        </td>
+                                            <td class="time ">
+                            1:17.432
+                        </td>
+                                            <td class="time ">
+                            0:48.469
+                        </td>
+                                                    <td class="time"><strong>2:59.798</strong></td>
+                <td class="time">+0:03.708</td>
+                <td class="time">+0:00.007</td>
+                            </tr>
+                    <tr>
+                <th>11</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.981
+                        </td>
+                                            <td class="time ">
+                            1:18.327
+                        </td>
+                                            <td class="time ">
+                            0:49.716
+                        </td>
+                                                    <td class="time"><strong>3:02.024</strong></td>
+                <td class="time">+0:05.934</td>
+                <td class="time">+0:02.226</td>
+                            </tr>
+                    <tr>
+                <th>12</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-40">
+    62
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/caedus">
+    Caedus
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            1:01.480
+                        </td>
+                                            <td class="time ">
+                            1:17.742
+                        </td>
+                                            <td class="time ">
+                            0:48.753
+                        </td>
+                                                    <td class="time"><strong>3:07.975</strong></td>
+                <td class="time">+0:11.885</td>
+                <td class="time">+0:05.951</td>
+                            </tr>
+                    <tr>
+                <th>13</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-49">
+    0
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/shadowwulf">
+    Shadowwulf
+</a>
+                </th>
+                                                                    <td>25kg</td>
+                                                                                            <td class="time ">
+                            0:57.189
+                        </td>
+                                            <td class="time ">
+                            1:21.548
+                        </td>
+                                            <td class="time ">
+                            0:53.712
+                        </td>
+                                                    <td class="time"><strong>3:12.449</strong></td>
+                <td class="time">+0:16.359</td>
+                <td class="time">+0:04.474</td>
+                            </tr>
+                </tbody>
+    </table>
+</div>    
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-37">
+                    <div class="pull-right">
+            <a class="btn btn-block btn-social btn-sm btn-youtube" href="https://www.youtube.com/playlist?list=PL1bcwQGwOMtz55CkxZpVvTUajg4e-uG2I">
+    <span class="fa fa-youtube-play"></span>
+    YouTube Playlist
+</a>        </div>
+    
+            <h3>Results</h3>
+
+    <div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                        <th data-sorter="false">Laps</th>
+            <th data-sorter="false">Time</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+            <th data-sorter="false">Change</th>
+            <th data-sorter="false">Points</th>
+        </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                                    <th>1</th>
+                                <th>
+                    <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    14:49.404
+                                    </td>
+                <td class="time">
+                                    </td>
+                <td class="time hidden-sm hidden-xs">-</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">15</td>
+            </tr>
+                    <tr>
+                                    <th>2</th>
+                                <th>
+                    <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    14:51.028
+                                    </td>
+                <td class="time">
+                                            +0:01.624
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.624</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">14</td>
+            </tr>
+                    <tr>
+                                    <th>3</th>
+                                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    14:57.260
+                                    </td>
+                <td class="time">
+                                            +0:07.856
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:06.232</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">13</td>
+            </tr>
+                    <tr>
+                                    <th>4</th>
+                                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:00.443
+                                    </td>
+                <td class="time">
+                                            +0:11.039
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:03.183</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">12</td>
+            </tr>
+                    <tr>
+                                    <th>5</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:05.081
+                                    </td>
+                <td class="time">
+                                            +0:15.677
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:04.638</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">11</td>
+            </tr>
+                    <tr>
+                                    <th>6</th>
+                                <th>
+                    <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:06.663
+                                    </td>
+                <td class="time">
+                                            +0:17.259
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.582</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">10</td>
+            </tr>
+                    <tr>
+                                    <th>7</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:08.485
+                                    </td>
+                <td class="time">
+                                            +0:19.081
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.822</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">9</td>
+            </tr>
+                    <tr>
+                                    <th>8</th>
+                                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:19.186
+                                    </td>
+                <td class="time">
+                                            +0:29.782
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:10.701</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">8</td>
+            </tr>
+                    <tr>
+                                    <th>9</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:19.393
+                                    </td>
+                <td class="time">
+                                            +0:29.989
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:00.207</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">7</td>
+            </tr>
+                    <tr>
+                                    <th>10</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-48">
+    99
+</span>
+<a href="https://www.conelanders.com/driver/powers2440">
+    powers2440
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:25.783
+                                    </td>
+                <td class="time">
+                                            +0:36.379
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:06.390</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    3
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">6</td>
+            </tr>
+                    <tr>
+                                    <th>11</th>
+                                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-37">
+    6
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:28.448
+                                    </td>
+                <td class="time">
+                                            +0:39.044
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:02.665</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">5</td>
+            </tr>
+                    <tr>
+                                    <th>12</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-40">
+    62
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/caedus">
+    Caedus
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:42.554
+                                    </td>
+                <td class="time">
+                                            +0:53.150
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:14.106</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">4</td>
+            </tr>
+                    <tr>
+                                    <th>13</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-49">
+    0
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/shadowwulf">
+    Shadowwulf
+</a>
+                </th>
+                                                                    <td>25kg</td>
+                                <td class="text-center">3</td>
+                <td class="time">
+                    10:29.922
+                                    </td>
+                <td class="time">
+                                            + 2 laps
+                                    </td>
+                <td class="time hidden-sm hidden-xs">-</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">3</td>
+            </tr>
+                </tbody>
+    </table>
+</div>
+
+<h3>Fastest Laps</h3>
+
+<div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                                                                        <th>Sector 1</th>
+                                    <th>Sector 2</th>
+                                    <th>Sector 3</th>
+                                        <th data-sorter="false">Laptime</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false">Gap ahead</th>
+                    </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-second">
+                            0:53.447
+                        </td>
+                                            <td class="time position-first">
+                            1:15.096
+                        </td>
+                                            <td class="time position-second">
+                            0:47.988
+                        </td>
+                                                    <td class="time"><strong>2:56.531</strong></td>
+                <td class="time">-</td>
+                <td class="time">-</td>
+                            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-first">
+                            0:53.333
+                        </td>
+                                            <td class="time position-second">
+                            1:15.281
+                        </td>
+                                            <td class="time ">
+                            0:48.177
+                        </td>
+                                                    <td class="time"><strong>2:56.791</strong></td>
+                <td class="time">+0:00.260</td>
+                <td class="time">+0:00.260</td>
+                            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time position-third">
+                            0:53.753
+                        </td>
+                                            <td class="time position-third">
+                            1:15.817
+                        </td>
+                                            <td class="time position-first">
+                            0:47.884
+                        </td>
+                                                    <td class="time"><strong>2:57.454</strong></td>
+                <td class="time">+0:00.923</td>
+                <td class="time">+0:00.663</td>
+                            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.903
+                        </td>
+                                            <td class="time ">
+                            1:16.028
+                        </td>
+                                            <td class="time ">
+                            0:48.451
+                        </td>
+                                                    <td class="time"><strong>2:58.382</strong></td>
+                <td class="time">+0:01.851</td>
+                <td class="time">+0:00.928</td>
+                            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:53.920
+                        </td>
+                                            <td class="time ">
+                            1:16.406
+                        </td>
+                                            <td class="time position-third">
+                            0:48.113
+                        </td>
+                                                    <td class="time"><strong>2:58.439</strong></td>
+                <td class="time">+0:01.908</td>
+                <td class="time">+0:00.057</td>
+                            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-48">
+    99
+</span>
+<a href="https://www.conelanders.com/driver/powers2440">
+    powers2440
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:53.962
+                        </td>
+                                            <td class="time ">
+                            1:15.996
+                        </td>
+                                            <td class="time ">
+                            0:48.690
+                        </td>
+                                                    <td class="time"><strong>2:58.648</strong></td>
+                <td class="time">+0:02.117</td>
+                <td class="time">+0:00.209</td>
+                            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.499
+                        </td>
+                                            <td class="time ">
+                            1:16.235
+                        </td>
+                                            <td class="time ">
+                            0:48.483
+                        </td>
+                                                    <td class="time"><strong>2:59.217</strong></td>
+                <td class="time">+0:02.686</td>
+                <td class="time">+0:00.569</td>
+                            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-37">
+    6
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:54.322
+                        </td>
+                                            <td class="time ">
+                            1:16.586
+                        </td>
+                                            <td class="time ">
+                            0:48.402
+                        </td>
+                                                    <td class="time"><strong>2:59.310</strong></td>
+                <td class="time">+0:02.779</td>
+                <td class="time">+0:00.093</td>
+                            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.450
+                        </td>
+                                            <td class="time ">
+                            1:16.526
+                        </td>
+                                            <td class="time ">
+                            0:48.456
+                        </td>
+                                                    <td class="time"><strong>2:59.432</strong></td>
+                <td class="time">+0:02.901</td>
+                <td class="time">+0:00.122</td>
+                            </tr>
+                    <tr>
+                <th>10</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.015
+                        </td>
+                                            <td class="time ">
+                            1:16.769
+                        </td>
+                                            <td class="time ">
+                            0:48.722
+                        </td>
+                                                    <td class="time"><strong>2:59.506</strong></td>
+                <td class="time">+0:02.975</td>
+                <td class="time">+0:00.074</td>
+                            </tr>
+                    <tr>
+                <th>11</th>
+                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.328
+                        </td>
+                                            <td class="time ">
+                            1:18.156
+                        </td>
+                                            <td class="time ">
+                            0:48.740
+                        </td>
+                                                    <td class="time"><strong>3:01.224</strong></td>
+                <td class="time">+0:04.693</td>
+                <td class="time">+0:01.718</td>
+                            </tr>
+                    <tr>
+                <th>12</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-40">
+    62
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/caedus">
+    Caedus
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.690
+                        </td>
+                                            <td class="time ">
+                            1:18.128
+                        </td>
+                                            <td class="time ">
+                            0:49.330
+                        </td>
+                                                    <td class="time"><strong>3:02.148</strong></td>
+                <td class="time">+0:05.617</td>
+                <td class="time">+0:00.924</td>
+                            </tr>
+                    <tr>
+                <th>13</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-49">
+    0
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/shadowwulf">
+    Shadowwulf
+</a>
+                </th>
+                                                                    <td>25kg</td>
+                                                                                            <td class="time ">
+                            1:09.517
+                        </td>
+                                            <td class="time ">
+                            1:21.342
+                        </td>
+                                            <td class="time ">
+                            0:54.607
+                        </td>
+                                                    <td class="time"><strong>3:25.466</strong></td>
+                <td class="time">+0:28.935</td>
+                <td class="time">+0:23.318</td>
+                            </tr>
+                </tbody>
+    </table>
+</div>
+<h3>Lap Chart</h3>
+
+<img src="https://www.conelanders.com/assetto-corsa/second/results/spa/heat-1-race/lapchart"
+     style="width: 100%"
+/>
+    
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-38">
+                    <h3>Results</h3>
+<div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                                                                        <th>Sector 1</th>
+                                    <th>Sector 2</th>
+                                    <th>Sector 3</th>
+                                        <th data-sorter="false">Laptime</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false">Gap ahead</th>
+                    </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-first">
+                            0:50.645
+                        </td>
+                                            <td class="time ">
+                            1:15.943
+                        </td>
+                                            <td class="time ">
+                            0:48.595
+                        </td>
+                                                    <td class="time"><strong>2:55.183</strong></td>
+                <td class="time">-</td>
+                <td class="time">-</td>
+                            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                                                                            <td class="time position-third">
+                            0:53.560
+                        </td>
+                                            <td class="time position-first">
+                            1:14.047
+                        </td>
+                                            <td class="time position-first">
+                            0:47.745
+                        </td>
+                                                    <td class="time"><strong>2:55.352</strong></td>
+                <td class="time">+0:00.169</td>
+                <td class="time">+0:00.169</td>
+                            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                                                                            <td class="time position-second">
+                            0:53.361
+                        </td>
+                                            <td class="time position-second">
+                            1:14.758
+                        </td>
+                                            <td class="time position-second">
+                            0:47.921
+                        </td>
+                                                    <td class="time"><strong>2:56.040</strong></td>
+                <td class="time">+0:00.857</td>
+                <td class="time">+0:00.688</td>
+                            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                                                                            <td class="time ">
+                            0:53.970
+                        </td>
+                                            <td class="time position-third">
+                            1:15.131
+                        </td>
+                                            <td class="time position-third">
+                            0:48.088
+                        </td>
+                                                    <td class="time"><strong>2:57.189</strong></td>
+                <td class="time">+0:02.006</td>
+                <td class="time">+0:01.149</td>
+                            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+                </th>
+                                                                    <td>35kg</td>
+                                                                                            <td class="time ">
+                            0:53.938
+                        </td>
+                                            <td class="time ">
+                            1:16.549
+                        </td>
+                                            <td class="time ">
+                            0:48.385
+                        </td>
+                                                    <td class="time"><strong>2:58.872</strong></td>
+                <td class="time">+0:03.689</td>
+                <td class="time">+0:01.683</td>
+                            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-43">
+    12
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/nihontiger">
+    NihonTiger
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.230
+                        </td>
+                                            <td class="time ">
+                            1:16.402
+                        </td>
+                                            <td class="time ">
+                            0:48.366
+                        </td>
+                                                    <td class="time"><strong>2:58.998</strong></td>
+                <td class="time">+0:03.815</td>
+                <td class="time">+0:00.126</td>
+                            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+                </th>
+                                                                    <td>55kg</td>
+                                                                                            <td class="time ">
+                            0:53.863
+                        </td>
+                                            <td class="time ">
+                            1:15.874
+                        </td>
+                                            <td class="time ">
+                            0:49.307
+                        </td>
+                                                    <td class="time"><strong>2:59.044</strong></td>
+                <td class="time">+0:03.861</td>
+                <td class="time">+0:00.046</td>
+                            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.058
+                        </td>
+                                            <td class="time ">
+                            1:16.505
+                        </td>
+                                            <td class="time ">
+                            0:48.766
+                        </td>
+                                                    <td class="time"><strong>2:59.329</strong></td>
+                <td class="time">+0:04.146</td>
+                <td class="time">+0:00.285</td>
+                            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-54">
+    71
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/rebelcowboysnb">
+    RebelCowboySnB
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                                                                            <td class="time ">
+                            0:53.933
+                        </td>
+                                            <td class="time ">
+                            1:16.933
+                        </td>
+                                            <td class="time ">
+                            0:48.514
+                        </td>
+                                                    <td class="time"><strong>2:59.380</strong></td>
+                <td class="time">+0:04.197</td>
+                <td class="time">+0:00.051</td>
+                            </tr>
+                    <tr>
+                <th>10</th>
+                <th>
+                    <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.055
+                        </td>
+                                            <td class="time ">
+                            1:16.954
+                        </td>
+                                            <td class="time ">
+                            0:48.564
+                        </td>
+                                                    <td class="time"><strong>2:59.573</strong></td>
+                <td class="time">+0:04.390</td>
+                <td class="time">+0:00.193</td>
+                            </tr>
+                    <tr>
+                <th>11</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                                                                            <td class="time ">
+                            0:54.324
+                        </td>
+                                            <td class="time ">
+                            1:16.446
+                        </td>
+                                            <td class="time ">
+                            0:49.382
+                        </td>
+                                                    <td class="time"><strong>3:00.152</strong></td>
+                <td class="time">+0:04.969</td>
+                <td class="time">+0:00.579</td>
+                            </tr>
+                    <tr>
+                <th>12</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-38">
+    98
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:55.934
+                        </td>
+                                            <td class="time ">
+                            1:17.508
+                        </td>
+                                            <td class="time ">
+                            0:48.610
+                        </td>
+                                                    <td class="time"><strong>3:02.052</strong></td>
+                <td class="time">+0:06.869</td>
+                <td class="time">+0:01.900</td>
+                            </tr>
+                </tbody>
+    </table>
+</div>    
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-39">
+                    <div class="pull-right">
+            <a class="btn btn-block btn-social btn-sm btn-youtube" href="https://www.youtube.com/playlist?list=PL1bcwQGwOMtyY02MT4hSem11uGuQcb2wd">
+    <span class="fa fa-youtube-play"></span>
+    YouTube Playlist
+</a>        </div>
+    
+            <h3>Results</h3>
+
+    <div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                        <th data-sorter="false">Laps</th>
+            <th data-sorter="false">Time</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+            <th data-sorter="false">Change</th>
+            <th data-sorter="false">Points</th>
+        </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                                    <th>1</th>
+                                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    14:46.221
+                                    </td>
+                <td class="time">
+                                    </td>
+                <td class="time hidden-sm hidden-xs">-</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">15</td>
+            </tr>
+                    <tr>
+                                    <th>2</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    14:48.473
+                                    </td>
+                <td class="time">
+                                            +0:02.252
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:02.252</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">14</td>
+            </tr>
+                    <tr>
+                                    <th>3</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:00.237
+                                    </td>
+                <td class="time">
+                                            +0:14.016
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:11.764</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">13</td>
+            </tr>
+                    <tr>
+                                    <th>4</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:10.995
+                                    </td>
+                <td class="time">
+                                            +0:24.774
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:10.758</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">12</td>
+            </tr>
+                    <tr>
+                                    <th>5</th>
+                                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+                </th>
+                                                                    <td>35kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:13.721
+                                    </td>
+                <td class="time">
+                                            +0:27.500
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:02.726</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">11</td>
+            </tr>
+                    <tr>
+                                    <th>6</th>
+                                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:19.420
+                                    </td>
+                <td class="time">
+                                            +0:33.199
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:05.699</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    5
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">10</td>
+            </tr>
+                    <tr>
+                                    <th>7</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:27.860
+                                    </td>
+                <td class="time">
+                                            +0:41.639
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:08.440</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">9</td>
+            </tr>
+                    <tr>
+                                    <th>8</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:32.613
+                                    </td>
+                <td class="time">
+                                            +0:46.392
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:04.753</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">8</td>
+            </tr>
+                    <tr>
+                                    <th>9</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+                </th>
+                                                                    <td>55kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:34.447
+                                    </td>
+                <td class="time">
+                                            +0:48.226
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.834</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">7</td>
+            </tr>
+                    <tr>
+                                    <th>10</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-43">
+    12
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/nihontiger">
+    NihonTiger
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:37.468
+                                    </td>
+                <td class="time">
+                                            +0:51.247
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:03.021</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    4
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">6</td>
+            </tr>
+                    <tr>
+                                    <th>11</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-54">
+    71
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/rebelcowboysnb">
+    RebelCowboySnB
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    15:41.635
+                                    </td>
+                <td class="time">
+                                            +0:55.414
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:04.167</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">5</td>
+            </tr>
+                    <tr>
+                                    <th>12</th>
+                                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-38">
+    98
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">5</td>
+                <td class="time">
+                    16:32.429
+                                    </td>
+                <td class="time">
+                                            +1:46.208
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:50.794</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">4</td>
+            </tr>
+                </tbody>
+    </table>
+</div>
+
+<h3>Fastest Laps</h3>
+
+<div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                                                                        <th>Sector 1</th>
+                                    <th>Sector 2</th>
+                                    <th>Sector 3</th>
+                                        <th data-sorter="false">Laptime</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false">Gap ahead</th>
+                    </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                                                                            <td class="time position-second">
+                            0:53.636
+                        </td>
+                                            <td class="time position-first">
+                            1:14.692
+                        </td>
+                                            <td class="time position-first">
+                            0:47.803
+                        </td>
+                                                    <td class="time"><strong>2:56.131</strong></td>
+                <td class="time">-</td>
+                <td class="time">-</td>
+                            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+                </th>
+                                                                    <td>80kg</td>
+                                                                                            <td class="time position-first">
+                            0:53.394
+                        </td>
+                                            <td class="time position-second">
+                            1:14.870
+                        </td>
+                                            <td class="time position-third">
+                            0:48.060
+                        </td>
+                                                    <td class="time"><strong>2:56.324</strong></td>
+                <td class="time">+0:00.193</td>
+                <td class="time">+0:00.193</td>
+                            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                                                                            <td class="time ">
+                            0:53.914
+                        </td>
+                                            <td class="time position-third">
+                            1:15.704
+                        </td>
+                                            <td class="time position-second">
+                            0:48.005
+                        </td>
+                                                    <td class="time"><strong>2:57.623</strong></td>
+                <td class="time">+0:01.492</td>
+                <td class="time">+0:01.299</td>
+                            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                                                                            <td class="time ">
+                            0:54.124
+                        </td>
+                                            <td class="time ">
+                            1:15.956
+                        </td>
+                                            <td class="time ">
+                            0:48.419
+                        </td>
+                                                    <td class="time"><strong>2:58.499</strong></td>
+                <td class="time">+0:02.368</td>
+                <td class="time">+0:00.876</td>
+                            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time ">
+                            0:54.334
+                        </td>
+                                            <td class="time ">
+                            1:16.019
+                        </td>
+                                            <td class="time ">
+                            0:48.545
+                        </td>
+                                                    <td class="time"><strong>2:58.898</strong></td>
+                <td class="time">+0:02.767</td>
+                <td class="time">+0:00.399</td>
+                            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+                </th>
+                                                                    <td>35kg</td>
+                                                                                            <td class="time position-third">
+                            0:53.885
+                        </td>
+                                            <td class="time ">
+                            1:17.194
+                        </td>
+                                            <td class="time ">
+                            0:48.654
+                        </td>
+                                                    <td class="time"><strong>2:59.733</strong></td>
+                <td class="time">+0:03.602</td>
+                <td class="time">+0:00.835</td>
+                            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.905
+                        </td>
+                                            <td class="time ">
+                            1:17.292
+                        </td>
+                                            <td class="time ">
+                            0:48.559
+                        </td>
+                                                    <td class="time"><strong>2:59.756</strong></td>
+                <td class="time">+0:03.625</td>
+                <td class="time">+0:00.023</td>
+                            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.121
+                        </td>
+                                            <td class="time ">
+                            1:17.368
+                        </td>
+                                            <td class="time ">
+                            0:48.303
+                        </td>
+                                                    <td class="time"><strong>2:59.792</strong></td>
+                <td class="time">+0:03.661</td>
+                <td class="time">+0:00.036</td>
+                            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+                </th>
+                                                                    <td>55kg</td>
+                                                                                            <td class="time ">
+                            0:54.116
+                        </td>
+                                            <td class="time ">
+                            1:17.040
+                        </td>
+                                            <td class="time ">
+                            0:49.019
+                        </td>
+                                                    <td class="time"><strong>3:00.175</strong></td>
+                <td class="time">+0:04.044</td>
+                <td class="time">+0:00.383</td>
+                            </tr>
+                    <tr>
+                <th>10</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-54">
+    71
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/rebelcowboysnb">
+    RebelCowboySnB
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                                                                            <td class="time ">
+                            0:54.592
+                        </td>
+                                            <td class="time ">
+                            1:17.319
+                        </td>
+                                            <td class="time ">
+                            0:48.595
+                        </td>
+                                                    <td class="time"><strong>3:00.506</strong></td>
+                <td class="time">+0:04.375</td>
+                <td class="time">+0:00.331</td>
+                            </tr>
+                    <tr>
+                <th>11</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-43">
+    12
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/nihontiger">
+    NihonTiger
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.023
+                        </td>
+                                            <td class="time ">
+                            1:18.026
+                        </td>
+                                            <td class="time ">
+                            0:48.559
+                        </td>
+                                                    <td class="time"><strong>3:00.608</strong></td>
+                <td class="time">+0:04.477</td>
+                <td class="time">+0:00.102</td>
+                            </tr>
+                    <tr>
+                <th>12</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-38">
+    98
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:55.047
+                        </td>
+                                            <td class="time ">
+                            1:21.116
+                        </td>
+                                            <td class="time ">
+                            0:49.438
+                        </td>
+                                                    <td class="time"><strong>3:05.601</strong></td>
+                <td class="time">+0:09.470</td>
+                <td class="time">+0:04.993</td>
+                            </tr>
+                </tbody>
+    </table>
+</div>
+<h3>Lap Chart</h3>
+
+<img src="https://www.conelanders.com/assetto-corsa/second/results/spa/heat-2-race/lapchart"
+     style="width: 100%"
+/>
+    
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-40">
+                    <div class="pull-right">
+            <a class="btn btn-block btn-social btn-sm btn-youtube" href="https://www.youtube.com/playlist?list=PL1bcwQGwOMtzr9oriHgDn6YYbi_pTNGsH">
+    <span class="fa fa-youtube-play"></span>
+    YouTube Playlist
+</a>        </div>
+    
+            <h3>Results</h3>
+
+    <div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                        <th data-sorter="false">Laps</th>
+            <th data-sorter="false">Time</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+            <th data-sorter="false">Change</th>
+            <th data-sorter="false">Points</th>
+        </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                                    <th>1</th>
+                                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+                </th>
+                                                                    <td>95kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    26:54.823
+                                    </td>
+                <td class="time">
+                                    </td>
+                <td class="time hidden-sm hidden-xs">-</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    0
+                                        </div>
+                </td>
+                <td class="points">18</td>
+            </tr>
+                    <tr>
+                                    <th>2</th>
+                                <th>
+                    <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:04.219
+                                    </td>
+                <td class="time">
+                                            +0:09.396
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:09.396</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">17</td>
+            </tr>
+                    <tr>
+                                    <th>3</th>
+                                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:08.892
+                                    </td>
+                <td class="time">
+                                            +0:14.069
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:04.673</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    3
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">16</td>
+            </tr>
+                    <tr>
+                                    <th>4</th>
+                                <th>
+                    <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:09.643
+                                    </td>
+                <td class="time">
+                                            +0:14.820
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:00.751</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">15</td>
+            </tr>
+                    <tr>
+                                    <th>5</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+                </th>
+                                                                    <td>90kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:09.714
+                                    </td>
+                <td class="time">
+                                            +0:14.891
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:00.071</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">14</td>
+            </tr>
+                    <tr>
+                                    <th>6</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:25.054
+                                    </td>
+                <td class="time">
+                                            +0:30.231
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:15.340</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">13</td>
+            </tr>
+                    <tr>
+                                    <th>7</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:32.768
+                                    </td>
+                <td class="time">
+                                            +0:37.945
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:07.714</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    3
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">12</td>
+            </tr>
+                    <tr>
+                                    <th>8</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:34.623
+                                    </td>
+                <td class="time">
+                                            +0:39.800
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.855</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    3
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">11</td>
+            </tr>
+                    <tr>
+                                    <th>9</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+                </th>
+                                                                    <td>55kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:38.011
+                                    </td>
+                <td class="time">
+                                            +0:43.188
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:03.388</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    8
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">10</td>
+            </tr>
+                    <tr>
+                                    <th>10</th>
+                                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:38.357
+                                    </td>
+                <td class="time">
+                                            +0:43.534
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:00.346</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">9</td>
+            </tr>
+                    <tr>
+                                    <th>11</th>
+                                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:39.151
+                                    </td>
+                <td class="time">
+                                            +0:44.328
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:00.794</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    3
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">8</td>
+            </tr>
+                    <tr>
+                                    <th>12</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:40.661
+                                    </td>
+                <td class="time">
+                                            +0:45.838
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:01.510</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">7</td>
+            </tr>
+                    <tr>
+                                    <th>13</th>
+                                <th>
+                    <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:43.071
+                                    </td>
+                <td class="time">
+                                            +0:48.248
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:02.410</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">6</td>
+            </tr>
+                    <tr>
+                                    <th>14</th>
+                                <th>
+                    <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    27:47.247
+                                    </td>
+                <td class="time">
+                                            +0:52.424
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:04.176</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">5</td>
+            </tr>
+                    <tr>
+                                    <th>15</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    28:02.772
+                                    </td>
+                <td class="time">
+                                            +1:07.949
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:15.525</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">4</td>
+            </tr>
+                    <tr>
+                                    <th>16</th>
+                                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+                </th>
+                                                                    <td>35kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    28:05.614
+                                    </td>
+                <td class="time">
+                                            +1:10.791
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:02.842</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    7
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">3</td>
+            </tr>
+                    <tr>
+                                    <th>17</th>
+                                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">9</td>
+                <td class="time">
+                    28:10.728
+                                    </td>
+                <td class="time">
+                                            +1:15.905
+                                    </td>
+                <td class="time hidden-sm hidden-xs">+0:05.114</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    1
+                                            <span class="glyphicon glyphicon-chevron-up" style="color: lightgreen" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">2</td>
+            </tr>
+                    <tr>
+                                    <th class="position-dnf">Ret</th>
+                                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                <td class="text-center">2</td>
+                <td class="time">
+                    6:21.395
+                                    </td>
+                <td class="time">
+                                            -
+                                    </td>
+                <td class="time hidden-sm hidden-xs">-</td>
+                <td>
+                    <div style="padding-left: 25%">
+                    2
+                                            <span class="glyphicon glyphicon-chevron-down" style="color: red" aria-hidden="true"></span>
+                                        </div>
+                </td>
+                <td class="points">1</td>
+            </tr>
+                </tbody>
+    </table>
+</div>
+
+<h3>Fastest Laps</h3>
+
+<div class="table-responsive">
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos</th>
+            <th>Driver</th>
+                                                    <th data-sorter="false">Ballast</th>
+                                                                        <th>Sector 1</th>
+                                    <th>Sector 2</th>
+                                    <th>Sector 3</th>
+                                        <th data-sorter="false">Laptime</th>
+            <th data-sorter="false">Gap to 1st</th>
+            <th data-sorter="false">Gap ahead</th>
+                            <th data-sorter="false">Points</th>
+                    </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-39">
+    80
+</span>
+<a href="https://www.conelanders.com/driver/sharkeh">
+    Sharkeh
+</a>
+                </th>
+                                                                    <td>95kg</td>
+                                                                                            <td class="time ">
+                            0:53.705
+                        </td>
+                                            <td class="time position-first">
+                            1:14.557
+                        </td>
+                                            <td class="time position-second">
+                            0:48.001
+                        </td>
+                                                    <td class="time"><strong>2:56.263</strong></td>
+                <td class="time">-</td>
+                <td class="time">-</td>
+                                    <td class="points">1</td>
+                            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-lv" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-42">
+    20
+</span>
+<a href="https://www.conelanders.com/driver/gunciz">
+    gunciz
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                                                                            <td class="time position-first">
+                            0:53.285
+                        </td>
+                                            <td class="time ">
+                            1:15.097
+                        </td>
+                                            <td class="time ">
+                            0:48.149
+                        </td>
+                                                    <td class="time"><strong>2:56.531</strong></td>
+                <td class="time">+0:00.268</td>
+                <td class="time">+0:00.268</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-57">
+    9
+</span>
+<a href="https://www.conelanders.com/driver/conedodger">
+    ConeDodger
+</a>
+                </th>
+                                                                    <td>90kg</td>
+                                                                                            <td class="time ">
+                            0:54.193
+                        </td>
+                                            <td class="time position-second">
+                            1:14.835
+                        </td>
+                                            <td class="time position-first">
+                            0:47.741
+                        </td>
+                                                    <td class="time"><strong>2:56.769</strong></td>
+                <td class="time">+0:00.506</td>
+                <td class="time">+0:00.238</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-33">
+    16
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/th3holymoose">
+    Th3HolyMoose
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.701
+                        </td>
+                                            <td class="time position-third">
+                            1:14.907
+                        </td>
+                                            <td class="time ">
+                            0:48.348
+                        </td>
+                                                    <td class="time"><strong>2:56.956</strong></td>
+                <td class="time">+0:00.693</td>
+                <td class="time">+0:00.187</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-34">
+    27
+</span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.709
+                        </td>
+                                            <td class="time ">
+                            1:15.262
+                        </td>
+                                            <td class="time ">
+                            0:48.240
+                        </td>
+                                                    <td class="time"><strong>2:57.211</strong></td>
+                <td class="time">+0:00.948</td>
+                <td class="time">+0:00.255</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-nl" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-55">
+    18
+</span>
+<a href="https://www.conelanders.com/driver/servatis">
+    Servatis
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time position-third">
+                            0:53.522
+                        </td>
+                                            <td class="time ">
+                            1:15.681
+                        </td>
+                                            <td class="time ">
+                            0:48.304
+                        </td>
+                                                    <td class="time"><strong>2:57.507</strong></td>
+                <td class="time">+0:01.244</td>
+                <td class="time">+0:00.296</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-59">
+    8
+</span>
+<a href="https://www.conelanders.com/driver/maestro-ponchik">
+    Maestro-Ponchik
+</a>
+                </th>
+                                                                    <td>70kg</td>
+                                                                                            <td class="time position-second">
+                            0:53.481
+                        </td>
+                                            <td class="time ">
+                            1:16.229
+                        </td>
+                                            <td class="time position-third">
+                            0:48.029
+                        </td>
+                                                    <td class="time"><strong>2:57.739</strong></td>
+                <td class="time">+0:01.476</td>
+                <td class="time">+0:00.232</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-52">
+    13
+</span>
+<a href="https://www.conelanders.com/driver/gt3cooper">
+    gt3cooper
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.964
+                        </td>
+                                            <td class="time ">
+                            1:15.554
+                        </td>
+                                            <td class="time ">
+                            0:48.474
+                        </td>
+                                                    <td class="time"><strong>2:57.992</strong></td>
+                <td class="time">+0:01.729</td>
+                <td class="time">+0:00.253</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-ru" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-46">
+    34
+</span>
+<a href="https://www.conelanders.com/driver/georgin">
+    Georgin
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:53.625
+                        </td>
+                                            <td class="time ">
+                            1:16.270
+                        </td>
+                                            <td class="time ">
+                            0:48.253
+                        </td>
+                                                    <td class="time"><strong>2:58.148</strong></td>
+                <td class="time">+0:01.885</td>
+                <td class="time">+0:00.156</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>10</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-41">
+    14
+</span>
+<a href="https://www.conelanders.com/driver/xpsychedelix">
+    xPsychedelix
+</a>
+                </th>
+                                                                    <td>45kg</td>
+                                                                                            <td class="time ">
+                            0:54.094
+                        </td>
+                                            <td class="time ">
+                            1:15.690
+                        </td>
+                                            <td class="time ">
+                            0:48.425
+                        </td>
+                                                    <td class="time"><strong>2:58.209</strong></td>
+                <td class="time">+0:01.946</td>
+                <td class="time">+0:00.061</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>11</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-62">
+    15
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/cdb-jemknight657">
+    |CDB| JEMknight657
+</a>
+                </th>
+                                                                    <td>60kg</td>
+                                                                                            <td class="time ">
+                            0:54.241
+                        </td>
+                                            <td class="time ">
+                            1:15.830
+                        </td>
+                                            <td class="time ">
+                            0:48.384
+                        </td>
+                                                    <td class="time"><strong>2:58.455</strong></td>
+                <td class="time">+0:02.192</td>
+                <td class="time">+0:00.246</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>12</th>
+                <th>
+                    <span class="flag-icon flag-icon-no" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-35">
+    42
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/magnetos">
+    MagnetOS
+</a>
+                </th>
+                                                                    <td>40kg</td>
+                                                                                            <td class="time ">
+                            0:53.896
+                        </td>
+                                            <td class="time ">
+                            1:16.351
+                        </td>
+                                            <td class="time ">
+                            0:48.218
+                        </td>
+                                                    <td class="time"><strong>2:58.465</strong></td>
+                <td class="time">+0:02.202</td>
+                <td class="time">+0:00.010</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>13</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-53">
+    17
+</span>
+<a href="https://www.conelanders.com/driver/discgolfer947">
+    DiscGolfer947
+</a>
+                </th>
+                                                                    <td>55kg</td>
+                                                                                            <td class="time ">
+                            0:54.083
+                        </td>
+                                            <td class="time ">
+                            1:16.190
+                        </td>
+                                            <td class="time ">
+                            0:48.569
+                        </td>
+                                                    <td class="time"><strong>2:58.842</strong></td>
+                <td class="time">+0:02.579</td>
+                <td class="time">+0:00.377</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>14</th>
+                <th>
+                    <span class="flag-icon flag-icon-ie" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-44">
+    66
+</span>
+<a href="https://www.conelanders.com/driver/incarcerant">
+    Incarcerant
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.334
+                        </td>
+                                            <td class="time ">
+                            1:16.793
+                        </td>
+                                            <td class="time ">
+                            0:48.203
+                        </td>
+                                                    <td class="time"><strong>2:59.330</strong></td>
+                <td class="time">+0:03.067</td>
+                <td class="time">+0:00.488</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>15</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-47">
+    25
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/25">
+    25
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.227
+                        </td>
+                                            <td class="time ">
+                            1:16.635
+                        </td>
+                                            <td class="time ">
+                            0:48.501
+                        </td>
+                                                    <td class="time"><strong>2:59.363</strong></td>
+                <td class="time">+0:03.100</td>
+                <td class="time">+0:00.033</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>16</th>
+                <th>
+                    <span class="flag-icon flag-icon-de" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-61">
+    49
+</span>
+<a href="https://www.conelanders.com/driver/sebbi">
+    Sebbi
+</a>
+                </th>
+                                                                    <td>35kg</td>
+                                                                                            <td class="time ">
+                            0:53.931
+                        </td>
+                                            <td class="time ">
+                            1:16.927
+                        </td>
+                                            <td class="time ">
+                            0:48.699
+                        </td>
+                                                    <td class="time"><strong>2:59.557</strong></td>
+                <td class="time">+0:03.294</td>
+                <td class="time">+0:00.194</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>17</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-51">
+    52
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/mach1fireman">
+    mach1fireman
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.189
+                        </td>
+                                            <td class="time ">
+                            1:17.264
+                        </td>
+                                            <td class="time ">
+                            0:48.718
+                        </td>
+                                                    <td class="time"><strong>3:00.171</strong></td>
+                <td class="time">+0:03.908</td>
+                <td class="time">+0:00.614</td>
+                                    <td class="points">0</td>
+                            </tr>
+                    <tr>
+                <th>18</th>
+                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<span class="badge driver-number  entrant-31">
+    19
+</span>
+    <span class="badge pull-right">R</span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                                    <td>50kg</td>
+                                                                                            <td class="time ">
+                            0:54.680
+                        </td>
+                                            <td class="time ">
+                            1:21.280
+                        </td>
+                                            <td class="time ">
+                            0:49.050
+                        </td>
+                                                    <td class="time"><strong>3:05.010</strong></td>
+                <td class="time">+0:08.747</td>
+                <td class="time">+0:04.839</td>
+                                    <td class="points">0</td>
+                            </tr>
+                </tbody>
+    </table>
+</div>
+<h3>Lap Chart</h3>
+
+<img src="https://www.conelanders.com/assetto-corsa/second/results/spa/feature-race/lapchart"
+     style="width: 100%"
+/>
+    
+                </div>
+                    </div>
+    </div>
+
+  <script type="text/javascript">
+    $.tablesorter.addParser({
+        id: "HoursMinutesSecondsMilliseconds",
+        is: function (s) {
+            return /^((\d{1,2}:)?\d)?\d:\d{2}.\d{3}$/.test(s);
+        }, format: function (s) {
+            return s.replace(/[:.]/g, '');
+        }, type: "numeric"
+    });
+
+    $("table.sortable").tablesorter({
+        theme : "bootstrap",
+        widthFixed: true,
+        headerTemplate : '{content} {icon}',
+        widgets : [ "uitheme", "saveSort" ],
+        sortList: [[0,0]],
+        sortRestart: true,
+    });
+</script>
+        </div>
+    </body>
+</html>

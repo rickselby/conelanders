@@ -1,0 +1,112 @@
+/** Teams come first, so entrants can override them **/
+
+.entrant-63 { background-color: #FCDB1C;
+color: #102CE3; }
+.entrant-64 { background-color: #2F2F4F;
+color: #65909A; }
+.entrant-65 { background-color: #E50000;
+color: #002B72; }
+.entrant-66 { background-color: #145008;
+color: #e5d62e; }
+.entrant-67 { background-color: #2f38ea;
+color: #ffffff; }
+.entrant-68 { background-color: #000000;
+color: #909090; }
+.entrant-69 { background-color: #004e96;
+color: #ffffff; }
+.entrant-70 { background-color: #000000;
+color: #fc9727; }
+.entrant-71 { background-color: #004225;
+color: #ffffff; }
+.entrant-72 { background-color: #000000;
+color: #ffffff;
+text-shadow:
+  -1px -1px 0 #ff0000,  
+  1px -1px 0 #ff0000,
+  -1px 1px 0 #ff0000,
+  1px 1px 0 #ff0000; }
+.entrant-73 { color: #ffffff;
+text-shadow:
+  -1px -1px 0 #00386B,  
+  1px -1px 0 #00386B,
+  -1px 1px 0 #00386B,
+  1px 1px 0 #00386B;
+background: linear-gradient(90deg, 
+        #ffffff,     #ffffff  17%, 
+        #00386B 17%, #00386B 23%, 
+        #82C6E2 23%, #82C6E2 29%,   
+        #00386B 29%, #00386B 32%, 
+        #82C6E2 32%, #82C6E2 38%,   
+        #00386B 38%, #00386B 44%, 
+        #E8112D 44%, #E8112D 56%, 
+        #00386B 56%, #00386B 62%, 
+        #82C6E2 62%, #82C6E2 68%,   
+        #00386B 68%, #00386B 71%, 
+        #82C6E2 71%, #82C6E2 77%,   
+        #00386B 77%, #00386B 83%, 
+        #ffffff 83%, #ffffff 100%
+);
+padding: 2px 6px; border: 1px solid #00386B; }
+.entrant-74 { background-color: #0072DA;
+color: #30363B; }
+.entrant-75 { background-color: #bfff00;
+color: #000000; }
+.entrant-76 { background-color: #ff0000;
+color: #0000ff; }
+.entrant-77 { background-color: #000000;
+color: #8A0202; }
+.entrant-78 { background-color: #CD0000;
+color: #0F0F0F; }
+.entrant-79 { background-color: #4C9C1f;
+color: #FAEC4D; }
+.entrant-80 { color: #000000;
+background: linear-gradient(70deg, 
+        #ffffff,     #ffffff  60%, 
+        #008AC9 60%, #008AC9 69%, 
+        #2B115A 70%, #2B115A 79%,   
+        #F11A22 80%, #F11A22 89%, 
+        #ffffff 90%, #ffffff 100%
+);
+padding: 2px 6px; border: 1px solid #2B115A; }
+.entrant-81 { background-color: #79FF4D;
+color: #000000; }
+.entrant-82 { background-color: #ffa500;
+color: #000000; }
+.entrant-83 { background-color: #68a955;
+color: #1247ba; }
+.entrant-84 { background-color: #000000;
+color: #e01f2c; }
+.entrant-85 { background-color: white; color: #006400;
+border: 1px solid #006400; padding: 2px 6px; }
+.entrant-86 { background-color: #ff7500;
+color: #050855; }
+.entrant-87 { background-color: #760096;
+color: #EAD400; }
+.entrant-88 { background-color: #000000;
+color: #92860f; }
+.entrant-89 { background-color: #a4654b;
+color: #b0b4b5; }
+.entrant-90 { background-color: #909090;
+color: #ff001d; }
+.entrant-91 { background-color: #ff0000;
+color: #000000; }
+.entrant-92 { background-color: #fc6321;
+color: #FFFBFF; }
+.entrant-93 { background-color: #004225;
+color: #ffff00; }
+.entrant-94 { background-color: #261b7a;
+color: #49fdab; }
+.entrant-95 { background-color: #000000;
+color: #ff0000; }
+.entrant-96 { background-color: #0000ff;
+color: #c0c0c0; }
+.entrant-97 { color: #000000;
+background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff); }
+.entrant-98 { background-color: #FFA500;
+color: #FFFFFF; }
+.entrant-100 { background-color: #13235E;
+color: #F08825; }
+.entrant-101 { background-color: #000000;
+color: #ffffff ; }
+.entrant-102 { background-color: #960008;
+color: #00968E; }

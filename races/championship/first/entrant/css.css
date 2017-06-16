@@ -1,0 +1,34 @@
+/** Teams come first, so entrants can override them **/
+
+.entrant-1 { background-color: black; color: #bbe30a; }
+.entrant-2 { background-color: blue; color: white; }
+.entrant-3 { background-color: blue; color: white; }
+.entrant-4 { background-color: yellow; color: #525252; }
+.entrant-5 { background-color: blue; color: white; }
+.entrant-6 { background-color: yellow; color: black; }
+.entrant-7 { background-color: orange; color: black; }
+.entrant-8 { background-color: white; color: blue; 
+border: 1px solid blue; padding: 2px 6px; }
+.entrant-9 { background-color: orange; color: black; }
+.entrant-10 { background-color: white; color: #014225;
+border: 1px solid #014225; padding: 2px 6px; }
+.entrant-11 { background-color: orange; color: white; }
+.entrant-12 { background-color: yellow; color: #bb00e0; }
+.entrant-13 { background-color: white; color: #65909a;
+border: 1px solid #65909a; padding: 2px 6px; }
+.entrant-14 { background-color: orange; color: #003366; }
+.entrant-15 { background-color: orange; color: #040c4b; }
+.entrant-16 { background-color: white; color: #261b7a;
+border: 1px solid #261b7a; padding: 2px 6px; }
+.entrant-17 { background-color: blue; color: #c65500; }
+.entrant-18 { background-color: yellow; color: #3333cc; }
+.entrant-19 { background-color: #0750B6; color: #030a06; }
+.entrant-20 { background-color: red; color: black; }
+.entrant-21 { background-color: black; color: white; }
+.entrant-22 { background-color: orange; color: black; }
+.entrant-23 { background-color: #ff3330; color: white; }
+.entrant-24 { background-color: black; color: #037d50; }
+.entrant-25 { background-color: gray; color: ; }
+.entrant-26 { background-color: #014225; color: white; }
+.entrant-27 { background-color: black; color: cyan; }
+.entrant-28 { background-color: #a9e1e2; color: #fe5301; }

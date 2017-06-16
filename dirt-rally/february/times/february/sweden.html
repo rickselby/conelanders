@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Conelanders Racing League</title>
+
+        <link rel="icon" type="image/png" href="https://www.conelanders.com/favicon.png" />
+
+        <link rel="stylesheet" href="https://www.conelanders.com/build/css/all-1e6907a2f7.css">
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="https://www.conelanders.com/build/js/all-09c5df2e22.js"></script>
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': 'ncO2A11jZKPvUFkiDKqaM74ujQxE8eVc2bRmI8vJ'
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.conelanders.com">
+                <img src="https://www.conelanders.com/img/conelanders.png" alt="Conelanders" />
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Dirt Rally<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="https://www.conelanders.com/dirt-rally">League Events</a>
+                        </li>
+                        <li>
+                            <a href="https://www.conelanders.com/rallycross">Rallycross</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Assetto Corsa<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- there's only one, this is fine... -->
+                                                    <li>
+                                <a href="https://www.conelanders.com/assetto-corsa">
+                                    Championships
+                                </a>
+                            </li>
+                                                <li>
+                            <a href="https://www.conelanders.com/assetto-corsa/hotlaps">Hotlaps</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://www.conelanders.com/calendar">Calendar</a>
+                </li>
+                            <li>
+                    <a href="https://www.conelanders.com/about">About</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                            <li>
+                    <form method="get" action="https://www.conelanders.com/login/google">
+                        <button class="btn btn-social btn-google navbar-btn btn-sm">
+                            <span class="fa fa-google"></span> Sign in with Google
+                        </button>
+                    </form>
+                </li>
+                        </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>	      <ol class="breadcrumb">
+									<li><a href="https://www.conelanders.com">Home</a></li>
+												<li><a href="https://www.conelanders.com/dirt-rally">Dirt Rally</a></li>
+												<li><a href="https://www.conelanders.com/dirt-rally/february">February Championship</a></li>
+												<li><a href="https://www.conelanders.com/dirt-rally/february/times">Total Times</a></li>
+												<li><a href="https://www.conelanders.com/dirt-rally/february/times/february">February</a></li>
+												<li class="active">Sweden</li>
+						</ol>
+
+    
+    
+    <div class="panel panel-default">
+        <ul class="list-group">
+                            <li class="list-group-item">
+                    <a href="https://www.conelanders.com/dirt-rally/february/times/february/sweden/ss1" class="tablesorter-noSort">
+                        <strong>SS1:</strong>
+                        Sweden - Ransbys&auml;ter  : Midday / Sunny
+                    </a>
+                </li>
+                            <li class="list-group-item">
+                    <a href="https://www.conelanders.com/dirt-rally/february/times/february/sweden/ss2" class="tablesorter-noSort">
+                        <strong>SS2:</strong>
+                        Sweden - Norraskoga  : Midday / Sunny
+                    </a>
+                </li>
+                            <li class="list-group-item">
+                    <a href="https://www.conelanders.com/dirt-rally/february/times/february/sweden/ss3" class="tablesorter-noSort">
+                        <strong>SS3:</strong>
+                        Sweden - Skogsrallyt  : Midday / Sunny
+                    </a>
+                </li>
+                    </ul>
+    </div>
+
+    
+        <table class="table sortable table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Pos.</th>
+                <th>Driver</th>
+                                    <th>
+                        SS1
+                    </th>
+                                    <th>
+                        SS2
+                    </th>
+                                    <th>
+                        SS3
+                    </th>
+                                <th>Overall</th>
+            </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                <th>1</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/th3holymoose">
+                        Th3HolyMoose
+                    </a>
+                </th>
+                                    <td class="time  position-first">
+                        6:47.700
+                    </td>
+                                    <td class="time  position-first">
+                        6:53.266
+                    </td>
+                                    <td class="time  position-first">
+                        2:59.726
+                    </td>
+                                <td class="time">16:40.692</td>
+            </tr>
+                        <tr>
+                <th>2</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/stapley">
+                        Stapley
+                    </a>
+                </th>
+                                    <td class="time  position-second">
+                        7:15.965
+                    </td>
+                                    <td class="time  ">
+                        7:00.733
+                    </td>
+                                    <td class="time  position-third">
+                        3:10.459
+                    </td>
+                                <td class="time">17:27.157</td>
+            </tr>
+                        <tr>
+                <th>3</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/frankovercrest">
+                        FrankOverCrest
+                    </a>
+                </th>
+                                    <td class="time  position-third">
+                        7:17.149
+                    </td>
+                                    <td class="time  position-second">
+                        6:58.583
+                    </td>
+                                    <td class="time  ">
+                        3:13.725
+                    </td>
+                                <td class="time">17:29.457</td>
+            </tr>
+                        <tr>
+                <th>4</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/sebbi">
+                        Sebbi
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:24.548
+                    </td>
+                                    <td class="time  position-third">
+                        6:59.249
+                    </td>
+                                    <td class="time  position-second">
+                        3:09.992
+                    </td>
+                                <td class="time">17:33.789</td>
+            </tr>
+                        <tr>
+                <th>5</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/gman197002">
+                        gman197002
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:35.681
+                    </td>
+                                    <td class="time  ">
+                        7:03.733
+                    </td>
+                                    <td class="time  ">
+                        3:13.442
+                    </td>
+                                <td class="time">17:52.856</td>
+            </tr>
+                        <tr>
+                <th>6</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/nemaides">
+                        Nemaides
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:35.765
+                    </td>
+                                    <td class="time  ">
+                        7:14.915
+                    </td>
+                                    <td class="time  ">
+                        3:10.892
+                    </td>
+                                <td class="time">18:01.572</td>
+            </tr>
+                        <tr>
+                <th>7</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/conedodger">
+                        ConeDodger
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:40.564
+                    </td>
+                                    <td class="time  ">
+                        7:34.781
+                    </td>
+                                    <td class="time  ">
+                        3:15.275
+                    </td>
+                                <td class="time">18:30.620</td>
+            </tr>
+                        <tr>
+                <th>8</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/nectaria-coutayar">
+                        Nectaria Coutayar
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:57.080
+                    </td>
+                                    <td class="time  ">
+                        7:18.532
+                    </td>
+                                    <td class="time  ">
+                        3:22.858
+                    </td>
+                                <td class="time">18:38.470</td>
+            </tr>
+                        <tr>
+                <th>9</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/juge">
+                        Juge
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:43.964
+                    </td>
+                                    <td class="time  ">
+                        7:43.598
+                    </td>
+                                    <td class="time  ">
+                        3:22.708
+                    </td>
+                                <td class="time">18:50.270</td>
+            </tr>
+                        <tr>
+                <th>10</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/drummer">
+                        Drummer
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:50.864
+                    </td>
+                                    <td class="time  ">
+                        7:39.964
+                    </td>
+                                    <td class="time  ">
+                        3:25.641
+                    </td>
+                                <td class="time">18:56.469</td>
+            </tr>
+                        <tr>
+                <th>11</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/powers2440">
+                        powers2440
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:13.396
+                    </td>
+                                    <td class="time  ">
+                        7:29.782
+                    </td>
+                                    <td class="time  ">
+                        3:26.841
+                    </td>
+                                <td class="time">19:10.019</td>
+            </tr>
+                        <tr>
+                <th>12</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/kurtjmac">
+                        kurtjmac
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:55.697
+                    </td>
+                                    <td class="time  ">
+                        7:56.897
+                    </td>
+                                    <td class="time  ">
+                        3:19.958
+                    </td>
+                                <td class="time">19:12.552</td>
+            </tr>
+                        <tr>
+                <th>13</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/kill-me">
+                        kill me
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        7:56.014
+                    </td>
+                                    <td class="time  ">
+                        7:42.414
+                    </td>
+                                    <td class="time  ">
+                        3:36.508
+                    </td>
+                                <td class="time">19:14.936</td>
+            </tr>
+                        <tr>
+                <th>14</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/moso">
+                        Moso
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:14.780
+                    </td>
+                                    <td class="time  ">
+                        7:46.947
+                    </td>
+                                    <td class="time  ">
+                        3:32.491
+                    </td>
+                                <td class="time">19:34.218</td>
+            </tr>
+                        <tr>
+                <th>15</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/d0gfish">
+                        [D0gfish]
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:14.413
+                    </td>
+                                    <td class="time  ">
+                        7:49.381
+                    </td>
+                                    <td class="time  ">
+                        3:32.291
+                    </td>
+                                <td class="time">19:36.085</td>
+            </tr>
+                        <tr>
+                <th>16</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/goguma">
+                        GoGuMa
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:09.763
+                    </td>
+                                    <td class="time  ">
+                        7:55.097
+                    </td>
+                                    <td class="time  ">
+                        3:32.474
+                    </td>
+                                <td class="time">19:37.334</td>
+            </tr>
+                        <tr>
+                <th>17</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/ncwg4">
+                        NCWG4
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:26.996
+                    </td>
+                                    <td class="time  ">
+                        7:47.397
+                    </td>
+                                    <td class="time  ">
+                        3:29.258
+                    </td>
+                                <td class="time">19:43.651</td>
+            </tr>
+                        <tr>
+                <th>18</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/zagunny">
+                        ZaGunny
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:38.879
+                    </td>
+                                    <td class="time  ">
+                        7:47.397
+                    </td>
+                                    <td class="time  ">
+                        3:20.441
+                    </td>
+                                <td class="time">19:46.717</td>
+            </tr>
+                        <tr>
+                <th>19</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/ijustkilledacow">
+                        IJustKilledACow
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:08.263
+                    </td>
+                                    <td class="time  ">
+                        8:10.763
+                    </td>
+                                    <td class="time  ">
+                        3:38.807
+                    </td>
+                                <td class="time">19:57.833</td>
+            </tr>
+                        <tr>
+                <th>20</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/p-a-no-wheel">
+                        P_A No Wheel
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:34.096
+                    </td>
+                                    <td class="time  ">
+                        8:03.930
+                    </td>
+                                    <td class="time  ">
+                        3:40.707
+                    </td>
+                                <td class="time">20:18.733</td>
+            </tr>
+                        <tr>
+                <th>21</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/macrogravity">
+                        MacroGravity
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:43.012
+                    </td>
+                                    <td class="time  ">
+                        8:05.230
+                    </td>
+                                    <td class="time  ">
+                        3:37.674
+                    </td>
+                                <td class="time">20:25.916</td>
+            </tr>
+                        <tr>
+                <th>22</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/ironbeagle">
+                        IronBeagle
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:32.379
+                    </td>
+                                    <td class="time  ">
+                        7:55.614
+                    </td>
+                                    <td class="time  ">
+                        4:03.224
+                    </td>
+                                <td class="time">20:31.217</td>
+            </tr>
+                        <tr>
+                <th>23</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/swe1man">
+                        swe1man
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        9:10.495
+                    </td>
+                                    <td class="time  ">
+                        7:56.347
+                    </td>
+                                    <td class="time  ">
+                        3:30.624
+                    </td>
+                                <td class="time">20:37.466</td>
+            </tr>
+                        <tr>
+                <th>24</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/zargonis">
+                        Zargonis
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:35.996
+                    </td>
+                                    <td class="time  ">
+                        8:30.846
+                    </td>
+                                    <td class="time  ">
+                        3:31.674
+                    </td>
+                                <td class="time">20:38.516</td>
+            </tr>
+                        <tr>
+                <th>25</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/samuel-madeley">
+                        samuel.madeley
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:34.846
+                    </td>
+                                    <td class="time  ">
+                        8:15.413
+                    </td>
+                                    <td class="time  ">
+                        3:55.207
+                    </td>
+                                <td class="time">20:45.466</td>
+            </tr>
+                        <tr>
+                <th>26</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/mach1fireman">
+                        mach1fireman
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        9:06.878
+                    </td>
+                                    <td class="time  ">
+                        8:25.529
+                    </td>
+                                    <td class="time  ">
+                        3:42.724
+                    </td>
+                                <td class="time">21:15.131</td>
+            </tr>
+                        <tr>
+                <th>27</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/just-gerald">
+                        Just_Gerald
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        8:56.695
+                    </td>
+                                    <td class="time  ">
+                        8:28.512
+                    </td>
+                                    <td class="time  ">
+                        3:51.257
+                    </td>
+                                <td class="time">21:16.464</td>
+            </tr>
+                        <tr>
+                <th>28</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/st-john-11-48">
+                        St. John - 11:48
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        9:15.094
+                    </td>
+                                    <td class="time  ">
+                        8:47.595
+                    </td>
+                                    <td class="time  ">
+                        3:49.140
+                    </td>
+                                <td class="time">21:51.829</td>
+            </tr>
+                        <tr>
+                <th>29</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/lesscubes">
+                        lesscubes
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        9:17.811
+                    </td>
+                                    <td class="time  ">
+                        9:24.828
+                    </td>
+                                    <td class="time  ">
+                        3:52.657
+                    </td>
+                                <td class="time">22:35.296</td>
+            </tr>
+                        <tr>
+                <th>30</th>
+                <th>
+                    <a href="https://www.conelanders.com/driver/meiamsome">
+                        meiamsome
+                    </a>
+                </th>
+                                    <td class="time  ">
+                        9:44.710
+                    </td>
+                                    <td class="time  ">
+                        9:22.495
+                    </td>
+                                    <td class="time  ">
+                        4:07.990
+                    </td>
+                                <td class="time">23:15.195</td>
+            </tr>
+                        </tbody>
+        </table>
+
+        <h2>Legend</h2>
+
+<p class="bg-danger">
+    DNS - Did Not Start - Worst + 10 minutes
+</p>
+<p class="bg-warning">
+    DNF - Did Not Finish - Worst + 10 minutes
+</p>
+<p class="text-muted">
+    No time set for stage - Worst stage time
+</p>
+     
+  <script type="text/javascript">
+    $.tablesorter.addParser({
+        id: "HoursMinutesSecondsMilliseconds",
+        is: function (s) {
+            return /^((\d{1,2}:)?\d)?\d:\d{2}.\d{3}$/.test(s);
+        }, format: function (s) {
+            return s.replace(/[:.]/g, '');
+        }, type: "numeric"
+    });
+
+    $("table.sortable").tablesorter({
+        theme : "bootstrap",
+        widthFixed: true,
+        headerTemplate : '{content} {icon}',
+        widgets : [ "uitheme", "saveSort" ],
+        sortList: [[0,0]],
+        sortRestart: true,
+    });
+</script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+/** Teams come first, so entrants can override them **/
+.team-1 { background: linear-gradient(270deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+color: #000000; }
+.team-2 { color: #000000;
+background: linear-gradient(90deg, 
+        #000000,     #000000  15%, 
+        #1BF08E 25%, #1BF08E 25%, 
+        #ffffff 35%, #ffffff 65%,   
+        #1BF08E 75%, #1BF08E 75%, 
+        #000000 85%, #000000 100%
+);
+padding: 2px 6px; 
+border: 1px solid #000000; }
+.team-3 { color: #000000;
+background: linear-gradient(90deg, 
+        #009E60,     #009E60  20%, 
+        #ffffff 35%, #ffffff 65%,   
+        #009E60 80%, #009E60 100%
+);
+padding: 2px 6px; 
+border: 1px solid #009E60; }
+.team-4 { color: #000000;
+background: linear-gradient(90deg, 
+        #2249cc,     #2249cc  20%, 
+        #ffffff 35%, #ffffff 65%,   
+        #2249cc 80%, #2249cc 100%
+);
+padding: 2px 6px; 
+border: 1px solid #000000; }
+.team-5 { color: #ffffff;
+background: linear-gradient(105deg, 
+        #050b5c, #050b5c  75%, 
+        #cf142b 77%, #cf142b  80%, 
+        #050b5c 83%, #050b5c 100%
+);
+padding: 2px 6px; 
+border: 1px solid #050b5c; }
+.team-6 { color: #ffffff;
+background: linear-gradient(90deg, 
+        #ddc610,     #ddc610  10%, 
+        #868685 15%, #868685 20%, 
+        #c90054 25%, #c90054 25%, 
+        #002c85 35%, #002c85 65%,   
+        #c90054 75%, #c90054 75%, 
+        #868685 80%, #868685 85%, 
+        #ddc610 90%, #ddc610 100%
+);
+padding: 2px 6px; 
+border: 1px solid #000000; }
+.team-7 { background-color: #b8188d;
+color: #ffffff;
+padding: 1px 5px; 
+border: 2px solid #0d6543;
+ }
+.team-8 { color: #ffffff;
+background: linear-gradient(90deg, 
+        #000000,     #000000  10%, 
+        #5a2c84 30%, #5a2c84 70%,   
+        #000000 90%, #000000 100%
+);
+padding: 2px 6px; 
+border: 1px solid #000000; }
+
+.entrant-103 {  }
+.entrant-104 {  }
+.entrant-105 {  }
+.entrant-106 {  }
+.entrant-107 {  }
+.entrant-108 {  }
+.entrant-109 {  }
+.entrant-110 {  }
+.entrant-111 {  }
+.entrant-112 {  }
+.entrant-113 {  }
+.entrant-114 {  }
+.entrant-115 {  }
+.entrant-116 {  }
+.entrant-117 {  }
+.entrant-118 {  }
+.entrant-119 {  }
+.entrant-120 {  }
+.entrant-121 {  }
+.entrant-122 {  }
+.entrant-123 {  }
+.entrant-124 {  }
+.entrant-125 {  }
+.entrant-126 {  }
+.entrant-127 {  }
+.entrant-128 { color: #ffffff;
+background: linear-gradient(90deg, 
+        #681016,     #681016  20%, 
+        #000000 35%, #000000 65%,   
+        #681016 80%, #681016 100%
+);
+padding: 2px 6px; 
+border: 1px solid #681016; }
+.entrant-129 {  }
+.entrant-130 { background-color: #000000;
+color: #ffffff;
+
+color: #ffffff;
+background: linear-gradient(90deg, 
+        #000000, #000000  12%, 
+        #ff0000 14%, #ff0000  17%, 
+        #000000 19%, #000000  81%, 
+        #ff0000 83%, #ff0000  86%, 
+        #000000 88%, #000000 100%
+);
+padding: 2px 6px; 
+border: 1px solid #000000; }
+.entrant-131 {  }
+.entrant-132 {  }
+.entrant-133 {  }
+.entrant-134 {  }
+.entrant-135 {  }
+.entrant-136 {  }
+.entrant-137 {  }

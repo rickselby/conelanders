@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Conelanders Racing League</title>
+
+        <link rel="icon" type="image/png" href="https://www.conelanders.com/favicon.png" />
+
+        <link rel="stylesheet" href="https://www.conelanders.com/build/css/all-1e6907a2f7.css">
+        
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="https://www.conelanders.com/build/js/all-09c5df2e22.js"></script>
+
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': 'ncO2A11jZKPvUFkiDKqaM74ujQxE8eVc2bRmI8vJ'
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Static navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.conelanders.com">
+                <img src="https://www.conelanders.com/img/conelanders.png" alt="Conelanders" />
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Dirt Rally<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="https://www.conelanders.com/dirt-rally">League Events</a>
+                        </li>
+                        <li>
+                            <a href="https://www.conelanders.com/rallycross">Rallycross</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Assetto Corsa<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- there's only one, this is fine... -->
+                                                    <li>
+                                <a href="https://www.conelanders.com/assetto-corsa">
+                                    Championships
+                                </a>
+                            </li>
+                                                <li>
+                            <a href="https://www.conelanders.com/assetto-corsa/hotlaps">Hotlaps</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://www.conelanders.com/calendar">Calendar</a>
+                </li>
+                            <li>
+                    <a href="https://www.conelanders.com/about">About</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                            <li>
+                    <form method="get" action="https://www.conelanders.com/login/google">
+                        <button class="btn btn-social btn-google navbar-btn btn-sm">
+                            <span class="fa fa-google"></span> Sign in with Google
+                        </button>
+                    </form>
+                </li>
+                        </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>	      <ol class="breadcrumb">
+									<li><a href="https://www.conelanders.com">Home</a></li>
+												<li><a href="https://www.conelanders.com/rallycross">RallyCross</a></li>
+												<li><a href="https://www.conelanders.com/rallycross/final-dirt-rally">Final Dirt Rally Championship</a></li>
+												<li class="active">H&ouml;ljes Clubman</li>
+						</ol>
+
+    
+    
+    
+    <div>
+                <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#summary" aria-controls="summary" role="tab" data-toggle="tab">
+                    Summary
+                </a>
+            </li>
+                            <li role="presentation">
+                    <a href="#session-49" aria-controls="Heat 1" role="tab" data-toggle="tab">
+                        Heat 1
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-50" aria-controls="Heat 2" role="tab" data-toggle="tab">
+                        Heat 2
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-51" aria-controls="Heat 3" role="tab" data-toggle="tab">
+                        Heat 3
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-52" aria-controls="Heat 4" role="tab" data-toggle="tab">
+                        Heat 4
+                    </a>
+                </li>
+                        <li role="presentation">
+                <a href="#heats" aria-controls="summary" role="tab" data-toggle="tab">
+                    Heats Results
+                </a>
+            </li>
+                            <li role="presentation">
+                    <a href="#session-53" aria-controls="Semifinal" role="tab" data-toggle="tab">
+                        Semifinal
+                    </a>
+                </li>
+                            <li role="presentation">
+                    <a href="#session-54" aria-controls="Final" role="tab" data-toggle="tab">
+                        Final
+                    </a>
+                </li>
+                    </ul>
+
+                <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="summary">
+                <h2>Drivers</h2>
+<table class="table sortable table-condensed">
+    <thead>
+    <tr>
+        <th>Pos.</th>
+        <th>Driver</th>
+                            <th>Heats</th>
+                                            <th>Semifinal</th>
+                                                <th>Final</th>
+                            <th>Total Points</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+            <th>1</th>
+            <th>
+                <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+            </th>
+            
+                                                <td class="position position-first"
+                        data-points="16"
+                        data-position="1">
+                        1
+                    </td>
+                            
+                                                                        <td class="position position-second"
+                            data-points="7"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                                            <td class="position position-second"
+                            data-points="8"
+                            data-position="2">
+                            2
+                        </td>
+                                                            <td class="points">31</td>
+        </tr>
+            <tr>
+            <th>2</th>
+            <th>
+                <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="12"
+                        data-position="5">
+                        5
+                    </td>
+                            
+                                                                        <td class="position position-third"
+                            data-points="6"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                                            <td class="position position-first"
+                            data-points="10"
+                            data-position="1">
+                            1
+                        </td>
+                                                            <td class="points">28</td>
+        </tr>
+            <tr>
+            <th>3</th>
+            <th>
+                <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+            </th>
+            
+                                                <td class="position position-second"
+                        data-points="15"
+                        data-position="2">
+                        2
+                    </td>
+                            
+                                                                        <td class="position position-first"
+                            data-points="8"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                                            <td class="position position-points"
+                            data-points="4"
+                            data-position="4">
+                            4
+                        </td>
+                                                            <td class="points">27</td>
+        </tr>
+            <tr>
+            <th>4</th>
+            <th>
+                <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="10"
+                        data-position="7">
+                        7
+                    </td>
+                            
+                                                                        <td class="position position-points"
+                            data-points="3"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                                            <td class="position position-third"
+                            data-points="6"
+                            data-position="3">
+                            3
+                        </td>
+                                                            <td class="points">19</td>
+        </tr>
+            <tr>
+            <th>5</th>
+            <th>
+                <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+            </th>
+            
+                                                <td class="position position-third"
+                        data-points="14"
+                        data-position="3">
+                        3
+                    </td>
+                            
+                                                                        <td class="position position-points"
+                            data-points="4"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">18</td>
+        </tr>
+            <tr>
+            <th>6</th>
+            <th>
+                <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="13"
+                        data-position="4">
+                        4
+                    </td>
+                            
+                                                                        <td class="position position-points"
+                            data-points="5"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">18</td>
+        </tr>
+            <tr>
+            <th>7</th>
+            <th>
+                <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="11"
+                        data-position="6">
+                        6
+                    </td>
+                            
+                                                                        <td class="position position-points"
+                            data-points="1"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">12</td>
+        </tr>
+            <tr>
+            <th>8</th>
+            <th>
+                <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="9"
+                        data-position="8">
+                        8
+                    </td>
+                            
+                                                                        <td class="position position-points"
+                            data-points="2"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                                            <td></td>
+                                                            <td class="points">11</td>
+        </tr>
+            <tr>
+            <th>9</th>
+            <th>
+                <span class="flag-icon flag-icon-ca" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/bionicderp">
+    BionicDerp
+</a>
+            </th>
+            
+                                                <td class="position position-points"
+                        data-points="8"
+                        data-position="9">
+                        9
+                    </td>
+                            
+                                                                        <td></td>
+                                                                                                            <td></td>
+                                                            <td class="points">8</td>
+        </tr>
+        </tbody>
+
+</table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="heats">
+                <h3>Heat Results</h3>
+
+    <table class="table sortable table-condensed">
+        <thead>
+        <tr>
+            <th>Pos.</th>
+            <th>Driver</th>
+                            <th>Heat 1</th>
+                            <th>Heat 2</th>
+                            <th>Heat 3</th>
+                            <th>Heat 4</th>
+                        <th>Heat Points</th>
+            <th>Championship Points</th>
+        </tr>
+        </thead>
+        <tbody>
+                    <tr>
+                <th>1</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                </th>
+                                                            <td class="position position-first"
+                            data-points="9"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                <td class="position position-first"
+                            data-points="9"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                <td class="position position-first"
+                            data-points="9"
+                            data-position="1">
+                            1
+                        </td>
+                                                                                <td class="position position-first"
+                            data-points="9"
+                            data-position="1">
+                            1
+                        </td>
+                                                    <td class="points">36</td>
+                <td class="points">16</td>
+            </tr>
+                    <tr>
+                <th>2</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                </th>
+                                                            <td class="position position-points"
+                            data-points="5"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="5"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                <td class="position position-second"
+                            data-points="8"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                <td class="position position-third"
+                            data-points="7"
+                            data-position="3">
+                            3
+                        </td>
+                                                    <td class="points">25</td>
+                <td class="points">15</td>
+            </tr>
+                    <tr>
+                <th>3</th>
+                <th>
+                    <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                </th>
+                                                            <td class="position position-second"
+                            data-points="8"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                <td class="position position-second"
+                            data-points="8"
+                            data-position="2">
+                            2
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="2"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="6"
+                            data-position="4">
+                            4
+                        </td>
+                                                    <td class="points">24</td>
+                <td class="points">14</td>
+            </tr>
+                    <tr>
+                <th>4</th>
+                <th>
+                    <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                </th>
+                                                            <td class="position position-third"
+                            data-points="7"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                <td class="position position-third"
+                            data-points="7"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="5"
+                            data-position="5">
+                            5
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="3"
+                            data-position="7">
+                            7
+                        </td>
+                                                    <td class="points">22</td>
+                <td class="points">13</td>
+            </tr>
+                    <tr>
+                <th>5</th>
+                <th>
+                    <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                </th>
+                                                            <td class="position position-points"
+                            data-points="4"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="2"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                <td class="position position-third"
+                            data-points="7"
+                            data-position="3">
+                            3
+                        </td>
+                                                                                <td class="position position-second"
+                            data-points="8"
+                            data-position="2">
+                            2
+                        </td>
+                                                    <td class="points">21</td>
+                <td class="points">12</td>
+            </tr>
+                    <tr>
+                <th>6</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                </th>
+                                                            <td class="position position-points"
+                            data-points="6"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="3"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="6"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="2"
+                            data-position="8">
+                            8
+                        </td>
+                                                    <td class="points">17</td>
+                <td class="points">11</td>
+            </tr>
+                    <tr>
+                <th>7</th>
+                <th>
+                    <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                </th>
+                                                            <td class="position position-points"
+                            data-points="2"
+                            data-position="8">
+                            8
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="6"
+                            data-position="4">
+                            4
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="4"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="5"
+                            data-position="5">
+                            5
+                        </td>
+                                                    <td class="points">17</td>
+                <td class="points">10</td>
+            </tr>
+                    <tr>
+                <th>8</th>
+                <th>
+                    <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                </th>
+                                                            <td class="position position-points"
+                            data-points="3"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="4"
+                            data-position="6">
+                            6
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="1"
+                            data-position="9">
+                            9
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="4"
+                            data-position="6">
+                            6
+                        </td>
+                                                    <td class="points">12</td>
+                <td class="points">9</td>
+            </tr>
+                    <tr>
+                <th>9</th>
+                <th>
+                    <span class="flag-icon flag-icon-ca" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/bionicderp">
+    BionicDerp
+</a>
+                </th>
+                                                            <td></td>
+                                                                                <td class="position position-points"
+                            data-points="1"
+                            data-position="9">
+                            9
+                        </td>
+                                                                                <td class="position position-points"
+                            data-points="3"
+                            data-position="7">
+                            7
+                        </td>
+                                                                                <td></td>
+                                                    <td class="points">4</td>
+                <td class="points">8</td>
+            </tr>
+                </tbody>
+
+    </table>
+
+            </div>
+                            <div role="tabpanel" class="tab-pane" id="session-49">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                    <th>Race</th>
+                                <th data-sorter="false">Time</th>
+                                    <th data-sorter="false">Penalty</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    Heat 
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:34.672</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:37.246</td>
+                    <td class="points">9</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:36.965</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.293
+                                            </td>
+                    <td class="time hidden-sm">+0:02.293</td>
+                    <td class="time">0:37.876</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:37.462</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.790
+                                            </td>
+                    <td class="time hidden-sm">+0:00.497</td>
+                    <td class="time">0:38.037</td>
+                    <td class="points">7</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:41.694</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:07.022
+                                            </td>
+                    <td class="time hidden-sm">+0:04.232</td>
+                    <td class="time">0:38.785</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>5</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:44.133</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:09.461
+                                            </td>
+                    <td class="time hidden-sm">+0:02.439</td>
+                    <td class="time">0:37.688</td>
+                    <td class="points">5</td>
+                </tr>
+                            <tr>
+                                            <th>6</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:38.105</td>
+                                            <td class="time">0:15.000</td>
+                                        <td class="time">
+                                                    +0:18.433
+                                            </td>
+                    <td class="time hidden-sm">+0:08.972</td>
+                    <td class="time">0:37.623</td>
+                    <td class="points">4</td>
+                </tr>
+                            <tr>
+                                            <th>7</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:43.581</td>
+                                            <td class="time">0:25.000</td>
+                                        <td class="time">
+                                                    +0:33.909
+                                            </td>
+                    <td class="time hidden-sm">+0:15.476</td>
+                    <td class="time">0:38.270</td>
+                    <td class="points">3</td>
+                </tr>
+                            <tr>
+                                            <th>8</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">3:18.153</td>
+                                            <td class="time">0:20.000</td>
+                                        <td class="time">
+                                                    +1:03.481
+                                            </td>
+                    <td class="time hidden-sm">+0:29.572</td>
+                    <td class="time">0:38.684</td>
+                    <td class="points">2</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-50">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                    <th>Race</th>
+                                <th data-sorter="false">Time</th>
+                                    <th data-sorter="false">Penalty</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    Heat 
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:32.153</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:36.853</td>
+                    <td class="points">9</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:34.441</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.288
+                                            </td>
+                    <td class="time hidden-sm">+0:02.288</td>
+                    <td class="time">0:37.513</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:37.490</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:05.337
+                                            </td>
+                    <td class="time hidden-sm">+0:03.049</td>
+                    <td class="time">0:38.041</td>
+                    <td class="points">7</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:38.711</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:06.558
+                                            </td>
+                    <td class="time hidden-sm">+0:01.221</td>
+                    <td class="time">0:38.269</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>5</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:39.289</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:07.136
+                                            </td>
+                    <td class="time hidden-sm">+0:00.578</td>
+                    <td class="time">0:37.073</td>
+                    <td class="points">5</td>
+                </tr>
+                            <tr>
+                                            <th>6</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:40.426</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:08.273
+                                            </td>
+                    <td class="time hidden-sm">+0:01.137</td>
+                    <td class="time">0:37.747</td>
+                    <td class="points">4</td>
+                </tr>
+                            <tr>
+                                            <th>7</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:41.402</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:09.249
+                                            </td>
+                    <td class="time hidden-sm">+0:00.976</td>
+                    <td class="time">0:38.548</td>
+                    <td class="points">3</td>
+                </tr>
+                            <tr>
+                                            <th>8</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:40.748</td>
+                                            <td class="time">0:05.000</td>
+                                        <td class="time">
+                                                    +0:13.595
+                                            </td>
+                    <td class="time hidden-sm">+0:04.346</td>
+                    <td class="time">0:37.715</td>
+                    <td class="points">2</td>
+                </tr>
+                            <tr>
+                                            <th>9</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-ca" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/bionicderp">
+    BionicDerp
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:46.890</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:14.737
+                                            </td>
+                    <td class="time hidden-sm">+0:01.142</td>
+                    <td class="time">0:38.721</td>
+                    <td class="points">1</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-51">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                    <th>Race</th>
+                                <th data-sorter="false">Time</th>
+                                    <th data-sorter="false">Penalty</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    Heat 
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:33.085</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:36.502</td>
+                    <td class="points">9</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:33.182</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:00.097
+                                            </td>
+                    <td class="time hidden-sm">+0:00.097</td>
+                    <td class="time">0:36.864</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:35.688</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.603
+                                            </td>
+                    <td class="time hidden-sm">+0:02.506</td>
+                    <td class="time">0:37.300</td>
+                    <td class="points">7</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:36.846</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:03.761
+                                            </td>
+                    <td class="time hidden-sm">+0:01.158</td>
+                    <td class="time">0:37.719</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>5</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:37.336</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:04.251
+                                            </td>
+                    <td class="time hidden-sm">+0:00.490</td>
+                    <td class="time">0:37.311</td>
+                    <td class="points">5</td>
+                </tr>
+                            <tr>
+                                            <th>6</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:37.741</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:04.656
+                                            </td>
+                    <td class="time hidden-sm">+0:00.405</td>
+                    <td class="time">0:37.728</td>
+                    <td class="points">4</td>
+                </tr>
+                            <tr>
+                                            <th>7</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-ca" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/bionicderp">
+    BionicDerp
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:38.572</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:05.487
+                                            </td>
+                    <td class="time hidden-sm">+0:00.831</td>
+                    <td class="time">0:37.894</td>
+                    <td class="points">3</td>
+                </tr>
+                            <tr>
+                                            <th>8</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:36.581</td>
+                                            <td class="time">0:05.000</td>
+                                        <td class="time">
+                                                    +0:08.496
+                                            </td>
+                    <td class="time hidden-sm">+0:03.009</td>
+                    <td class="time">0:37.459</td>
+                    <td class="points">2</td>
+                </tr>
+                            <tr>
+                                            <th class="position-dsq">DSQ</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time"></td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    -
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time"></td>
+                    <td class="points">1</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-52">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                    <th>Race</th>
+                                <th data-sorter="false">Time</th>
+                                    <th data-sorter="false">Penalty</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    Heat 
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:32.252</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:36.681</td>
+                    <td class="points">9</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:34.124</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:01.872
+                                            </td>
+                    <td class="time hidden-sm">+0:01.872</td>
+                    <td class="time">0:37.327</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:34.538</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.286
+                                            </td>
+                    <td class="time hidden-sm">+0:00.414</td>
+                    <td class="time">0:37.342</td>
+                    <td class="points">7</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:35.040</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.788
+                                            </td>
+                    <td class="time hidden-sm">+0:00.502</td>
+                    <td class="time">0:37.164</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>5</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:35.748</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:03.496
+                                            </td>
+                    <td class="time hidden-sm">+0:00.708</td>
+                    <td class="time">0:37.595</td>
+                    <td class="points">5</td>
+                </tr>
+                            <tr>
+                                            <th>6</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                    </th>
+                                                                <td>3</th>
+                                        <td class="time">2:36.231</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:03.979
+                                            </td>
+                    <td class="time hidden-sm">+0:00.483</td>
+                    <td class="time">0:36.798</td>
+                    <td class="points">4</td>
+                </tr>
+                            <tr>
+                                            <th>7</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">2:37.864</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:05.612
+                                            </td>
+                    <td class="time hidden-sm">+0:01.633</td>
+                    <td class="time">0:38.248</td>
+                    <td class="points">3</td>
+                </tr>
+                            <tr>
+                                            <th>8</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">2:40.479</td>
+                                            <td class="time">0:05.000</td>
+                                        <td class="time">
+                                                    +0:13.227
+                                            </td>
+                    <td class="time hidden-sm">+0:07.615</td>
+                    <td class="time">0:38.002</td>
+                    <td class="points">2</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-53">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                    <th>Race</th>
+                                <th data-sorter="false">Time</th>
+                                    <th data-sorter="false">Penalty</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">3:46.830</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:36.765</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">3:47.186</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:00.356
+                                            </td>
+                    <td class="time hidden-sm">+0:00.356</td>
+                    <td class="time">0:37.043</td>
+                    <td class="points">7</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">3:49.416</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:02.586
+                                            </td>
+                    <td class="time hidden-sm">+0:02.230</td>
+                    <td class="time">0:36.725</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-dk" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/nemaides">
+    Nemaides
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">3:51.453</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:04.623
+                                            </td>
+                    <td class="time hidden-sm">+0:02.037</td>
+                    <td class="time">0:37.173</td>
+                    <td class="points">5</td>
+                </tr>
+                            <tr>
+                                            <th>5</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-us" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/commandersealand">
+    CommanderSealand
+</a>
+                    </th>
+                                                                <td>1</th>
+                                        <td class="time">3:57.422</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:10.592
+                                            </td>
+                    <td class="time hidden-sm">+0:05.969</td>
+                    <td class="time">0:37.147</td>
+                    <td class="points">4</td>
+                </tr>
+                            <tr>
+                                            <th>6</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">3:53.652</td>
+                                            <td class="time">0:05.000</td>
+                                        <td class="time">
+                                                    +0:11.822
+                                            </td>
+                    <td class="time hidden-sm">+0:01.230</td>
+                    <td class="time">0:37.781</td>
+                    <td class="points">3</td>
+                </tr>
+                            <tr>
+                                            <th>7</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb-eng" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/roterx2">
+    Roterx2
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">3:59.536</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:12.706
+                                            </td>
+                    <td class="time hidden-sm">+0:00.884</td>
+                    <td class="time">0:37.798</td>
+                    <td class="points">2</td>
+                </tr>
+                            <tr>
+                                            <th>8</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/meiamsome">
+    meiamsome
+</a>
+                    </th>
+                                                                <td>2</th>
+                                        <td class="time">4:04.036</td>
+                                            <td class="time"></td>
+                                        <td class="time">
+                                                    +0:17.206
+                                            </td>
+                    <td class="time hidden-sm">+0:04.500</td>
+                    <td class="time">0:38.180</td>
+                    <td class="points">1</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                            <div role="tabpanel" class="tab-pane" id="session-54">
+                    <h3>Results</h3>
+
+    <div class="table-responsive">
+        <table class="table sortable table-condensed">
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                                                <th data-sorter="false">Time</th>
+                                <th data-sorter="false">Gap to 1st</th>
+                <th data-sorter="false" class="hidden-sm">Gap ahead</th>
+                <th>Fastest Lap</th>
+                <th data-sorter="false">
+                    
+                    Points
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                            <tr>
+                                            <th>1</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-se" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/spooky-squid">
+    Spooky Squid
+</a>
+                    </th>
+                                                            <td class="time">3:47.176</td>
+                                        <td class="time">
+                                            </td>
+                    <td class="time hidden-sm">-</td>
+                    <td class="time">0:36.663</td>
+                    <td class="points">10</td>
+                </tr>
+                            <tr>
+                                            <th>2</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/misterbob">
+    misterbob
+</a>
+                    </th>
+                                                            <td class="time">3:47.408</td>
+                                        <td class="time">
+                                                    +0:00.232
+                                            </td>
+                    <td class="time hidden-sm">+0:00.232</td>
+                    <td class="time">0:36.487</td>
+                    <td class="points">8</td>
+                </tr>
+                            <tr>
+                                            <th>3</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-jp" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/gman197002">
+    gman197002
+</a>
+                    </th>
+                                                            <td class="time">3:52.442</td>
+                                        <td class="time">
+                                                    +0:05.266
+                                            </td>
+                    <td class="time hidden-sm">+0:05.034</td>
+                    <td class="time">0:37.423</td>
+                    <td class="points">6</td>
+                </tr>
+                            <tr>
+                                            <th>4</th>
+                                        <th>
+                        <span class="flag-icon flag-icon-gb" style="font-size: 1.25em;"></span>
+<a href="https://www.conelanders.com/driver/djomp">
+    dJomp
+</a>
+                    </th>
+                                                            <td class="time">3:53.401</td>
+                                        <td class="time">
+                                                    +0:06.225
+                                            </td>
+                    <td class="time hidden-sm">+0:00.959</td>
+                    <td class="time">0:36.245</td>
+                    <td class="points">4</td>
+                </tr>
+                        </tbody>
+        </table>
+    </div>
+
+                </div>
+                    </div>
+    </div>
+
+  <script type="text/javascript">
+    $.tablesorter.addParser({
+        id: "HoursMinutesSecondsMilliseconds",
+        is: function (s) {
+            return /^((\d{1,2}:)?\d)?\d:\d{2}.\d{3}$/.test(s);
+        }, format: function (s) {
+            return s.replace(/[:.]/g, '');
+        }, type: "numeric"
+    });
+
+    $("table.sortable").tablesorter({
+        theme : "bootstrap",
+        widthFixed: true,
+        headerTemplate : '{content} {icon}',
+        widgets : [ "uitheme", "saveSort" ],
+        sortList: [[0,0]],
+        sortRestart: true,
+    });
+</script>
+        </div>
+    </body>
+</html>
