@@ -1,0 +1,4 @@
+<FilesMatch "^lapchart$">
+    SetHandler application/x-httpd-php
+    Header set Content-Type "image/svg+xml"
+</FilesMatch>
